@@ -1,6 +1,7 @@
 package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.client.RSLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,14 +11,18 @@ import java.awt.*;
  */
 public class BotFrame extends JFrame {
 
-    private final JPanel appletPanel;
+    private final RSLoader loader;
+    private final BotButtonPanel buttonPanel;
 
     public BotFrame() {
         super(Constants.CLIENT_TITLE + " - v" + Constants.CLIENT_VERSION);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        appletPanel = new JPanel();
-        appletPanel.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
-        this.getContentPane().add(appletPanel);
+        this.buttonPanel = new BotButtonPanel();
+        this.getContentPane().setLayout(new BorderLayout());
+        this.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+
+        this.loader = new RSLoader();
+        this.getContentPane().add(loader, BorderLayout.CENTER);
     }
 }

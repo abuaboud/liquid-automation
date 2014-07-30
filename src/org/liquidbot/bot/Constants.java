@@ -15,5 +15,6 @@ public class Constants {
     public static final int APPLET_HEIGHT = 503;
 
     public static final Rectangle GAME_SCREEN = new Rectangle(0, 0, APPLET_WIDTH, APPLET_HEIGHT);
+    public static final Rectangle VIEWPORT = new Rectangle(2, 2, 512, 335);
 
 }

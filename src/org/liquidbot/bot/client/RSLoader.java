@@ -2,19 +2,17 @@ package org.liquidbot.bot.client;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-
 import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
 import org.liquidbot.bot.client.reflection.Reflection;
-
 import org.liquidbot.bot.utils.FileDownloader;
-import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
-import org.liquidbot.component.*;
 import org.liquidbot.component.Canvas;
 
 import javax.swing.*;
-import java.applet.*;
+import java.applet.Applet;
+import java.applet.AppletContext;
+import java.applet.AppletStub;
 import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -28,6 +26,8 @@ public class RSLoader extends JPanel implements AppletStub {
 
     private boolean isAppletLoaded = false;
     private final Font font = new Font("Calibri", Font.PLAIN, 15);
+    private final Color color = new Color(92, 98, 106);
+    private final Color colorDark = color.darker();
 
     private URLClassLoader classLoader = null;
     private FileDownloader downloader;
@@ -98,7 +98,8 @@ public class RSLoader extends JPanel implements AppletStub {
             if(downloader != null || downloader.isFinished()) {
                 final int width = downloader.getPercentage() * 300 / 100;
 
-                graphics2D.setColor(Color.GRAY);
+                final GradientPaint gradient = new GradientPaint(225, 45, colorDark, 300, 45, color);
+                graphics2D.setPaint(gradient);
                 graphics2D.fillRect(225, 200, width, 45);
                 graphics2D.setColor(Color.WHITE);
                 graphics2D.drawRect(225, 200, 300, 45);

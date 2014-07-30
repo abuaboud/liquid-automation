@@ -1,8 +1,6 @@
 package org.liquidbot;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.ui.BotFrame;

@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
  */
 public class BotButtonPanel extends JPanel {
 
+    private final Color color = new Color(92, 98, 106);
+    private final Color colorDark = color.darker();
+
     private BotButton startButton, pauseButton, stopButton, keyboardButton, mouseButton, settingsButton, sdnButton;
     private BotPopupMenu menu;
 
@@ -60,10 +63,8 @@ public class BotButtonPanel extends JPanel {
     @Override
     public void paintComponent(Graphics g)  {
         final Graphics2D graphics2D = (Graphics2D) g;
-        Color color = new Color(92, 98, 106);
-
-        GradientPaint redtowhite = new GradientPaint(getX(), getY(), color.darker(), getWidth(), getY(), color);
-        graphics2D.setPaint(redtowhite);
+        final GradientPaint gradient = new GradientPaint(getX(), getY(), colorDark, getWidth(), getY(), color);
+        graphics2D.setPaint(gradient);
         g.fillRect(0, 0, getWidth(), getHeight());
     }
 }

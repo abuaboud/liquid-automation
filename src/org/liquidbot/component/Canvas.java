@@ -49,10 +49,10 @@ public class Canvas extends java.awt.Canvas {
      */
     @Override
     public Graphics getGraphics() {
-        Graphics graphics = botBuffer.getGraphics();
+       final Graphics graphics = botBuffer.getGraphics();
+
         if (Configuration.drawCanvas) {
             graphics.drawImage(gameBuffer, 0, 0, null);
-
             for(PaintListener listener : listeners) {
                 if(listener instanceof Debugger) {
                     final Debugger debug = (Debugger) listener;
@@ -62,11 +62,10 @@ public class Canvas extends java.awt.Canvas {
                     listener.render(graphics);
                 }
             }
-
         }
         graphics.dispose();
 
-        Graphics2D rend = (Graphics2D) canvas.getGraphics();
+        final Graphics2D rend = (Graphics2D) canvas.getGraphics();
         rend.drawImage(botBuffer, 0, 0, null);
 
         return gameBuffer.getGraphics();

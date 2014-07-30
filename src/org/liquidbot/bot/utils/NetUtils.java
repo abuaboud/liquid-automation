@@ -45,8 +45,9 @@ public class NetUtils {
         try {
             final URL address = new URL(url);
             final URLConnection connection = address.openConnection();
-            connection.setConnectTimeout(5000);
             connection.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.3; WOW64; rv:31.0) Gecko/20100101 Firefox/31.0");
+            connection.setConnectTimeout(5000);
+            connection.setRequestProperty("Content-Type", "image/png");
             return connection;
         } catch (IOException ex) {
             System.out.println("Error creating connection!");

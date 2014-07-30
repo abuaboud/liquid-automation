@@ -75,7 +75,7 @@ public class Utilities {
      * @return the image
      */
     public static Image getLocalImage(String file) {
-        return Toolkit.getDefaultToolkit().createImage(file);
+        return Toolkit.getDefaultToolkit().createImage(getContentDirectory() + file);
     }
 
 }

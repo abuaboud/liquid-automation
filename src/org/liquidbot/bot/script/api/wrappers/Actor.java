@@ -3,13 +3,22 @@ package org.liquidbot.bot.script.api.wrappers;/*
  */
 
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.interfaces.Locatable;
+import org.liquidbot.bot.script.api.interfaces.Nameable;
 
-public class Actor{
+public class Actor implements Locatable {
 
-    private Object raw;
+    private final Object raw;
 
     public Actor(Object raw){
        this.raw = raw;
+    }
+
+    /**
+     * Returns the raw reflection object
+     */
+    protected Object getRaw() {
+        return raw;
     }
 
     /**
@@ -20,4 +29,6 @@ public class Actor{
     public String getSpokenMessage() {
         return (String) Reflection.value("Actor#getSpokenMessage()", raw);
     }
+
+    
 }

@@ -1,6 +1,7 @@
 package org.liquidbot.bot.ui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,46 +10,60 @@ import java.awt.event.ActionListener;
  */
 public class BotButtonPanel extends JPanel {
 
-    private String[] buttons = {
-            "http://i.imgur.com/6ur1b4w.png", "http://i.imgur.com/RlLK12N.png", "http://i.imgur.com/gj6TKkX.png",
-            "http://i.imgur.com/XyjRPT4.png"
-    };
+    private BotButton startButton, pauseButton, stopButton, keyboardButton, mouseButton, settingsButton, sdnButton;
+    private BotPopupMenu menu;
 
     public BotButtonPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        add(new BotButton(buttons[0], "control_play.png"));
-        add(new BotButton(buttons[1], "control_pause.png"));
-        add(new BotButton(buttons[2], "control_stop.png"));
+        menu = new BotPopupMenu();
 
+        sdnButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/world_link.png", "world_link.png");
+        sdnButton.setToolTipText("Open the Script Repository.");
+        add(sdnButton);
+
+        startButton = new BotButton("https://copy.com/P92cjV2tjZkk/control_play.png", "control_play.png");
+        startButton.setButtonRollOverIcon("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_play_blue.png", "control_play_blue.png");
+        startButton.setToolTipText("Start a script.");
+        add(startButton);
+
+        pauseButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_pause.png", "control_pause.png");
+        pauseButton.setToolTipText("Pause the currently running script.");
+        add(pauseButton);
+
+        stopButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_stop.png", "control_stop.png");
+        stopButton.setToolTipText("Stop the currently running script.");
+        add(stopButton);
         add(Box.createHorizontalGlue());
 
-        final BotButton settings = new BotButton(buttons[3], "gear.png");
-        settings.addActionListener(new ActionListener() {
+        keyboardButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/keyboard.png", "keyboard.png");
+        keyboardButton.setToolTipText("Disable keyboard input.");
+        add(keyboardButton);
+
+        mouseButton  = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/mouse.png", "mouse.png");
+        mouseButton.setToolTipText("Disable mouse input.");
+        add(mouseButton);
+
+        settingsButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/bot.png", "gear.png");
+        settingsButton.setToolTipText("Display the client settings.");
+        settingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int x = ((JButton) e.getSource()).getX();
-                int y = ((JButton) e.getSource()).getY();
-                final JPopupMenu menu = createPopupMenu();
-                menu.show(BotButtonPanel.this, x, y);
-                System.out.println("Displaying panel");
+                final JButton button = (JButton) e.getSource();
+                menu.show(BotButtonPanel.this, button.getX(), button.getY());
             }
         });
-        add(settings);
+        add(settingsButton);
 
     }
 
-    public JPopupMenu createPopupMenu() {
-        final JPopupMenu popup = new JPopupMenu();
-        JMenu view = new JMenu("View");
-        view.add(new JMenuItem("GameObjects"));
-        view.add(new JMenuItem("NPCs"));
-        view.add(new JMenuItem("GroundItems"));
-        popup.add(view);
-        popup.add(new JSeparator());
-        popup.add(new JMenuItem("Settings Explorer"));
-        popup.add(new JMenuItem("Widget Explorer"));
-        return popup;
-    }
+    @Override
+    public void paintComponent(Graphics g)  {
+        final Graphics2D graphics2D = (Graphics2D) g;
+        Color color = new Color(92, 98, 106);
 
+        GradientPaint redtowhite = new GradientPaint(getX(), getY(), color.darker(), getWidth(), getY(), color);
+        graphics2D.setPaint(redtowhite);
+        g.fillRect(0, 0, getWidth(), getHeight());
+    }
 }

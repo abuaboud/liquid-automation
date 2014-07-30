@@ -4,10 +4,13 @@ import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.context.ClientContext;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Kenneth on 7/29/2014.
  */
-public class NPCQuery extends AbstractQuery<NPCQuery, NPC> {
+public class NPCQuery extends AbstractQuery<NPCQuery, NPC>  {
 
     public NPCQuery(ClientContext ctx) {
         super(ctx);
@@ -15,11 +18,11 @@ public class NPCQuery extends AbstractQuery<NPCQuery, NPC> {
 
     @Override
     protected NPC[] elements() {
-        Object[] objects = (Object[]) Reflection.value("Client#getLocalNpcs()",null);
-        NPC[] elements = new NPC[objects.length];
-        for(int i = 0 ; i < elements.length;i++){
-           elements[i] = new NPC(objects[i]);
+        final Object[] objects = (Object[]) Reflection.value("Client#getLocalNpcs()",null);
+        final List<NPC> elements = new ArrayList<>();
+        for(int i = 0 ; i < objects.length;i++){
+           elements.add(new NPC(objects[i]));
         }
-        return elements;
+        return elements.toArray(new NPC[elements.size()]);
     }
 }

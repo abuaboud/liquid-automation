@@ -68,4 +68,14 @@ public class Utilities {
         return random.nextInt(max - min) + min;
     }
 
+    /**
+     * Uses Toolkit.getDefaultToolkit() to load an image from the specified file location
+     *
+     * @param file the absolute location of the image
+     * @return the image
+     */
+    public static Image getLocalImage(String file) {
+        return Toolkit.getDefaultToolkit().createImage(file);
+    }
+
 }

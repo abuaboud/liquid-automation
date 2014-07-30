@@ -15,6 +15,8 @@ public class Configuration {
     public static Canvas canvas;
     public static BotFrame botFrame;
 
+    public static boolean drawPlayers = false;
+    public static boolean drawNPCs = false;
     public static boolean drawMouse = true;
     public static boolean drawCanvas = true;
 }

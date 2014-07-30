@@ -2,12 +2,20 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.client.debug.Debugger;
+import org.liquidbot.bot.client.debug.MouseDebugger;
+import org.liquidbot.bot.client.debug.NPCDebugger;
+import org.liquidbot.bot.client.debug.PlayerDebugger;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
+import org.liquidbot.bot.script.api.interfaces.PaintListener;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Hiasat on 7/29/2014.
@@ -18,6 +26,8 @@ public class Canvas extends java.awt.Canvas {
     private final BufferedImage botBuffer = new BufferedImage(765, 503, BufferedImage.TYPE_INT_RGB);
     private final BufferedImage gameBuffer = new BufferedImage(765, 503, BufferedImage.TYPE_INT_RGB);
 
+    private List<PaintListener> listeners = new ArrayList<>();
+
     /**
      * Create new instance of Canvas Class
      *
@@ -25,6 +35,11 @@ public class Canvas extends java.awt.Canvas {
      */
     public Canvas(java.awt.Canvas canvas) {
         this.canvas = canvas;
+
+        final Debugger[] debuggers = {
+                new MouseDebugger(), new NPCDebugger(), new PlayerDebugger()
+        };
+        Collections.addAll(listeners, debuggers);
     }
 
     /**
@@ -37,12 +52,17 @@ public class Canvas extends java.awt.Canvas {
         Graphics graphics = botBuffer.getGraphics();
         if (Configuration.drawCanvas) {
             graphics.drawImage(gameBuffer, 0, 0, null);
-            if (Configuration.drawMouse) {
-                Point location = Configuration.mouse.getLocation();
-                graphics.setColor(Color.WHITE);
-                graphics.drawLine(location.x, 0, location.x, Constants.APPLET_HEIGHT);
-                graphics.drawLine(0, location.y, Constants.APPLET_WIDTH, location.y);
+
+            for(PaintListener listener : listeners) {
+                if(listener instanceof Debugger) {
+                    final Debugger debug = (Debugger) listener;
+                    if(debug.activate())
+                        debug.render(graphics);
+                } else {
+                    listener.render(graphics);
+                }
             }
+
         }
         graphics.dispose();
 
@@ -84,5 +104,15 @@ public class Canvas extends java.awt.Canvas {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setBounds(int x, int y, int width, int height) {
+        super.setBounds(0, 0, width, height);
+    }
+
+    @Override
+    public void setSize(int width, int height) {
+        super.setSize(Constants.APPLET_WIDTH, Constants.APPLET_WIDTH);
     }
 }

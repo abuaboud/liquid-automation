@@ -19,11 +19,11 @@ public class BotFrame extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         this.buttonPanel = new BotButtonPanel();
-        this.getContentPane().setLayout(new BorderLayout());
-        this.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+        this.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
+        this.getContentPane().add(buttonPanel);
 
         this.loader = new RSLoader();
-        this.getContentPane().add(loader, BorderLayout.CENTER);
+        this.getContentPane().add(loader);
     }
 
     public RSLoader loader(){

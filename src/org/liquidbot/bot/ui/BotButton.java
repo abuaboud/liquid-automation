@@ -1,39 +1,44 @@
 package org.liquidbot.bot.ui;
 
+import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Created by Kenneth on 7/29/2014.
  */
 public class BotButton extends JButton {
 
+
+    private Image buttonIcon;
+    private Image buttonRollOverIcon;
+    private Image buttonDisabledIcon;
+
     public BotButton(String imageURL, String imageName) {
 
-        BufferedImage image = null;
-        final File imageLocation = new File(Utilities.getContentDirectory() + "/resources/" + imageName);
-        try {
-            if(!imageLocation.exists()) {
-                image = ImageIO.read(new URL(imageURL));
-                ImageIO.write(image, ".png", imageLocation.getAbsoluteFile());
+        NetUtils.downloadFile(imageURL, Utilities.getContentDirectory() + "/resources/" + imageName);
+        buttonIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
 
-            } else {
-                image = ImageIO.read(imageLocation);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        setIcon(new ImageIcon(image));
+        setIcon(new ImageIcon(buttonIcon));
         setBorderPainted(false);
-        setMargin(new Insets(1, 0, 1, 0));
+        setMargin(new Insets(0, 0, 0, 0));
+    }
+
+    public void setButtonDisabledIcon(String imageURL, String imageName) {
+        NetUtils.downloadFile(imageURL, Utilities.getContentDirectory() + "/resources/" + imageName);
+        buttonDisabledIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
+        setDisabledIcon(new ImageIcon(buttonDisabledIcon));
+    }
+
+    public void setButtonRollOverIcon(String imageURL, String imageName) {
+        NetUtils.downloadFile(imageURL, Utilities.getContentDirectory() + "/resources/" + imageName);
+        buttonRollOverIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
+        setRolloverIcon(new ImageIcon(buttonRollOverIcon));
     }
 
 }

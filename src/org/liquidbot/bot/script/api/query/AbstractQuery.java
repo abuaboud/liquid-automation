@@ -18,4 +18,14 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> extends ClientAc
     public AbstractQuery(ClientContext ctx) {
         super(ctx);
     }
+
+    public Q refresh() {
+        list.clear();
+        for(E element : elements()) {
+            if(element != null) {
+                list.add(element);
+            }
+        }
+        return (Q) this;
+    }
 }

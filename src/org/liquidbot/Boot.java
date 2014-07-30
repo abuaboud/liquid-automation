@@ -2,7 +2,7 @@ package org.liquidbot;
 
 import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.client.praser.HookReader;
+import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.ui.BotFrame;
 
 import javax.swing.*;

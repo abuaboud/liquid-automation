@@ -30,7 +30,6 @@ public class RSLoader extends JPanel implements AppletStub {
     private final Font font = new Font("Calibri", Font.PLAIN, 15);
 
     private URLClassLoader classLoader = null;
-    private final Color color = new Color(99, 223, 245);
     private FileDownloader downloader;
     private Applet applet;
     private final Parameters params;
@@ -50,7 +49,6 @@ public class RSLoader extends JPanel implements AppletStub {
 
                 final File jar = new File(Utilities.getContentDirectory() + "game/os-gamepack.jar");
 
-                URLClassLoader classLoader = null;
                 try {
                     classLoader = new URLClassLoader(new URL[]{jar.toURI().toURL()});
                 } catch (MalformedURLException e) {
@@ -70,51 +68,21 @@ public class RSLoader extends JPanel implements AppletStub {
                 isAppletLoaded = true;
                 RSLoader.this.add(applet, BorderLayout.CENTER);
                 RSLoader.this.revalidate();
+
+                while(applet.getComponentAt(1,1) == null){
+                    Utilities.sleep(200,300);
+                }
+
+                Reflection.init();
+
+                Configuration.canvas = new Canvas((java.awt.Canvas) Reflection.value("Client#getCanvas()", null));
+                Configuration.canvas.set();
+
+                Configuration.keyboard = new InternalKeyboard(applet);
+                Configuration.mouse = new InternalMouse(applet);
             }
         });
         thread.start();
-    }
-
-
-    public void init() {
-        NetUtils.downloadFile(params.get("codebase") + params.get("initial_jar"),
-                Utilities.getContentDirectory() + "game/os-gamepack.jar");
-
-        final File jar = new File(Utilities.getContentDirectory() + "game/os-gamepack.jar");
-
-        try {
-            classLoader = new URLClassLoader(new URL[]{jar.toURI().toURL()});
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
-        final String mainClass = params.get("initial_class").replaceAll(".class", "");
-        try {
-            applet = (Applet) classLoader.loadClass(mainClass).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException a) {
-            a.printStackTrace();
-        }
-
-        applet.setStub(this);
-        applet.init();
-        applet.start();
-        isAppletLoaded = true;
-        this.add(applet, BorderLayout.CENTER);
-        this.revalidate();
-
-        while(applet.getComponentAt(1,1) == null){
-            Utilities.sleep(200,300);
-        }
-
-        Reflection.init();
-
-
-        Configuration.canvas = new Canvas((java.awt.Canvas) Reflection.value("Client#getCanvas()", null));
-        Configuration.canvas.set();
-
-        Configuration.keyboard = new InternalKeyboard(applet);
-        Configuration.mouse = new InternalMouse(applet);
-
     }
 
     @Override

@@ -1,7 +1,6 @@
 package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.debug.Debugger;
 import org.liquidbot.bot.client.debug.MouseDebugger;
 import org.liquidbot.bot.client.debug.NPCDebugger;
@@ -49,7 +48,7 @@ public class Canvas extends java.awt.Canvas {
      */
     @Override
     public Graphics getGraphics() {
-       final Graphics graphics = botBuffer.getGraphics();
+        final Graphics graphics = botBuffer.getGraphics();
 
         if (Configuration.drawCanvas) {
             graphics.drawImage(gameBuffer, 0, 0, null);
@@ -106,12 +105,8 @@ public class Canvas extends java.awt.Canvas {
     }
 
     @Override
-    public void setBounds(int x, int y, int width, int height) {
-        super.setBounds(0, 0, width, height);
+    public void setLocation(int x, int y) {
+        canvas.setLocation(0, 0);
     }
 
-    @Override
-    public void setSize(int width, int height) {
-        super.setSize(Constants.APPLET_WIDTH, Constants.APPLET_WIDTH);
-    }
 }

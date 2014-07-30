@@ -1,5 +1,6 @@
 package org.liquidbot.bot.script;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.context.ClientContext;
 
 /**
@@ -10,7 +11,7 @@ public class AbstractScript {
     public final ClientContext ctx;
 
     public AbstractScript() {
-        this.ctx = new ClientContext();
+        this.ctx = Configuration.context;
     }
 
 }

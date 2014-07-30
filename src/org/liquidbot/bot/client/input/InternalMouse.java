@@ -25,7 +25,6 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
     private boolean clientPressed;
     private boolean humanInput = true;
 
-
     public InternalMouse(Applet applet) {
         this.component = applet.getComponentAt(1, 1);
         this.mouseListenerDispatcher = component.getMouseListeners()[0];

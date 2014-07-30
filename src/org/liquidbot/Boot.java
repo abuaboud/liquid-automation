@@ -1,7 +1,8 @@
 package org.liquidbot;
 
-import com.sun.java.swing.plaf.windows.WindowsLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaWhiteVisionLookAndFeel;
+import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.praser.HookReader;
 import org.liquidbot.bot.ui.BotFrame;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.text.ParseException;
 public class Boot {
 
     public static void main(String[] args) {
+        HookReader.init();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -21,9 +23,9 @@ public class Boot {
                 } catch (UnsupportedLookAndFeelException | ParseException e) {
                     e.printStackTrace();
                 }
-                final BotFrame frame = new BotFrame();
-                frame.pack();
-                frame.setVisible(true);
+                Configuration.botFrame = new BotFrame();
+                Configuration.botFrame.pack();
+                Configuration.botFrame.setVisible(true);
             }
         });
     }

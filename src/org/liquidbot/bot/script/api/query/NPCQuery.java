@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Kenneth on 7/29/2014.
  */
-public class NPCQuery extends AbstractQuery<NPCQuery, NPC>  {
+public class NPCQuery extends MobileIdNameQuery<NPCQuery, NPC>  {
 
     public NPCQuery(ClientContext ctx) {
         super(ctx);

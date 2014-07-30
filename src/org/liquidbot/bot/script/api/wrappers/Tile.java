@@ -5,8 +5,6 @@ package org.liquidbot.bot.script.api.wrappers;/*
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
 
-import java.awt.*;
-
 public class Tile implements Locatable, Interactable {
     int x;
     int y;

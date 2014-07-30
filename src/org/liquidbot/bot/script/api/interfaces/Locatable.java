@@ -14,4 +14,10 @@ public interface Locatable {
     public Tile getLocation();
 
 
+    public static interface Query<Q> {
+        public Q within(final int radius);
+        public Q at(final Tile tile);
+        public Q nearest();
+    }
+
 }

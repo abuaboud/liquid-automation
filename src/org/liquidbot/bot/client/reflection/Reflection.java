@@ -1,8 +1,8 @@
 package org.liquidbot.bot.client.reflection;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.client.praser.FieldHook;
-import org.liquidbot.bot.client.praser.HookReader;
+import org.liquidbot.bot.client.parser.FieldHook;
+import org.liquidbot.bot.client.parser.HookReader;
 
 import java.lang.reflect.Field;
 import java.util.Hashtable;

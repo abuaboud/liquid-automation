@@ -1,5 +1,7 @@
 package org.liquidbot.bot;
 
+import java.awt.*;
+
 /**
  * Created by Kenneth on 7/29/2014.
  */
@@ -11,5 +13,7 @@ public class Constants {
 
     public static final int APPLET_WIDTH = 765;
     public static final int APPLET_HEIGHT = 503;
+
+    public static final Rectangle GAME_SCREEN = new Rectangle(0, 0, APPLET_WIDTH, APPLET_HEIGHT);
 
 }

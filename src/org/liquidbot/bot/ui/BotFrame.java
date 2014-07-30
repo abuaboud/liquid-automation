@@ -25,4 +25,8 @@ public class BotFrame extends JFrame {
         this.loader = new RSLoader();
         this.getContentPane().add(loader, BorderLayout.CENTER);
     }
+
+    public RSLoader loader(){
+        return loader;
+    }
 }

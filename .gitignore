@@ -2,3 +2,4 @@
 *.name
 *.iml
 *.class
+*.db

@@ -18,6 +18,7 @@ public class BotButton extends JButton {
     private Image buttonIcon;
     private Image buttonRollOverIcon;
     private Image buttonDisabledIcon;
+    private Image buttonHoveredIcon;
 
     public BotButton(String imageURL, String imageName) {
 
@@ -25,8 +26,25 @@ public class BotButton extends JButton {
         buttonIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
 
         setIcon(new ImageIcon(buttonIcon));
+        setMinimumSize(new Dimension(24, 24));
+        setBorder(null);
         setBorderPainted(false);
-        setMargin(new Insets(0, 0, 0, 0));
+        setFocusPainted(false);
+        setOpaque(false);
+        setContentAreaFilled(false);
+
+    }
+
+    public void setButtonIcon(String imageURL, String imageName) {
+        NetUtils.downloadFile(imageURL, Utilities.getContentDirectory() + "/resources/" + imageName);
+        buttonIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
+        setIcon(new ImageIcon(buttonIcon));
+    }
+
+    public void setButtonHoverIcon(String imageURL, String imageName) {
+        NetUtils.downloadFile(imageURL, Utilities.getContentDirectory() + "/resources/" + imageName);
+        buttonHoveredIcon = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/" + imageName);
+        setRolloverIcon(new ImageIcon(buttonHoveredIcon));
     }
 
     public void setButtonDisabledIcon(String imageURL, String imageName) {

@@ -29,7 +29,7 @@ public class Boot {
                     e.printStackTrace();
                 }
 
-                NetUtils.downloadFile("http://www.liquidbot.org/forum/liquidicon.png", Utilities.getContentDirectory() + "/resources/liquidicon.png");
+                NetUtils.downloadFile("https://cdn.mediacru.sh/GwN6tZ72iQre.png", Utilities.getContentDirectory() + "/resources/liquidicon.png");
                 final Image iconImage = Utilities.getLocalImage(Utilities.getContentDirectory() + "/resources/liquidicon.png");
 
                 Configuration.botFrame = new BotFrame();

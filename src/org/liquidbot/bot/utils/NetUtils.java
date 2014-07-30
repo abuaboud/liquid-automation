@@ -77,7 +77,7 @@ public class NetUtils {
                 }
             } else {
                 final File parent = destination.getParentFile();
-                if (!parent.exists()) parent.mkdirs();
+                if (parent != null && !parent.exists()) parent.mkdirs();
             }
 
             final ReadableByteChannel rbc = Channels.newChannel(connection.getInputStream());

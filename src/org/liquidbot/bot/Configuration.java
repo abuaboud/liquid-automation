@@ -17,6 +17,8 @@ public class Configuration {
     public static BotFrame botFrame;
     public static ClientContext context = new ClientContext();
 
+    public static boolean enableMouse = true;
+    public static boolean enableKeyboard = true;
     public static boolean drawPlayers = false;
     public static boolean drawNPCs = false;
     public static boolean drawMouse = true;

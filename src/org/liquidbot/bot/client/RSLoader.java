@@ -27,14 +27,9 @@ import java.net.URLClassLoader;
 public class RSLoader extends JPanel implements AppletStub {
 
     private boolean isAppletLoaded = false;
-<<<<<<< HEAD
     private final Font font = new Font("Calibri", Font.PLAIN, 15);
-=======
-    private final Font font = new Font("Tahoma", Font.PLAIN, 13);
 
     private URLClassLoader classLoader = null;
-
->>>>>>> origin/master
     private final Color color = new Color(99, 223, 245);
     private FileDownloader downloader;
     private Applet applet;
@@ -132,15 +127,7 @@ public class RSLoader extends JPanel implements AppletStub {
             graphics2D.fillRect(0, 0, getWidth(), getHeight());
             graphics2D.setFont(font);
 
-<<<<<<< HEAD
-            if(downloader != null && !downloader.isFinished()) {
-=======
-            graphics2D.setColor(Color.WHITE);
-            graphics2D.drawString("LiquidBot is loading, please wait!", 300, 480);
-
-
             if(downloader != null || downloader.isFinished()) {
->>>>>>> origin/master
                 final int width = downloader.getPercentage() * 300 / 100;
 
                 graphics2D.setColor(Color.GRAY);

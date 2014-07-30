@@ -2,8 +2,8 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.parser.FieldHook;
-import org.liquidbot.bot.client.parser.HookReader;
+import org.liquidbot.bot.client.praser.FieldHook;
+import org.liquidbot.bot.client.praser.HookReader;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

@@ -1,7 +1,7 @@
-package org.liquidbot.bot.api.query;
+package org.liquidbot.bot.script.api.query;
 
-import org.liquidbot.bot.api.context.ClientAccessor;
-import org.liquidbot.bot.api.context.ClientContext;
+import org.liquidbot.bot.script.api.context.ClientAccessor;
+import org.liquidbot.bot.script.api.context.ClientContext;
 
 import java.util.LinkedList;
 import java.util.List;

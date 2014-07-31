@@ -24,6 +24,18 @@ public class Tile implements Locatable, Interactable {
         this.z = 0;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getZ() {
+        return z;
+    }
+
     @Override
     public boolean interact(String action, String option) {
         return false;  //To change body of implemented methods use File | Settings | File Templates.

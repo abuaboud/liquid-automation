@@ -1,5 +1,7 @@
 package org.liquidbot.bot.script.api.methods.data;
 
+import org.liquidbot.bot.script.api.wrappers.Tile;
+
 import java.awt.*;
 
 /*
@@ -18,6 +20,9 @@ public class Calculations {
     public double distanceBetween(Point a, Point b) {
         return distanceBetween(a.x, a.y, b.x, b.y);
     }
+    public double distanceBetween(Tile a, Tile b) {
+        return distanceBetween(a.getX(), a.getY(), b.getX(), b.getY());
+    }
 
-    public double distanceTo(Tile l)
+
 }

@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.methods.interactive;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.query.NPCQuery;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.utils.Utilities;
@@ -14,6 +15,12 @@ import java.util.List;
  * Created by Hiasat on 7/30/14
  */
 public class NPCs {
+
+    private static NPCQuery npcQuery = new NPCQuery();
+
+    public static NPCQuery query() {
+        return npcQuery;
+    }
 
     /**
      * static Method to get all Npcs that return true in Filter

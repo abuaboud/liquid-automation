@@ -47,4 +47,8 @@ public class FieldHook {
     public String getClassName(){
         return fieldLine.split(" ")[1].split("#")[0];
     }
+
+    public int getMultiplier(){
+        return Integer.parseInt(fieldLine.split(" ")[3]);
+    }
 }

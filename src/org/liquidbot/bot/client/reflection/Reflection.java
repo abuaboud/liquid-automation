@@ -30,6 +30,9 @@ public class Reflection {
      */
     public static Object value(String fieldKey, Object instance) {
         try {
+            FieldHook fieldHook = HookReader.fields.get(fieldKey);
+            if (fieldHook.getType().equalsIgnoreCase("I"))
+                return (int) fields.get(fieldKey).get(instance) * fieldHook.getMultiplier();
             return fields.get(fieldKey).get(instance);
         } catch (IllegalAccessException e) {
             e.printStackTrace();

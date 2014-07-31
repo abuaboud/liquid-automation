@@ -48,6 +48,10 @@ public class FieldHook {
         return fieldLine.split(" ")[1].split("#")[0];
     }
 
+    /**
+     *
+     * @return Integer : multiplier
+     */
     public int getMultiplier(){
         return Integer.parseInt(fieldLine.split(" ")[3]);
     }

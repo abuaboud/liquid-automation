@@ -2,10 +2,7 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.debug.Debugger;
-import org.liquidbot.bot.client.debug.MouseDebugger;
-import org.liquidbot.bot.client.debug.NPCDebugger;
-import org.liquidbot.bot.client.debug.PlayerDebugger;
+import org.liquidbot.component.debug.*;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
@@ -49,15 +46,18 @@ public class Canvas extends java.awt.Canvas {
      */
     @Override
     public Graphics getGraphics() {
-       final Graphics graphics = botBuffer.getGraphics();
+        final Graphics graphics = botBuffer.getGraphics();
 
         if (Configuration.drawCanvas) {
             graphics.drawImage(gameBuffer, 0, 0, null);
-            for(PaintListener listener : listeners) {
-                if(listener instanceof Debugger) {
+            for (PaintListener listener : getPaintListeners()) {
+                if (listener instanceof Debugger) {
                     final Debugger debug = (Debugger) listener;
-                    if(debug.activate())
+                    if (debug.activate()) {
                         debug.render(graphics);
+                    } else {
+                        debug.dispose();
+                    }
                 } else {
                     listener.render(graphics);
                 }
@@ -105,13 +105,22 @@ public class Canvas extends java.awt.Canvas {
         }
     }
 
+    public synchronized List<PaintListener> getPaintListeners() {
+        return listeners;
+    }
+
     @Override
     public void setBounds(int x, int y, int width, int height) {
-        super.setBounds(0, 0, width, height);
+        canvas.setBounds(0, 0, width, height);
     }
 
     @Override
     public void setSize(int width, int height) {
-        super.setSize(Constants.APPLET_WIDTH, Constants.APPLET_WIDTH);
+        canvas.setSize(Constants.APPLET_WIDTH, Constants.APPLET_WIDTH);
+    }
+
+    @Override
+    public void setLocation(int x, int y) {
+        canvas.setLocation(0, 0);
     }
 }

@@ -1,4 +1,4 @@
-package org.liquidbot.bot.client.debug;
+package org.liquidbot.component.debug;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.wrappers.Player;

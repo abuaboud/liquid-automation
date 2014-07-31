@@ -1,4 +1,4 @@
-package org.liquidbot.bot.client.debug;
+package org.liquidbot.component.debug;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * Created by Kenneth on 7/30/2014.
  */
-public class MouseDebugger extends Debugger {
+public class MouseDebugger extends Debugger{
 
     @Override
     public Object[] elements() {

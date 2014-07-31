@@ -25,6 +25,7 @@ public class BotFrame extends JFrame implements WindowListener {
     public BotFrame() {
         super(Constants.CLIENT_TITLE + " - v" + Constants.CLIENT_VERSION);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setResizable(false);
 
         this.buttonPanel = new BotButtonPanel();
         this.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));

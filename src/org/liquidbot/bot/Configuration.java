@@ -2,7 +2,6 @@ package org.liquidbot.bot;
 
 import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
-import org.liquidbot.bot.script.api.context.ClientContext;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.component.Canvas;
 
@@ -15,7 +14,6 @@ public class Configuration {
     public static InternalMouse mouse;
     public static Canvas canvas;
     public static BotFrame botFrame;
-    public static ClientContext context = new ClientContext();
 
     public static boolean enableMouse = true;
     public static boolean enableKeyboard = true;

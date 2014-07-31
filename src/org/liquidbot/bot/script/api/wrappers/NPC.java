@@ -9,8 +9,11 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
  */
 public class NPC extends Actor implements Identifiable, Nameable {
 
+    private NPCComposite npcComposite;
+
     public NPC(Object raw) {
         super(raw);
+        this.npcComposite = new NPCComposite(Reflection.value("NPC#getNpcComposite()",raw));
     }
 
     /**
@@ -22,20 +25,40 @@ public class NPC extends Actor implements Identifiable, Nameable {
     }
 
     /**
-     * This method grabs the name of the NPC
-     * @return the NPC name
+     * This method grabs tnhe name of the NPC
+     * @return String: the NPC name
      */
-    @Override
     public String getName() {
-        return "";
+        return npcComposite.getName();
     }
 
     /**
      * Gets the ID of the NPC
-     * @return the NPC's ID
+     * @return Integer:the NPC's ID
      */
-    @Override
     public int getId() {
-        return 0;
+        return npcComposite.getId();
+    }
+    /**
+     * Gets the combatLevel of the NPC
+     * @return Integer: the NPC's combat level
+     */
+    public int getCombatLevel() {
+        return npcComposite.getCombatLevel();
+    }
+
+    /**
+     *  Interact Actions of the NPC
+     * @return String[] : actions of npcs
+     */
+    public String[] getActions(){
+        return npcComposite.getActions();
+    }
+    /**
+     *  model Ids of the NPC
+     * @return String[] :  model Ids of the NPC
+     */
+    public int[] getModelIds(){
+        return npcComposite.getModelIds();
     }
 }

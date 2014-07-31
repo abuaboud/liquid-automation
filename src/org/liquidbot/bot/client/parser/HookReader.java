@@ -10,6 +10,7 @@ import java.util.Hashtable;
 public class HookReader {
 
     public static Hashtable<String, FieldHook> fields = new Hashtable<>();
+    public static Hashtable<String, MethodHook> methods = new Hashtable<>();
 
     private static final String HOOKS_URL = "http://pastebin.com/raw.php?i=NMmd9zsQ";
 
@@ -19,10 +20,16 @@ public class HookReader {
     public static void init() {
         final String[] sourceCode = NetUtils.readPage(HOOKS_URL);
         for (String source : sourceCode) {
-            if(!source.contains("#"))
+            if (!source.contains("#"))
                 continue;
-            final FieldHook fieldHook = new FieldHook(source);
-            fields.put(fieldHook.getFieldKey(), fieldHook);
+            String type = source.split(" ")[2];
+            if (type.contains("(")) {
+                final MethodHook methodHook = new MethodHook(source);
+                methods.put(methodHook.getMethodKey(), methodHook);
+            } else {
+                final FieldHook fieldHook = new FieldHook(source);
+                fields.put(fieldHook.getFieldKey(), fieldHook);
+            }
         }
     }
 

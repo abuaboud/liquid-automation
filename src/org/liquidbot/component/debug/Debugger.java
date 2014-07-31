@@ -1,5 +1,6 @@
 package org.liquidbot.component.debug;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Timer;
 
@@ -12,6 +13,7 @@ import java.util.List;
  */
 public abstract class Debugger<E> implements PaintListener {
 
+    public Configuration config = Configuration.getInstance();
     protected List<E> list = new ArrayList<E>();
     private Timer refreshRate = new Timer(500);
 

@@ -18,6 +18,7 @@ import java.text.ParseException;
 public class Boot {
 
     private static final Logger log = new Logger(Boot.class);
+    private static final Configuration config = Configuration.getInstance();
 
     public static void main(String[] args) {
         JPopupMenu.setDefaultLightWeightPopupEnabled(true);
@@ -38,10 +39,13 @@ public class Boot {
 
                 final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
 
-                Configuration.botFrame = new BotFrame();
-                Configuration.botFrame.setIconImage(iconImage);
-                Configuration.botFrame.pack();
-                Configuration.botFrame.setVisible(true);
+                final BotFrame frame = new BotFrame();
+                config.setBotFrame(frame);
+                frame.setIconImage(iconImage);
+                frame.pack();
+                frame.setVisible(true);
+
+
             }
         });
     }

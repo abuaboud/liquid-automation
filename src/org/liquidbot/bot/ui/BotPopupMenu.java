@@ -13,51 +13,53 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu {
 
     private final JMenu view;
-    private final JMenuItem gameObjects, npcs, groundItems, mouse, canvas, settings, widgets, players;
+    private final JMenuItem  settings, widgets;
+    private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players;
+    private final Configuration config = Configuration.getInstance();
 
     private final Logger log = new Logger(getClass());
 
     public BotPopupMenu() {
         view = new JMenu("View");
 
-        players = new JMenuItem("Players");
+        players = new JCheckBoxMenuItem("Players");
         players.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.drawPlayers = !Configuration.drawPlayers;
-                log.info(Configuration.drawPlayers ? "Enabled player drawing." : "Disabled player drawing.");
+                config.drawPlayers(!config.drawPlayers());
+                log.info(config.drawPlayers() ? "Enabled player drawing." : "Disabled player drawing.");
             }
         });
 
-
-        gameObjects = new JMenuItem("Game Objects");
-        npcs = new JMenuItem("NPCs");
+        npcs = new JCheckBoxMenuItem("NPCs");
         npcs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.drawNPCs = !Configuration.drawNPCs;
-                log.info(Configuration.drawNPCs ? "Enabled NPC drawing." : "Disabled NPC drawing.");
+                config.drawNPCs(!config.drawNPCs());
+                log.info(config.drawNPCs() ? "Enabled npc drawing." : "Disabled npc drawing.");
             }
         });
-        groundItems = new JMenuItem("Ground Items");
-        mouse = new JMenuItem("Mouse");
+
+        mouse = new JCheckBoxMenuItem("Mouse");
         mouse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.drawMouse = !Configuration.drawMouse;
-                log.info(Configuration.drawMouse ? "Enabled mouse drawing." : "Disabled mouse drawing.");
+                config.drawMouse(!config.drawMouse());
+                log.info(config.drawMouse() ? "Enabled mouse drawing." : "Disabled mouse drawing.");
             }
         });
 
-        canvas = new JMenuItem("Canvas");
+        canvas = new JCheckBoxMenuItem("Canvas");
         canvas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.drawCanvas = !Configuration.drawCanvas;
-                log.info(Configuration.drawCanvas ? "Enabled canvas drawing." : "Disabled canvas drawing.");
+                config.drawCanvas(!config.drawCanvas());
+                log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");
             }
         });
 
+        groundItems = new JCheckBoxMenuItem("Ground Items");
+        gameObjects = new JCheckBoxMenuItem("Game Objects");
         settings = new JMenuItem("Settings Explorer");
         widgets = new JMenuItem("Widget Explorer");
 

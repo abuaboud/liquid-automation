@@ -20,6 +20,8 @@ public class BotButtonPanel extends JPanel {
     private BotButton startButton, pauseButton, stopButton, keyboardButton, mouseButton, settingsButton, sdnButton;
     private BotPopupMenu menu;
 
+    private final Configuration config = Configuration.getInstance();
+
     public BotButtonPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
@@ -54,9 +56,9 @@ public class BotButtonPanel extends JPanel {
         keyboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.enableKeyboard = !Configuration.enableKeyboard;
-                keyboardButton.setButtonIcon(Configuration.enableKeyboard ? "keyboard_enabled.png" : "keyboard_disabled.png");
-                keyboardButton.setButtonHoverIcon(Configuration.enableKeyboard ? "keyboard_enabled_hover.png" : "keyboard_disabled_hover.png");
+                config.enableKeyboard(!config.enableKeyboard());
+                keyboardButton.setButtonIcon(config.enableKeyboard() ? "keyboard_enabled.png" : "keyboard_disabled.png");
+                keyboardButton.setButtonHoverIcon(config.enableKeyboard() ? "keyboard_enabled_hover.png" : "keyboard_disabled_hover.png");
                 keyboardButton.revalidate();
             }
         });
@@ -68,9 +70,9 @@ public class BotButtonPanel extends JPanel {
         mouseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Configuration.enableMouse = !Configuration.enableMouse;
-                mouseButton.setButtonIcon(Configuration.enableMouse ? "mouse_enabled.png" : "mouse_disabled.png");
-                mouseButton.setButtonHoverIcon(Configuration.enableMouse ? "mouse_enabled_hover.png" : "mouse_disabled_hover.png");
+                config.enableMouse(!config.enableMouse());
+                mouseButton.setButtonIcon(config.enableMouse() ? "mouse_enabled.png" : "mouse_disabled.png");
+                mouseButton.setButtonHoverIcon(config.enableMouse() ? "mouse_enabled_hover.png" : "mouse_disabled_hover.png");
                 mouseButton.revalidate();
             }
         });

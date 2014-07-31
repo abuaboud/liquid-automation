@@ -21,7 +21,7 @@ public class NPCDebugger extends Debugger<NPC> {
 
     @Override
     public boolean activate() {
-        return Configuration.drawNPCs && Game.isLoggedIn();
+        return config.drawNPCs() && Game.isLoggedIn();
     }
 
     @Override

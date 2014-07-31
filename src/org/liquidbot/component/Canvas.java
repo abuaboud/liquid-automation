@@ -22,6 +22,7 @@ import java.util.List;
  */
 public class Canvas extends java.awt.Canvas {
 
+    private final Configuration config = Configuration.getInstance();
     private final java.awt.Canvas canvas;
     private final BufferedImage botBuffer = new BufferedImage(765, 503, BufferedImage.TYPE_INT_RGB);
     private final BufferedImage gameBuffer = new BufferedImage(765, 503, BufferedImage.TYPE_INT_RGB);
@@ -35,7 +36,6 @@ public class Canvas extends java.awt.Canvas {
      */
     public Canvas(java.awt.Canvas canvas) {
         this.canvas = canvas;
-
         final Debugger[] debuggers = {
                 new MouseDebugger(), new NPCDebugger(), new PlayerDebugger()
         };
@@ -51,7 +51,7 @@ public class Canvas extends java.awt.Canvas {
     public Graphics getGraphics() {
         final Graphics graphics = botBuffer.getGraphics();
 
-        if (Configuration.drawCanvas) {
+        if (config.drawCanvas()) {
             graphics.drawImage(gameBuffer, 0, 0, null);
             for (PaintListener listener : getPaintListeners()) {
                 if (listener instanceof Debugger) {
@@ -99,7 +99,7 @@ public class Canvas extends java.awt.Canvas {
                 System.out.println("Error in Canvas Can't find Hook info");
                 return;
             }
-            Class<?> clazz = Configuration.botFrame.loader().loadClass(fieldHook.getClassName());
+            Class<?> clazz = config.getBotFrame().loader().loadClass(fieldHook.getClassName());
             Field field = clazz.getDeclaredField(fieldHook.getFieldName());
             field.setAccessible(true);
             field.set(null, this);

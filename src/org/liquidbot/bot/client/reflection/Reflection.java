@@ -16,9 +16,10 @@ import java.util.Hashtable;
  */
 public class Reflection {
 
-    private static Hashtable<String, Field> fields = new Hashtable<>();
-    private static Hashtable<String, Method> methods = new Hashtable<>();
-    private static Logger logger = new Logger(Reflection.class);
+    private static final Hashtable<String, Field> fields = new Hashtable<>();
+    private static final Hashtable<String, Method> methods = new Hashtable<>();
+    private static final Logger logger = new Logger(Reflection.class);
+    private static final Configuration config = Configuration.getInstance();
 
     public static void init() {
         for (String fieldKey : HookReader.fields.keySet().toArray(new String[fields.size()])) {
@@ -73,7 +74,7 @@ public class Reflection {
         MethodHook methodHook = HookReader.methods.get(methodKey);
         if (methodHook == null)
             logger.error("MethodHook null " + methodKey);
-        for (Method method : Configuration.botFrame.loader().loadClass(methodHook.getClassName()).getDeclaredMethods()) {
+        for (Method method : config.getBotFrame().loader().loadClass(methodHook.getClassName()).getDeclaredMethods()) {
             if (method.getName().equalsIgnoreCase(methodHook.getMethodName())) {
                 method.setAccessible(true);
                 return method;
@@ -91,7 +92,7 @@ public class Reflection {
         if (fieldHook == null)
             logger.error("FieldHook null " + fieldKey);
         try {
-            Field field = Configuration.botFrame.loader().loadClass(fieldHook.getClassName()).getDeclaredField(fieldHook.getFieldName());
+            Field field = config.getBotFrame().loader().loadClass(fieldHook.getClassName()).getDeclaredField(fieldHook.getFieldName());
             field.setAccessible(true);
             return field;
         } catch (NoSuchFieldException e) {

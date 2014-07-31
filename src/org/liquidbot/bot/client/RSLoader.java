@@ -33,10 +33,12 @@ public class RSLoader extends JPanel implements AppletStub {
     private FileDownloader downloader;
     private Applet applet;
     private final Parameters params;
+    private final Configuration configuration;
 
-    public RSLoader() {
+    public RSLoader(final Configuration configuration) {
         this.setLayout(new BorderLayout());
         params = new Parameters(1);
+        this.configuration = configuration;
         setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
 
         final Thread thread = new Thread(new Runnable() {
@@ -75,14 +77,19 @@ public class RSLoader extends JPanel implements AppletStub {
 
                 Reflection.init();
 
-                Configuration.canvas = new Canvas((java.awt.Canvas) Reflection.value("Client#getCanvas()", null));
-                Configuration.canvas.set();
+                final Canvas canvas = new Canvas((java.awt.Canvas) Reflection.value("Client#getCanvas()", null));
+                configuration.setCanvas(canvas);
+                canvas.set();
 
-                Configuration.keyboard = new InternalKeyboard(applet);
-                Configuration.mouse = new InternalMouse(applet);
+                configuration.setKeyboard(new InternalKeyboard(applet));
+                configuration.setMouse(new InternalMouse(applet));
             }
         });
         thread.start();
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
     @Override

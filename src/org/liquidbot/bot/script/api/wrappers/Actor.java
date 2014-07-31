@@ -2,10 +2,9 @@ package org.liquidbot.bot.script.api.wrappers;/*
  * Created by Hiasat on 7/30/14
  */
 
-import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
-import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 
@@ -14,7 +13,6 @@ import java.awt.*;
 public class Actor implements Locatable {
 
     private final Object raw;
-
     public Actor(Object raw) {
         this.raw = raw;
     }

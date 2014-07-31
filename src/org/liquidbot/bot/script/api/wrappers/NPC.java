@@ -9,11 +9,11 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
  */
 public class NPC extends Actor implements Identifiable, Nameable {
 
-    private NPCComposite npcComposite;
+    private NPCDefinition npcDefinition;
 
     public NPC(Object raw) {
         super(raw);
-        this.npcComposite = new NPCComposite(Reflection.value("NPC#getNpcComposite()",raw));
+        this.npcDefinition = new NPCDefinition(Reflection.value("NPC#getNpcComposite()",raw));
     }
 
     /**
@@ -29,7 +29,7 @@ public class NPC extends Actor implements Identifiable, Nameable {
      * @return String: the NPC name
      */
     public String getName() {
-        return npcComposite.getName();
+        return npcDefinition.getName();
     }
 
     /**
@@ -37,14 +37,14 @@ public class NPC extends Actor implements Identifiable, Nameable {
      * @return Integer:the NPC's ID
      */
     public int getId() {
-        return npcComposite.getId();
+        return npcDefinition.getId();
     }
     /**
      * Gets the combatLevel of the NPC
      * @return Integer: the NPC's combat level
      */
     public int getCombatLevel() {
-        return npcComposite.getCombatLevel();
+        return npcDefinition.getCombatLevel();
     }
 
     /**
@@ -52,13 +52,13 @@ public class NPC extends Actor implements Identifiable, Nameable {
      * @return String[] : actions of npcs
      */
     public String[] getActions(){
-        return npcComposite.getActions();
+        return npcDefinition.getActions();
     }
     /**
      *  model Ids of the NPC
      * @return String[] :  model Ids of the NPC
      */
     public int[] getModelIds(){
-        return npcComposite.getModelIds();
+        return npcDefinition.getModelIds();
     }
 }

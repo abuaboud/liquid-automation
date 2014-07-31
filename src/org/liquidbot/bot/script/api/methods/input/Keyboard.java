@@ -15,16 +15,18 @@ public class Keyboard {
         release(KeyEvent.VK_ENTER);
     }
 
+    private static Configuration config = Configuration.getInstance();
+
     public static void press(int event) {
-        Configuration.keyboard.press(Configuration.keyboard.create(KeyEvent.KEY_PRESSED, event, (char) event));
+        config.getKeyboard().press(config.getKeyboard().create(KeyEvent.KEY_PRESSED, event, (char) event));
     }
 
     public static void release(int event) {
-        Configuration.keyboard.release(Configuration.keyboard.create(KeyEvent.KEY_RELEASED, event, (char) event));
+        config.getKeyboard().release(config.getKeyboard().create(KeyEvent.KEY_RELEASED, event, (char) event));
     }
 
     public static void type(char c) {
-        Configuration.keyboard.type(c);
+        config.getKeyboard().type(c);
     }
 
     public static void sendText(String text, boolean pressEnter, int minSleep, int maxSleep) {

@@ -18,7 +18,7 @@ public class PlayerDebugger extends Debugger<Player> {
 
     @Override
     public boolean activate() {
-        return Configuration.drawPlayers;
+        return config.drawPlayers();
     }
 
     @Override

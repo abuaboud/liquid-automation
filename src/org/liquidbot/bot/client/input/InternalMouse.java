@@ -16,6 +16,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
     private final MouseListener mouseListenerDispatcher;
     private final MouseMotionListener mouseMotionDispatcher;
     private Component component;
+    private final Configuration config = Configuration.getInstance();
 
     private int clientX;
     private int clientY;
@@ -67,7 +68,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent arg0) {
-        Point p = Configuration.canvas.getMousePosition();
+        Point p = config.getCanvas().getMousePosition();
         if (p != null && p.x > 0 && p.y > 0) {
             if (humanInput) {
                 clientX = p.x;
@@ -83,8 +84,8 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        Point p = Configuration.canvas.getMousePosition();
-        if (p != null && p.x > 0 && p.y > 0 && Configuration.canvas != null && Utilities.isPointValid(p)) {
+        Point p = config.getCanvas().getMousePosition();
+        if (p != null && p.x > 0 && p.y > 0 && config.getCanvas() != null && Utilities.isPointValid(p)) {
             if (humanInput) {
                 clientX = p.x;
                 clientY = p.y;

@@ -17,13 +17,13 @@ public class MouseDebugger extends Debugger{
 
     @Override
     public boolean activate() {
-        return Configuration.drawMouse;
+        return config.enableMouse();
     }
 
     @Override
     public void render(Graphics graphics) {
         graphics.setColor(Color.WHITE);
-        graphics.drawLine(Configuration.mouse.getX(), 0, Configuration.mouse.getX(), Constants.APPLET_HEIGHT);
-        graphics.drawLine(0, Configuration.mouse.getY(), Constants.APPLET_WIDTH, Configuration.mouse.getY());
+        graphics.drawLine(config.getMouse().getX(), 0, config.getMouse().getX(), Constants.APPLET_HEIGHT);
+        graphics.drawLine(0, config.getMouse().getY(), Constants.APPLET_WIDTH, config.getMouse().getY());
     }
 }

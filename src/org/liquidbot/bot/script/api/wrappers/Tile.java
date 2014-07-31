@@ -8,6 +8,8 @@ import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 
+import java.awt.*;
+
 public class Tile implements Locatable, Interactable {
     int x;
     int y;
@@ -119,7 +121,7 @@ public class Tile implements Locatable, Interactable {
      */
     @Override
     public int distanceTo(Locatable locatable) {
-        return Calculations.distanceBetween(getLocation(),locatable.getLocation());
+        return Calculations.distanceBetween(getLocation(), locatable.getLocation());
     }
 
     /**

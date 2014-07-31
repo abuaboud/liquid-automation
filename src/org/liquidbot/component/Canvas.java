@@ -1,15 +1,11 @@
 package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
-<<<<<<< HEAD
+
 import org.liquidbot.bot.Constants;
 import org.liquidbot.component.debug.*;
-=======
-import org.liquidbot.bot.client.debug.Debugger;
-import org.liquidbot.bot.client.debug.MouseDebugger;
-import org.liquidbot.bot.client.debug.NPCDebugger;
-import org.liquidbot.bot.client.debug.PlayerDebugger;
->>>>>>> origin/master
+
+
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
@@ -117,7 +113,6 @@ public class Canvas extends java.awt.Canvas {
     }
 
     @Override
-<<<<<<< HEAD
     public void setBounds(int x, int y, int width, int height) {
         canvas.setBounds(0, 0, width, height);
     }
@@ -131,10 +126,6 @@ public class Canvas extends java.awt.Canvas {
     public void setLocation(int x, int y) {
         canvas.setLocation(0, 0);
     }
-=======
-    public void setLocation(int x, int y) {
-        canvas.setLocation(0, 0);
-    }
 
->>>>>>> origin/master
+
 }

@@ -3,6 +3,7 @@ package org.liquidbot;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
+import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
@@ -22,7 +23,7 @@ public class Boot {
 
     public static void main(String[] args) {
         JPopupMenu.setDefaultLightWeightPopupEnabled(true);
-
+        config.setConsole(new BotConsole());
         log.info("Parsing hooks..");
         HookReader.init();
 

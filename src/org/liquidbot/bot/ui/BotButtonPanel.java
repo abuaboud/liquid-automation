@@ -25,6 +25,8 @@ public class BotButtonPanel extends JPanel {
     public BotButtonPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
+        
+
         menu = new BotPopupMenu();
 
         sdnButton = new BotButton("sdn.png");

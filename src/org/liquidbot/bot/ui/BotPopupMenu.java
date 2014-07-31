@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu {
 
     private final JMenu view;
-    private final JMenuItem  settings, widgets;
+    private final JMenuItem  settings, widgets, console;
     private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players;
     private final Configuration config = Configuration.getInstance();
 
@@ -41,6 +41,7 @@ public class BotPopupMenu extends JPopupMenu {
         });
 
         mouse = new JCheckBoxMenuItem("Mouse");
+        mouse.setSelected(config.drawMouse());
         mouse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -50,11 +51,30 @@ public class BotPopupMenu extends JPopupMenu {
         });
 
         canvas = new JCheckBoxMenuItem("Canvas");
+        canvas.setSelected(config.drawCanvas());
         canvas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 config.drawCanvas(!config.drawCanvas());
                 log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");
+            }
+        });
+
+        console = new JMenuItem("Display Console");
+        console.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(config.getConsole().isDisplaying()) {
+                    log.info("Disabling Console.");
+                    config.getConsole().display(false);
+                    config.getBotFrame().remove(config.getConsole());
+                } else {
+                    log.info("Enabled Console.");
+                    config.getConsole().display(true);
+                    config.getBotFrame().add(config.getConsole());
+                }
+                config.getBotFrame().pack();
+                config.getBotFrame().revalidate();
             }
         });
 
@@ -81,6 +101,8 @@ public class BotPopupMenu extends JPopupMenu {
         add(new JSeparator());
         add(settings);
         add(widgets);
+        add(new JSeparator());
+        add(console);
     }
 
 }

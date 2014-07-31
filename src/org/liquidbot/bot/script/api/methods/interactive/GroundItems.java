@@ -76,7 +76,7 @@ public class GroundItems {
      */
     public static GroundItem getNearest(Tile start, Filter<GroundItem> filter) {
         GroundItem closet = null;
-        int distance = 9999;
+        int distance = 255;
         for (GroundItem groundItem : getAll(filter)) {
             if (groundItem.isValid() && distance > groundItem.distanceTo(groundItem.getLocation())) {
                 closet = groundItem;

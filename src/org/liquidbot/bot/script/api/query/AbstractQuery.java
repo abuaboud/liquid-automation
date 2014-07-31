@@ -10,49 +10,57 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Iterable<E> {
 
-    private final List<E> list = new LinkedList<E>();
+    private final List<E> elements = new LinkedList<E>();
 
     protected abstract E[] elements();
 
-    public Q refresh() {
-        list.clear();
-        for(E element : elements()) {
-            if(element != null) {
-                list.add(element);
-            }
-        }
+    public Q select() {
+        elements.clear();
+        Collections.addAll(elements, elements());
         return (Q) this;
     }
 
     public Q filter(Filter<E> filter) {
-        final List<E> clone = new ArrayList<>(list);
-        for(E e : elements()) {
-            if(e != null && !filter.accept(e)) {
-                list.remove(e);
+        final List<E> copy = new LinkedList<E>(elements);
+        for(E e : copy) {
+            if(!filter.accept(e)) {
+                elements.remove(e);
             }
         }
         return (Q) this;
     }
 
     public Q sort(Comparator<E> comparator) {
-        Collections.sort(list, comparator);
+        Collections.sort(elements, comparator);
         return (Q) this;
     }
 
-    public boolean isEmpty() {
-        return list.isEmpty();
+    public E single() {
+        return !elements.isEmpty() ? elements.get(0) : null;
     }
 
-    public List<E> getList() {
-        return list;
+    public Q limit(int amount) {
+        final List<E> clone = new LinkedList<E>(elements);
+        if(size() > amount) {
+            final List<E> sub = clone.subList(0, amount);
+            elements.clear();
+            elements.addAll(sub);
+        }
+        return (Q) this;
     }
 
-    public E poll() {
-        return list.isEmpty() ? null : list.get(0);
+    public Q shuffle() {
+        Collections.shuffle(elements);
+        return (Q) this;
+    }
+
+    public int size() {
+        return elements.size();
     }
 
     @Override
     public Iterator<E> iterator() {
-        return list.iterator();
+        return elements.iterator();
     }
+
 }

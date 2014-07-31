@@ -42,7 +42,7 @@ public class GroundItemDebugger extends Debugger<GroundItem> {
     private Filter<GroundItem> filter = new Filter<GroundItem>() {
         @Override
         public boolean accept(GroundItem groundItem) {
-            return groundItem.isValid() && groundItem.distanceTo() < 7 && groundItem.isOnScreen();
+            return groundItem.isValid() && groundItem.distanceTo() <= 7 && groundItem.isOnScreen();
         }
     };
 }

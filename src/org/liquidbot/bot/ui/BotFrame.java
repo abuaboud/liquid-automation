@@ -73,7 +73,7 @@ public class BotFrame extends JFrame implements WindowListener {
     @Override
     public void windowDeiconified(WindowEvent e) {
         log.info("Gained focus, unlocking canvas.");
-        configuration.drawCanvas(false);
+        configuration.drawCanvas(true);
     }
 
     @Override

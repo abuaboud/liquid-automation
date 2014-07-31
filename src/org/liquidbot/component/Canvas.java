@@ -58,8 +58,6 @@ public class Canvas extends java.awt.Canvas {
                     final Debugger debug = (Debugger) listener;
                     if (debug.activate()) {
                         debug.render(graphics);
-                    } else {
-                        debug.dispose();
                     }
                 } else {
                     listener.render(graphics);

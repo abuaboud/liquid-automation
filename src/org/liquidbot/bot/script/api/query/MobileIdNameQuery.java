@@ -63,7 +63,7 @@ public abstract class MobileIdNameQuery<Q extends MobileIdNameQuery, E extends L
     private final Comparator<E> DISTANCE_SORT = new Comparator<E>() {
         @Override
         public int compare(E o1, E o2) {
-            return o2.distanceTo() - o1.distanceTo();
+            return o1.distanceTo() - o2.distanceTo();
         }
     };
 }

@@ -88,10 +88,6 @@ public class RSLoader extends JPanel implements AppletStub {
         thread.start();
     }
 
-    public Configuration getConfiguration() {
-        return configuration;
-    }
-
     @Override
     public void paintComponent(Graphics graphics) {
         if (!isAppletLoaded) {

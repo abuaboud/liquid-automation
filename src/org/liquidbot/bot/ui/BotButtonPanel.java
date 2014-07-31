@@ -1,5 +1,9 @@
 package org.liquidbot.bot.ui;
 
+import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.utils.NetUtils;
+import org.liquidbot.bot.utils.Utilities;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,33 +25,59 @@ public class BotButtonPanel extends JPanel {
 
         menu = new BotPopupMenu();
 
-        sdnButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/world_link.png", "world_link.png");
+        sdnButton = new BotButton("sdn.png");
+        sdnButton.setButtonHoverIcon("sdn_hover.png");
         sdnButton.setToolTipText("Open the Script Repository.");
         add(sdnButton);
 
-        startButton = new BotButton("https://copy.com/P92cjV2tjZkk/control_play.png", "control_play.png");
-        startButton.setButtonRollOverIcon("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_play_blue.png", "control_play_blue.png");
+        startButton = new BotButton("play.png");
+        startButton.setButtonHoverIcon("play_hover.png");
         startButton.setToolTipText("Start a script.");
         add(startButton);
 
-        pauseButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_pause.png", "control_pause.png");
+        pauseButton = new BotButton("pause.png");
+        pauseButton.setButtonHoverIcon("pause_hover.png");
         pauseButton.setToolTipText("Pause the currently running script.");
         add(pauseButton);
 
-        stopButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/control_stop.png", "control_stop.png");
+        stopButton = new BotButton("stop.png");
+        stopButton.setButtonHoverIcon("stop_hover.png");
         stopButton.setToolTipText("Stop the currently running script.");
         add(stopButton);
+
         add(Box.createHorizontalGlue());
 
-        keyboardButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/keyboard.png", "keyboard.png");
+        keyboardButton = new BotButton("keyboard_enabled.png");
+        keyboardButton.setButtonHoverIcon("keyboard_enabled_hover.png");
+
         keyboardButton.setToolTipText("Disable keyboard input.");
+        keyboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Configuration.enableKeyboard = !Configuration.enableKeyboard;
+                keyboardButton.setButtonIcon(Configuration.enableKeyboard ? "keyboard_enabled.png" : "keyboard_disabled.png");
+                keyboardButton.setButtonHoverIcon(Configuration.enableKeyboard ? "keyboard_enabled_hover.png" : "keyboard_disabled_hover.png");
+                keyboardButton.revalidate();
+            }
+        });
         add(keyboardButton);
 
-        mouseButton  = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/mouse.png", "mouse.png");
+        mouseButton  = new BotButton("mouse_enabled.png");
+        mouseButton.setButtonHoverIcon("mouse_enabled_hover.png");
         mouseButton.setToolTipText("Disable mouse input.");
+        mouseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Configuration.enableMouse = !Configuration.enableMouse;
+                mouseButton.setButtonIcon(Configuration.enableMouse ? "mouse_enabled.png" : "mouse_disabled.png");
+                mouseButton.setButtonHoverIcon(Configuration.enableMouse ? "mouse_enabled_hover.png" : "mouse_disabled_hover.png");
+                mouseButton.revalidate();
+            }
+        });
         add(mouseButton);
 
-        settingsButton = new BotButton("https://raw.githubusercontent.com/Ineedajob/RSBot/master/resources/images/bot.png", "gear.png");
+        settingsButton = new BotButton("settings.png");
+        settingsButton.setButtonHoverIcon("settings_hover.png");
         settingsButton.setToolTipText("Display the client settings.");
         settingsButton.addActionListener(new ActionListener() {
             @Override

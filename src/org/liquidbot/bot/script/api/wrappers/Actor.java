@@ -80,4 +80,19 @@ public class Actor implements Locatable {
     public int getX() {
         return ((((int) Reflection.value("Actor.getX()", raw)) >> 7) + (int) Reflection.value("Client.getBaseX()", null));
     }
+
+    @Override
+    public int distanceTo() {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void turnTo() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public Tile getLocation() {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

@@ -145,8 +145,7 @@ public class RSLoader extends JPanel implements AppletStub {
     @Override
     public URL getCodeBase() {
         try {
-            final URL documentBase = new URL(params.get("codebase"));
-            return documentBase;
+            return new URL(params.get("codebase"));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

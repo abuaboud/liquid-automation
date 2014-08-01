@@ -117,13 +117,13 @@ public class Canvas extends java.awt.Canvas {
 
     @Override
     public void setSize(int width, int height) {
-        canvas.setSize(Constants.APPLET_WIDTH, Constants.APPLET_WIDTH);
+        canvas.setSize(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT);
     }
 
     @Override
     public void setLocation(int x, int y) {
         canvas.setLocation(0, 0);
+        revalidate();
     }
-
 
 }

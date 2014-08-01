@@ -16,10 +16,6 @@ import java.util.ArrayList;
  */
 public class SDNFrame extends JFrame {
 
-    private final Font font = new Font("Calibri", Font.PLAIN, 13);
-    private final Color background = Color.decode("#dddddd");
-    private final Color foreground = new Color(168, 182, 197);
-
     private JTextField searchField;
     private ArrayList<SDNElement> elements = new ArrayList<>();
     private JList<SkillCategory> categorys;
@@ -29,7 +25,7 @@ public class SDNFrame extends JFrame {
     private JScrollPane scrollPane;
 
     public SDNFrame() {
-
+        super("LiquidBot SDN");
         searchField = new JTextField(20);
         searchField.setForeground(Color.LIGHT_GRAY);
         searchField.setText("Search");
@@ -115,7 +111,9 @@ public class SDNFrame extends JFrame {
             scriptPanel.add(element);
         }
         scriptPanel.setBorder(new EtchedBorder());
-
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        pack();
     }
 
     public String[] scripts = {
@@ -137,7 +135,6 @@ public class SDNFrame extends JFrame {
         }
 
         final SDNFrame frame = new SDNFrame();
-        frame.pack();
         frame.setVisible(true);
     }
 

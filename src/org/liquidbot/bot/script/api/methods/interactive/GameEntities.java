@@ -117,7 +117,6 @@ public class GameEntities {
                 }
             }
         }
-        System.out.println(System.currentTimeMillis() - start);
         return objects.toArray(new GameObject[objects.size()]);
     }
 

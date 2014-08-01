@@ -39,7 +39,7 @@ public class GameObjectDebugger extends Debugger<GameObject> {
                         Point p = gameObject.getLocation().getPointOnScreen();
                         String format = gameObject.getId() + ((gameObject.getName() !=null && !gameObject.getName().equalsIgnoreCase("null"))? " (" + gameObject.getName() + ")" : "");
                         graphics.drawString(format,p.x - (metrics.stringWidth(format)/2),p.y);
-                        graphics.fillRect((int) p.x, (int) p.y, 5, 5);
+                        graphics.fillRect(p.x, p.y, 5, 5);
                     }
                 }
             }

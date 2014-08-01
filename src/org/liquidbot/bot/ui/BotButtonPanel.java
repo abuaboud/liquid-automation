@@ -38,7 +38,7 @@ public class BotButtonPanel extends JPanel {
         sdnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                log.info(!sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");
+                log.info(sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");
                 sdnFrame.setVisible(!sdnFrame.isVisible());
             }
         });
@@ -101,7 +101,6 @@ public class BotButtonPanel extends JPanel {
             }
         });
         add(settingsButton);
-
     }
 
     @Override

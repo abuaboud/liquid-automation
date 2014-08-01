@@ -1,8 +1,6 @@
 package org.liquidbot.bot.script.api.wrappers;
 
 import com.sun.corba.se.spi.ior.IdentifiableFactory;
-import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -11,33 +9,42 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
-import org.liquidbot.bot.script.api.wrappers.definitions.ItemDefinition;
+import org.liquidbot.bot.script.api.wrappers.definitions.ObjectDefinition;
 
 import java.awt.*;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created by Hiasat on 8/1/14
  */
-public class GroundItem implements Locatable, Identifiable, Nameable, Interactable {
+public class GameObject implements Nameable, Locatable, Interactable, Identifiable {
 
-    private int id;
-    private int amount;
-    private Tile location;
-    private ItemDefinition itemDefinition;
+    public enum Type {
+        INTERACTIVE("GameObject"), BOUNDARY("Boundary"), FLOOR_DECORATION("FloorDecoration"), WALL_OBJECT("WallObject");
 
-    public GroundItem(Object raw, Tile tile) {
-        if (raw != null) {
-            location = tile;
-            id = (int) Reflection.value("Item#getId()", raw);
-            amount = (int) Reflection.value("Item#getStackSize()", raw);
-            itemDefinition = new ItemDefinition(id);
-        } else {
-            id = -1;
-            amount = -1;
+        String cato;
+
+        Type(String cato) {
+            this.cato = cato;
         }
+    }
+
+    private Type type;
+    private int id;
+    private Object raw;
+    private ObjectDefinition objectDefinition;
+
+    public GameObject(Object raw, Type type) {
+        if (raw != null) {
+            int hash = (int) Reflection.value(type.cato + "#getId()", raw);
+            this.id = ((hash >> 14) & 0x7FFF);
+            this.raw = raw;
+            this.type = type;
+            this.objectDefinition = new ObjectDefinition(id);
+        }
+    }
+
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -67,14 +74,12 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public boolean isOnScreen() {
-        return location.isOnScreen();
+        return getLocation().isOnScreen();
     }
 
     @Override
     public Point getPointOnScreen() {
-        int realX = (getLocation().getX() - Game.getBaseX()) * 128;
-        int realY = (getLocation().getY() - Game.getBaseY()) * 128;
-        return Calculations.worldToScreen(realX + 66, realY + 66, 0);
+        return getLocation().getPointOnScreen();
     }
 
     @Override
@@ -84,12 +89,12 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public int distanceTo() {
-        return Calculations.distanceTo(this);
+        return Calculations.distanceTo(this);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public int distanceTo(Locatable locatable) {
-        return Calculations.distanceBetween(getLocation(), locatable.getLocation());
+        return Calculations.distanceBetween(this.getLocation(), locatable.getLocation());
     }
 
     @Override
@@ -104,19 +109,28 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public Tile getLocation() {
-        return location;
+        return new Tile(getX(), getY());
     }
 
     @Override
     public String getName() {
-        return itemDefinition.getName();
+        return objectDefinition.getName();
+    }
+
+    public String[] getActions() {
+        return objectDefinition.getActions();
     }
 
     public boolean isValid() {
-        return (id | amount) != -1;
+        return id > 0;
     }
 
-    public int getStackSize() {
-        return amount;
+    public int getX() {
+        return (((int) Reflection.value(type.cato + "#getId()", raw)) & 0x7F) + Game.getBaseX();
     }
+
+    public int getY() {
+        return (((int) Reflection.value(type.cato + "#getId()", raw)) >> 7 & 0x7F) + Game.getBaseY();
+    }
+
 }

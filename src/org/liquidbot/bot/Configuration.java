@@ -25,6 +25,7 @@ public class Configuration {
     private boolean drawPlayers = false;
     private boolean drawNPCs = false;
     private boolean drawGroundItems = false;
+    private boolean drawGameObjects = false;
     private boolean drawMouse = true;
     private boolean drawCanvas = true;
 
@@ -114,6 +115,14 @@ public class Configuration {
 
     public void drawNPCs(boolean drawNPCs) {
         this.drawNPCs = drawNPCs;
+    }
+
+    public boolean drawGameObjects() {
+        return drawGameObjects;
+    }
+
+    public void drawGameObjects(boolean drawGameObjects) {
+        this.drawGameObjects = drawGameObjects;
     }
 
     public boolean drawGroundItems() {

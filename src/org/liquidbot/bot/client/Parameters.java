@@ -64,8 +64,6 @@ public class Parameters {
                     "Please check your internet connection and restar the client!", "Error loading data",
                     JOptionPane.PLAIN_MESSAGE, JOptionPane.ERROR_MESSAGE, null, options, options[0]);
         }
-
-        System.out.println(get("initial_jar"));
     }
 
     /**

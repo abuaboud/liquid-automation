@@ -1,6 +1,8 @@
 package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.ui.sdn.SDNFrame;
+import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
@@ -19,19 +21,27 @@ public class BotButtonPanel extends JPanel {
 
     private BotButton startButton, pauseButton, stopButton, keyboardButton, mouseButton, settingsButton, sdnButton;
     private BotPopupMenu menu;
+    private SDNFrame sdnFrame;
 
+    private final Logger log = new Logger(BotButtonPanel.class);
     private final Configuration config = Configuration.getInstance();
 
     public BotButtonPanel() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
-        
-
         menu = new BotPopupMenu();
+        sdnFrame = new SDNFrame();
 
         sdnButton = new BotButton("sdn.png");
         sdnButton.setButtonHoverIcon("sdn_hover.png");
         sdnButton.setToolTipText("Open the Script Repository.");
+        sdnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                log.info(!sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");
+                sdnFrame.setVisible(!sdnFrame.isVisible());
+            }
+        });
         add(sdnButton);
 
         startButton = new BotButton("play.png");

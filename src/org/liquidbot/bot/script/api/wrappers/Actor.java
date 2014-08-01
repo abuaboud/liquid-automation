@@ -61,6 +61,32 @@ public class Actor implements Locatable {
     }
 
     /**
+     *
+     * @return int : 0-100% if health bar visible else 0%
+     */
+    public int getHealthPercent() {
+        if (getHealth() == 0) return isInCombat() ? 0 : 100;
+        return (int) ((double) getHealth() / getMaxHealth() * 100);
+    }
+
+    /**
+     *
+     * @return boolean : if in combat return true else return false
+     */
+    public boolean isInCombat() {
+        if (raw == null)
+            return false;
+        int LoopCycleStatus = ((int) Reflection.value("Client#getLoopCycle()",null)) - 130;
+        int[] hitCycles = (int[]) Reflection.value("Actor#getHitCycles()",raw);
+        for (final int loopCycle : hitCycles) {
+            if (loopCycle > LoopCycleStatus) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * the Height of Actor
      *
      * @return Integer Height

@@ -16,7 +16,7 @@ public class NPCDebugger extends Debugger<NPC> {
 
     @Override
     public NPC[] elements() {
-        return NPCs.getAll();
+        return NPCs.getAll(filter);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class NPCDebugger extends Debugger<NPC> {
 
         final FontMetrics metrics = graphics.getFontMetrics();
 
-        for(NPC npc : NPCs.query().refresh().within(7).filter(filter)) {
+        for(NPC npc : refresh()) {
             final Point pt = Calculations.tileToScreen(npc.getLocation(), 0.5, 0.5, 0);
             final String format = npc.getName() + " [ID: " + npc.getId() + " Animation Id: " + npc.getAnimation() + "]";
 
@@ -44,7 +44,7 @@ public class NPCDebugger extends Debugger<NPC> {
     private Filter<NPC> filter = new Filter<NPC>() {
         @Override
         public boolean accept(NPC npc) {
-            return npc.isValid() && npc.isOnScreen();
+            return npc.isValid() && npc.distanceTo() < 7 && npc.isOnScreen();
         }
     };
 }

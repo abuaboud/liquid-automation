@@ -22,6 +22,7 @@ public class Configuration {
     private boolean enableKeyboard = true;
     private boolean drawPlayers = false;
     private boolean drawNPCs = false;
+    private boolean drawGroundItems = false;
     private boolean drawMouse = true;
     private boolean drawCanvas = true;
 
@@ -32,7 +33,7 @@ public class Configuration {
     }
 
     public InternalKeyboard getKeyboard() {
-        if(keyboard == null)
+        if (keyboard == null)
             logger.error("Keyboard isn't set!");
         return keyboard;
     }
@@ -42,8 +43,8 @@ public class Configuration {
     }
 
     public InternalMouse getMouse() {
-        if(mouse == null)
-        logger.error("Mouse isn't set!");
+        if (mouse == null)
+            logger.error("Mouse isn't set!");
         return mouse;
     }
 
@@ -52,7 +53,7 @@ public class Configuration {
     }
 
     public Canvas getCanvas() {
-        if(canvas == null)
+        if (canvas == null)
             logger.error("canvas isn't set!");
         return canvas;
     }
@@ -62,7 +63,7 @@ public class Configuration {
     }
 
     public BotFrame getBotFrame() {
-        if(botFrame == null)
+        if (botFrame == null)
             logger.error("botFrame isn't set!");
         return botFrame;
     }
@@ -101,6 +102,14 @@ public class Configuration {
 
     public void drawNPCs(boolean drawNPCs) {
         this.drawNPCs = drawNPCs;
+    }
+
+    public boolean drawGroundItems() {
+        return drawGroundItems;
+    }
+
+    public void drawGroundItems(boolean drawGroundItems) {
+        this.drawGroundItems = drawGroundItems;
     }
 
     public boolean drawMouse() {

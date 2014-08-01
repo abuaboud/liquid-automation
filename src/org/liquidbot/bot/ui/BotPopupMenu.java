@@ -59,6 +59,13 @@ public class BotPopupMenu extends JPopupMenu {
         });
 
         groundItems = new JCheckBoxMenuItem("Ground Items");
+        groundItems.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                config.drawGroundItems(!config.drawGroundItems());
+                log.info(config.drawGroundItems() ? "Enabled GroundItems drawing." : "Disabled GroundItems drawing.");
+            }
+        });
         gameObjects = new JCheckBoxMenuItem("Game Objects");
         settings = new JMenuItem("Settings Explorer");
         widgets = new JMenuItem("Widget Explorer");

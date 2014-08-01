@@ -7,6 +7,8 @@ import org.liquidbot.bot.client.reflection.Reflection;
  */
 public class Game {
 
+    public static final int GAME_STATE_LOGGED_IN = 30;
+
     /**
      * current Game State E.g Logged , Lobby , Loading
      *
@@ -45,6 +47,6 @@ public class Game {
      * @return true if logged in else false
      */
     public static boolean isLoggedIn() {
-        return true;
+        return getGameState() == GAME_STATE_LOGGED_IN;
     }
 }

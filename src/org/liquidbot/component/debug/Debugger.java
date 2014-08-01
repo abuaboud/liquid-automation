@@ -15,7 +15,7 @@ public abstract class Debugger<E> implements PaintListener {
 
     public Configuration config = Configuration.getInstance();
     protected List<E> list = new ArrayList<E>();
-    private Timer refreshRate = new Timer(500);
+    private Timer refreshRate = new Timer(1000);
 
     public abstract E[] elements();
 

@@ -1,4 +1,4 @@
-package org.liquidbot.bot.script.api.wrappers;
+package org.liquidbot.bot.script.api.wrappers.definitions;
 
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;

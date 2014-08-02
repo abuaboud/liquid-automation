@@ -31,12 +31,12 @@ public class GameEntities {
         });
     }
 
-   /* *//**
+    /**
      * Return all gameObjects that have one of these names
      *
      * @param names
      * @return GameObject[] : Get all gameObjects with any of these names
-     *//*
+     */
     public static GameObject[] getAll(final String... names) {
         return getAll(new Filter<GameObject>() {
             @Override
@@ -46,12 +46,12 @@ public class GameEntities {
         });
     }
 
-    *//**
+    /**
      * Return all gameObjects that have one of these ids
      *
      * @param ids
      * @return GameObject[] : Get all gameObjects with any of these ids
-     *//*
+     */
     public static GameObject[] getAll(final int... ids) {
         return getAll(new Filter<GameObject>() {
             @Override
@@ -60,7 +60,7 @@ public class GameEntities {
             }
         });
     }
-*/
+
 
     /**
      * Get All Object in the Region that apply to that filter
@@ -130,23 +130,23 @@ public class GameEntities {
         }
         return objects.toArray(new GameObject[objects.size()]);
     }
-/*
-    *//**
+
+    /**
      * @param filter
      * @return GameObject : nearest gameObject to Local Player
      *         that apply to that filter
-     *//*
+     */
     public static GameObject getNearest(Filter<GameObject> filter) {
         return getNearest(Players.getLocal().getLocation(), filter);
     }
 
-    *//**
+    /**
      * @param filter
      * @return GameObject : nearest gameObject to start tile
      *         that apply to that filter
-     *//*
+     */
     public static GameObject getNearest(Tile start, Filter<GameObject> filter) {
-        GameObject closet = new GameObject(null, null);
+        GameObject closet = null;
         int distance = 255;
         for (GameObject gameObject : getAll(filter)) {
             if (gameObject.isValid() && distance > gameObject.distanceTo(start)) {
@@ -156,12 +156,12 @@ public class GameEntities {
         return closet;
     }
 
-    *//**
+    /**
      * Get closet GroundItem that has that Id or one of ids
      *
      * @param ids target GameObject Id or Ids
      * @return GameObject
-     *//*
+     */
     public static GameObject getNearest(final int... ids) {
         return getNearest(Players.getLocal().getLocation(), new Filter<GameObject>() {
             @Override
@@ -171,12 +171,12 @@ public class GameEntities {
         });
     }
 
-    *//**
+    /**
      * Get closet GameObject that has that name or one of names
      *
      * @param names target GameObject name or names
      * @return GameObject
-     *//*
+     */
     public static GameObject getNearest(final String... names) {
         return getNearest(Players.getLocal().getLocation(), new Filter<GameObject>() {
             @Override
@@ -186,11 +186,11 @@ public class GameEntities {
         });
     }
 
-    *//**
+    /**
      * @param tile
      * @return GameObject : gameObject that is in specific tile
      *         if there isn't it will return null
-     *//*
+     */
     public static GameObject getAt(final Tile tile) {
         return getNearest(Players.getLocal().getLocation(), new Filter<GameObject>() {
 
@@ -199,5 +199,5 @@ public class GameEntities {
                 return obj != null && tile.equals(obj.getLocation());
             }
         });
-    }*/
+    }
 }

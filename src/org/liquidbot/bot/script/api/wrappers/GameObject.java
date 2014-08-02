@@ -16,7 +16,7 @@ import java.awt.*;
 /*
  * Created by Hiasat on 8/1/14
  */
-public class GameObject implements Identifiable, Nameable {
+public class GameObject implements Identifiable, Nameable, Locatable, Interactable {
 
     public enum Type {
         INTERACTIVE("GameObject"), BOUNDARY("Boundary"), FLOOR_DECORATION("FloorDecoration"), WALL_OBJECT("WallObject");
@@ -78,7 +78,7 @@ public class GameObject implements Identifiable, Nameable {
         return tile;
     }
 
-  /*  @Override
+    @Override
     public boolean isOnScreen() {
         return getLocation().isOnScreen();
     }
@@ -95,22 +95,42 @@ public class GameObject implements Identifiable, Nameable {
 
     @Override
     public int distanceTo() {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return Calculations.distanceTo(this);
     }
 
     @Override
     public int distanceTo(Locatable locatable) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return Calculations.distanceBetween(tile,this.getLocation());
     }
 
     @Override
     public int distanceTo(Tile tile) {
-        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+        return Calculations.distanceBetween(tile,this.getLocation());
     }
 
     @Override
     public void turnTo() {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }*/
+        Camera.turnTo(this);
+    }
+
+    @Override
+    public boolean interact(String action, String option) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean interact(String action) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean click(boolean left) {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean click() {
+        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    }
 
 }

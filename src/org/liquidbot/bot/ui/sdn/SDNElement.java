@@ -72,7 +72,7 @@ public class SDNElement extends JPanel {
         center.add(imageLabel, BorderLayout.WEST);
 
         setBorder(new EtchedBorder());
-        setPreferredSize(new Dimension(250, 150));
+        setSize(250, 150);
         add(bottom, BorderLayout.SOUTH);
         add(center, BorderLayout.CENTER);
     }

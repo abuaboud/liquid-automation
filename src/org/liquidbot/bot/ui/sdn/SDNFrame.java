@@ -2,7 +2,7 @@ package org.liquidbot.bot.ui.sdn;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.script.SkillCategory;
-import org.liquidbot.bot.ui.swing.VerticalFlowLayout;
+
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -16,10 +16,11 @@ import java.util.ArrayList;
  */
 public class SDNFrame extends JFrame {
 
+
     private JTextField searchField;
     private ArrayList<SDNElement> elements = new ArrayList<>();
 
-    private JComboBox<SkillCategory> categories;
+    private JComboBox<String> categories;
 
     private JPanel topPanel;
     private JPanel scriptPanel;
@@ -27,6 +28,7 @@ public class SDNFrame extends JFrame {
 
     public SDNFrame() {
         super("LiquidBot SDN");
+        setResizable(false);
         searchField = new JTextField(20);
         searchField.setForeground(Color.LIGHT_GRAY);
         searchField.setText("Search");
@@ -52,38 +54,55 @@ public class SDNFrame extends JFrame {
             public void keyTyped(KeyEvent e) {
                 super.keyTyped(e);
                 scriptPanel.removeAll();
-                for(SDNElement element : elements) {
-                    if(element.getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                int index = 0;
+                for (int realIndex = 0; realIndex < elements.size(); realIndex++) {
+                    SDNElement element = elements.get(realIndex);
+                    if (element.getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
-                    }
-                    if(element.getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                        reBounds(index, realIndex);
+                        index++;
+                    } else if (element.getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
-                    }
-                    if(element.getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                        reBounds(index, realIndex);
+                        index++;
+                    } else if (element.getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
-                    }
-                    if(element.getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                        reBounds(index, realIndex);
+                        index++;
+                    } else if (element.getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
+                        reBounds(index, realIndex);
+                        index++;
                     }
                 }
-                scriptPanel.setPreferredSize(new Dimension(765, (scriptPanel.getComponents().length * 150) / 3));
+                scriptPanel.setPreferredSize(new Dimension(765, (150 * (index / 3))));
                 SwingUtilities.updateComponentTreeUI(scriptPanel);
             }
         });
 
-        categories = new JComboBox<>(SkillCategory.values());
-        categories.setSelectedItem(null);
+        SkillCategory[] skillCategories = SkillCategory.values();
+        String[] categoriesList = new String[skillCategories.length + 1];
+        categoriesList[0] = "All";
+        for(int x = 1 ; x < categoriesList.length ;x++){
+            categoriesList[x] = skillCategories[x - 1].getName();
+        }
+        categories = new JComboBox<>(categoriesList);
+        categories.setSelectedItem(categoriesList[0]);
         categories.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent evt) {
                 scriptPanel.removeAll();
-                final SkillCategory selected = (SkillCategory) categories.getSelectedItem();
-                for(SDNElement element : elements) {
-                    if(element.getSkillCategory() == selected) {
+                final String selected = (String) categories.getSelectedItem();
+                int index = 0;
+                for (int realIndex = 0; realIndex < elements.size(); realIndex++) {
+                    SDNElement element = elements.get(realIndex);
+                    if (selected.equalsIgnoreCase("All") || element.getSkillCategory().getName().equalsIgnoreCase(selected)) {
                         scriptPanel.add(element);
+                        reBounds(index,realIndex);
+                        index++;
                     }
                 }
-                scriptPanel.setPreferredSize(new Dimension(765, (scriptPanel.getComponents().length * 150) / 3));
+                scriptPanel.setPreferredSize(new Dimension(765, (150 * (index / 3))));
                 SwingUtilities.updateComponentTreeUI(getContentPane());
             }
         });
@@ -98,26 +117,28 @@ public class SDNFrame extends JFrame {
         scriptPanel.setLayout(null);
 
         scrollPane = new JScrollPane(scriptPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
         getContentPane().setLayout(new BorderLayout());
         getContentPane().add(topPanel, BorderLayout.NORTH);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-        scriptPanel.setLayout(new VerticalFlowLayout());
 
-        for(String str : scripts) {
+        for (String str : scripts) {
             elements.add(new SDNElement(str));
         }
 
-        for(SDNElement element : elements) {
-            scriptPanel.add(element);
+        for (int index = 0; index < elements.size(); index++) {
+            reBounds(index, index);
+            scriptPanel.add(elements.get(index));
         }
 
-        scriptPanel.setPreferredSize(new Dimension(765, (scriptPanel.getComponents().length * 150) / 2));
+        scriptPanel.setPreferredSize(new Dimension(765, (150 * (elements.size() / 3))));
         scriptPanel.setBorder(new EtchedBorder());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(785, 525);
+        setSize(770, 508);
     }
 
     public String[] scripts = {
@@ -154,6 +175,19 @@ public class SDNFrame extends JFrame {
 
         final SDNFrame frame = new SDNFrame();
         frame.setVisible(true);
+    }
+
+    private void reBounds(int index, int realIndex) {
+        final int width = 250;
+        final int height = 150;
+        final int spacing = 3;
+        final int scriptPerRow = 3;
+        SDNElement element = elements.get(realIndex);
+        int col = index / scriptPerRow;
+        int row = index - (col * scriptPerRow);
+        int x = row * width + spacing;
+        int y = col * height + spacing;
+        element.setBounds(x, y, width, height);
     }
 
 }

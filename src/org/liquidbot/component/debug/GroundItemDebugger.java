@@ -19,7 +19,12 @@ public class GroundItemDebugger extends Debugger<GroundItem> {
 
     @Override
     public GroundItem[] elements() {
-        return GroundItems.getAll(filter);
+        return GroundItems.getAll(new Filter<GroundItem>() {
+            @Override
+            public boolean accept(GroundItem groundItem) {
+                return true;
+            }
+        });
     }
 
     @Override
@@ -31,7 +36,7 @@ public class GroundItemDebugger extends Debugger<GroundItem> {
     public void render(Graphics graphics) {
             final FontMetrics metrics = graphics.getFontMetrics();
             for (GroundItem groundItem : refresh()) {
-                if (groundItem.isValid()){
+                if (groundItem.isValid() ){
                     Point point = groundItem.getPointOnScreen();
                     graphics.setColor(Color.white);
                     graphics.fillRect((int) point.x, (int) point.y, 5, 5);

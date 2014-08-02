@@ -16,7 +16,7 @@ import java.awt.*;
 /*
  * Created by Hiasat on 8/1/14
  */
-public class GameObject implements Nameable, Locatable, Interactable, Identifiable {
+public class GameObject implements Identifiable, Nameable {
 
     public enum Type {
         INTERACTIVE("GameObject"), BOUNDARY("Boundary"), FLOOR_DECORATION("FloorDecoration"), WALL_OBJECT("WallObject");
@@ -28,20 +28,27 @@ public class GameObject implements Nameable, Locatable, Interactable, Identifiab
         }
     }
 
-    private Type type;
-    private int id;
+
     private Object raw;
+    private Type type;
+    private Tile tile;
+    private int id;
     private ObjectDefinition objectDefinition;
 
-    public GameObject(Object raw, Type type) {
-        if (raw != null) {
-            int hash = (int) Reflection.value(type.cato + "#getId()", raw);
-            this.id = ((hash >> 14) & 0x7FFF);
-            this.raw = raw;
-            this.type = type;
-            this.objectDefinition = new ObjectDefinition(id);
-        }
+    public GameObject(Object raw, Type type, int x, int y, int z) {
+        this.raw = raw;
+        this.type = type;
+        this.tile = new Tile(x, y, z);
     }
+
+    @Override
+    public String getName() {
+        if (objectDefinition == null) {
+            objectDefinition = new ObjectDefinition(getId());
+        }
+        return objectDefinition.getName();
+    }
+
 
     public Type getType() {
         return type;
@@ -49,30 +56,29 @@ public class GameObject implements Nameable, Locatable, Interactable, Identifiab
 
     @Override
     public int getId() {
+        if (id == 0) {
+            id = ((int) Reflection.value(type.cato + "#getId()", raw) >> 14) & 0x7FFF;
+        }
         return id;
     }
 
-    @Override
-    public boolean interact(String action, String option) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public int getX() {
+        return tile.getX();
     }
 
-    @Override
-    public boolean interact(String action) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public int getY() {
+        return tile.getY();
     }
 
-    @Override
-    public boolean click(boolean left) {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public boolean isValid() {
+        return raw != null;
     }
 
-    @Override
-    public boolean click() {
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+    public Tile getLocation() {
+        return tile;
     }
 
-    @Override
+  /*  @Override
     public boolean isOnScreen() {
         return getLocation().isOnScreen();
     }
@@ -89,48 +95,22 @@ public class GameObject implements Nameable, Locatable, Interactable, Identifiab
 
     @Override
     public int distanceTo() {
-        return Calculations.distanceTo(this);  //To change body of implemented methods use File | Settings | File Templates.
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public int distanceTo(Locatable locatable) {
-        return Calculations.distanceBetween(this.getLocation(), locatable.getLocation());
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public int distanceTo(Tile tile) {
-        return Calculations.distanceBetween(getLocation(), tile);
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
     public void turnTo() {
-        Camera.turnTo(this);
-    }
-
-    @Override
-    public Tile getLocation() {
-        return new Tile(getX(), getY());
-    }
-
-    @Override
-    public String getName() {
-        return objectDefinition.getName();
-    }
-
-    public String[] getActions() {
-        return objectDefinition.getActions();
-    }
-
-    public boolean isValid() {
-        return id > 0;
-    }
-
-    public int getX() {
-        return (((int) Reflection.value(type.cato + "#getId()", raw)) & 0x7F) + Game.getBaseX();
-    }
-
-    public int getY() {
-        return (((int) Reflection.value(type.cato + "#getId()", raw)) >> 7 & 0x7F) + Game.getBaseY();
-    }
+        //To change body of implemented methods use File | Settings | File Templates.
+    }*/
 
 }

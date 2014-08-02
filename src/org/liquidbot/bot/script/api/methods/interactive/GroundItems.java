@@ -38,8 +38,7 @@ public class GroundItems {
                     Object holder = Reflection.value(head, nl);
                     Object curNode = Reflection.value(next, holder);
                     while (curNode != null && curNode != holder && curNode != Reflection.value(head, nl)) {
-                        Object node = curNode;
-                        GroundItem groundItem = new GroundItem(node, new Tile(Game.getBaseX() + x, Game.getBaseY() + y, Game.getPlane()));
+                        GroundItem groundItem = new GroundItem(curNode, new Tile(Game.getBaseX() + x, Game.getBaseY() + y, Game.getPlane()));
                         if (filter == null || filter.accept(groundItem)) {
                             groundItems.add(groundItem);
                         }
@@ -111,7 +110,7 @@ public class GroundItems {
         GroundItem closet = new GroundItem(null,null);
         int distance = 255;
         for (GroundItem groundItem : getAll(filter)) {
-            if (groundItem.isValid() && distance > groundItem.distanceTo(groundItem.getLocation())) {
+            if (groundItem.isValid() && distance > groundItem.distanceTo(start)) {
                 closet = groundItem;
             }
         }

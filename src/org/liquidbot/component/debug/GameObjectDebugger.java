@@ -1,8 +1,11 @@
 package org.liquidbot.component.debug;
 
 import org.liquidbot.bot.script.api.interfaces.Filter;
+import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
+import org.liquidbot.bot.script.api.wrappers.Tile;
 
 import java.awt.*;
 
@@ -13,7 +16,7 @@ public class GameObjectDebugger extends Debugger<GameObject> {
 
     @Override
     public GameObject[] elements() {
-        return GameEntities.getAll(filter);
+        return GameEntities.getAll(null);
     }
 
     @Override
@@ -23,9 +26,12 @@ public class GameObjectDebugger extends Debugger<GameObject> {
 
     @Override
     public void render(Graphics graphics) {
-            final FontMetrics metrics = graphics.getFontMetrics();
-            for (GameObject gameObject : refresh()) {
-                if (gameObject.isValid()){
+        final FontMetrics metrics = graphics.getFontMetrics();
+       final Tile location = Players.getLocal().getLocation();
+        for (GameObject gameObject : refresh()) {
+            if (gameObject.isValid()) {
+                Tile tile = gameObject.getLocation();
+                if (tile.distanceTo(location) < 7) {
                     if (gameObject.getType() != null) {
                         if (gameObject.getType().equals(GameObject.Type.INTERACTIVE)) {
                             graphics.setColor(Color.GREEN);
@@ -36,19 +42,18 @@ public class GameObjectDebugger extends Debugger<GameObject> {
                         } else if (gameObject.getType().equals(GameObject.Type.WALL_OBJECT)) {
                             graphics.setColor(Color.RED);
                         }
-                        Point p = gameObject.getLocation().getPointOnScreen();
-                        String format = gameObject.getId() + ((gameObject.getName() !=null && !gameObject.getName().equalsIgnoreCase("null"))? " (" + gameObject.getName() + ")" : "");
-                        graphics.drawString(format,p.x - (metrics.stringWidth(format)/2),p.y);
+
+                        Point p = tile.getPointOnScreen();
+                        String format = gameObject.getId() + ((gameObject.getName() != null && !gameObject.getName().equalsIgnoreCase("null")) ? " (" + gameObject.getName() + ")" : "");
+
+                        graphics.drawString(format, p.x - (metrics.stringWidth(format) / 2), p.y);
                         graphics.fillRect(p.x, p.y, 5, 5);
                     }
                 }
             }
+        }
+
+
     }
 
-    private Filter<GameObject> filter = new Filter<GameObject>() {
-        @Override
-        public boolean accept(GameObject gameObject) {
-            return gameObject.isValid() && gameObject.distanceTo() < 7 && gameObject.isOnScreen();
-        }
-    };
 }

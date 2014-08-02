@@ -42,7 +42,7 @@ public class ScriptLoader {
 
                     try {
 
-                        AbstractScript script = (AbstractScript) Class.forName(getPath(child.getAbsolutePath())).newInstance();
+                        AbstractScript script = (AbstractScript) child.getParentFile().getClass().getClassLoader().loadClass(child.getName().replaceAll(".class", "")).newInstance();
                         log.info("Script: "+ script);
                     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                         e.printStackTrace();
@@ -53,20 +53,4 @@ public class ScriptLoader {
             }
         }
     }
-
-    public static String getPath(String path) {
-        String[] a = path.replace(File.separator, " ").split(" ");
-        boolean found = false;
-        String pack = "";
-        for (String s : a) {
-            if (found) {
-                pack = pack + s + (a[a.length - 1].equalsIgnoreCase(s) ? "" : ".");
-            }
-            if (s.equalsIgnoreCase("scripts")) {
-                found = true;
-            }
-        }
-        return pack.replace(".class", "");
-    }
-
 }

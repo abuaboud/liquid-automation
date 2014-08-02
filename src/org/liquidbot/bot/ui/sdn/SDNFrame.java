@@ -29,6 +29,14 @@ public class SDNFrame extends JFrame {
     public SDNFrame() {
         super("LiquidBot SDN");
         setResizable(false);
+
+        SkillCategory[] skillCategories = SkillCategory.values();
+        final String[] categoriesList = new String[skillCategories.length + 1];
+        categoriesList[0] = "All";
+        for(int x = 1 ; x < categoriesList.length ;x++){
+            categoriesList[x] = skillCategories[x - 1].getName();
+        }
+
         searchField = new JTextField(20);
         searchField.setForeground(Color.LIGHT_GRAY);
         searchField.setText("Search");
@@ -39,7 +47,7 @@ public class SDNFrame extends JFrame {
                 super.focusGained(e);
                 searchField.setForeground(Color.BLACK);
                 searchField.setText("");
-                categories.setSelectedItem(null);
+                categories.setSelectedItem(categoriesList[0]);
             }
 
             @Override
@@ -80,12 +88,6 @@ public class SDNFrame extends JFrame {
             }
         });
 
-        SkillCategory[] skillCategories = SkillCategory.values();
-        String[] categoriesList = new String[skillCategories.length + 1];
-        categoriesList[0] = "All";
-        for(int x = 1 ; x < categoriesList.length ;x++){
-            categoriesList[x] = skillCategories[x - 1].getName();
-        }
         categories = new JComboBox<>(categoriesList);
         categories.setSelectedItem(categoriesList[0]);
         categories.addItemListener(new ItemListener() {
@@ -98,7 +100,7 @@ public class SDNFrame extends JFrame {
                     SDNElement element = elements.get(realIndex);
                     if (selected.equalsIgnoreCase("All") || element.getSkillCategory().getName().equalsIgnoreCase(selected)) {
                         scriptPanel.add(element);
-                        reBounds(index,realIndex);
+                        reBounds(index, realIndex);
                         index++;
                     }
                 }

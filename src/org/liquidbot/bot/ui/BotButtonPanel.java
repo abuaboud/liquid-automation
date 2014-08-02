@@ -1,6 +1,7 @@
 package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.loader.ScriptLoader;
 import org.liquidbot.bot.ui.sdn.SDNFrame;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
@@ -10,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * Created by Kenneth on 7/29/2014.
@@ -47,6 +49,12 @@ public class BotButtonPanel extends JPanel {
         startButton = new BotButton("play.png");
         startButton.setButtonHoverIcon("play_hover.png");
         startButton.setToolTipText("Start a script.");
+        startButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ScriptLoader.getLocalScripts();
+            }
+        });
         add(startButton);
 
         pauseButton = new BotButton("pause.png");

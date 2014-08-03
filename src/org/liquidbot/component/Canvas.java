@@ -71,12 +71,6 @@ public class Canvas extends java.awt.Canvas {
                     listener.render((Graphics2D) graphics);
                 }
             }
-            if (Game.isLoggedIn()) {
-                NPC npc = NPCs.getNearest("Goblin");
-                if (npc.isValid() && npc.isOnScreen()) {
-                    npc.draw((Graphics2D) graphics);
-                }
-            }
         }
         graphics.dispose();
 

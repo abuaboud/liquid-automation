@@ -24,7 +24,7 @@ public class Logger {
     }
 
     public void info(String message) {
-        info(message, null);
+        info(message, Color.WHITE);
     }
 
     public void info(String message, Color color) {

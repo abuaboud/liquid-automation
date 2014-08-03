@@ -8,8 +8,11 @@ import org.liquidbot.bot.utils.Logger;
  */
 public abstract class AbstractScript {
 
-    public Configuration client = Configuration.getInstance();
     public Logger log = new Logger(getClass());
 
+    public abstract void onStart();
 
+    public abstract int operate();
+
+    public abstract void onStop();
 }

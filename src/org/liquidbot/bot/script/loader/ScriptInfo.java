@@ -1,4 +1,4 @@
-package org.liquidbot.bot.loader;
+package org.liquidbot.bot.script.loader;
 
 import org.liquidbot.bot.script.SkillCategory;
 

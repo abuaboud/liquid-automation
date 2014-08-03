@@ -75,8 +75,13 @@ public class Menu {
         java.util.List<String> options = getOptions();
         java.util.List<String> actions = getActions();
         for (int menuI = 0; menuI < getMenuSize(); menuI++) {
-            if (actions.get(menuI).equalsIgnoreCase(action) && (option == null || options.get(menuI).equalsIgnoreCase(option))) {
-                return menuI;
+            try {
+                if (actions.get(menuI).toLowerCase().contains(action.toLowerCase())
+                        && (option == null || options.get(menuI).toLowerCase().contains(option.toLowerCase()))) {
+                    return menuI;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return -1;
             }
         }
         return -1;

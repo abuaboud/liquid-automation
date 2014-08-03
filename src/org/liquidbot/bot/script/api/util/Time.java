@@ -73,7 +73,7 @@ public class Time {
         try {
             Thread.sleep(i);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
     }
 

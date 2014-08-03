@@ -186,14 +186,14 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
             for (Point p : path) {
                 mousePosition = p;
                 hop(mousePosition.x, mousePosition.y);
-                Time.sleep(6, 10);
+                Time.sleep(1,4);
             }
         } else {
             Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));
             for (double Current = 0; Current < 1; Current += (4 / Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)))) {
                 mousePosition = new Point((int) mousePosition.getX() + (int) (difference.getX() * Current), (int) mousePosition.getY() + (int) (difference.getY() * Current));
                 hop(mousePosition.x, mousePosition.y);
-                Time.sleep(1, Random.nextInt(4, 5));
+                Time.sleep(1, 5);
             }
         }
 

@@ -36,7 +36,6 @@ public class Canvas extends java.awt.Canvas {
 
     private List<PaintListener> listeners = new ArrayList<>();
 
-    private Timer refresh = new Timer(500);
 
     /**
      * Create new instance of Canvas Class
@@ -66,10 +65,16 @@ public class Canvas extends java.awt.Canvas {
                 if (listener instanceof Debugger) {
                     final Debugger debug = (Debugger) listener;
                     if (debug.activate()) {
-                        debug.render(graphics);
+                        debug.render((Graphics2D) graphics);
                     }
                 } else {
-                    listener.render(graphics);
+                    listener.render((Graphics2D) graphics);
+                }
+            }
+            if (Game.isLoggedIn()) {
+                NPC npc = NPCs.getNearest("Goblin");
+                if (npc.isValid() && npc.isOnScreen()) {
+                    npc.draw((Graphics2D) graphics);
                 }
             }
         }

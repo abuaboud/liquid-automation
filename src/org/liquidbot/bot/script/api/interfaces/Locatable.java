@@ -25,6 +25,9 @@ public interface Locatable {
 
     public Tile getLocation();
 
+    public void draw(Graphics2D g , Color color);
+
+    public void draw(Graphics2D g);
 
     public static interface Query<Q> {
         public Q within(final int radius);

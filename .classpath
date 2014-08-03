@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="libs/synthetica.jar"/>
+	<classpathentry kind="lib" path="libs/syntheticaAluOxide.jar"/>
+	<classpathentry kind="lib" path="libs/syntheticaWhiteVision.jar"/>
+	<classpathentry kind="lib" path="LiquidBot.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="out/production/LiquidAutomation"/>
+</classpath>

@@ -1,4 +1,4 @@
-package org.liquidbot.bot.loader;
+package org.liquidbot.bot.script.loader;
 
 import org.liquidbot.bot.script.AbstractScript;
 import org.liquidbot.bot.script.Manifest;
@@ -7,7 +7,6 @@ import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;

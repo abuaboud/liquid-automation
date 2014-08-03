@@ -33,7 +33,7 @@ public class GroundItemDebugger extends Debugger<GroundItem> {
     }
 
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics2D graphics) {
             final FontMetrics metrics = graphics.getFontMetrics();
             for (GroundItem groundItem : refresh()) {
                 if (groundItem.isValid() ){

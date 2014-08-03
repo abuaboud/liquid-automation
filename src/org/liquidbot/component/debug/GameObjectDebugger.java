@@ -30,7 +30,7 @@ public class GameObjectDebugger extends Debugger<GameObject> {
     }
 
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics2D graphics) {
         final FontMetrics metrics = graphics.getFontMetrics();
        final Tile location = Players.getLocal().getLocation();
         for (GameObject gameObject : refresh()) {

@@ -1,17 +1,16 @@
 package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.loader.ScriptLoader;
+import org.liquidbot.bot.script.ScriptHandler;
+import org.liquidbot.bot.script.loader.*;
 import org.liquidbot.bot.ui.sdn.SDNFrame;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.bot.utils.NetUtils;
-import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
+import java.util.*;
 
 /**
  * Created by Kenneth on 7/29/2014.
@@ -52,7 +51,9 @@ public class BotButtonPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ScriptLoader.getLocalScripts();
+                java.util.List<ScriptInfo> information = ScriptLoader.getLocalScripts();
+                Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(information.get(0)), information.get(0));
+
             }
         });
         add(startButton);
@@ -60,11 +61,25 @@ public class BotButtonPanel extends JPanel {
         pauseButton = new BotButton("pause.png");
         pauseButton.setButtonHoverIcon("pause_hover.png");
         pauseButton.setToolTipText("Pause the currently running script.");
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING))
+                    Configuration.getInstance().getScriptHandler().pause();
+            }
+        });
         add(pauseButton);
 
         stopButton = new BotButton("stop.png");
         stopButton.setButtonHoverIcon("stop_hover.png");
         stopButton.setToolTipText("Stop the currently running script.");
+        stopButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.STOPPED))
+                    Configuration.getInstance().getScriptHandler().stop();
+            }
+        });
         add(stopButton);
 
         add(Box.createHorizontalGlue());
@@ -84,7 +99,7 @@ public class BotButtonPanel extends JPanel {
         });
         add(keyboardButton);
 
-        mouseButton  = new BotButton("mouse_enabled.png");
+        mouseButton = new BotButton("mouse_enabled.png");
         mouseButton.setButtonHoverIcon("mouse_enabled_hover.png");
         mouseButton.setToolTipText("Disable mouse input.");
         mouseButton.addActionListener(new ActionListener() {
@@ -112,7 +127,7 @@ public class BotButtonPanel extends JPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g)  {
+    public void paintComponent(Graphics g) {
         final Graphics2D graphics2D = (Graphics2D) g;
         final GradientPaint gradient = new GradientPaint(getX(), getY(), colorDark, getWidth(), getY(), color);
         graphics2D.setPaint(gradient);

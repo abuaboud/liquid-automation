@@ -2,6 +2,7 @@ package org.liquidbot.bot;
 
 import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
+import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.utils.Logger;
@@ -19,6 +20,7 @@ public class Configuration {
     private Canvas canvas;
     private BotFrame botFrame;
     private BotConsole console;
+    private ScriptHandler scriptHandler;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -35,8 +37,14 @@ public class Configuration {
         return instance;
     }
 
+    public ScriptHandler getScriptHandler() {
+        if (scriptHandler == null)
+            scriptHandler = new ScriptHandler();
+        return scriptHandler;
+    }
+
     public BotConsole getConsole() {
-        if(console == null)
+        if (console == null)
             logger.error("Console isn't set!");
         return console;
     }

@@ -25,7 +25,7 @@ public class NPCDebugger extends Debugger<NPC> {
     }
 
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics2D graphics) {
 
         final FontMetrics metrics = graphics.getFontMetrics();
 

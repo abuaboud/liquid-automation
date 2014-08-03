@@ -1,8 +1,6 @@
 package org.liquidbot.bot.ui.sdn;
 
-import org.liquidbot.bot.loader.ScriptInfo;
-import org.liquidbot.bot.script.SkillCategory;
-import org.liquidbot.bot.utils.Utilities;
+import org.liquidbot.bot.script.loader.ScriptInfo;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;

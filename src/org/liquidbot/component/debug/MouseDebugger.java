@@ -21,7 +21,7 @@ public class MouseDebugger extends Debugger {
     }
 
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics2D graphics) {
         final Graphics2D graphics2D = (Graphics2D) graphics;
         graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2D.setColor(trailc);

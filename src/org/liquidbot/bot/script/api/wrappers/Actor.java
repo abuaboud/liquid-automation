@@ -25,6 +25,7 @@ public class Actor implements Locatable, Interactable {
         this.raw = raw;
     }
 
+
     /**
      * Returns the raw reflection object
      */
@@ -98,7 +99,7 @@ public class Actor implements Locatable, Interactable {
      * @return Integer Height
      */
     public int getHeight() {
-        return (int) Reflection.value("Actor#getHeight()", raw);
+        return (int) Reflection.value("Renderable#getModelHeight()", raw);
     }
 
     /**
@@ -108,6 +109,25 @@ public class Actor implements Locatable, Interactable {
      */
     public int getY() {
         return ((((int) Reflection.value("Actor#getY()", raw)) >> 7) + (int) Reflection.value("Client#getBaseY()", null));
+    }
+
+    /**
+     * check if actor moving or running
+     *
+     * @return true if so , else false if not
+     */
+    public boolean isMoving() {
+        return getQueueSize() > 0;
+    }
+
+    /**
+     * @return Integer: QueueSize how many tiles queue there in map
+     */
+    public int getQueueSize() {
+        if (raw == null)
+            return 0;
+
+        return (int) Reflection.value("Actor.getQueueSize()", raw);
     }
 
     /**
@@ -137,8 +157,8 @@ public class Actor implements Locatable, Interactable {
             if (npc.getName() != null && npc.getName().toLowerCase().contains("fishing"))
                 tileByte = 0;
         }
-        double a = -0.25;
-        double r = 0.25;
+        double a = -0.35;
+        double r = 0.35;
         Point pn = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 : 0);
         Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 : 0);
         Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 : 0);
@@ -149,17 +169,18 @@ public class Actor implements Locatable, Interactable {
         Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
         Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
 
-            polygon.addPoint(py.x, py.y);
-            polygon.addPoint(pyh.x, pyh.y);
+        polygon.addPoint(py.x, py.y);
+        polygon.addPoint(pyh.x, pyh.y);
 
-            polygon.addPoint(px.x, px.y);
-            polygon.addPoint(pxh.x, pxh.y);
+        polygon.addPoint(px.x, px.y);
+        polygon.addPoint(pxh.x, pxh.y);
 
-            polygon.addPoint(pxy.x, pxy.y);
-            polygon.addPoint(pxyh.x, pxyh.y);
+        polygon.addPoint(pxy.x, pxy.y);
+        polygon.addPoint(pxyh.x, pxyh.y);
 
-            polygon.addPoint(pn.x, pn.y);
-            polygon.addPoint(pnh.x, pnh.y);
+        polygon.addPoint(pn.x, pn.y);
+        polygon.addPoint(pnh.x, pnh.y);
+
         return polygon;
     }
 
@@ -187,8 +208,8 @@ public class Actor implements Locatable, Interactable {
     @Override
     public Point getInteractPoint() {
         Polygon bounds = getBounds();
-        if(bounds != null)
-           return Utilities.generatePoint(bounds);
+        if (bounds != null)
+            return Utilities.generatePoint(bounds);
         return getPointOnScreen();
     }
 
@@ -241,19 +262,30 @@ public class Actor implements Locatable, Interactable {
     }
 
     @Override
+    public void draw(Graphics2D g, Color color) {
+        g.setColor(color);
+        g.drawPolygon(getBounds());
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        draw(g, Color.WHITE);
+    }
+
+    @Override
     public boolean interact(String action, String option) {
-        int index = Menu.index(action, option);
+        int menuIndex = -1;
         for (int i = 0; i < 5; i++) {
+            menuIndex = Menu.index(action, option);
             Point interactPoint = getInteractPoint();
-            System.out.println(index);
-            if (index > 0)
+            if (menuIndex > -1)
                 break;
-            if (Menu.isOpen() && index == -1)
+            if (Menu.isOpen() && menuIndex == -1)
                 Menu.interact("Cancel");
             Mouse.move(interactPoint);
             Time.sleep(100, 150);
         }
-        return index > 0 && Menu.interact(action, option);
+        return menuIndex > -1 && Menu.interact(action, option);
     }
 
     @Override

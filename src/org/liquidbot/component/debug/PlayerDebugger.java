@@ -27,7 +27,7 @@ public class PlayerDebugger extends Debugger<Player> {
     }
 
     @Override
-    public void render(Graphics graphics) {
+    public void render(Graphics2D graphics) {
         final FontMetrics metrics = graphics.getFontMetrics();
         for (Player player : refresh()) {
             Point point = player.getPointOnScreen();

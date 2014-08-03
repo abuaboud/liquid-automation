@@ -82,6 +82,17 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         return tile;
     }
 
+    @Override
+    public void draw(Graphics2D g, Color color) {
+        g.setColor(color);
+        g.drawPolygon(getBounds());
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        draw(g,Color.WHITE);
+    }
+
     public int getHeight(){
         return (int) Reflection.value("Renderable#getModelHeight()",raw);
     }
@@ -168,22 +179,22 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         Camera.turnTo(this);
     }
 
+
     @Override
     public boolean interact(String action, String option) {
-        int index = org.liquidbot.bot.script.api.methods.data.Menu.index(action, option);
+        int menuIndex = -1;
         for (int i = 0; i < 5; i++) {
+            menuIndex = org.liquidbot.bot.script.api.methods.data.Menu.index(action, option);
             Point interactPoint = getInteractPoint();
-            System.out.println(index);
-            if (index > 0)
+            if (menuIndex > -1)
                 break;
-            if (org.liquidbot.bot.script.api.methods.data.Menu.isOpen() && index == -1)
+            if (org.liquidbot.bot.script.api.methods.data.Menu.isOpen() && menuIndex == -1)
                 org.liquidbot.bot.script.api.methods.data.Menu.interact("Cancel");
             Mouse.move(interactPoint);
             Time.sleep(100, 150);
         }
-        return index > 0 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option);
+        return menuIndex > -1 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option);
     }
-
     @Override
     public boolean interact(String action) {
         return interact(action, null);

@@ -5,6 +5,7 @@ import org.liquidbot.bot.Constants;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.net.URL;
 import java.util.Random;
 
 /**
@@ -128,5 +129,18 @@ public class Utilities {
         return new Point((int) x, (int) y);
     }
 
+    /**
+     *
+     * @param path
+     * @return URL : return url for that path in param
+     */
+    public static URL toUrl(String path) {
+        try {
+            return new URL(path);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

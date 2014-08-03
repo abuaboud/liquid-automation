@@ -69,15 +69,15 @@ public class SDNFrame extends JFrame {
                         scriptPanel.add(element);
                         reBounds(index, realIndex);
                         index++;
-                    } else if (element.getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                    } else if (element.getScriptInfo().getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
                         reBounds(index, realIndex);
                         index++;
-                    } else if (element.getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                    } else if (element.getScriptInfo().getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
                         reBounds(index, realIndex);
                         index++;
-                    } else if (element.getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                    } else if (element.getScriptInfo().getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
                         scriptPanel.add(element);
                         reBounds(index, realIndex);
                         index++;
@@ -98,7 +98,7 @@ public class SDNFrame extends JFrame {
                 int index = 0;
                 for (int realIndex = 0; realIndex < elements.size(); realIndex++) {
                     SDNElement element = elements.get(realIndex);
-                    if (selected.equalsIgnoreCase("All") || element.getSkillCategory().getName().equalsIgnoreCase(selected)) {
+                    if (selected.equalsIgnoreCase("All") || element.getScriptInfo().getSkillCategory().getName().equalsIgnoreCase(selected)) {
                         scriptPanel.add(element);
                         reBounds(index, realIndex);
                         index++;

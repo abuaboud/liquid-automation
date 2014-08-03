@@ -5,6 +5,7 @@ import org.liquidbot.bot.client.input.InternalMouse;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
+import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.component.Canvas;
 
@@ -21,6 +22,7 @@ public class Configuration {
     private BotFrame botFrame;
     private BotConsole console;
     private ScriptHandler scriptHandler;
+    private User user;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -35,6 +37,14 @@ public class Configuration {
 
     public static Configuration getInstance() {
         return instance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public ScriptHandler getScriptHandler() {

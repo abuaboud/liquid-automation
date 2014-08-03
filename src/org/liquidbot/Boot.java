@@ -5,6 +5,7 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
+import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
@@ -27,19 +28,35 @@ public class Boot {
         log.info("Parsing hooks..");
         HookReader.init();
 
+        try {
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+        } catch (UnsupportedLookAndFeelException | ParseException e) {
+            e.printStackTrace();
+        }
+
+        final IPBLogin login = new IPBLogin();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                login.pack();
+                login.setVisible(true);
+            }
+        });
+        thread.start();
+        Utilities.sleep(500);
+        while(login.isVisible()) {
+            Utilities.sleep(200, 300);
+        }
+
+
         log.info("Lauching client..");
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
 
-                try {
-                    UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-                } catch (UnsupportedLookAndFeelException | ParseException e) {
-                    e.printStackTrace();
-                }
+
 
                 final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
-
                 final BotFrame frame = new BotFrame();
                 config.setBotFrame(frame);
                 frame.setIconImage(iconImage);

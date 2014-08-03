@@ -16,7 +16,12 @@ public class GameObjectDebugger extends Debugger<GameObject> {
 
     @Override
     public GameObject[] elements() {
-        return GameEntities.getAll(null);
+        return GameEntities.getAll(new Filter<GameObject>() {
+            @Override
+            public boolean accept(GameObject gameObject) {
+                return true;
+            }
+        });
     }
 
     @Override

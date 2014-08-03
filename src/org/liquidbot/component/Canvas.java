@@ -3,6 +3,13 @@ package org.liquidbot.component;
 import org.liquidbot.bot.Configuration;
 
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.methods.input.Mouse;
+import org.liquidbot.bot.script.api.methods.interactive.NPCs;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
+import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.script.api.util.Timer;
+import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.component.debug.*;
 
 
@@ -29,6 +36,8 @@ public class Canvas extends java.awt.Canvas {
 
     private List<PaintListener> listeners = new ArrayList<>();
 
+    private Timer refresh = new Timer(500);
+
     /**
      * Create new instance of Canvas Class
      *
@@ -37,7 +46,7 @@ public class Canvas extends java.awt.Canvas {
     public Canvas(java.awt.Canvas canvas) {
         this.canvas = canvas;
         final Debugger[] debuggers = {
-                new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(),new GroundItemDebugger() ,new GameObjectDebugger()
+                new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger()
         };
         Collections.addAll(listeners, debuggers);
     }

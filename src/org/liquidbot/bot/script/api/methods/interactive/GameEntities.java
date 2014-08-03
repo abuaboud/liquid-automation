@@ -151,6 +151,7 @@ public class GameEntities {
         for (GameObject gameObject : getAll(filter)) {
             if (gameObject.isValid() && distance > gameObject.distanceTo(start)) {
                 closet = gameObject;
+                distance = gameObject.distanceTo(start);
             }
         }
         return closet;

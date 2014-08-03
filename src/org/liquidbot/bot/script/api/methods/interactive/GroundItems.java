@@ -112,6 +112,7 @@ public class GroundItems {
         for (GroundItem groundItem : getAll(filter)) {
             if (groundItem.isValid() && distance > groundItem.distanceTo(start)) {
                 closet = groundItem;
+                distance = groundItem.distanceTo(start);
             }
         }
         return closet;

@@ -3,16 +3,24 @@ package org.liquidbot.bot.script.api.wrappers;/*
  */
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
-import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
+import org.liquidbot.bot.script.api.methods.data.movement.Walking;
+import org.liquidbot.bot.script.api.methods.input.Mouse;
+import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
 
-public class Actor implements Locatable {
+public class Actor implements Locatable, Interactable {
 
     private final Object raw;
+
     public Actor(Object raw) {
         this.raw = raw;
     }
@@ -61,7 +69,6 @@ public class Actor implements Locatable {
     }
 
     /**
-     *
      * @return int : 0-100% if health bar visible else 0%
      */
     public int getHealthPercent() {
@@ -70,14 +77,13 @@ public class Actor implements Locatable {
     }
 
     /**
-     *
      * @return boolean : if in combat return true else return false
      */
     public boolean isInCombat() {
         if (raw == null)
             return false;
-        int LoopCycleStatus = ((int) Reflection.value("Client#getLoopCycle()",null)) - 130;
-        int[] hitCycles = (int[]) Reflection.value("Actor#getHitCycles()",raw);
+        int LoopCycleStatus = ((int) Reflection.value("Client#getLoopCycle()", null)) - 130;
+        int[] hitCycles = (int[]) Reflection.value("Actor#getHitCycles()", raw);
         for (final int loopCycle : hitCycles) {
             if (loopCycle > LoopCycleStatus) {
                 return true;
@@ -114,6 +120,50 @@ public class Actor implements Locatable {
     }
 
     /**
+     * @return Polygon : returns bounds and cube around the actor
+     */
+    @Override
+    public Polygon getBounds() {
+        Polygon polygon = new Polygon();
+        if (!isOnScreen())
+            return null;
+        int x = getLocation().x;
+        int y = getLocation().y;
+        int h = getHeight();
+        int z = Game.getPlane();
+        int tileByte = Walking.getTileFlags()[Game.getPlane()][getLocation().x - Game.getBaseX()][getLocation().y - Game.getBaseY()];
+        if (this instanceof NPC) {
+            NPC npc = (NPC) this;
+            if (npc.getName() != null && npc.getName().toLowerCase().contains("fishing"))
+                tileByte = 0;
+        }
+        double a = -0.25;
+        double r = 0.25;
+        Point pn = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 : 0);
+        Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 : 0);
+        Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 : 0);
+        Point pxy = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 : 0);
+
+        Point pnh = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 + h : h);
+        Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 + h : h);
+        Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
+        Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
+
+            polygon.addPoint(py.x, py.y);
+            polygon.addPoint(pyh.x, pyh.y);
+
+            polygon.addPoint(px.x, px.y);
+            polygon.addPoint(pxh.x, pxh.y);
+
+            polygon.addPoint(pxy.x, pxy.y);
+            polygon.addPoint(pxyh.x, pxyh.y);
+
+            polygon.addPoint(pn.x, pn.y);
+            polygon.addPoint(pnh.x, pnh.y);
+        return polygon;
+    }
+
+    /**
      * Check if Actor is on screen
      *
      * @return Boolean: true if it's on Viewport else false
@@ -136,7 +186,10 @@ public class Actor implements Locatable {
      */
     @Override
     public Point getInteractPoint() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        Polygon bounds = getBounds();
+        if(bounds != null)
+           return Utilities.generatePoint(bounds);
+        return getPointOnScreen();
     }
 
     /**
@@ -185,5 +238,38 @@ public class Actor implements Locatable {
     @Override
     public Tile getLocation() {
         return new Tile(getX(), getY());  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public boolean interact(String action, String option) {
+        int index = Menu.index(action, option);
+        for (int i = 0; i < 5; i++) {
+            Point interactPoint = getInteractPoint();
+            System.out.println(index);
+            if (index > 0)
+                break;
+            if (Menu.isOpen() && index == -1)
+                Menu.interact("Cancel");
+            Mouse.move(interactPoint);
+            Time.sleep(100, 150);
+        }
+        return index > 0 && Menu.interact(action, option);
+    }
+
+    @Override
+    public boolean interact(String action) {
+        return interact(action, null);
+    }
+
+    @Override
+    public boolean click(boolean left) {
+        Mouse.click(getInteractPoint(), left);
+        return true;
+    }
+
+    @Override
+    public boolean click() {
+        Mouse.click(getInteractPoint(), true);
+        return true;
     }
 }

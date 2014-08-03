@@ -14,11 +14,14 @@ public class NPC extends Actor implements Identifiable, Nameable {
 
     public NPC(Object raw) {
         super(raw);
-        this.npcDefinition = new NPCDefinition(Reflection.value("NPC#getNpcComposite()",raw));
+        if (raw != null) {
+            this.npcDefinition = new NPCDefinition(Reflection.value("NPC#getNpcComposite()", raw));
+        }
     }
 
     /**
      * Checks if the object is null
+     *
      * @return true if the object is not null
      */
     public boolean isValid() {
@@ -27,6 +30,7 @@ public class NPC extends Actor implements Identifiable, Nameable {
 
     /**
      * This method grabs tnhe name of the NPC
+     *
      * @return String: the NPC name
      */
     public String getName() {
@@ -35,13 +39,16 @@ public class NPC extends Actor implements Identifiable, Nameable {
 
     /**
      * Gets the ID of the NPC
+     *
      * @return Integer:the NPC's ID
      */
     public int getId() {
         return npcDefinition.getId();
     }
+
     /**
      * Gets the combatLevel of the NPC
+     *
      * @return Integer: the NPC's combat level
      */
     public int getCombatLevel() {
@@ -49,17 +56,20 @@ public class NPC extends Actor implements Identifiable, Nameable {
     }
 
     /**
-     *  Interact Actions of the NPC
+     * Interact Actions of the NPC
+     *
      * @return String[] : actions of the NPC
      */
-    public String[] getActions(){
+    public String[] getActions() {
         return npcDefinition.getActions();
     }
+
     /**
-     *  model Ids of the NPC
+     * model Ids of the NPC
+     *
      * @return String[] :  model Ids of the NPC
      */
-    public int[] getModelIds(){
+    public int[] getModelIds() {
         return npcDefinition.getModelIds();
     }
 }

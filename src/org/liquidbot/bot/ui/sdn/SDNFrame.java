@@ -139,7 +139,7 @@ public class SDNFrame extends JFrame {
         scriptPanel.setPreferredSize(new Dimension(765, (150 * (elements.size() / 3))));
         scriptPanel.setBorder(new EtchedBorder());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(this);
         setSize(770, 508);
     }
 
@@ -167,17 +167,6 @@ public class SDNFrame extends JFrame {
             "1~2~LiquidChopper~Chop Oak Tree at West Varrock~23~1~Magorium~0~0~2014-07-23 05:12:30~2014-07-24 03:30:14~0~ey4e08u5cf.jar~0"
     };
 
-    public static void main(String[] args) {
-
-        try {
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-        } catch (UnsupportedLookAndFeelException | ParseException e) {
-            e.printStackTrace();
-        }
-
-        final SDNFrame frame = new SDNFrame();
-        frame.setVisible(true);
-    }
 
     private void reBounds(int index, int realIndex) {
         final int width = 250;

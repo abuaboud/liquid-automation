@@ -65,6 +65,7 @@ public class NPCs {
         for (NPC npc : getAll(filter)) {
             if (npc.isValid() && distance > npc.distanceTo(location)) {
                 closet = npc;
+                distance = npc.distanceTo(location);
             }
         }
         return closet;

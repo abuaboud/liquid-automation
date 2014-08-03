@@ -11,4 +11,5 @@ public abstract class AbstractScript {
     public Configuration client = Configuration.getInstance();
     public Logger log = new Logger(getClass());
 
+
 }

@@ -3,13 +3,19 @@ package org.liquidbot.bot.client.input;/*
  */
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.script.api.util.Random;
+import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.applet.Applet;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
+import org.liquidbot.bot.client.input.algorithms.*;
+
 
 public class InternalMouse implements MouseListener, MouseMotionListener {
 
@@ -18,6 +24,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
     private Component component;
     private final Configuration config = Configuration.getInstance();
 
+    private MouseAlgorithm mouseAlgorithm = new Spline();
     private int clientX;
     private int clientY;
     private int clientPressX = -1;
@@ -33,6 +40,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 
         component.addMouseListener(this);
         component.addMouseMotionListener(this);
+
     }
 
 
@@ -52,6 +60,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
         clientY = e.getY();
         mouseListenerDispatcher.mouseClicked(new MouseEvent(component, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, clientX, clientY, 1, false, e.getButton()));
     }
+
     @Override
     public void mousePressed(MouseEvent e) {
         press(e.getX(), e.getY(), e.getButton());
@@ -94,9 +103,8 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
         } else if (e.getX() > 0 && e.getY() > 0 && Utilities.isPointValid(new Point(e.getX(), e.getY()))) {
             clientX = e.getX();
             clientY = e.getY();
-            hop(clientX, clientY);
         }
-
+        hop(clientX, clientY);
     }
 
     public boolean isHumanInput() {
@@ -132,6 +140,8 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
     }
 
     public void hop(int x, int y) {
+        clientX = x;
+        clientY = y;
         mouseMotionDispatcher.mouseMoved(new MouseEvent(component, MouseEvent.MOUSE_MOVED,
                 System.currentTimeMillis(), 0, x, y, 0, false));
     }
@@ -164,6 +174,39 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
         press(getX(), getY(), MouseEvent.BUTTON2);
         hop(x2, y2);
         release(getX(), getY(), MouseEvent.BUTTON2);
+        return getX() == x2 && getY() == y2 && !isPressed();
+    }
+
+    public void move(int x, int y) {
+        Point destination = new Point(x, y);
+        Point mousePosition = getLocation();
+        if (mousePosition.distance(destination) > 20) {
+            Point[] path = mouseAlgorithm.makeMousePath(mousePosition.x, mousePosition.y, destination.x, destination.y);
+
+            for (Point p : path) {
+                mousePosition = p;
+                hop(mousePosition.x, mousePosition.y);
+                Time.sleep(6, 10);
+            }
+        } else {
+            Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));
+            for (double Current = 0; Current < 1; Current += (4 / Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)))) {
+                mousePosition = new Point((int) mousePosition.getX() + (int) (difference.getX() * Current), (int) mousePosition.getY() + (int) (difference.getY() * Current));
+                hop(mousePosition.x, mousePosition.y);
+                Time.sleep(1, Random.nextInt(4, 5));
+            }
+        }
+
+        Time.sleep(40, 50);
+    }
+
+
+    public boolean dragMouse(int x1, int y1, int x2, int y2) {
+        hop(x1, y1);
+        press(getX(), getY(), MouseEvent.BUTTON2);
+        hop(x2, y2);
+        release(getX(), getY(), MouseEvent.BUTTON2);
+
         return getX() == x2 && getY() == y2 && !isPressed();
     }
 

@@ -111,4 +111,22 @@ public class Utilities {
         }
         return false;
     }
+
+    /**
+     *
+     * @param region
+     * @return Point : random Point inside Polygon
+     */
+    public static Point generatePoint(Shape region) {
+        Rectangle r = region.getBounds();
+        double x, y;
+        do {
+            x = r.getX() + r.getWidth() * Math.random();
+            y = r.getY() + r.getHeight() * Math.random();
+        } while (!region.contains(x, y));
+
+        return new Point((int) x, (int) y);
+    }
+
+
 }

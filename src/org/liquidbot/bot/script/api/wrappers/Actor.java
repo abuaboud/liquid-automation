@@ -12,6 +12,7 @@ import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Utilities;
 
@@ -108,6 +109,8 @@ public class Actor implements Locatable, Interactable {
      * @return Integer Y Location
      */
     public int getY() {
+        if (!isValid())
+            return -1;
         return ((((int) Reflection.value("Actor#getY()", raw)) >> 7) + (int) Reflection.value("Client#getBaseY()", null));
     }
 
@@ -127,7 +130,7 @@ public class Actor implements Locatable, Interactable {
         if (raw == null)
             return 0;
 
-        return (int) Reflection.value("Actor.getQueueSize()", raw);
+        return (int) Reflection.value("Actor#getQueueSize()", raw);
     }
 
     /**
@@ -136,6 +139,8 @@ public class Actor implements Locatable, Interactable {
      * @return Integer X Location
      */
     public int getX() {
+        if (!isValid())
+            return -1;
         return ((((int) Reflection.value("Actor#getX()", raw)) >> 7) + (int) Reflection.value("Client#getBaseX()", null));
     }
 
@@ -168,19 +173,28 @@ public class Actor implements Locatable, Interactable {
         Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 + h : h);
         Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
         Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
+        if (Constants.VIEWPORT.contains(py)
+                && Constants.VIEWPORT.contains(pyh)
+                && Constants.VIEWPORT.contains(px)
+                && Constants.VIEWPORT.contains(pxh)
+                && Constants.VIEWPORT.contains(pxy)
+                && Constants.VIEWPORT.contains(pxyh)
+                && Constants.VIEWPORT.contains(pn)
+                && Constants.VIEWPORT.contains(pnh)) {
+            polygon.addPoint(py.x, py.y);
+            polygon.addPoint(pyh.x, pyh.y);
 
-        polygon.addPoint(py.x, py.y);
-        polygon.addPoint(pyh.x, pyh.y);
+            polygon.addPoint(px.x, px.y);
+            polygon.addPoint(pxh.x, pxh.y);
 
-        polygon.addPoint(px.x, px.y);
-        polygon.addPoint(pxh.x, pxh.y);
+            polygon.addPoint(pxy.x, pxy.y);
+            polygon.addPoint(pxyh.x, pxyh.y);
 
-        polygon.addPoint(pxy.x, pxy.y);
-        polygon.addPoint(pxyh.x, pxyh.y);
-
-        polygon.addPoint(pn.x, pn.y);
-        polygon.addPoint(pnh.x, pnh.y);
-
+            polygon.addPoint(pn.x, pn.y);
+            polygon.addPoint(pnh.x, pnh.y);
+        } else {
+            return null;
+        }
         return polygon;
     }
 
@@ -303,5 +317,40 @@ public class Actor implements Locatable, Interactable {
     public boolean click() {
         Mouse.click(getInteractPoint(), true);
         return true;
+    }
+
+    /**
+     * Checks if the object is null
+     *
+     * @return true if the object is not null
+     */
+    public boolean isValid() {
+        return getRaw() != null;
+    }
+
+    /**
+     * @return NPC/Player: return the actor that this actor interacting with
+     */
+    public Actor getInteracting() {
+        if (raw == null)
+            return null;
+        int interactingIndex = (int) Reflection.value("Actor#getInteractingIndex()", raw);
+        if (interactingIndex == -1)
+            return new Actor(null);
+        if (interactingIndex < 32768) {
+            Object[] localNpcs = (Object[]) Reflection.value("Client#getLocalNpcs()", null);
+            if (localNpcs.length > interactingIndex)
+                return new NPC(localNpcs[interactingIndex]);
+        } else {
+            interactingIndex -= 32768;
+            int playerIndex = (int) Reflection.value("Client#getPlayerIndex()", null);
+            if (interactingIndex == playerIndex) {
+                return Players.getLocal();
+            }
+            Object[] localPlayers = (Object[]) Reflection.value("Client#getLocalPlayers()", null);
+            if (localPlayers.length > interactingIndex)
+                return new Player(localPlayers[interactingIndex]);
+        }
+        return new Actor(null);
     }
 }

@@ -4,14 +4,13 @@ import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
-import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 
 import java.awt.*;
-import java.awt.Menu;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -262,7 +261,7 @@ public class WidgetChild implements Interactable {
     public boolean interact(String action, String option) {
         int menuIndex = -1;
         for (int i = 0; i < 5; i++) {
-            menuIndex = org.liquidbot.bot.script.api.methods.data.Menu.index(action, option);
+            menuIndex = Menu.index(action, option);
             Point interactPoint = getInteractPoint();
             if (menuIndex > -1)
                 break;

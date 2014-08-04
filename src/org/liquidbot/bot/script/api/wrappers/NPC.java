@@ -20,15 +20,6 @@ public class NPC extends Actor implements Identifiable, Nameable {
     }
 
     /**
-     * Checks if the object is null
-     *
-     * @return true if the object is not null
-     */
-    public boolean isValid() {
-        return getRaw() != null;
-    }
-
-    /**
      * This method grabs tnhe name of the NPC
      *
      * @return String: the NPC name

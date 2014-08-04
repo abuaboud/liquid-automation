@@ -1,6 +1,7 @@
 package org.liquidbot.bot.script.api.wrappers;
 
 import com.sun.corba.se.spi.ior.IdentifiableFactory;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -90,11 +91,14 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
     @Override
     public void draw(Graphics2D g) {
-        draw(g,Color.WHITE);
+        draw(g, Color.WHITE);
     }
 
-    public int getHeight(){
-        return (int) Reflection.value("Renderable#getModelHeight()",raw);
+    public int getHeight() {
+        Object renderable = Reflection.value(type.cato + "#getRenderable()", raw);
+        if (renderable == null)
+            return 20;
+        return (int) Reflection.value("Renderable#getModelHeight()", renderable);
     }
 
     @Override
@@ -102,7 +106,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         Polygon polygon = new Polygon();
         if (!isOnScreen())
             return null;
-        int x =getX();
+        int x = getX();
         int y = getY();
         int z = Game.getPlane();
         int h = getHeight();
@@ -121,19 +125,28 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
         Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
 
+        if (Constants.VIEWPORT.contains(py)
+                && Constants.VIEWPORT.contains(pyh)
+                && Constants.VIEWPORT.contains(px)
+                && Constants.VIEWPORT.contains(pxh)
+                && Constants.VIEWPORT.contains(pxy)
+                && Constants.VIEWPORT.contains(pxyh)
+                && Constants.VIEWPORT.contains(pn)
+                && Constants.VIEWPORT.contains(pnh)) {
+            polygon.addPoint(py.x, py.y);
+            polygon.addPoint(pyh.x, pyh.y);
 
-        polygon.addPoint(py.x, py.y);
-        polygon.addPoint(pyh.x, pyh.y);
+            polygon.addPoint(px.x, px.y);
+            polygon.addPoint(pxh.x, pxh.y);
 
-        polygon.addPoint(px.x, px.y);
-        polygon.addPoint(pxh.x, pxh.y);
+            polygon.addPoint(pxy.x, pxy.y);
+            polygon.addPoint(pxyh.x, pxyh.y);
 
-        polygon.addPoint(pxy.x, pxy.y);
-        polygon.addPoint(pxyh.x, pxyh.y);
-
-        polygon.addPoint(pn.x, pn.y);
-        polygon.addPoint(pnh.x, pnh.y);
-
+            polygon.addPoint(pn.x, pn.y);
+            polygon.addPoint(pnh.x, pnh.y);
+        } else {
+            return null;
+        }
         return polygon;
 
     }
@@ -154,7 +167,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
     @Override
     public Point getInteractPoint() {
         Polygon bounds = getBounds();
-        if(bounds != null)
+        if (bounds != null)
             return Utilities.generatePoint(bounds);
         return getPointOnScreen();
     }
@@ -195,6 +208,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         }
         return menuIndex > -1 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option);
     }
+
     @Override
     public boolean interact(String action) {
         return interact(action, null);

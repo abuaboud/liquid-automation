@@ -1,7 +1,10 @@
 package org.liquidbot.bot.script;
 
+import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.loader.ScriptInfo;
+import org.liquidbot.bot.script.randevent.RandomEventHandler;
 import org.liquidbot.bot.utils.Logger;
 
 import java.awt.*;
@@ -12,9 +15,12 @@ import java.awt.*;
 public class ScriptHandler implements Runnable {
 
     private Thread scriptThread;
+    private Thread randomEventsThread;
     private AbstractScript script;
     private ScriptInfo scriptInfo;
     private State scriptState;
+    private PaintListener paintListener;
+    private RandomEventHandler randomEventHandler;
 
     private Logger logger = new Logger(getClass());
 
@@ -25,8 +31,10 @@ public class ScriptHandler implements Runnable {
     @Override
     public void run() {
         while (!scriptState.equals(State.STOPPED)) {
-            if (scriptState.equals(State.PAUSE)) {
-                Time.sleep(200, 250);
+            if (script == null) {
+                stop();
+            } else if (scriptState.equals(State.PAUSE) || (randomEventHandler != null && randomEventHandler.isActive)) {
+                Time.sleep(500);
             } else {
                 int timeToSleep = script.operate();
                 Time.sleep(timeToSleep);
@@ -42,6 +50,14 @@ public class ScriptHandler implements Runnable {
         this.scriptThread = new Thread(this);
         this.scriptThread.start();
         this.script.onStart();
+        if (randomEventHandler == null)
+            randomEventHandler = new RandomEventHandler();
+        this.randomEventsThread = new Thread(randomEventHandler);
+        this.randomEventsThread.start();
+        if (script instanceof PaintListener) {
+            paintListener = (PaintListener) script;
+            Configuration.getInstance().getCanvas().getPaintListeners().add(paintListener);
+        }
     }
 
     public void stop() {
@@ -49,7 +65,12 @@ public class ScriptHandler implements Runnable {
         this.scriptState = State.STOPPED;
         this.script.onStop();
         this.scriptThread.interrupt();
+        this.randomEventsThread.interrupt();
+        Configuration.getInstance().getCanvas().getPaintListeners().remove(paintListener);
         this.script = null;
+        this.scriptThread = null;
+        this.randomEventsThread = null;
+        this.paintListener = null;
     }
 
     public void pause() {
@@ -60,4 +81,9 @@ public class ScriptHandler implements Runnable {
     public State getScriptState() {
         return scriptState;
     }
+
+    public Thread getScriptThread() {
+        return scriptThread;
+    }
+
 }

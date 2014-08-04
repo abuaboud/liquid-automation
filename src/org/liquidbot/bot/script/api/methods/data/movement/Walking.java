@@ -1,6 +1,7 @@
 package org.liquidbot.bot.script.api.methods.data.movement;
 
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 
@@ -51,30 +52,34 @@ public class Walking {
     }
 
     public static Tile getCollisionOffset(final int plane) {
-        final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()",null))[plane];
-        return new Tile((int)Reflection.value("CollisionMap#getOffsetX()",collisionMap),(int) Reflection.value("CollisionMagetOffsetY()",collisionMap), plane);
+        final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()", null))[plane];
+        return new Tile((int) Reflection.value("CollisionMap#getOffsetX()", collisionMap), (int) Reflection.value("CollisionMagetOffsetY()", collisionMap), plane);
     }
 
     public static int[][] getCollisionFlags(int plane) {
-        final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()",null))[plane];
-        return (int[][]) Reflection.value( "CollisionMap#getFlags()",collisionMap);
+        final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()", null))[plane];
+        return (int[][]) Reflection.value("CollisionMap#getFlags()", collisionMap);
     }
 
     public static byte[][][] getTileFlags() {
-        return ( byte[][][]) Reflection.value("Client#getTileFlags()",null);
+        return (byte[][][]) Reflection.value("Client#getTileFlags()", null);
     }
 
     public static int[][][] getTileHeights() {
-        return ( int[][][]) Reflection.value("Client#getTileHeights()",null);
+        return (int[][][]) Reflection.value("Client#getTileHeights()", null);
     }
 
-    public static void walkTo(Tile target){
-       Tile step = getClosestTileOnMap(target);
-       if(step.isOnMap())
-           step.clickOnMap();
+    public static void walkTo(Locatable target) {
+        walkTo(target.getLocation());
     }
 
-    public static Tile getClosestTileOnMap(Tile current){
+    public static void walkTo(Tile target) {
+        Tile step = getClosestTileOnMap(target);
+        if (step.isOnMap())
+            step.clickOnMap();
+    }
+
+    public static Tile getClosestTileOnMap(Tile current) {
         if (!current.isOnMap()) {
             Tile loc = Players.getLocal().getLocation();
             Tile walk = new Tile((loc.getX() + current.getX()) / 2, (loc.getY() + current.getY()) / 2);

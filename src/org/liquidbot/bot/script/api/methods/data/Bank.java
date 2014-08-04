@@ -1,8 +1,15 @@
 package org.liquidbot.bot.script.api.methods.data;
 
+import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
+import org.liquidbot.bot.script.api.methods.input.Keyboard;
+import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
+import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.Item;
+import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;
 
@@ -186,5 +193,214 @@ public class Bank {
         return closeButton.isVisible() && closeButton.interact("Close");
     }
 
+    public static boolean deposit(final int[] ids, final int amount) {
+        return deposit(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && Utilities.inArray(item.getId(), ids);
+            }
+        }, amount);
+    }
 
+    public static boolean deposit(final String[] names, final int amount) {
+        return deposit(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && item.getName() != null && Utilities.inArray(item.getName(), names);
+            }
+        }, amount);
+    }
+
+    public static boolean deposit(final String name, final int amount) {
+        return deposit(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && item.getName() != null && item.getName().equalsIgnoreCase(name);
+            }
+        }, amount);
+    }
+
+    public static boolean deposit(Filter<Item> filter, int amount) {
+        Item[] items = getAllItems(filter);
+        if (items == null || items.length == 0)
+            return false;
+        for (Item item : items) {
+            if (item.isValid()) {
+                deposit(item.getId(), amount);
+            }
+        }
+        return true;
+    }
+
+    public static boolean deposit(final int id, final int amount) {
+        if (!isOpen())
+            return false;
+        Item item = Inventory.getItem(id);
+        if (!item.isValid())
+            return false;
+        final int amountInInventory = Inventory.getCount(id);
+        String action = "Deposit-X";
+        if (amount >= amountInInventory) {
+            action = "Deposit-All";
+        } else {
+            switch (amountInInventory) {
+                case 1:
+                    action = "Deposit-1";
+                case 5:
+                    action = "Deposit-5";
+                case 10:
+                    action = "Deposit-10";
+            }
+        }
+        item.interact(action, item.getName());
+        if (action.contains("X")) {
+            Time.sleep(2000, 2500);
+            Keyboard.sendText("" + amount, false);
+        }
+        Time.sleep(new Condition() {
+            @Override
+            public boolean active() {
+                return Inventory.getCount(id) == amountInInventory;
+            }
+        }, 3000);
+        return true;
+    }
+
+    public static boolean withdraw(final int id, final int amount) {
+        if (!isOpen())
+            return false;
+        Item item = Bank.getItem(id);
+        if (item == null)
+            return false;
+        final int amountBeforeWithdraw = Bank.getCount(id);
+        String action = "Withdraw-X";
+        if (amountBeforeWithdraw >= amount) {
+            action = "Withdraw-All";
+        } else {
+            switch (amountBeforeWithdraw) {
+                case 1:
+                    action = "Withdraw-1";
+                case 5:
+                    action = "Withdraw-5";
+                case 10:
+                    action = "Withdraw-10";
+            }
+        }
+        item.interact(action, item.getName());
+        if (action.contains("X")) {
+            Time.sleep(2000, 2500);
+            Keyboard.sendText("" + amount, false);
+        }
+        Time.sleep(new Condition() {
+            @Override
+            public boolean active() {
+                return Bank.getCount(id) == amountBeforeWithdraw;
+            }
+        }, 3000);
+        return true;
+    }
+
+    public static boolean withdraw(final int[] ids, final int amount) {
+        return withdraw(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && Utilities.inArray(item.getId(), ids);
+            }
+        }, amount);
+    }
+
+    public static boolean withdraw(final String[] names, final int amount) {
+        return withdraw(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && item.getName() != null && Utilities.inArray(item.getName(), names);
+            }
+        }, amount);
+    }
+
+    public static boolean withdraw(final String name, final int amount) {
+        return withdraw(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item != null && item.getName() != null && item.getName().equalsIgnoreCase(name);
+            }
+        }, amount);
+    }
+
+    public static boolean withdraw(Filter<Item> filter, int amount) {
+        Item[] items = getAllItems(filter);
+        if (items == null)
+            return false;
+        for (Item item : items) {
+            if (item.isValid()) {
+                withdraw(item.getId(), amount);
+            }
+        }
+        return true;
+    }
+
+    public static boolean depositAll() {
+        return depositAllExcept(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return false;
+            }
+        });
+    }
+
+    public static boolean depositAllExcept(final String... names) {
+        return depositAllExcept(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item.isValid() && item.getName() != null && Utilities.inArray(item.getName(), names);
+            }
+        });
+    }
+
+    public static boolean depositAllExcept(final int... ids) {
+        return depositAllExcept(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item.isValid() && Utilities.inArray(item.getId(), ids);
+            }
+        });
+    }
+
+    public static boolean depositAllExcept(Filter<Item> filter) {
+        boolean deposit = false;
+        for (Item item : Inventory.getAllItems()) {
+            if (item.isValid() && (filter == null || !filter.accept(item))) {
+                deposit(item.getId(), 9999999);
+                deposit = true;
+            }
+        }
+        return deposit;
+    }
+
+    public static boolean open() {
+        if (isOpen())
+            return true;
+        GameObject bankBooth = GameEntities.getNearest(OBJECT_BANK_NAME);
+        if (bankBooth.isValid()) {
+            if (bankBooth.isOnScreen()) {
+                bankBooth.interact("Bank", OBJECT_BANK_NAME);
+                for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
+                return true;
+            } else {
+                bankBooth.turnTo();
+            }
+        } else {
+            NPC banker = NPCs.getNearest(NPC_BANK_NAMES);
+            if (banker.isValid()) {
+                if (banker.isOnScreen()) {
+                    banker.interact("Bank", banker.getName());
+                    for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
+                    return true;
+                } else {
+                    banker.turnTo();
+                }
+            }
+        }
+        return false;
+    }
 }

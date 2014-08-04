@@ -6,6 +6,7 @@ import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
+import org.liquidbot.bot.client.security.LSecurityManager;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.ui.login.IPBLogin;
@@ -26,6 +27,7 @@ public class Boot {
     private static final Configuration config = Configuration.getInstance();
 
     public static void main(String[] args) {
+        System.setSecurityManager(new LSecurityManager());
         JPopupMenu.setDefaultLightWeightPopupEnabled(true);
         config.setConsole(new BotConsole());
         log.info("Parsing hooks..");

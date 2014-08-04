@@ -28,7 +28,7 @@ public class ScriptLoader {
     private static URLClassLoader urlClassLoader;
 
     public static AbstractScript loadScript(ScriptInfo scriptInfo) {
-        urlClassLoader = URLClassLoader.newInstance(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
+        urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
         AbstractScript abstractScript = null;
         try {
             abstractScript = (AbstractScript) urlClassLoader.loadClass(scriptInfo.clazz).newInstance();
@@ -41,7 +41,7 @@ public class ScriptLoader {
 
     public static List<ScriptInfo> getLocalScripts() {
         scripts.clear();
-        urlClassLoader = URLClassLoader.newInstance(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
+        urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
         findScripts(new File(Utilities.getContentDirectory() + "scripts/"));
         urlClassLoader = null;
         log.info("Found " + scripts.size() + " scripts!");

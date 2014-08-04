@@ -27,8 +27,9 @@ public class Widget {
     }
 
     public WidgetChild getChild(int index) {
-        if (raw == null || raw.length > index)
+        if (raw == null || raw.length <= index) {
             return new WidgetChild(null, index);
+        }
         return new WidgetChild(raw[index], index);
     }
 

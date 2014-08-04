@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.methods.interactive;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.query.NPCQuery;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Tile;
@@ -30,6 +31,8 @@ public class NPCs {
      */
     public static NPC[] getAll(Filter<NPC> filter) {
         List<NPC> list = new ArrayList<NPC>();
+        if(!Game.isLoggedIn())
+            return list.toArray(new NPC[list.size()]);
         final Object[] objects = (Object[]) Reflection.value("Client#getLocalNpcs()", null);
         for (Object npc : objects) {
             if (npc != null) {
@@ -78,6 +81,8 @@ public class NPCs {
      * @return NPC
      */
     public static NPC getNearest(final int ...ids){
+        if(!Game.isLoggedIn())
+            return new NPC(null);
         return getNearest(Players.getLocal().getLocation(),new Filter<NPC>(){
             @Override
             public boolean accept(NPC npc) {
@@ -92,6 +97,8 @@ public class NPCs {
      * @return NPC
      */
     public static NPC getNearest(final String ...names){
+        if(!Game.isLoggedIn())
+            return new NPC(null);
         return getNearest(Players.getLocal().getLocation(),new Filter<NPC>(){
             @Override
             public boolean accept(NPC npc) {

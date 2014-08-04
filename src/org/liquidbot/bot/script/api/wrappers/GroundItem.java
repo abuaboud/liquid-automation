@@ -2,6 +2,7 @@ package org.liquidbot.bot.script.api.wrappers;
 
 import com.sun.corba.se.spi.ior.IdentifiableFactory;
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
@@ -103,7 +104,14 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
         Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 + h : h);
         Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
         Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
-
+        if (Constants.VIEWPORT.contains(py)
+                && Constants.VIEWPORT.contains(pyh)
+                && Constants.VIEWPORT.contains(px)
+                && Constants.VIEWPORT.contains(pxh)
+                && Constants.VIEWPORT.contains(pxy)
+                && Constants.VIEWPORT.contains(pxyh)
+                && Constants.VIEWPORT.contains(pn)
+                && Constants.VIEWPORT.contains(pnh)) {
         polygon.addPoint(py.x, py.y);
         polygon.addPoint(pyh.x, pyh.y);
 
@@ -115,6 +123,9 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
         polygon.addPoint(pn.x, pn.y);
         polygon.addPoint(pnh.x, pnh.y);
+        }else{
+            return null;
+        }
         return polygon;
     }
 

@@ -15,4 +15,8 @@ public abstract class AbstractScript {
     public abstract int operate();
 
     public abstract void onStop();
+
+    public void stop(){
+        Configuration.getInstance().getScriptHandler().stop();
+    }
 }

@@ -20,6 +20,8 @@ public class Inventory {
 
     public static Item[] getAllItems(Filter<Item> filter) {
         java.util.List<Item> list = new ArrayList<>();
+        if (!Game.isLoggedIn())
+            return list.toArray(new Item[list.size()]);
         final WidgetChild child = Widgets.get(WIDGET_INVENTORY_INDEX, WIDGET_INVENTORY_SLOTS);
         if (!child.isVisible())
             return list.toArray(new Item[list.size()]);
@@ -28,7 +30,7 @@ public class Inventory {
         if (contentIds == null || stackSizes == null)
             return list.toArray(new Item[list.size()]);
         for (int itemIndex = 0; itemIndex < contentIds.length; itemIndex++) {
-            Item item = new Item(itemIndex, contentIds[itemIndex], stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
+            Item item = new Item(itemIndex, contentIds[itemIndex]-1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
             if (item.isValid() && (filter == null || filter.accept(item))) {
                 list.add(item);
             }
@@ -47,8 +49,8 @@ public class Inventory {
 
     public static Item getItem(Filter<Item> filter) {
         Item[] items = getAllItems(filter);
-        if (items == null)
-            return null;
+        if (items == null || items.length == 0)
+            return new Item(-1, -1, -1, Item.Type.INVENTORY, null);
         return items[0];
     }
 
@@ -137,15 +139,15 @@ public class Inventory {
     }
 
     public static boolean contains(Filter<Item> filter) {
-        return getItem(filter) != null;
+        return getItem(filter).isValid();
     }
 
     public static boolean contains(int... ids) {
-        return getItem(ids) != null;
+        return getItem(ids).isValid();
     }
 
     public static boolean contains(String... names) {
-        return getItem(names) != null;
+        return getItem(names).isValid();
     }
 
     public static boolean containsAll(final int... ids) {

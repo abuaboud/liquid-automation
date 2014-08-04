@@ -18,15 +18,6 @@ public class Player extends Actor implements Nameable {
     }
 
     /**
-     * check player definition if it's null or not
-     *
-     * @return boolean : make sure the Player definition isn't null
-     */
-    public boolean isValid() {
-        return getRaw() != null;
-    }
-
-    /**
      * Player name
      *
      * @return String: return the name of player

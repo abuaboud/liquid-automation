@@ -39,7 +39,7 @@ public class BotButtonPanel extends JPanel {
         sdnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(config.getUser().getDisplayName() == null) {
+                if(config.getUser() == null || config.getUser().getDisplayName() == null) {
                     log.error("SDN not available under guest account!");
                 } else {
                     log.info(sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");

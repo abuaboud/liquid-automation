@@ -32,6 +32,7 @@ public class Widgets {
         Widget widgets = get(parent);
         if (widgets == null)
             return null;
+
         return widgets.getChild(child);
     }
 }

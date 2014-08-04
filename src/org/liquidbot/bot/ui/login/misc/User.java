@@ -5,6 +5,7 @@ import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class User {
             config.setUser(null);
             return;
         }
-        log.info("Login successful. Welcome " + getDisplayName() + "!");
+        log.info("Login successful. Welcome " + getDisplayName() + "!", Color.GREEN);
     }
 
     public int getUserId() {

@@ -13,13 +13,8 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu {
 
     private final JMenu view;
-<<<<<<< HEAD
-    private final JMenuItem  settings, widgets, console;
     private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players,playerLocation;
-=======
     private final JMenuItem settings, widgets, console;
-    private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players;
->>>>>>> origin/master
     private final Configuration config = Configuration.getInstance();
 
     private final Logger log = new Logger(getClass());

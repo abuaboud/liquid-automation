@@ -4,3 +4,8 @@
 *.class
 *.db
 *.MF
+*.jar
+*.txt
+*.classpath
+*.project
+/out/*

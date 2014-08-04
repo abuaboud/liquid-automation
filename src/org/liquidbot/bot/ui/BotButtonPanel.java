@@ -2,7 +2,8 @@ package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
-import org.liquidbot.bot.script.loader.*;
+import org.liquidbot.bot.script.loader.ScriptInfo;
+import org.liquidbot.bot.script.loader.ScriptLoader;
 import org.liquidbot.bot.ui.sdn.SDNFrame;
 import org.liquidbot.bot.utils.Logger;
 
@@ -10,7 +11,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 
 /**
  * Created by Kenneth on 7/29/2014.

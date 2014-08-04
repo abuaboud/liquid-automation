@@ -6,6 +6,7 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.query.GroundItemQuery;
 import org.liquidbot.bot.script.api.wrappers.GroundItem;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Tile;
@@ -18,6 +19,16 @@ import java.util.ArrayList;
  * Created by Hiasat on 7/31/14
  */
 public class GroundItems {
+
+    private static final GroundItemQuery query = new GroundItemQuery();
+
+    /**
+     * Gets the query instance
+     * @return the query instance
+     */
+    public static GroundItemQuery query() {
+        return query;
+    }
 
     /**
      * @param filter

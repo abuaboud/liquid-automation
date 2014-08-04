@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.query;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.wrappers.Player;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 
@@ -14,9 +15,13 @@ import java.util.Comparator;
  */
 public class PlayerQuery extends AbstractQuery<PlayerQuery, Player> implements Locatable.Query<PlayerQuery>, Nameable.Query<PlayerQuery> {
 
+    public Player local() {
+        return Players.getLocal();
+    }
+
     @Override
     protected Player[] elements() {
-        return new Player[0];
+        return Players.getAll();
     }
 
     @Override
@@ -57,7 +62,7 @@ public class PlayerQuery extends AbstractQuery<PlayerQuery, Player> implements L
     private final Comparator<Player> DISTANCE_SORT = new Comparator<Player>() {
         @Override
         public int compare(Player o1, Player o2) {
-            return o2.distanceTo() - o1.distanceTo();
+            return o1.distanceTo() - o2.distanceTo();
         }
     };
 }

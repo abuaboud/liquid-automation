@@ -6,6 +6,7 @@ import org.liquidbot.bot.script.api.methods.input.Keyboard;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.query.BankQuery;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.Item;
@@ -19,6 +20,16 @@ import java.util.ArrayList;
  * Created by Hiasat on 8/2/14
  */
 public class Bank {
+
+    private static final BankQuery query = new BankQuery();
+
+    /**
+     * Gets the query instance
+     * @return the query instance
+     */
+    public static BankQuery query() {
+        return query;
+    }
 
     private static final int BANK_INTERFACE = 12, BANK_ITEMS_PAD = 10, BANK_TITLE = 2, BANK_FULL_SPACE = 5, BANK_USED_SPACE = 3, BANK_INNER_INTERFACE = 1, BANK_CLOSE = 11;
     private static final String[] NPC_BANK_NAMES = {"Banker", "Ghost banker", "Banker tutor"};

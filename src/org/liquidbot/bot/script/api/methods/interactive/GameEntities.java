@@ -4,6 +4,7 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.query.GameObjectQuery;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.utils.Utilities;
@@ -16,6 +17,16 @@ import java.util.Set;
  * Created by Hiasat on 8/1/14
  */
 public class GameEntities {
+
+    private static final GameObjectQuery query = new GameObjectQuery();
+
+    /**
+     * Gets the query system
+     * @return query instance
+     */
+    public static GameObjectQuery query() {
+        return query;
+    }
 
     /**
      * Get All Object in the Region

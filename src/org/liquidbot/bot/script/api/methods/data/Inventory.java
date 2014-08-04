@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.methods.data;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.query.ItemQuery;
 import org.liquidbot.bot.script.api.wrappers.Item;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;
@@ -14,6 +15,16 @@ import java.util.ArrayList;
  * Created by Hiasat on 8/2/14
  */
 public class Inventory {
+
+    private static final ItemQuery query = new ItemQuery();
+
+    /**
+     * Gets the query instance
+     * @return the query instance
+     */
+    public static ItemQuery query() {
+        return query;
+    }
 
     private static final int WIDGET_INVENTORY_INDEX = 149;
     private static final int WIDGET_INVENTORY_SLOTS = 0;

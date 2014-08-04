@@ -19,6 +19,10 @@ public class NPCs {
 
     private static NPCQuery npcQuery = new NPCQuery();
 
+    /**
+     * Gets the Query instance
+     * @return the query instance
+     */
     public static NPCQuery query() {
         return npcQuery;
     }

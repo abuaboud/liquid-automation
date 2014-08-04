@@ -2,9 +2,6 @@ package org.liquidbot.bot.client.parser;
 
 import org.liquidbot.bot.utils.NetUtils;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
 import java.util.Hashtable;
 
 /**

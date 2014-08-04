@@ -38,7 +38,7 @@ public class Calculations {
      * @return distance between two Coordinate
      */
     public static int distanceBetween(int x, int y, int x1, int y1) {
-        return  (int) Math.sqrt(Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2));
+        return (int) Math.sqrt(Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2));
     }
 
     /**
@@ -128,7 +128,6 @@ public class Calculations {
     }
 
     /**
-     *
      * @param regionX
      * @param regionY
      * @param height
@@ -168,14 +167,13 @@ public class Calculations {
     }
 
     /**
-     *
      * @param regionX
      * @param regionY
      * @return Point : Convert from tile to point on map
      */
     public static Point worldToMap(int regionX, int regionY) {
-        int mapScale = (int)  Reflection.value("Client#getMapScale()",null);
-        int mapOffset = (int)  Reflection.value("Client#getMapOffset()",null);
+        int mapScale = (int) Reflection.value("Client#getMapScale()", null);
+        int mapOffset = (int) Reflection.value("Client#getMapOffset()", null);
         int angle = Camera.getMapAngle() + mapScale & 0x7FF;
         int j = regionX * regionX + regionY * regionY;
 
@@ -192,14 +190,13 @@ public class Calculations {
     }
 
     /**
-     *
      * @param tile
      * @return Point : convert Local player coordinates to point on map
      */
     public static Point tileToMap(Tile tile) {
         int xMapTile = tile.getX() - Game.getBaseX();
         int yMapTile = tile.getY() - Game.getBaseY();
-        Object myPlayer = Reflection.value("Client#getMyPlayer()",null);
-        return worldToMap((xMapTile * 4 + 2) - (int) Reflection.value("Actor#getX()",myPlayer) / 32, (yMapTile * 4 + 2) - (int) Reflection.value("Actor#getY()",myPlayer) / 32);
+        Object myPlayer = Reflection.value("Client#getMyPlayer()", null);
+        return worldToMap((xMapTile * 4 + 2) - (int) Reflection.value("Actor#getX()", myPlayer) / 32, (yMapTile * 4 + 2) - (int) Reflection.value("Actor#getY()", myPlayer) / 32);
     }
 }

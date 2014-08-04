@@ -20,6 +20,7 @@ public class Inventory {
 
     /**
      * Gets the query instance
+     *
      * @return the query instance
      */
     public static ItemQuery query() {
@@ -41,7 +42,7 @@ public class Inventory {
         if (contentIds == null || stackSizes == null)
             return list.toArray(new Item[list.size()]);
         for (int itemIndex = 0; itemIndex < contentIds.length; itemIndex++) {
-            Item item = new Item(itemIndex, contentIds[itemIndex]-1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
+            Item item = new Item(itemIndex, contentIds[itemIndex] - 1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
             if (item.isValid() && (filter == null || filter.accept(item))) {
                 list.add(item);
             }

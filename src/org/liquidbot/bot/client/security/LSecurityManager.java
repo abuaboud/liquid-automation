@@ -1,7 +1,6 @@
 package org.liquidbot.bot.client.security;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.utils.Utilities;
 
 import java.io.FileDescriptor;
 import java.security.AccessControlContext;
@@ -12,7 +11,7 @@ import java.security.Permission;
  */
 public class LSecurityManager extends java.lang.SecurityManager {
 
-    private final String[] allowedExtensions = {"ini", "png", "jpg", "tmp", "txt","jpeg"};
+    private final String[] allowedExtensions = {"ini", "png", "jpg", "tmp", "txt", "jpeg"};
 
     @Override
     public void checkPermission(final Permission perm) {

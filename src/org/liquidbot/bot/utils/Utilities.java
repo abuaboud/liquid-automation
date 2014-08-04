@@ -114,7 +114,6 @@ public class Utilities {
     }
 
     /**
-     *
      * @param region
      * @return Point : random Point inside Polygon
      */
@@ -130,7 +129,6 @@ public class Utilities {
     }
 
     /**
-     *
      * @param path
      * @return URL : return url for that path in param
      */

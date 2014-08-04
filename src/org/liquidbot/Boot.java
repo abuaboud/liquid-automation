@@ -1,9 +1,6 @@
 package org.liquidbot;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlackEyeLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.security.LSecurityManager;
@@ -11,7 +8,6 @@ import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
@@ -49,26 +45,21 @@ public class Boot {
         });
         thread.start();
         Utilities.sleep(500);
-        while(login.isVisible()) {
+        while (login.isVisible()) {
             Utilities.sleep(200, 300);
         }
-
 
         log.info("Lauching client..");
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-
-
-
                 final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
                 final BotFrame frame = new BotFrame();
                 config.setBotFrame(frame);
+                frame.setLocationRelativeTo(null);
                 frame.setIconImage(iconImage);
                 frame.pack();
                 frame.setVisible(true);
-
-
             }
         });
     }

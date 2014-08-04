@@ -1,13 +1,13 @@
 package org.liquidbot.bot.script.api.wrappers;
 
-import com.sun.corba.se.spi.ior.IdentifiableFactory;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
-import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
@@ -16,7 +16,6 @@ import org.liquidbot.bot.script.api.wrappers.definitions.ObjectDefinition;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
-import java.awt.Menu;
 
 /*
  * Created by Hiasat on 8/1/14

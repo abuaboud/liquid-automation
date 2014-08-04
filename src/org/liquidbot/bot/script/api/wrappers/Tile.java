@@ -5,7 +5,8 @@ package org.liquidbot.bot.script.api.wrappers;/*
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
-import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
@@ -13,7 +14,6 @@ import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
 
 import java.awt.*;
-import java.awt.Menu;
 
 public class Tile implements Locatable, Interactable {
     int x;
@@ -113,17 +113,17 @@ public class Tile implements Locatable, Interactable {
 
     @Override
     public Polygon getBounds() {
-        if(!isOnScreen())
+        if (!isOnScreen())
             return null;
         Polygon polygon = new Polygon();
         Point pn = Calculations.tileToScreen(new Tile(x, y, z), 0, 0, 0);
         Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), 0, 0, 0);
         Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), 0, 0, 0);
         Point pxy = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), 0, 0, 0);
-        polygon.addPoint(pn.x,pn.y);
-        polygon.addPoint(px.x,px.y);
-        polygon.addPoint(py.x,py.y);
-        polygon.addPoint(pxy.x,pxy.y);
+        polygon.addPoint(pn.x, pn.y);
+        polygon.addPoint(px.x, px.y);
+        polygon.addPoint(py.x, py.y);
+        polygon.addPoint(pxy.x, pxy.y);
         return polygon;
     }
 
@@ -212,7 +212,7 @@ public class Tile implements Locatable, Interactable {
 
     @Override
     public void draw(Graphics2D g) {
-        draw(g,Color.WHITE);
+        draw(g, Color.WHITE);
     }
 
     public Point getPointOnMap() {

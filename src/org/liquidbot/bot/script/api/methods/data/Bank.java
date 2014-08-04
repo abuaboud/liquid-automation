@@ -25,6 +25,7 @@ public class Bank {
 
     /**
      * Gets the query instance
+     *
      * @return the query instance
      */
     public static BankQuery query() {

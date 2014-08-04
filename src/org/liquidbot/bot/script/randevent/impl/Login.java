@@ -45,8 +45,8 @@ public class Login extends RandomEvent {
             Keyboard.sendText("angryhead0@hotmail.com", true, Random.nextInt(75, 95), Random.nextInt(110, 125));
             setStatus("Entering Password.");
             Keyboard.sendText("shadowbot1", true, Random.nextInt(75, 95), Random.nextInt(110, 125));
-            for (int i = 0; i < 25 && (Game.getGameState() == Game.STATE_LOG_IN_SCREEN); i++, Time.sleep(100, 150));
-            if(Game.getGameState() == Game.STATE_LOG_IN_SCREEN){
+            for (int i = 0; i < 25 && (Game.getGameState() == Game.STATE_LOG_IN_SCREEN); i++, Time.sleep(100, 150)) ;
+            if (Game.getGameState() == Game.STATE_LOG_IN_SCREEN) {
                 setStatus("Clicking Cancel");
                 Mouse.click(new Point(USER_CANCEL.x + Random.nextInt(0, USER_CANCEL.width), USER_CANCEL.y + Random.nextInt(0, USER_CANCEL.height)), true);
             }

@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  * Created by Kenneth on 7/29/2014.
@@ -39,7 +40,7 @@ public class BotButtonPanel extends JPanel {
         sdnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(config.getUser() == null || config.getUser().getDisplayName() == null) {
+                if (config.getUser() == null || config.getUser().getDisplayName() == null) {
                     log.error("SDN not available under guest account!");
                 } else {
                     log.info(sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");
@@ -55,9 +56,8 @@ public class BotButtonPanel extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                java.util.List<ScriptInfo> information = ScriptLoader.getLocalScripts();
-                Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(information.get(0)), information.get(0));
-
+                final List<ScriptInfo> information = ScriptLoader.getLocalScripts();
+                config.getScriptHandler().start(ScriptLoader.loadScript(information.get(0)), information.get(0));
             }
         });
         add(startButton);
@@ -68,8 +68,11 @@ public class BotButtonPanel extends JPanel {
         pauseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING))
-                    Configuration.getInstance().getScriptHandler().pause();
+                if (config.getScriptHandler().getScriptState() != null && config.getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING)) {
+                    config.getScriptHandler().pause();
+                } else {
+                    log.error("There is no script currently running!");
+                }
             }
         });
         add(pauseButton);
@@ -80,17 +83,18 @@ public class BotButtonPanel extends JPanel {
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.STOPPED))
-                    Configuration.getInstance().getScriptHandler().stop();
+                if (config.getScriptHandler().getScriptState() != null && !config.getScriptHandler().getScriptState().equals(ScriptHandler.State.STOPPED)) {
+                    config.getScriptHandler().stop();
+                } else {
+                    log.error("There is no script currently running!");
+                }
             }
         });
         add(stopButton);
-
         add(Box.createHorizontalGlue());
 
         keyboardButton = new BotButton("keyboard_enabled.png");
         keyboardButton.setButtonHoverIcon("keyboard_enabled_hover.png");
-
         keyboardButton.setToolTipText("Disable keyboard input.");
         keyboardButton.addActionListener(new ActionListener() {
             @Override

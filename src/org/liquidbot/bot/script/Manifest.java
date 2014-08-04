@@ -11,8 +11,11 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Manifest {
 
     public String name();
+
     public String author();
+
     public String description() default "";
+
     public double version() default 1.0;
 
 }

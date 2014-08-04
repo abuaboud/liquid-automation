@@ -32,13 +32,14 @@ public class Reflection {
             methods.put(methodKey, method(methodKey));
         }
     }
+
     /**
      * @param fieldKey
      * @param field
      * @param instance
      * @return field value
      */
-    public static Object value(String fieldKey,Field field,Object instance) {
+    public static Object value(String fieldKey, Field field, Object instance) {
         try {
             FieldHook fieldHook = HookReader.fields.get(fieldKey);
             if (fieldHook == null)
@@ -51,12 +52,13 @@ public class Reflection {
         }
         return null;
     }
+
     /**
      * @param field
      * @param instance
      * @return field value
      */
-    public static Object value(Field field,Object instance) {
+    public static Object value(Field field, Object instance) {
         try {
             return field.get(instance);
         } catch (IllegalAccessException e) {
@@ -64,6 +66,7 @@ public class Reflection {
         }
         return null;
     }
+
     /**
      * @param fieldKey
      * @param instance
@@ -82,17 +85,18 @@ public class Reflection {
         }
         return null;
     }
+
     /**
      * @param methodKey
      * @param instance
      * @return field value
      */
-    public static Object invoke(String methodKey, Object instance,Object ...objects) {
+    public static Object invoke(String methodKey, Object instance, Object... objects) {
         try {
             MethodHook methodHook = HookReader.methods.get(methodKey);
             if (methodHook == null)
                 logger.error("MethodHook null " + methodKey);
-            if(methods.get(methodKey) == null)
+            if (methods.get(methodKey) == null)
                 logger.error("Method null " + methodKey);
             return methods.get(methodKey).invoke(instance, objects);
         } catch (IllegalAccessException | InvocationTargetException e) {

@@ -4,8 +4,6 @@ import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.wrappers.Widget;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
-import java.lang.reflect.Field;
-
 /*
  * Created by Hiasat on 8/2/14
  */

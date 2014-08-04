@@ -22,8 +22,8 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
 
     public Q filter(Filter<E> filter) {
         final List<E> copy = new LinkedList<E>(elements);
-        for(E e : copy) {
-            if(!filter.accept(e)) {
+        for (E e : copy) {
+            if (!filter.accept(e)) {
                 elements.remove(e);
             }
         }
@@ -41,7 +41,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
 
     public Q limit(int amount) {
         final List<E> clone = new LinkedList<E>(elements);
-        if(size() > amount) {
+        if (size() > amount) {
             final List<E> sub = clone.subList(0, amount);
             elements.clear();
             elements.addAll(sub);

@@ -1,6 +1,5 @@
 package org.liquidbot.bot.ui.login;
 
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import net.miginfocom.swing.MigLayout;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.ui.login.misc.User;
@@ -10,7 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /**
  * Created by Kenneth on 8/3/2014.
@@ -53,6 +53,17 @@ public class IPBLogin extends JFrame {
 
         userField = new JTextField(15);
         passField = new JPasswordField(15);
+        passField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                super.keyReleased(e);
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    log.info("Attempting to login as " + userField.getText());
+                    setVisible(false);
+                    config.setUser(new User(userField.getText(), new String(passField.getPassword())));
+                }
+            }
+        });
 
         centerPanel = new JPanel();
         centerPanel.setLayout(new MigLayout("nogrid, flowy"));

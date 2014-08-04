@@ -14,13 +14,13 @@ public class PlayerDefinition {
     }
 
     public boolean isFemale() {
-        if(raw == null)
+        if (raw == null)
             return false;
-        return (Boolean) Reflection.value("PlayerComposite#isFemale()",raw);
+        return (Boolean) Reflection.value("PlayerComposite#isFemale()", raw);
     }
 
     public int[] getEquipment() {
-        if(raw == null)
+        if (raw == null)
             return null;
         return (int[]) Reflection.value("PlayerComposite#getEquipment()", raw);
     }

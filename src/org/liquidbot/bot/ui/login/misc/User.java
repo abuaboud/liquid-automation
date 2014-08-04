@@ -45,7 +45,7 @@ public class User {
                 }
             }
             this.displayName = data[5];
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             log.error("Error logging into your account, please check your details!");
             config.setUser(null);
             return;

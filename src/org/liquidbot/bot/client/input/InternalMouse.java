@@ -3,18 +3,16 @@ package org.liquidbot.bot.client.input;/*
  */
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.script.api.util.Random;
+import org.liquidbot.bot.client.input.algorithms.MouseAlgorithm;
+import org.liquidbot.bot.client.input.algorithms.Spline;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
-import org.liquidbot.bot.client.input.algorithms.*;
 
 
 public class InternalMouse implements MouseListener, MouseMotionListener {
@@ -186,7 +184,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
             for (Point p : path) {
                 mousePosition = p;
                 hop(mousePosition.x, mousePosition.y);
-                Time.sleep(1,4);
+                Time.sleep(1, 4);
             }
         } else {
             Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));

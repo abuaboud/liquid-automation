@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu {
 
     private final JMenu view;
-    private final JMenuItem  settings, widgets, console;
+    private final JMenuItem settings, widgets, console;
     private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players;
     private final Configuration config = Configuration.getInstance();
 
@@ -64,7 +64,7 @@ public class BotPopupMenu extends JPopupMenu {
         console.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(config.getConsole().isDisplaying()) {
+                if (config.getConsole().isDisplaying()) {
                     log.info("Disabling Console.");
                     config.getConsole().display(false);
                     config.getBotFrame().remove(config.getConsole());

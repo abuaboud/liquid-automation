@@ -1,11 +1,8 @@
 package org.liquidbot.component.debug;
 
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.interfaces.Filter;
-import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
-import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Player;
 
 import java.awt.*;
@@ -35,7 +32,7 @@ public class PlayerDebugger extends Debugger<Player> {
             graphics.fillRect((int) point.x, (int) point.y, 5, 5);
             graphics.setColor(Color.red);
             String format = player.getName() + " [Hp: " + player.getHealthPercent() + " Animation: " + player.getAnimation() + "]";
-            graphics.drawString(format, point.x - (metrics.stringWidth(format)/2), point.y - 5);
+            graphics.drawString(format, point.x - (metrics.stringWidth(format) / 2), point.y - 5);
         }
     }
 

@@ -1,15 +1,13 @@
 package org.liquidbot.bot.script.api.wrappers;
 
-import com.sun.corba.se.spi.ior.IdentifiableFactory;
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
-import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
@@ -18,10 +16,6 @@ import org.liquidbot.bot.script.api.wrappers.definitions.ItemDefinition;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
-import java.awt.Menu;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
 /*
  * Created by Hiasat on 7/31/14
@@ -68,18 +62,18 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public boolean interact(String action) {
-        return interact(action,null);
+        return interact(action, null);
     }
 
     @Override
     public boolean click(boolean left) {
-        Mouse.click(getInteractPoint(),left);
+        Mouse.click(getInteractPoint(), left);
         return true;
     }
 
     @Override
     public boolean click() {
-        Mouse.click(getInteractPoint(),true);
+        Mouse.click(getInteractPoint(), true);
         return true;
     }
 
@@ -112,18 +106,18 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
                 && Constants.VIEWPORT.contains(pxyh)
                 && Constants.VIEWPORT.contains(pn)
                 && Constants.VIEWPORT.contains(pnh)) {
-        polygon.addPoint(py.x, py.y);
-        polygon.addPoint(pyh.x, pyh.y);
+            polygon.addPoint(py.x, py.y);
+            polygon.addPoint(pyh.x, pyh.y);
 
-        polygon.addPoint(px.x, px.y);
-        polygon.addPoint(pxh.x, pxh.y);
+            polygon.addPoint(px.x, px.y);
+            polygon.addPoint(pxh.x, pxh.y);
 
-        polygon.addPoint(pxy.x, pxy.y);
-        polygon.addPoint(pxyh.x, pxyh.y);
+            polygon.addPoint(pxy.x, pxy.y);
+            polygon.addPoint(pxyh.x, pxyh.y);
 
-        polygon.addPoint(pn.x, pn.y);
-        polygon.addPoint(pnh.x, pnh.y);
-        }else{
+            polygon.addPoint(pn.x, pn.y);
+            polygon.addPoint(pnh.x, pnh.y);
+        } else {
             return null;
         }
         return polygon;
@@ -147,7 +141,7 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
     @Override
     public Point getInteractPoint() {
         Polygon bounds = getBounds();
-        if(bounds != null)
+        if (bounds != null)
             return Utilities.generatePoint(bounds);
         return getPointOnScreen();
     }
@@ -185,7 +179,7 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public void draw(Graphics2D g) {
-        draw(g,Color.WHITE);
+        draw(g, Color.WHITE);
     }
 
     @Override

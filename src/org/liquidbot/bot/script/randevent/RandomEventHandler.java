@@ -3,7 +3,9 @@ package org.liquidbot.bot.script.randevent;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.script.api.util.Time;
-import org.liquidbot.bot.script.randevent.impl.*;
+import org.liquidbot.bot.script.randevent.impl.ClickToPlay;
+import org.liquidbot.bot.script.randevent.impl.Login;
+import org.liquidbot.bot.script.randevent.impl.StrangeBox;
 import org.liquidbot.bot.utils.Logger;
 
 import java.awt.*;
@@ -21,7 +23,7 @@ public class RandomEventHandler implements Runnable {
     public final RandomEvent[] randomEvents;
 
     public RandomEventHandler() {
-        randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(),new StrangeBox()};
+        randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new StrangeBox()};
     }
 
     @Override

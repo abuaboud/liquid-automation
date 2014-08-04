@@ -1,14 +1,10 @@
 package org.liquidbot.bot.script.api.methods.interactive;
 
-import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.client.parser.FieldHook;
-import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.query.GroundItemQuery;
 import org.liquidbot.bot.script.api.wrappers.GroundItem;
-import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.utils.Utilities;
 
@@ -24,6 +20,7 @@ public class GroundItems {
 
     /**
      * Gets the query instance
+     *
      * @return the query instance
      */
     public static GroundItemQuery query() {
@@ -33,7 +30,7 @@ public class GroundItems {
     /**
      * @param filter
      * @return GroundItem[] : return all groundsitems in your region
-     *         that applied to that filter
+     * that applied to that filter
      */
     public static GroundItem[] getAll(Filter<GroundItem> filter) {
         ArrayList<GroundItem> groundItems = new ArrayList<GroundItem>();
@@ -106,7 +103,7 @@ public class GroundItems {
     /**
      * @param filter
      * @return GroundItem : nearest groundItem to Local Player
-     *         that apply to that filter
+     * that apply to that filter
      */
     public static GroundItem getNearest(Filter<GroundItem> filter) {
         return getNearest(Players.getLocal().getLocation(), filter);
@@ -115,10 +112,10 @@ public class GroundItems {
     /**
      * @param filter
      * @return GroundItem : nearest groundItem to start tile
-     *         that apply to that filter
+     * that apply to that filter
      */
     public static GroundItem getNearest(Tile start, Filter<GroundItem> filter) {
-        GroundItem closet = new GroundItem(null,null);
+        GroundItem closet = new GroundItem(null, null);
         int distance = 255;
         for (GroundItem groundItem : getAll(filter)) {
             if (groundItem.isValid() && distance > groundItem.distanceTo(start)) {
@@ -162,7 +159,7 @@ public class GroundItems {
     /**
      * @param tile
      * @return GroundItem : ground item that is in specific tile
-     *         if there isn't it will return null
+     * if there isn't it will return null
      */
     public static GroundItem getAt(final Tile tile) {
         return getNearest(Players.getLocal().getLocation(), new Filter<GroundItem>() {

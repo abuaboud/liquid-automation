@@ -37,6 +37,7 @@ public class Keyboard {
         if (pressEnter)
             pressEnter();
     }
+
     public static void sendText(String text, boolean pressEnter) {
         for (int i = 0; i < text.toCharArray().length; i++) {
             type(text.toCharArray()[i]);

@@ -46,13 +46,13 @@ public class BotConsole extends JPanel {
 
     public void append(String str, Color color) {
         final String[] count = textPane.getText().split("\n");
-        if(count.length > 300)
+        if (count.length > 300)
             textPane.setText("");
 
         try {
 
             StyleConstants.setForeground(style, foreground);
-            doc.insertString(doc.getLength(), "[" +DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
+            doc.insertString(doc.getLength(), "[" + DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
             StyleConstants.setForeground(style, color != null ? color : foreground);
             doc.insertString(doc.getLength(), str + "\n", style);
             textPane.setCaretPosition(doc.getLength());

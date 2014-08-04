@@ -1,6 +1,5 @@
 package org.liquidbot.bot.script.api.methods.interactive;
 
-import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
@@ -22,6 +21,7 @@ public class GameEntities {
 
     /**
      * Gets the query system
+     *
      * @return query instance
      */
     public static GameObjectQuery query() {
@@ -103,7 +103,7 @@ public class GameEntities {
                     if (gameObjects != null) {
                         for (Object j : gameObjects) {
                             if (j != null) {
-                                GameObject obj = new GameObject(j, GameObject.Type.INTERACTIVE, x + baseX, y + baseY,z);
+                                GameObject obj = new GameObject(j, GameObject.Type.INTERACTIVE, x + baseX, y + baseY, z);
                                 if (obj != null && (filter == null || filter.accept(obj)))
                                     objects.add(obj);
 
@@ -114,7 +114,7 @@ public class GameEntities {
 
                     Object floorDeco = Reflection.value(floorDecorationField, groundTile);
                     if (floorDeco != null) {
-                        GameObject obj = new GameObject(floorDeco, GameObject.Type.FLOOR_DECORATION, x + baseX, y + baseY,z);
+                        GameObject obj = new GameObject(floorDeco, GameObject.Type.FLOOR_DECORATION, x + baseX, y + baseY, z);
                         if (obj != null && (filter == null || filter.accept(obj)))
                             objects.add(obj);
                     }
@@ -122,7 +122,7 @@ public class GameEntities {
 
                     Object boundary = Reflection.value(boundaryField, groundTile);
                     if (boundary != null) {
-                        GameObject obj = new GameObject(boundary, GameObject.Type.BOUNDARY, x + baseX, y + baseY,z);
+                        GameObject obj = new GameObject(boundary, GameObject.Type.BOUNDARY, x + baseX, y + baseY, z);
                         if (obj != null && (filter == null || filter.accept(obj)))
                             objects.add(obj);
                     }
@@ -130,7 +130,7 @@ public class GameEntities {
 
                     Object wallObject = Reflection.value(wallObjectField, groundTile);
                     if (wallObject != null) {
-                        GameObject obj = new GameObject(wallObject, GameObject.Type.WALL_OBJECT, x + baseX, y + baseY,z);
+                        GameObject obj = new GameObject(wallObject, GameObject.Type.WALL_OBJECT, x + baseX, y + baseY, z);
                         if (obj != null && (filter == null || filter.accept(obj)))
                             objects.add(obj);
                     }
@@ -145,7 +145,7 @@ public class GameEntities {
     /**
      * @param filter
      * @return GameObject : nearest gameObject to Local Player
-     *         that apply to that filter
+     * that apply to that filter
      */
     public static GameObject getNearest(Filter<GameObject> filter) {
         return getNearest(Players.getLocal().getLocation(), filter);
@@ -154,7 +154,7 @@ public class GameEntities {
     /**
      * @param filter
      * @return GameObject : nearest gameObject to start tile
-     *         that apply to that filter
+     * that apply to that filter
      */
     public static GameObject getNearest(Tile start, Filter<GameObject> filter) {
         GameObject closet = null;
@@ -201,7 +201,7 @@ public class GameEntities {
     /**
      * @param tile
      * @return GameObject : gameObject that is in specific tile
-     *         if there isn't it will return null
+     * if there isn't it will return null
      */
     public static GameObject getAt(final Tile tile) {
         return getNearest(Players.getLocal().getLocation(), new Filter<GameObject>() {

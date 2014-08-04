@@ -1,6 +1,5 @@
 package org.liquidbot.component.debug;
 
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.Game;
@@ -29,7 +28,7 @@ public class NPCDebugger extends Debugger<NPC> {
 
         final FontMetrics metrics = graphics.getFontMetrics();
 
-        for(NPC npc : refresh()) {
+        for (NPC npc : refresh()) {
             final Point pt = Calculations.tileToScreen(npc.getLocation(), 0.5, 0.5, 0);
             final String format = npc.getName() + " [ID: " + npc.getId() + " Animation Id: " + npc.getAnimation() + "]";
 

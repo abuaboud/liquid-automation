@@ -45,7 +45,7 @@ public class BotFrame extends JFrame implements WindowListener {
     }
 
 
-    public RSLoader loader(){
+    public RSLoader loader() {
         return loader;
     }
 

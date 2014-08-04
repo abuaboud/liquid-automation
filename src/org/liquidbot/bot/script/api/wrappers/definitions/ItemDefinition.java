@@ -10,16 +10,16 @@ import java.util.Hashtable;
  */
 public class ItemDefinition {
 
-    private static Hashtable<Integer,String> cache = new Hashtable<>();
+    private static Hashtable<Integer, String> cache = new Hashtable<>();
 
     private String name;
 
     public ItemDefinition(int Id) {
-      if(cache.get(Id) == null){
-          Object raw = Reflection.invoke("Client#getItemComposite()", null, Id, HookReader.methods.get("Client#getItemComposite()").getCorrectParam());
-          cache.put(Id,(String)Reflection.value("ItemComposite#getName()",raw));
-      }
-      name = cache.get(Id);
+        if (cache.get(Id) == null) {
+            Object raw = Reflection.invoke("Client#getItemComposite()", null, Id, HookReader.methods.get("Client#getItemComposite()").getCorrectParam());
+            cache.put(Id, (String) Reflection.value("ItemComposite#getName()", raw));
+        }
+        name = cache.get(Id);
     }
 
     /**
@@ -37,6 +37,6 @@ public class ItemDefinition {
      * @return Boolean : return true if not null else false
      */
     public boolean isValid() {
-        return name !=null;
+        return name != null;
     }
 }

@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.wrappers.GameObject;
 /**
  * Created by Kenneth on 8/4/2014.
  */
-public class GameObjectQuery extends MobileIdNameQuery<GameObjectQuery, GameObject> {
+public class GameObjectQuery extends BasicQuery<GameObjectQuery, GameObject> {
     @Override
     protected GameObject[] elements() {
         return GameEntities.getAll();

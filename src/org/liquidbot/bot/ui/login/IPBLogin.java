@@ -82,5 +82,6 @@ public class IPBLogin extends JFrame {
         getContentPane().add(bottomPanel, BorderLayout.SOUTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        pack();
     }
 }

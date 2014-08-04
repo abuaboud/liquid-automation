@@ -14,7 +14,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
 
     protected abstract E[] elements();
 
-    public Q select() {
+    public Q refresh() {
         elements.clear();
         Collections.addAll(elements, elements());
         return (Q) this;

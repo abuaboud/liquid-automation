@@ -31,13 +31,6 @@ public class BotConsole extends JPanel {
     private final Style style;
 
     public BotConsole() {
-
-        try {
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-        } catch (UnsupportedLookAndFeelException | ParseException e) {
-            e.printStackTrace();
-        }
-
         textPane = new JTextPane();
         textPane.setEditable(false);
         scrollPane = new JScrollPane(textPane);

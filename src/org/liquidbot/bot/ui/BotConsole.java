@@ -1,5 +1,6 @@
 package org.liquidbot.bot.ui;
 
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Constants;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -30,8 +32,16 @@ public class BotConsole extends JPanel {
 
     public BotConsole() {
 
+        try {
+            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+        } catch (UnsupportedLookAndFeelException | ParseException e) {
+            e.printStackTrace();
+        }
+
         textPane = new JTextPane();
+        textPane.setEditable(false);
         scrollPane = new JScrollPane(textPane);
+        scrollPane.setOpaque(false);
         doc = textPane.getStyledDocument();
         style = textPane.addStyle("Style", null);
 

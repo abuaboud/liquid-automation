@@ -38,7 +38,7 @@ public class BotFrame extends JFrame implements WindowListener {
         final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
 
         this.addWindowListener(this);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(getParent());
         this.setIconImage(iconImage);
         this.pack();
     }

@@ -1,10 +1,8 @@
 package org.liquidbot.bot.ui.login.misc;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.bot.utils.NetUtils;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,21 +15,18 @@ import java.util.List;
 public class User {
 
     private int userId;
-    private String displayName, hash, username, password;
+    private String displayName, hash;
     private List<UserGroup> secondaryGroups;
     private UserGroup primaryGroup;
 
     private final Logger log = new Logger(IPBLogin.class);
     private final Configuration config = Configuration.getInstance();
 
-    public User(String username, String password) {
-        this.username = username.replaceAll("%20", " ");
-        this.password = password;
+    public User(String loginString) {
         this.secondaryGroups = new ArrayList<>();
 
         try {
-            final String raw = NetUtils.readPage("http://liquidbot.org/client/login.php?username=" + this.username + "&password=" + this.password)[0];
-            final String[] data = raw.split("<br>");
+            final String[] data = loginString.split("<br>");
             this.hash = data[1];
             this.userId = Integer.parseInt(data[2]);
             this.primaryGroup = UserGroup.get(Integer.parseInt(data[3]));

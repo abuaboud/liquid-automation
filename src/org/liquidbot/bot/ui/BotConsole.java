@@ -1,5 +1,6 @@
 package org.liquidbot.bot.ui;
 
+import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Constants;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -29,9 +31,10 @@ public class BotConsole extends JPanel {
     private final Style style;
 
     public BotConsole() {
-
         textPane = new JTextPane();
+        textPane.setEditable(false);
         scrollPane = new JScrollPane(textPane);
+        scrollPane.setOpaque(false);
         doc = textPane.getStyledDocument();
         style = textPane.addStyle("Style", null);
 
@@ -46,13 +49,13 @@ public class BotConsole extends JPanel {
 
     public void append(String str, Color color) {
         final String[] count = textPane.getText().split("\n");
-        if(count.length > 300)
+        if (count.length > 300)
             textPane.setText("");
 
         try {
 
             StyleConstants.setForeground(style, foreground);
-            doc.insertString(doc.getLength(), "[" +DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
+            doc.insertString(doc.getLength(), "[" + DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
             StyleConstants.setForeground(style, color != null ? color : foreground);
             doc.insertString(doc.getLength(), str + "\n", style);
             textPane.setCaretPosition(doc.getLength());

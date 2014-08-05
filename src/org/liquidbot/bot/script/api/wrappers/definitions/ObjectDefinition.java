@@ -42,7 +42,7 @@ public class ObjectDefinition {
      *
      * @return String[] : Object Interact Actions
      */
-    public String[] getActions(){
+    public String[] getActions() {
         return actions;
     }
 

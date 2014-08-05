@@ -56,18 +56,18 @@ public class Mouse {
     }
 
     public static void press(int x, int y, int button) {
-        Configuration.getInstance().getMouse().press(x,y,button);
+        Configuration.getInstance().getMouse().press(x, y, button);
     }
 
     public static void release(int x, int y, int button) {
         Configuration.getInstance().getMouse().press(x, y, button);
     }
 
-    public static boolean dragMouse(Point p1 , Point p2){
-        return dragMouse(p1.getLocation().x,p1.getLocation().y,p2.getLocation().x,p2.getLocation().y);
+    public static boolean dragMouse(Point p1, Point p2) {
+        return dragMouse(p1.getLocation().x, p1.getLocation().y, p2.getLocation().x, p2.getLocation().y);
     }
 
-    public static boolean dragMouse(int x, int y, int x1,int y1) {
-        return  Configuration.getInstance().getMouse().dragMouse(x, y, x1, y1);
+    public static boolean dragMouse(int x, int y, int x1, int y1) {
+        return Configuration.getInstance().getMouse().dragMouse(x, y, x1, y1);
     }
 }

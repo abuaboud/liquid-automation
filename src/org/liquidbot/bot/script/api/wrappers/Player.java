@@ -2,7 +2,6 @@ package org.liquidbot.bot.script.api.wrappers;
 
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
-import org.liquidbot.bot.script.api.query.PlayerQuery;
 import org.liquidbot.bot.script.api.wrappers.definitions.PlayerDefinition;
 
 /**

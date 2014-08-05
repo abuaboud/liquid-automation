@@ -30,7 +30,7 @@ public class Skills {
      * @return int[] : return array of skills exp array
      */
     private static int[] getSkillExpArray() {
-        return (int[]) Reflection.value("Client#getSkillExpArray()",null);
+        return (int[]) Reflection.value("Client#getSkillExpArray()", null);
     }
 
     /**
@@ -40,7 +40,7 @@ public class Skills {
      * which is modified by Potion,Spell or anything else
      */
     private static int[] getSkillLevelArray() {
-        return (int[]) Reflection.value("Client#getSkillLevelArray()",null);
+        return (int[]) Reflection.value("Client#getSkillLevelArray()", null);
     }
 
     /**
@@ -50,7 +50,7 @@ public class Skills {
      * which isn't modified by Potion,Spell or anything else
      */
     private static int[] getRealSkillLevelArray() {
-        return (int[]) Reflection.value("Client#getRealSkillLevelArray()",null);
+        return (int[]) Reflection.value("Client#getRealSkillLevelArray()", null);
     }
 
     /**
@@ -66,6 +66,7 @@ public class Skills {
 
         return getRealSkillLevelArray()[skill];
     }
+
     /**
      * Returns the real level of the specified skill that
      * has or has not been modified by any spells, potions etc..
@@ -79,6 +80,7 @@ public class Skills {
 
         return getSkillLevelArray()[skill];
     }
+
     /**
      * get current Experience  of specific skill
      *
@@ -91,6 +93,7 @@ public class Skills {
 
         return getSkillExpArray()[skill];
     }
+
     /**
      * Get Exp when reach specific level
      *
@@ -103,6 +106,7 @@ public class Skills {
 
         return XP_TABLE[level];
     }
+
     /**
      * Get level at specific amount of Exp
      *

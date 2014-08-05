@@ -18,7 +18,7 @@ public class Widget {
 
     public WidgetChild[] getChildren() {
         List<WidgetChild> list = new ArrayList<>();
-        if(raw == null)
+        if (raw == null)
             return list.toArray(new WidgetChild[list.size()]);
         for (int i = 0; i < raw.length; i++) {
             list.add(new WidgetChild(raw[i], i));

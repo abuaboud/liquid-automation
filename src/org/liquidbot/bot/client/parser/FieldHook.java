@@ -12,47 +12,42 @@ public class FieldHook {
      *
      * @param fieldLine
      */
-    public FieldHook(String fieldLine){
-       this.fieldLine = fieldLine;
+    public FieldHook(String fieldLine) {
+        this.fieldLine = fieldLine;
     }
 
     /**
-     *
      * @return OwnerHookName#MethodName
      */
-    public String getFieldKey(){
+    public String getFieldKey() {
         return fieldLine.split(" ")[0];
     }
 
     /**
-     *
      * @return Field Integer
      */
-    public String getType(){
+    public String getType() {
         return fieldLine.split(" ")[2];
     }
 
     /**
-     *
      * @return fieldName
      */
-    public String getFieldName(){
+    public String getFieldName() {
         return fieldLine.split(" ")[1].split("#")[1];
     }
 
     /**
-     *
      * @return Owner classname
      */
-    public String getClassName(){
+    public String getClassName() {
         return fieldLine.split(" ")[1].split("#")[0];
     }
 
     /**
-     *
      * @return Integer : multiplier
      */
-    public int getMultiplier(){
+    public int getMultiplier() {
         return Integer.parseInt(fieldLine.split(" ")[3]);
     }
 }

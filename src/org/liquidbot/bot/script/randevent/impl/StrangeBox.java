@@ -1,7 +1,6 @@
 package org.liquidbot.bot.script.randevent.impl;
 
 import org.liquidbot.bot.script.api.methods.data.Bank;
-import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.Inventory;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;

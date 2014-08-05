@@ -13,7 +13,7 @@ public class Path {
     public Tile[] tiles;
     private boolean end;
 
-    public Path(Tile ...tiles){
+    public Path(Tile... tiles) {
         this.tiles = tiles;
     }
 

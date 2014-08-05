@@ -1,14 +1,11 @@
 package org.liquidbot.bot.ui.sdn;
 
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.script.SkillCategory;
-
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -33,7 +30,7 @@ public class SDNFrame extends JFrame {
         SkillCategory[] skillCategories = SkillCategory.values();
         final String[] categoriesList = new String[skillCategories.length + 1];
         categoriesList[0] = "All";
-        for(int x = 1 ; x < categoriesList.length ;x++){
+        for (int x = 1; x < categoriesList.length; x++) {
             categoriesList[x] = skillCategories[x - 1].getName();
         }
 
@@ -166,7 +163,6 @@ public class SDNFrame extends JFrame {
             "2~2~LiquidFisher~Advanced Fishing Script~8~1~Magorium~0~0~2014-07-23 05:12:36~2014-07-29 11:13:16~1~i05a85bal5.jar~0",
             "1~2~LiquidChopper~Chop Oak Tree at West Varrock~23~1~Magorium~0~0~2014-07-23 05:12:30~2014-07-24 03:30:14~0~ey4e08u5cf.jar~0"
     };
-
 
     private void reBounds(int index, int realIndex) {
         final int width = 250;

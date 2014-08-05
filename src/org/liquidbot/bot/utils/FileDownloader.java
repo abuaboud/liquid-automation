@@ -44,17 +44,17 @@ public class FileDownloader implements Runnable {
             final byte[] data = new byte[1024];
             int read;
 
-            while((read = input.read(data)) != -1) {
+            while ((read = input.read(data)) != -1) {
                 output.write(data, 0, read);
                 written += read;
-                percentage = (int)(((double)written / (double)length) * 100D);
+                percentage = (int) (((double) written / (double) length) * 100D);
             }
 
             output.flush();
             output.close();
             input.close();
 
-        } catch(IOException a) {
+        } catch (IOException a) {
             System.out.println("Error downloading file!");
             a.printStackTrace();
         }

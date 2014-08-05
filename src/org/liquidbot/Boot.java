@@ -1,19 +1,18 @@
 package org.liquidbot;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
-import de.javasoft.plaf.synthetica.SyntheticaStandardLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.security.LSecurityManager;
+import org.liquidbot.bot.script.api.interfaces.Condition;
+import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
-import java.awt.*;
 import java.text.ParseException;
 
 /**
@@ -21,15 +20,45 @@ import java.text.ParseException;
  */
 public class Boot {
 
-    private static final Logger log = new Logger(Boot.class);
-    private static final Configuration config = Configuration.getInstance();
+    private final Logger log = new Logger(Boot.class);
+    private final Configuration config = Configuration.getInstance();
 
-    public static void main(String[] args) {
+    public Boot() {
         System.setSecurityManager(new LSecurityManager());
-        JPopupMenu.setDefaultLightWeightPopupEnabled(true);
         config.setConsole(new BotConsole());
         log.info("Parsing hooks..");
         HookReader.init();
+
+        final IPBLogin login = new IPBLogin();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                login.setVisible(true);
+            }
+        }).start();
+
+        Time.sleep(new Condition() {
+            @Override
+            public boolean active() {
+                return login.isVisible();
+            }
+        }, 2000); // to help people with slower computers.
+
+        while (login.isVisible()) {
+            Utilities.sleep(200, 300);
+        }
+
+        log.info("Launching client..");
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                config.setBotFrame(new BotFrame());
+                config.getBotFrame().setVisible(true);
+            }
+        });
+    }
+
+    public static void main(String[] args) {
 
         try {
             UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
@@ -37,39 +66,10 @@ public class Boot {
             e.printStackTrace();
         }
 
-        final IPBLogin login = new IPBLogin();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                login.pack();
-                login.setVisible(true);
-            }
-        });
-        thread.start();
-        Utilities.sleep(500);
-        while(login.isVisible()) {
-            Utilities.sleep(200, 300);
-        }
+        JPopupMenu.setDefaultLightWeightPopupEnabled(true);
 
+        new Boot();
 
-        log.info("Lauching client..");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-
-
-
-                final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
-                final BotFrame frame = new BotFrame();
-                config.setBotFrame(frame);
-                frame.setIconImage(iconImage);
-                frame.pack();
-                frame.setVisible(true);
-
-
-            }
-        });
     }
-
 
 }

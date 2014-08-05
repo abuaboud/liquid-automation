@@ -4,8 +4,10 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.RSLoader;
 import org.liquidbot.bot.utils.Logger;
+import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -33,7 +35,12 @@ public class BotFrame extends JFrame implements WindowListener {
         this.loader = new RSLoader(configuration);
         this.getContentPane().add(loader);
 
+        final Image iconImage = Utilities.getLocalImage("/resources/liquidicon.png");
+
         this.addWindowListener(this);
+        this.setLocationRelativeTo(null);
+        this.setIconImage(iconImage);
+        this.pack();
     }
 
     public void setConfiguration(Configuration config) {
@@ -45,7 +52,7 @@ public class BotFrame extends JFrame implements WindowListener {
     }
 
 
-    public RSLoader loader(){
+    public RSLoader loader() {
         return loader;
     }
 

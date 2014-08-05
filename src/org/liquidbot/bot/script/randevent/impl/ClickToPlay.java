@@ -35,7 +35,7 @@ public class ClickToPlay extends RandomEvent {
         setStatus("Clicking To Play");
         if (clickToPlay.isVisible()) {
             clickToPlay.interact("Play RuneScape");
-            for(int i = 0 ; i < 25 && Widgets.get(LOBBY_WIDGET).isValid();i++, Time.sleep(100,150));
+            for (int i = 0; i < 25 && Widgets.get(LOBBY_WIDGET).isValid(); i++, Time.sleep(100, 150)) ;
         }
     }
 

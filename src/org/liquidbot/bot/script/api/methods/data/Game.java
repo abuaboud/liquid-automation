@@ -12,6 +12,7 @@ public class Game {
     public static final int STATE_LOG_IN_SCREEN = 10;
 
     private static final int IN_GAME_WIDGET = 378;
+
     /**
      * current Game State E.g Logged , Lobby , Loading
      *
@@ -40,12 +41,12 @@ public class Game {
     }
 
     /**
-     *
      * @return Integer : Current floor player is on
      */
-    public static int getPlane(){
-        return (int) Reflection.value("Client#getPlane()",null);
+    public static int getPlane() {
+        return (int) Reflection.value("Client#getPlane()", null);
     }
+
     /**
      * @return true if logged in else false
      */

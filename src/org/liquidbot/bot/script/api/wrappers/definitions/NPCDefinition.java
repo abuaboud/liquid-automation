@@ -23,7 +23,7 @@ public class NPCDefinition {
                     int realId = widgetVarps[transformVarpIndex];
                     if (realId > 0) {
                         short correctParam = (short) HookReader.methods.get("Client#getNPCComposite").getCorrectParam();
-                        transformedComposite = Reflection.invoke("Client#getNPCComposite",raw,realId,correctParam);
+                        transformedComposite = Reflection.invoke("Client#getNPCComposite", raw, realId, correctParam);
                     }
                 }
             }
@@ -36,28 +36,28 @@ public class NPCDefinition {
         return (int) Reflection.value("NPCComposite#getId()", raw);
     }
 
-    public String getName(){
-        if(raw == null)
+    public String getName() {
+        if (raw == null)
             return null;
-        return (String) Reflection.value("NPCComposite#getName()",transformedComposite !=null ? transformedComposite:raw);
+        return (String) Reflection.value("NPCComposite#getName()", transformedComposite != null ? transformedComposite : raw);
     }
 
-    public String[] getActions(){
-        if(raw == null)
+    public String[] getActions() {
+        if (raw == null)
             return null;
-        return (String[]) Reflection.value("NPCComposite#getActions()",transformedComposite !=null ? transformedComposite:raw);
+        return (String[]) Reflection.value("NPCComposite#getActions()", transformedComposite != null ? transformedComposite : raw);
     }
 
-    public int getCombatLevel(){
-        if(raw == null)
+    public int getCombatLevel() {
+        if (raw == null)
             return -1;
-        return (int) Reflection.value("NPCComposite#getCombatLevel()",transformedComposite !=null ? transformedComposite:raw);
+        return (int) Reflection.value("NPCComposite#getCombatLevel()", transformedComposite != null ? transformedComposite : raw);
     }
 
-    public int[] getModelIds(){
-        if(raw == null)
+    public int[] getModelIds() {
+        if (raw == null)
             return null;
-        return (int[]) Reflection.value("NPCComposite#getModelIds()",transformedComposite !=null ? transformedComposite:raw);
+        return (int[]) Reflection.value("NPCComposite#getModelIds()", transformedComposite != null ? transformedComposite : raw);
     }
 
     public boolean isValid() {

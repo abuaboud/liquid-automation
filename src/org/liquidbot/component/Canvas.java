@@ -1,21 +1,11 @@
 package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
-
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.script.api.methods.data.Game;
-import org.liquidbot.bot.script.api.methods.input.Mouse;
-import org.liquidbot.bot.script.api.methods.interactive.NPCs;
-import org.liquidbot.bot.script.api.methods.interactive.Players;
-import org.liquidbot.bot.script.api.util.Time;
-import org.liquidbot.bot.script.api.util.Timer;
-import org.liquidbot.bot.script.api.wrappers.NPC;
-import org.liquidbot.component.debug.*;
-
-
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
+import org.liquidbot.component.debug.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;

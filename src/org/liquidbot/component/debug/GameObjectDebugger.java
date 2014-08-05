@@ -1,7 +1,6 @@
 package org.liquidbot.component.debug;
 
 import org.liquidbot.bot.script.api.interfaces.Filter;
-import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
@@ -32,7 +31,7 @@ public class GameObjectDebugger extends Debugger<GameObject> {
     @Override
     public void render(Graphics2D graphics) {
         final FontMetrics metrics = graphics.getFontMetrics();
-       final Tile location = Players.getLocal().getLocation();
+        final Tile location = Players.getLocal().getLocation();
         for (GameObject gameObject : refresh()) {
             if (gameObject.isValid()) {
                 Tile tile = gameObject.getLocation();

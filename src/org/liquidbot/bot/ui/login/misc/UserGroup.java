@@ -20,8 +20,8 @@ public enum UserGroup {
     }
 
     public static UserGroup get(final int id) {
-        for(UserGroup group : values()) {
-            if(group.getId() == id) {
+        for (UserGroup group : values()) {
+            if (group.getId() == id) {
                 return group;
             }
         }

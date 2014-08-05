@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class NetUtils {
 
     /**
-     *  Static Method read source code of specific url
+     * Static Method read source code of specific url
      *
      * @param url
      * @return source page of the link

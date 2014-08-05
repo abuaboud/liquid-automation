@@ -55,7 +55,7 @@ public class Item implements Interactable, Identifiable, Nameable {
     @Override
     public Point getInteractPoint() {
         Rectangle rect = area;
-        if(rect == null)
+        if (rect == null)
             return null;
         return new Point(Random.nextInt(rect.x, rect.x + rect.width),
                 Random.nextInt(rect.y, rect.y + rect.height));
@@ -67,7 +67,7 @@ public class Item implements Interactable, Identifiable, Nameable {
         for (int i = 0; i < 5; i++) {
             menuIndex = Menu.index(action, option);
             Point interactPoint = getInteractPoint();
-            if(interactPoint == null)
+            if (interactPoint == null)
                 return false;
             if (menuIndex > -1)
                 break;

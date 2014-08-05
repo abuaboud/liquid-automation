@@ -2,10 +2,6 @@ package org.liquidbot.bot.client.parser;
 
 import org.liquidbot.bot.utils.NetUtils;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.net.SocketTimeoutException;
 import java.util.Hashtable;
 
 /**
@@ -16,7 +12,7 @@ public class HookReader {
     public static Hashtable<String, FieldHook> fields = new Hashtable<>();
     public static Hashtable<String, MethodHook> methods = new Hashtable<>();
 
-    private static final String HOOKS_URL = "http://pastebin.com/raw.php?i=yq49itwJ";
+    private static final String HOOKS_URL = "http://liquidbot.org/client/hooks.html";
 
     /**
      * Parse Html File to get hooks info

@@ -117,6 +117,7 @@ public class Camera {
 
     /**
      * set Pitch to given Pitch
+     *
      * @param pitch
      * @return Boolean : true if it done correctly else False
      */
@@ -151,8 +152,8 @@ public class Camera {
 
         return Math.abs(_pitch - pitch) <= 5;
     }
+
     /**
-     *
      * @param angel to change
      * @return true if done else false
      */
@@ -194,7 +195,6 @@ public class Camera {
     }
 
     /**
-     *
      * @param angel1
      * @param angel2
      * @return Integer : max angel - min angel then abs it
@@ -238,6 +238,7 @@ public class Camera {
 
         setPitch(pitch);
     }
+
     /**
      * Change angel to locatable angel so it's get on screen
      *

@@ -2,12 +2,12 @@ package org.liquidbot.bot.script.api.wrappers;/*
  * Created by Hiasat on 7/30/14
  */
 
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
-import org.liquidbot.bot.script.api.methods.data.*;
+import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;

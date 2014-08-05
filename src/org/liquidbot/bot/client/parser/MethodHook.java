@@ -12,28 +12,25 @@ public class MethodHook {
      *
      * @param methodLine
      */
-    public MethodHook(String methodLine){
-       this.methodLine = methodLine;
+    public MethodHook(String methodLine) {
+        this.methodLine = methodLine;
     }
 
     /**
-     *
      * @return OwnerHookName#MethodName
      */
-    public String getMethodKey(){
+    public String getMethodKey() {
         return methodLine.split(" ")[0];
     }
 
     /**
-     *
      * @return Field Integer
      */
-    public String getType(){
+    public String getType() {
         return methodLine.split(" ")[2];
     }
 
     /**
-     *
      * @return methodName
      */
     public String getMethodName() {
@@ -41,18 +38,16 @@ public class MethodHook {
     }
 
     /**
-     *
      * @return Owner classname
      */
-    public String getClassName(){
+    public String getClassName() {
         return methodLine.split(" ")[1].split("#")[0];
     }
 
     /**
-     *
      * @return Integer : correct Param to be sent for Method
      */
-    public int getCorrectParam(){
+    public int getCorrectParam() {
         return Integer.parseInt(methodLine.split(" ")[3]);
     }
 }

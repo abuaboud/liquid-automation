@@ -71,8 +71,8 @@ public class RSLoader extends JPanel implements AppletStub {
                 RSLoader.this.add(applet, BorderLayout.CENTER);
                 RSLoader.this.revalidate();
 
-                while(applet.getComponentAt(1,1) == null){
-                    Utilities.sleep(200,300);
+                while (applet.getComponentAt(1, 1) == null) {
+                    Utilities.sleep(200, 300);
                 }
 
                 Reflection.init();
@@ -98,7 +98,7 @@ public class RSLoader extends JPanel implements AppletStub {
             graphics2D.fillRect(0, 0, getWidth(), getHeight());
             graphics2D.setFont(font);
 
-            if(downloader != null || downloader.isFinished()) {
+            if (downloader != null || downloader.isFinished()) {
                 final int width = downloader.getPercentage() * 300 / 100;
 
                 final GradientPaint gradient = new GradientPaint(225, 45, colorDark, 300, 45, color);

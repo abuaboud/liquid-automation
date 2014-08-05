@@ -5,22 +5,14 @@ import org.liquidbot.bot.script.loader.scanner.CodeScanner;
 import org.liquidbot.bot.script.loader.scanner.ReflectionScanner;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.MethodInsnNode;
-import org.objectweb.asm.tree.MethodNode;
 
-import java.awt.*;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.HashMap;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
-import java.util.zip.ZipException;
 
 /*
  * Created by Hiasat on 8/3/14
@@ -30,7 +22,7 @@ public class ScriptClassLoader extends ClassLoader {
     private boolean safe = true;
     private Map<String, byte[]> entryMap;
     private URL url;
-    private CodeScanner[] scanners = {new ReflectionScanner(),new AsmScanner()};
+    private CodeScanner[] scanners = {new ReflectionScanner(), new AsmScanner()};
 
     public ScriptClassLoader(URL url) {
         this.entryMap = new HashMap<>();
@@ -71,8 +63,8 @@ public class ScriptClassLoader extends ClassLoader {
                 ClassNode classNode = new ClassNode();
                 cr.accept(classNode, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
                 System.out.println(name);
-                for(CodeScanner codeScanner : scanners){
-                    if(codeScanner.scan(classNode)){
+                for (CodeScanner codeScanner : scanners) {
+                    if (codeScanner.scan(classNode)) {
                         safe = false;
                     }
                 }

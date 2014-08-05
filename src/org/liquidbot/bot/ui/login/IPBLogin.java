@@ -2,6 +2,7 @@ package org.liquidbot.bot.ui.login;
 
 import net.miginfocom.swing.MigLayout;
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 
@@ -38,6 +39,7 @@ public class IPBLogin extends JFrame {
                 log.info("Attempting to login as " + userField.getText());
                 setVisible(false);
                 config.setUser(new User(userField.getText(), new String(passField.getPassword())));
+
             }
         });
 

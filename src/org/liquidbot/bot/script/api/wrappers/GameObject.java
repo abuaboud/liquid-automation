@@ -152,7 +152,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
     @Override
     public boolean isOnScreen() {
-        return getLocation().isOnScreen();
+        return Constants.VIEWPORT.contains(Calculations.tileToScreen(getLocation(),0.5,0.5,getHeight()));
     }
 
     @Override
@@ -168,7 +168,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         Polygon bounds = getBounds();
         if (bounds != null)
             return Utilities.generatePoint(bounds);
-        return getPointOnScreen();
+        return Calculations.tileToScreen(getLocation(),0.5,0.5,getHeight());
     }
 
     @Override

@@ -51,7 +51,7 @@ public class Utilities {
         try {
             Thread.sleep(amount);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+
         }
     }
 

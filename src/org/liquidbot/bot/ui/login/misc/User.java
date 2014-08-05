@@ -1,6 +1,7 @@
 package org.liquidbot.bot.ui.login.misc;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.ui.login.IPBLogin;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
@@ -49,6 +50,7 @@ public class User {
         } catch (Exception ex) {
             log.error("Error logging into your account, please check your details!");
             config.setUser(null);
+            ex.printStackTrace();
             return;
         }
         log.info("Login successful. Welcome " + getDisplayName() + "!", Color.GREEN);

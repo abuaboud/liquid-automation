@@ -2,6 +2,7 @@ package org.liquidbot.bot;
 
 import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
@@ -23,6 +24,7 @@ public class Configuration {
     private BotConsole console;
     private ScriptHandler scriptHandler;
     private User user;
+    private AES encryption;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -33,11 +35,20 @@ public class Configuration {
     private boolean drawGameObjects = false;
     private boolean drawMouse = true;
     private boolean drawCanvas = true;
+    private boolean lowCPU = false;
 
     private static Configuration instance = new Configuration();
 
     public static Configuration getInstance() {
         return instance;
+    }
+
+    public boolean lowCPU() {
+        return lowCPU;
+    }
+
+    public void lowCPU(boolean lowCPU) {
+        this.lowCPU = lowCPU;
     }
 
     public User getUser() {
@@ -52,6 +63,16 @@ public class Configuration {
         if (scriptHandler == null)
             scriptHandler = new ScriptHandler();
         return scriptHandler;
+    }
+
+    public AES getEncryption() {
+        if (encryption == null)
+            logger.error("Encryption isn't set!");
+        return encryption;
+    }
+
+    public void setEncryption(AES encryption) {
+        this.encryption = encryption;
     }
 
     public BotConsole getConsole() {

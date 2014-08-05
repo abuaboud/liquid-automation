@@ -14,7 +14,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
     private final JMenu view;
     private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, playerLocation;
-    private final JMenuItem settings, widgets, console;
+    private final JMenuItem settings, widgets, console, accounts;
     private final Configuration config = Configuration.getInstance();
 
     private final Logger log = new Logger(getClass());
@@ -54,6 +54,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         settings = new JMenuItem("Settings Explorer");
         widgets = new JMenuItem("Widget Explorer");
 
+        accounts = new JMenuItem("Account Manager");
+        accounts.addActionListener(this);
+
         view.add(playerLocation);
         view.add(players);
         view.add(gameObjects);
@@ -66,12 +69,14 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         add(new JSeparator());
         add(settings);
         add(widgets);
+        add(accounts);
         add(new JSeparator());
         add(console);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        log.info("Source: "+ e.getSource());
         if (e.getSource() == canvas) {
             config.drawCanvas(!config.drawCanvas());
             log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");
@@ -108,6 +113,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
             }
             config.getBotFrame().pack();
             config.getBotFrame().revalidate();
+        } else if(e.getSource() == accounts) {
+            log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
+            config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
         }
     }
 }

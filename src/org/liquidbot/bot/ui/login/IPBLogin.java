@@ -1,6 +1,7 @@
 package org.liquidbot.bot.ui.login;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
@@ -43,9 +44,8 @@ public class IPBLogin extends JFrame implements WindowListener {
     }
 
     public IPBLogin() {
-
+        setResizable(false);
         addWindowListener(this);
-
         textField1 = new JTextField();
         textField1.setText("Username");
         textField1.setForeground(Color.LIGHT_GRAY);
@@ -91,6 +91,7 @@ public class IPBLogin extends JFrame implements WindowListener {
                     label1.setText("Invalid details, please try again!");
                 } else {
                     config.setUser(new User(loginString));
+                    config.setEncryption(new AES());
                     dispose();
                 }
             }

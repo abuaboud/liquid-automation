@@ -41,6 +41,7 @@ public class BotFrame extends JFrame implements WindowListener {
         this.setLocationRelativeTo(getParent());
         this.setIconImage(iconImage);
         this.pack();
+        this.setLocationRelativeTo(getOwner());
     }
 
     public void setConfiguration(Configuration config) {

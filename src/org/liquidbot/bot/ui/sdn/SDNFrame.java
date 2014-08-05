@@ -136,7 +136,7 @@ public class SDNFrame extends JFrame {
         scriptPanel.setPreferredSize(new Dimension(765, (150 * (elements.size() / 3))));
         scriptPanel.setBorder(new EtchedBorder());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(getOwner());
         setSize(770, 508);
     }
 

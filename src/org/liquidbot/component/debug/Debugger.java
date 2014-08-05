@@ -28,8 +28,4 @@ public abstract class Debugger<E> implements PaintListener {
         return list;
     }
 
-    public void dispose() {
-        if (list.size() > 0)
-            list.clear();
-    }
 }

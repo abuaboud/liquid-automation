@@ -27,6 +27,7 @@ public class Configuration {
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
     private boolean drawPlayers = false;
+    private boolean drawPlayerLocation = false;
     private boolean drawNPCs = false;
     private boolean drawGroundItems = false;
     private boolean drawGameObjects = false;
@@ -137,6 +138,14 @@ public class Configuration {
 
     public boolean drawGameObjects() {
         return drawGameObjects;
+    }
+
+    public boolean drawPlayerLocation() {
+        return drawPlayerLocation;
+    }
+
+    public void drawPlayerLocation(boolean drawPlayerLocation) {
+        this.drawPlayerLocation = drawPlayerLocation;
     }
 
     public void drawGameObjects(boolean drawGameObjects) {

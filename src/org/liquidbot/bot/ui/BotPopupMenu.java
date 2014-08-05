@@ -14,13 +14,23 @@ public class BotPopupMenu extends JPopupMenu {
 
     private final JMenu view;
     private final JMenuItem  settings, widgets, console;
-    private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players;
+    private final JCheckBoxMenuItem gameObjects, npcs, groundItems, mouse, canvas, players,playerLocation;
     private final Configuration config = Configuration.getInstance();
 
     private final Logger log = new Logger(getClass());
 
     public BotPopupMenu() {
         view = new JMenu("View");
+
+        playerLocation = new JCheckBoxMenuItem("Player Location");
+        playerLocation.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                config.drawPlayerLocation(!config.drawPlayerLocation());
+                log.info(config.drawPlayerLocation() ? "Enabled player Location drawing." : "Disabled player Location drawing.");
+            }
+        });
+
 
         players = new JCheckBoxMenuItem("Players");
         players.addActionListener(new ActionListener() {
@@ -97,6 +107,7 @@ public class BotPopupMenu extends JPopupMenu {
         settings = new JMenuItem("Settings Explorer");
         widgets = new JMenuItem("Widget Explorer");
 
+        view.add(playerLocation);
         view.add(players);
         view.add(gameObjects);
         view.add(npcs);

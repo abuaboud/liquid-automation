@@ -45,7 +45,7 @@ public class Canvas extends java.awt.Canvas {
     public Canvas(java.awt.Canvas canvas) {
         this.canvas = canvas;
         final Debugger[] debuggers = {
-                new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger()
+                new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger(),new TextDebugger()
         };
         Collections.addAll(listeners, debuggers);
     }

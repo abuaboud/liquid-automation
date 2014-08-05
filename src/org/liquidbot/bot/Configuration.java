@@ -6,6 +6,7 @@ import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
+import org.liquidbot.bot.ui.account.AccountManager;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.component.Canvas;
@@ -25,6 +26,7 @@ public class Configuration {
     private ScriptHandler scriptHandler;
     private User user;
     private AES encryption;
+    private AccountManager accountManager;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -57,6 +59,12 @@ public class Configuration {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public AccountManager getAccountManager() {
+        if(accountManager == null)
+            accountManager = new AccountManager();
+        return accountManager;
     }
 
     public ScriptHandler getScriptHandler() {

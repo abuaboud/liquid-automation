@@ -1,7 +1,9 @@
 package org.liquidbot.bot.ui.login;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.ui.login.misc.User;
+import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URI;
+import java.util.Properties;
 
 /**
  * Created by Kenneth on 8/3/2014.
@@ -18,6 +21,7 @@ public class IPBLogin extends JFrame implements WindowListener {
 
     private final Configuration config = Configuration.getInstance();
     private final Logger log = new Logger(IPBLogin.class);
+    private final Properties props = FileUtils.loadProperties("forum");
 
     private JTextField textField1;
     private JPasswordField passwordField1;
@@ -91,18 +95,22 @@ public class IPBLogin extends JFrame implements WindowListener {
                     label1.setText("Invalid details, please try again!");
                 } else {
                     config.setUser(new User(loginString));
+                    config.setEncryption(new AES());
+                    props.clear();
+                    if(checkBox1.isSelected()) {
+                        try {
+                            props.put(config.getEncryption().encrypt(textField1.getText()), config.getEncryption().encrypt(new String(passwordField1.getPassword())));
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    FileUtils.saveProperties(props, "forum");
                     dispose();
                 }
             }
         });
 
         checkBox1.setText("Remember me?");
-        checkBox1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                log.error("Saving of accounts is not yet implemented, sorry for the inconvenience");
-            }
-        });
 
         label2.setText("Create an account");
         label2.addMouseListener(new MouseAdapter() {

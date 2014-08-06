@@ -151,7 +151,7 @@ public class SDNFrame extends JFrame {
         scriptPanel.removeAll();
         elements.clear();
         if (Configuration.getInstance().getUser() != null) {
-            for (ScriptInfo scriptInfo : ScriptLoader.getScripts()) {
+            for (ScriptInfo scriptInfo : ScriptLoader.getRepositoryScripts()) {
                 elements.add(new SDNElement(scriptInfo));
             }
         }

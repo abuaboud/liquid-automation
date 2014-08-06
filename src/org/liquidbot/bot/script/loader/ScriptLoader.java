@@ -57,7 +57,7 @@ public class ScriptLoader {
                         }
                     }
                 } else {
-                   log.error("This Script contains some Prohibited code, Please report that to Admin");
+                    log.error("This Script contains some Prohibited code, Please report that to Admin");
                 }
             }
         } catch (Exception e) {
@@ -68,35 +68,38 @@ public class ScriptLoader {
 
     public static List<ScriptInfo> getScripts() {
         scripts.clear();
-        getRepositoryScripts();
-        getLocalScripts();
-        return scripts;
-    }
-
-    public static List<ScriptInfo> getRepositoryScripts() {
-        User user = Configuration.getInstance().getUser();
-
-        String rawLine = NetUtils.readPage("http://liquidbot.org/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
-
-        for (String script : rawLine.split("<br>")) {
-            scripts.add(new ScriptInfo(script));
+        for (ScriptInfo scriptInfo : getLocalScripts()) {
+            scripts.add(scriptInfo);
+        }
+        for (ScriptInfo scriptInfo : getRepositoryScripts()) {
+            scripts.add(scriptInfo);
         }
         return scripts;
     }
 
-    public static List<ScriptInfo> getLocalScripts() {
-        urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
-        findScripts(new File(Utilities.getContentDirectory() + "scripts/"));
-        urlClassLoader = null;
-        log.info("Found " + scripts.size() + " scripts!");
-        return scripts;
+    public static List<ScriptInfo> getRepositoryScripts() {
+        ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
+        User user = Configuration.getInstance().getUser();
+        String rawLine = NetUtils.readPage("http://liquidbot.org/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
+        for (String script : rawLine.split("<br>")) {
+            scriptInfo.add(new ScriptInfo(script));
+        }
+        return scriptInfo;
     }
 
-    private static void findScripts(final File parent) {
+    public static List<ScriptInfo> getLocalScripts() {
+        ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
+        urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
+        findScripts(new File(Utilities.getContentDirectory() + "scripts/"), scriptInfo);
+        urlClassLoader = null;
+        return scriptInfo;
+    }
+
+    private static void findScripts(final File parent, ArrayList<ScriptInfo> scripts) {
         try {
             for (File child : parent.listFiles()) {
                 if (child.isDirectory()) {
-                    findScripts(child);
+                    findScripts(child, scripts);
                 } else {
                     if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
 

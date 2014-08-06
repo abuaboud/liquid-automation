@@ -1,8 +1,10 @@
 package org.liquidbot.bot.script.api.wrappers;
 
+import org.liquidbot.bot.script.api.enums.Tab;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
+import org.liquidbot.bot.script.api.methods.data.Bank;
 import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Random;
@@ -63,6 +65,8 @@ public class Item implements Interactable, Identifiable, Nameable {
 
     @Override
     public boolean interact(String action, String option) {
+        if (type.equals(Type.INVENTORY) && !Tab.INVENTORY.isOpen() && !Bank.isOpen())
+            Tab.INVENTORY.open();
         int menuIndex = -1;
         for (int i = 0; i < 5; i++) {
             menuIndex = Menu.index(action, option);

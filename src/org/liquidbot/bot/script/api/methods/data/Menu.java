@@ -74,7 +74,7 @@ public class Menu {
     public static int index(String action, String option) {
         java.util.List<String> options = getOptions();
         java.util.List<String> actions = getActions();
-        for (int menuI = 0; menuI < getMenuSize(); menuI++) {
+        for (int menuI = 0; menuI <actions.size(); menuI++) {
             try {
                 if (actions.get(menuI).toLowerCase().contains(action.toLowerCase())
                         && (option == null || options.get(menuI).toLowerCase().contains(option.toLowerCase()))) {

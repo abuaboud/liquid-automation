@@ -7,6 +7,7 @@ import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
 import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
+import org.liquidbot.bot.script.api.methods.data.Menu;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
@@ -53,6 +54,12 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         return objectDefinition.getName();
     }
 
+    public String[] getActions() {
+        if (objectDefinition == null) {
+            objectDefinition = new ObjectDefinition(getId());
+        }
+        return objectDefinition.getActions();
+    }
 
     public Type getType() {
         return type;
@@ -152,7 +159,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
     @Override
     public boolean isOnScreen() {
-        return Constants.VIEWPORT.contains(Calculations.tileToScreen(getLocation(),0.5,0.5,getHeight()));
+        return Constants.VIEWPORT.contains(Calculations.tileToScreen(getLocation(), 0.5, 0.5, getHeight()));
     }
 
     @Override
@@ -168,7 +175,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
         Polygon bounds = getBounds();
         if (bounds != null)
             return Utilities.generatePoint(bounds);
-        return Calculations.tileToScreen(getLocation(),0.5,0.5,getHeight());
+        return Calculations.tileToScreen(getLocation(), 0.5, 0.5, getHeight());
     }
 
     @Override
@@ -178,12 +185,12 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
     @Override
     public int distanceTo(Locatable locatable) {
-        return Calculations.distanceBetween(tile, this.getLocation());
+        return Calculations.distanceBetween(tile, locatable.getLocation());
     }
 
     @Override
     public int distanceTo(Tile tile) {
-        return Calculations.distanceBetween(tile, this.getLocation());
+        return Calculations.distanceBetween(tile, getLocation());
     }
 
     @Override
@@ -196,16 +203,17 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
     public boolean interact(String action, String option) {
         int menuIndex = -1;
         for (int i = 0; i < 5; i++) {
-            menuIndex = org.liquidbot.bot.script.api.methods.data.Menu.index(action, option);
+            menuIndex = Menu.index(action, option);
             Point interactPoint = getInteractPoint();
+
             if (menuIndex > -1)
                 break;
-            if (org.liquidbot.bot.script.api.methods.data.Menu.isOpen() && menuIndex == -1)
-                org.liquidbot.bot.script.api.methods.data.Menu.interact("Cancel");
+            if (Menu.isOpen() && menuIndex == -1)
+                Menu.interact("Cancel");
             Mouse.move(interactPoint);
             Time.sleep(100, 150);
         }
-        return menuIndex > -1 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option);
+        return menuIndex > -1 && Menu.interact(action, option);
     }
 
     @Override

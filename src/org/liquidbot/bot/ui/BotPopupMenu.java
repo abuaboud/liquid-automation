@@ -71,12 +71,13 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         add(widgets);
         add(accounts);
         add(new JSeparator());
+        add(lowCpu);
         add(console);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        log.info("Source: "+ e.getSource());
+
         if (e.getSource() == canvas) {
             config.drawCanvas(!config.drawCanvas());
             log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");

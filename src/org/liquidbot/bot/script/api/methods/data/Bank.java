@@ -392,25 +392,33 @@ public class Bank {
     public static boolean open() {
         if (isOpen())
             return true;
-        GameObject bankBooth = GameEntities.getNearest(OBJECT_BANK_NAME);
-        if (bankBooth.isValid()) {
+        final NPC banker = NPCs.getNearest(NPC_BANK_NAMES);
+        GameObject bankBooth = GameEntities.getNearest(new Filter<GameObject>() {
+            @Override
+            public boolean accept(GameObject gameObject) {
+                if (gameObject.isValid() && gameObject.getName() != null && gameObject.getName().equalsIgnoreCase(OBJECT_BANK_NAME)) {
+                    if (banker.isValid() && gameObject.distanceTo(banker.getLocation()) < 3) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+        if (banker.isValid()) {
+            if (banker.isOnScreen()) {
+                banker.interact("Bank", banker.getName());
+                for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
+                return true;
+            } else {
+                banker.turnTo();
+            }
+        } else if (bankBooth.isValid()) {
             if (bankBooth.isOnScreen()) {
                 bankBooth.interact("Bank", OBJECT_BANK_NAME);
                 for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
                 return true;
             } else {
                 bankBooth.turnTo();
-            }
-        } else {
-            NPC banker = NPCs.getNearest(NPC_BANK_NAMES);
-            if (banker.isValid()) {
-                if (banker.isOnScreen()) {
-                    banker.interact("Bank", banker.getName());
-                    for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
-                    return true;
-                } else {
-                    banker.turnTo();
-                }
             }
         }
         return false;

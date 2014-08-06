@@ -90,7 +90,7 @@ public class WidgetChild implements Interactable {
             int groupIdx = getId() >>> 16;
             final HashTableIterator hti = new HashTableIterator(Reflection.value(widgetNodes, null));
             for (Object n = hti.getFirst(); n != null; n = hti.getNext()) {
-                if (((int) Reflection.value("WidgetNode#getId()", id, n) * HookReader.fields.get("WidgetNode#getId()").getMultiplier()) == groupIdx) {
+                if ((Reflection.value("WidgetNode#getId()", id, n)+"").equalsIgnoreCase(groupIdx+"")) {
                     uid = Integer.parseInt(((Long) Reflection.value(nodeUid, n)) + "");
                 }
             }
@@ -180,27 +180,40 @@ public class WidgetChild implements Interactable {
     }
 
     public int getModelId() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getModelId()", raw);
     }
 
     public int getBorderThickness() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getBorderThickness()", raw);
     }
 
+
     public int getType() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getType()", raw);
     }
 
     public int getParentId() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getParentId()", raw);
     }
 
 
     public int getItemStack() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getItemStack()", raw);
     }
 
     public int getStaticPosition() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getStaticPosition()", raw);
     }
 
@@ -209,6 +222,8 @@ public class WidgetChild implements Interactable {
     }
 
     public int getItemId() {
+        if(raw == null)
+            return -1;
         return (int) Reflection.value("Widget#getItemId()", raw);
     }
 

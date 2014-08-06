@@ -157,7 +157,7 @@ public class GameEntities {
      * that apply to that filter
      */
     public static GameObject getNearest(Tile start, Filter<GameObject> filter) {
-        GameObject closet = null;
+        GameObject closet = new GameObject(null, GameObject.Type.INTERACTIVE,-1,-1,-1);
         int distance = 255;
         for (GameObject gameObject : getAll(filter)) {
             if (gameObject.isValid() && distance > gameObject.distanceTo(start)) {

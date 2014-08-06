@@ -1,10 +1,14 @@
 package org.liquidbot.bot.script.loader;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.AbstractScript;
 import org.liquidbot.bot.script.Manifest;
 import org.liquidbot.bot.script.SkillCategory;
+import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
+import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
+import sun.security.krb5.Config;
 
 import java.io.File;
 import java.net.URL;
@@ -28,19 +32,59 @@ public class ScriptLoader {
     private static URLClassLoader urlClassLoader;
 
     public static AbstractScript loadScript(ScriptInfo scriptInfo) {
-        urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
         AbstractScript abstractScript = null;
         try {
-            abstractScript = (AbstractScript) urlClassLoader.loadClass(scriptInfo.clazz).newInstance();
-        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) {
+            if (scriptInfo.scriptId == -1) {
+                urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
+                abstractScript = (AbstractScript) urlClassLoader.loadClass(scriptInfo.clazz).newInstance();
+                urlClassLoader = null;
+            } else {
+                User user = Configuration.getInstance().getUser();
+                ScriptClassLoader sc = new ScriptClassLoader(new URL("http://liquidbot.org/client/loadScript.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId));
+                if (sc.isSafe()) {
+                    for (String entry : sc.entries().keySet().toArray(new String[sc.entries().keySet().size()])) {
+                        try {
+                            Class<?> clazz = sc.loadClass(entry);
+                            if (clazz.getAnnotation(Manifest.class) != null) {
+                                Object newInstance = clazz.newInstance();
+                                if (newInstance instanceof AbstractScript) {
+                                    abstractScript = (AbstractScript) newInstance;
+                                    break;
+                                }
+                            }
+                        } catch (Exception e) {
+                            // ignored
+                        }
+                    }
+                } else {
+                   log.error("This Script contains some Prohibited code, Please report that to Admin");
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        urlClassLoader = null;
         return abstractScript;
     }
 
-    public static List<ScriptInfo> getLocalScripts() {
+    public static List<ScriptInfo> getScripts() {
         scripts.clear();
+        getRepositoryScripts();
+        getLocalScripts();
+        return scripts;
+    }
+
+    public static List<ScriptInfo> getRepositoryScripts() {
+        User user = Configuration.getInstance().getUser();
+
+        String rawLine = NetUtils.readPage("http://liquidbot.org/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
+
+        for (String script : rawLine.split("<br>")) {
+            scripts.add(new ScriptInfo(script));
+        }
+        return scripts;
+    }
+
+    public static List<ScriptInfo> getLocalScripts() {
         urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
         findScripts(new File(Utilities.getContentDirectory() + "scripts/"));
         urlClassLoader = null;

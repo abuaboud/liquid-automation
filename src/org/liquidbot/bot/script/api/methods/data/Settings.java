@@ -8,8 +8,8 @@ import org.liquidbot.bot.client.reflection.Reflection;
 public class Settings {
 
     public static int[] getAll() {
-        int[] playerSettings = (int[]) Reflection.value("Client.getPlayerSettings()", null);
-        int[] widgetSettings = (int[]) Reflection.value("Client.getWidgetSettings()", null);
+        int[] playerSettings = (int[]) Reflection.value("Client#getPlayerSettings()", null);
+        int[] widgetSettings = (int[]) Reflection.value("Client#getWidgetSettings()", null);
         int[] allSettings = new int[playerSettings.length + widgetSettings.length];
         System.arraycopy(playerSettings, 0, allSettings, 0, playerSettings.length);
         System.arraycopy(widgetSettings, 0, allSettings, playerSettings.length, widgetSettings.length);

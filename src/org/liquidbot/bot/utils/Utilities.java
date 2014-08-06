@@ -129,6 +129,19 @@ public class Utilities {
     }
 
     /**
+     * @param characters
+     * @param length
+     * @return String : Random String from Characters
+     */
+    public static String generateKey(String characters, int length) {
+        String text = "";
+        for (int i = 0; i < length; i++) {
+            text = text + characters.toCharArray()[nextInt(0, characters.length())];
+        }
+        return text;
+    }
+
+    /**
      * @param path
      * @return URL : return url for that path in param
      */

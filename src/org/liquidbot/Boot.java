@@ -34,7 +34,11 @@ public class Boot {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                login.setVisible(true);
+                if (login.rememberMe()) {
+                    login.dispose();
+                } else {
+                    login.setVisible(true);
+                }
             }
         }).start();
 

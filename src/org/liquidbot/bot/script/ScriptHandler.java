@@ -50,8 +50,10 @@ public class ScriptHandler implements Runnable {
         this.scriptThread = new Thread(this);
         this.scriptThread.start();
         this.script.onStart();
-        if (randomEventHandler == null)
+        if (randomEventHandler == null){
             randomEventHandler = new RandomEventHandler();
+            Configuration.getInstance().getCanvas().getPaintListeners().add(randomEventHandler);
+        }
         this.randomEventsThread = new Thread(randomEventHandler);
         this.randomEventsThread.start();
         if (script instanceof PaintListener) {

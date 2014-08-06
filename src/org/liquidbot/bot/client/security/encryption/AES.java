@@ -31,13 +31,20 @@ public class AES {
         KEYBOARD = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&".replace(SPECIAL_CHARACTER, "");
     }
 
+    public AES(String IV, String ENCRYPTION_KEY) {
+        this.IV = IV;
+        this.ENCRYPTION_KEY = ENCRYPTION_KEY;
+        this.SPECIAL_CHARACTER = ENCRYPTION_KEY.charAt(0) + "";
+        this.KEYBOARD = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&".replace(SPECIAL_CHARACTER, "");
+    }
+
     private byte[] StringToBytes(String encryptedText) {
         encryptedText = encryptedText.replaceAll(SPECIAL_CHARACTER, "-");
         String byteLine = "";
         for (int i = 0; i < encryptedText.length(); i++) {
             if (KEYBOARD.contains(encryptedText.charAt(i) + "")) {
                 byteLine = byteLine + " ";
-            }  else{
+            } else {
                 byteLine = byteLine + encryptedText.charAt(i);
             }
         }
@@ -66,20 +73,30 @@ public class AES {
         return s;
     }
 
-    public String encrypt(String plainText) throws Exception {
-        plainText = fix(plainText);
-        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(ENCRYPTION_KEY.getBytes("UTF-8"), "AES");
-        cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
-        return bytesToString(cipher.doFinal(plainText.getBytes("UTF-8")));
+    public String encrypt(String plainText) {
+        try {
+            plainText = fix(plainText);
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
+            SecretKeySpec key = new SecretKeySpec(ENCRYPTION_KEY.getBytes("UTF-8"), "AES");
+            cipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
+            return bytesToString(cipher.doFinal(plainText.getBytes("UTF-8")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 
-    public String decrypt(String cipherText) throws Exception {
-        byte[] cipherBytes = StringToBytes(cipherText);
-        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(ENCRYPTION_KEY.getBytes("UTF-8"), "AES");
-        cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
-        return new String(cipher.doFinal(cipherBytes), "UTF-8");
+    public String decrypt(String cipherText) {
+        try {
+            byte[] cipherBytes = StringToBytes(cipherText);
+            Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
+            SecretKeySpec key = new SecretKeySpec(ENCRYPTION_KEY.getBytes("UTF-8"), "AES");
+            cipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes("UTF-8")));
+            return new String(cipher.doFinal(cipherBytes), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

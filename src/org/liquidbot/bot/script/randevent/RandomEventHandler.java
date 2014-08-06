@@ -2,10 +2,9 @@ package org.liquidbot.bot.script.randevent;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
+import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
-import org.liquidbot.bot.script.randevent.impl.ClickToPlay;
-import org.liquidbot.bot.script.randevent.impl.Login;
-import org.liquidbot.bot.script.randevent.impl.StrangeBox;
+import org.liquidbot.bot.script.randevent.impl.*;
 import org.liquidbot.bot.utils.Logger;
 
 import java.awt.*;
@@ -13,17 +12,21 @@ import java.awt.*;
 /*
  * Created by Hiasat on 8/3/14
  */
-public class RandomEventHandler implements Runnable {
+public class RandomEventHandler implements Runnable, PaintListener {
 
     public Logger log = new Logger(getClass());
 
     public boolean running = true;
     public boolean isActive = false;
 
+    public RandomEvent activeEvent;
+
     public final RandomEvent[] randomEvents;
 
+    private final Color BACKGROUND_COLOR = new Color(Color.black.getRed(), Color.black.getGreen(), Color.black.getBlue(), 40);
+
     public RandomEventHandler() {
-        randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new StrangeBox()};
+        randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new StrangeBox(), new SurpriseExam(),new Reward()};
     }
 
     @Override
@@ -34,11 +37,14 @@ public class RandomEventHandler implements Runnable {
                     if (randomEvent.isEnabled() && randomEvent.active()) {
                         log.info("Started RandomEvent: " + randomEvent.getName(), Color.GREEN);
                         setActive(true);
+                        activeEvent = randomEvent;
                         while (randomEvent.active()) {
                             randomEvent.solve();
                             Time.sleep(500);
                         }
+                        activeEvent = null;
                         setActive(false);
+                        randomEvent.reset();
                         log.info("Completed RandomEvent: " + randomEvent.getName(), Color.GREEN);
                     }
                 }
@@ -61,5 +67,19 @@ public class RandomEventHandler implements Runnable {
 
     public void setRunning(boolean running) {
         this.running = running;
+    }
+
+    @Override
+    public void render(Graphics2D graphics) {
+        if (Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING) && activeEvent !=null) {
+            graphics.setColor(BACKGROUND_COLOR);
+            graphics.fillRect(0, 0, 765, 503);
+            graphics.setColor(Color.WHITE);
+            graphics.drawString("Event:" + activeEvent.getName(), 351, 20);
+            graphics.drawString("Author:"+ activeEvent.getAuthor(), 351, 35);
+            graphics.drawString("Status:"+ activeEvent.getStatus(), 351, 50);
+
+
+        }
     }
 }

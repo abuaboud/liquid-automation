@@ -30,6 +30,10 @@ public class ScriptClassLoader extends ClassLoader {
         loadEntries();
     }
 
+    public Map<String,byte[]> entries(){
+        return entryMap;
+    }
+
     public boolean isSafe() {
         return safe;
     }

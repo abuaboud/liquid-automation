@@ -44,6 +44,9 @@ public class BotButtonPanel extends JPanel {
                     log.error("SDN not available under guest account!");
                 } else {
                     log.info(sdnFrame.isVisible() ? "Hiding SDN panel." : "Displaying SDN panel.");
+                    if(!sdnFrame.isVisible())
+                        sdnFrame.loadScripts();
+                    sdnFrame.setLocationRelativeTo(sdnFrame.getOwner());
                     sdnFrame.setVisible(!sdnFrame.isVisible());
                 }
             }

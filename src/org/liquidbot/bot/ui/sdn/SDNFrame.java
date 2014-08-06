@@ -1,6 +1,9 @@
 package org.liquidbot.bot.ui.sdn;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.SkillCategory;
+import org.liquidbot.bot.script.loader.ScriptInfo;
+import org.liquidbot.bot.script.loader.ScriptLoader;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -124,45 +127,12 @@ public class SDNFrame extends JFrame {
         getContentPane().add(scrollPane, BorderLayout.CENTER);
 
 
-        for (String str : scripts) {
-            elements.add(new SDNElement(str));
-        }
-
-        for (int index = 0; index < elements.size(); index++) {
-            reBounds(index, index);
-            scriptPanel.add(elements.get(index));
-        }
-
         scriptPanel.setPreferredSize(new Dimension(765, (150 * (elements.size() / 3))));
         scriptPanel.setBorder(new EtchedBorder());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(getOwner());
         setSize(770, 508);
     }
 
-    public String[] scripts = {
-            "7~63~Walker~Get from A to B easily~0~1~Lemons~0~0~2014-07-29 16:00:38~2014-07-31 06:13:40~0~v2of9ppqdc.jar~0",
-            "6~63~Chickens~Kills chickens in 3 different locations~2~1~Lemons~0~0~2014-07-29 05:20:41~2014-07-29 15:59:55~0~2tncmsur03.jar~0",
-            "5~63~Walker_TestGrounds~Walker~0~1~Lemons~0~0~2014-07-29 05:11:04~2014-07-29 05:11:04~0~u71wrsemr.jar~1",
-            "4~12~Darkcore_Mankiller~Kills men in edgeville~16~1~Isolate~0~0~2014-07-25 09:44:06~2014-07-25 09:44:06~0~xtyppbrjy4.jar~0",
-            "3~5~DarkCoreCombat~Fights anything~2~1~Calle~0~0~2014-07-23 16:26:09~2014-07-23 16:26:09~0~l3on3cvv75.jar~0",
-            "2~2~LiquidFisher~Advanced Fishing Script~8~1~Magorium~0~0~2014-07-23 05:12:36~2014-07-29 11:13:16~1~i05a85bal5.jar~0",
-            "1~2~LiquidChopper~Chop Oak Tree at West Varrock~23~1~Magorium~0~0~2014-07-23 05:12:30~2014-07-24 03:30:14~0~ey4e08u5cf.jar~0",
-            "7~63~Walker~Get from A to B easily~0~1~Lemons~0~0~2014-07-29 16:00:38~2014-07-31 06:13:40~0~v2of9ppqdc.jar~0",
-            "6~63~Chickens~Kills chickens in 3 different locations~2~1~Lemons~0~0~2014-07-29 05:20:41~2014-07-29 15:59:55~0~2tncmsur03.jar~0",
-            "5~63~Walker_TestGrounds~Walker~0~1~Lemons~0~0~2014-07-29 05:11:04~2014-07-29 05:11:04~0~u71wrsemr.jar~1",
-            "4~12~Darkcore_Mankiller~Kills men in edgeville~16~1~Isolate~0~0~2014-07-25 09:44:06~2014-07-25 09:44:06~0~xtyppbrjy4.jar~0",
-            "3~5~DarkCoreCombat~Fights anything~2~1~Calle~0~0~2014-07-23 16:26:09~2014-07-23 16:26:09~0~l3on3cvv75.jar~0",
-            "2~2~LiquidFisher~Advanced Fishing Script~8~1~Magorium~0~0~2014-07-23 05:12:36~2014-07-29 11:13:16~1~i05a85bal5.jar~0",
-            "1~2~LiquidChopper~Chop Oak Tree at West Varrock~23~1~Magorium~0~0~2014-07-23 05:12:30~2014-07-24 03:30:14~0~ey4e08u5cf.jar~0",
-            "7~63~Walker~Get from A to B easily~0~1~Lemons~0~0~2014-07-29 16:00:38~2014-07-31 06:13:40~0~v2of9ppqdc.jar~0",
-            "6~63~Chickens~Kills chickens in 3 different locations~2~1~Lemons~0~0~2014-07-29 05:20:41~2014-07-29 15:59:55~0~2tncmsur03.jar~0",
-            "5~63~Walker_TestGrounds~Walker~0~1~Lemons~0~0~2014-07-29 05:11:04~2014-07-29 05:11:04~0~u71wrsemr.jar~1",
-            "4~12~Darkcore_Mankiller~Kills men in edgeville~16~1~Isolate~0~0~2014-07-25 09:44:06~2014-07-25 09:44:06~0~xtyppbrjy4.jar~0",
-            "3~5~DarkCoreCombat~Fights anything~2~1~Calle~0~0~2014-07-23 16:26:09~2014-07-23 16:26:09~0~l3on3cvv75.jar~0",
-            "2~2~LiquidFisher~Advanced Fishing Script~8~1~Magorium~0~0~2014-07-23 05:12:36~2014-07-29 11:13:16~1~i05a85bal5.jar~0",
-            "1~2~LiquidChopper~Chop Oak Tree at West Varrock~23~1~Magorium~0~0~2014-07-23 05:12:30~2014-07-24 03:30:14~0~ey4e08u5cf.jar~0"
-    };
 
     private void reBounds(int index, int realIndex) {
         final int width = 250;
@@ -175,6 +145,21 @@ public class SDNFrame extends JFrame {
         int x = row * width + spacing;
         int y = col * height + spacing;
         element.setBounds(x, y, width, height);
+    }
+
+    public void loadScripts() {
+        scriptPanel.removeAll();
+        elements.clear();
+        if (Configuration.getInstance().getUser() != null) {
+            for (ScriptInfo scriptInfo : ScriptLoader.getScripts()) {
+                elements.add(new SDNElement(scriptInfo));
+            }
+        }
+        for (int index = 0; index < elements.size(); index++) {
+            reBounds(index, index);
+            scriptPanel.add(elements.get(index));
+        }
+        scriptPanel.revalidate();
     }
 
 }

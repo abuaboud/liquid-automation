@@ -11,7 +11,7 @@ import java.security.Permission;
  */
 public class LSecurityManager extends java.lang.SecurityManager {
 
-    private final String[] allowedExtensions = {"ini", "png", "jpg", "tmp", "txt", "jpeg"};
+    private final String[] allowedExtensions = {"ini", "png", "jpg", "tmp", "txt", "jpeg","json"};
 
     @Override
     public void checkPermission(final Permission perm) {

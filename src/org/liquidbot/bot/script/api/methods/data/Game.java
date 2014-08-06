@@ -1,7 +1,9 @@
 package org.liquidbot.bot.script.api.methods.data;
 
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.enums.Tab;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
  * Created by Hiasat on 7/31/14
@@ -54,4 +56,28 @@ public class Game {
         return getGameState() == STATE_LOGGED_IN
                 && (Widgets.get(IN_GAME_WIDGET) == null || !Widgets.get(IN_GAME_WIDGET).isValid());
     }
+
+    /**
+     * @return Tab: depend on which tab is open
+     */
+    public static Tab getCurrentTab() {
+        final int WIDGET_PARENT = 548;
+        final WidgetChild[] children = Widgets.get(WIDGET_PARENT).getChildren();
+        if (children == null || children.length == 0)
+            return null;
+        for (WidgetChild p : children) {
+            if (p.getTextureId() != -1 && p.getActions() != null) {
+                String[] actions = p.getActions();
+                for (Tab tab : Tab.values()) {
+                    for (String action : actions) {
+                        if (tab.getName().equalsIgnoreCase(action)) {
+                            return tab;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }

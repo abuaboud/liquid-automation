@@ -5,6 +5,7 @@ import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
+import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.component.debug.*;
 
 import java.awt.*;
@@ -27,6 +28,11 @@ public class Canvas extends java.awt.Canvas {
     private List<PaintListener> listeners = new ArrayList<>();
 
 
+    private long timeTaken = 0;
+    private long beginTime = 0;
+    private int chosenFPS = 10;
+    private int updateRatio = (1000/chosenFPS);
+
     /**
      * Create new instance of Canvas Class
      *
@@ -47,8 +53,10 @@ public class Canvas extends java.awt.Canvas {
      */
     @Override
     public Graphics getGraphics() {
-        final Graphics graphics = botBuffer.getGraphics();
 
+        beginTime = System.currentTimeMillis();
+
+        final Graphics graphics = botBuffer.getGraphics();
         if (config.drawCanvas()) {
             graphics.drawImage(gameBuffer, 0, 0, null);
             for (PaintListener listener : getPaintListeners()) {
@@ -67,6 +75,10 @@ public class Canvas extends java.awt.Canvas {
         final Graphics2D rend = (Graphics2D) canvas.getGraphics();
         rend.drawImage(botBuffer, 0, 0, null);
 
+        timeTaken = System.currentTimeMillis() - beginTime;
+        if(Configuration.getInstance().lowCPU()){
+            Time.sleep((int) (updateRatio - timeTaken));
+        }
         return gameBuffer.getGraphics();
     }
 

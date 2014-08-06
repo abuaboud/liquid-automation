@@ -69,6 +69,8 @@ public class AccountManager extends JFrame {
         passField = new JPasswordField(15);
         pinSpinner = new JSpinner();
         pinSpinner.setPreferredSize(new Dimension(60, 25));
+        final JSpinner.NumberEditor editor = new JSpinner.NumberEditor(pinSpinner, "#");
+        pinSpinner.setEditor(editor);
         rewardsBox = new JComboBox<>(Account.Reward.values());
 
         final JPanel center = new JPanel();

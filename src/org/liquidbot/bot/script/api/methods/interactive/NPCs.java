@@ -57,6 +57,15 @@ public class NPCs {
     public static NPC[] getAll() {
         return getAll(null);
     }
+    /**
+     * get Nearest Specific NPC to Specific Location
+     *
+     * @param filter npc Filter
+     * @return NPC
+     */
+    public static NPC getNearest(Filter<NPC> filter) {
+        return getNearest(Players.getLocal().getLocation(),filter);
+    }
 
     /**
      * get Nearest Specific NPC to Specific Location

@@ -115,7 +115,6 @@ public class IPBLogin extends JFrame implements WindowListener {
                                                       } else {
                                                           config.setUser(new User(loginString));
                                                           if (rememberMeButton.isSelected()) {
-                                                              config.setEncryption(new AES());
                                                               final int userIndex = Random.nextInt(0, 10), passwordIndex = Random.nextInt(11, 20);
                                                               for (int index = 0; index < 20; index++) {
                                                                   if (index == userIndex) {
@@ -127,6 +126,7 @@ public class IPBLogin extends JFrame implements WindowListener {
                                                                   }
                                                               }
                                                           }
+                                                          config.setEncryption(new AES());
                                                           dispose();
                                                       }
                                                   }
@@ -270,6 +270,7 @@ public class IPBLogin extends JFrame implements WindowListener {
             if (username != null && password != null) {
                 if (attemptLogin(username, password)) {
                     config.setUser(new User(loginString));
+                    config.setEncryption(new AES());
                     return true;
                 }
             }

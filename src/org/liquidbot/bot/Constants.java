@@ -16,7 +16,7 @@ public class Constants {
     public static final int APPLET_HEIGHT = 503;
 
     public static final Rectangle GAME_SCREEN = new Rectangle(0, 0, APPLET_WIDTH, APPLET_HEIGHT);
-    public static final Rectangle VIEWPORT = new Rectangle(2, 2, 512, 335);
+    public static final Rectangle VIEWPORT = new Rectangle(5, 5, 509, 332);
 
     public static final String HOME_PATH = (new File(System.getProperty("user.home")).exists() ? System.getProperty("user.home") : "/root") + "/LiquidBot";
     public static final String SETTING_PATH = HOME_PATH + File.separator + "settings";

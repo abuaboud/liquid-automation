@@ -1,14 +1,13 @@
 package org.liquidbot.bot.script.loader;
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.script.AbstractScript;
+import org.liquidbot.bot.script.LoopScript;
 import org.liquidbot.bot.script.Manifest;
 import org.liquidbot.bot.script.SkillCategory;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
-import sun.security.krb5.Config;
 
 import java.io.File;
 import java.net.URL;
@@ -31,12 +30,12 @@ public class ScriptLoader {
 
     private static URLClassLoader urlClassLoader;
 
-    public static AbstractScript loadScript(ScriptInfo scriptInfo) {
-        AbstractScript abstractScript = null;
+    public static LoopScript loadScript(ScriptInfo scriptInfo) {
+        LoopScript loopScript = null;
         try {
             if (scriptInfo.scriptId == -1) {
                 urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
-                abstractScript = (AbstractScript) urlClassLoader.loadClass(scriptInfo.clazz).newInstance();
+                loopScript = (LoopScript) urlClassLoader.loadClass(scriptInfo.clazz).newInstance();
                 urlClassLoader = null;
             } else {
                 User user = Configuration.getInstance().getUser();
@@ -47,8 +46,8 @@ public class ScriptLoader {
                             Class<?> clazz = sc.loadClass(entry);
                             if (clazz.getAnnotation(Manifest.class) != null) {
                                 Object newInstance = clazz.newInstance();
-                                if (newInstance instanceof AbstractScript) {
-                                    abstractScript = (AbstractScript) newInstance;
+                                if (newInstance instanceof LoopScript) {
+                                    loopScript = (LoopScript) newInstance;
                                     break;
                                 }
                             }
@@ -63,7 +62,7 @@ public class ScriptLoader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return abstractScript;
+        return loopScript;
     }
 
     public static List<ScriptInfo> getScripts() {
@@ -101,14 +100,11 @@ public class ScriptLoader {
 
     private static void findScripts(final File parent, ArrayList<ScriptInfo> scripts) {
         try {
-            if(parent == null) {
-                parent.mkdirs();
-            }
             for (File child : parent.listFiles()) {
                 if (child.isDirectory()) {
                     findScripts(child, scripts);
                 } else {
-                    if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
+                    if (child.getName().endsWith(".class") && !child.getName().contains("$") && child.getClass().isAnnotationPresent(Manifest.class)) {
 
                         log.info("Potential script found! - " + getClassPath(child.getAbsolutePath()));
                         Class<?> clazz = urlClassLoader.loadClass(getClassPath(child.getAbsolutePath()));

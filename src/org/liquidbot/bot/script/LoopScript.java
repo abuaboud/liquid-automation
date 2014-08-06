@@ -6,7 +6,9 @@ import org.liquidbot.bot.utils.Logger;
 /**
  * Created by Kenneth on 7/29/2014.
  */
-public abstract class AbstractScript {
+public abstract class LoopScript {
+
+    private final long startTime = System.currentTimeMillis();
 
     public Logger log = new Logger(getClass());
 
@@ -16,7 +18,11 @@ public abstract class AbstractScript {
 
     public abstract void onStop();
 
-    public void stop() {
+    public final void stop() {
         Configuration.getInstance().getScriptHandler().stop();
+    }
+
+    public long getRuntime() {
+        return System.currentTimeMillis() - startTime;
     }
 }

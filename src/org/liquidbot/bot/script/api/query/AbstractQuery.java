@@ -54,6 +54,10 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
         return (Q) this;
     }
 
+    public boolean isEmpty() {
+        return elements.isEmpty();
+    }
+
     public int size() {
         return elements.size();
     }

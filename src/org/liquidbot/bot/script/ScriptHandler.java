@@ -16,7 +16,7 @@ public class ScriptHandler implements Runnable {
 
     private Thread scriptThread;
     private Thread randomEventsThread;
-    private AbstractScript script;
+    private LoopScript script;
     private ScriptInfo scriptInfo;
     private State scriptState;
     private PaintListener paintListener;
@@ -42,7 +42,7 @@ public class ScriptHandler implements Runnable {
         }
     }
 
-    public void start(AbstractScript script, ScriptInfo scriptInfo) {
+    public void start(LoopScript script, ScriptInfo scriptInfo) {
         logger.info("Script Started: " + scriptInfo.name, Color.GREEN);
         this.scriptState = State.RUNNING;
         this.scriptInfo = scriptInfo;

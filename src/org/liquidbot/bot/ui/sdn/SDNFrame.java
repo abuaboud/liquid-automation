@@ -65,22 +65,24 @@ public class SDNFrame extends JFrame {
                 int index = 0;
                 for (int realIndex = 0; realIndex < elements.size(); realIndex++) {
                     SDNElement element = elements.get(realIndex);
-                    if (element.getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
-                        scriptPanel.add(element);
-                        reBounds(index, realIndex);
-                        index++;
-                    } else if (element.getScriptInfo().getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
-                        scriptPanel.add(element);
-                        reBounds(index, realIndex);
-                        index++;
-                    } else if (element.getScriptInfo().getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
-                        scriptPanel.add(element);
-                        reBounds(index, realIndex);
-                        index++;
-                    } else if (element.getScriptInfo().getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
-                        scriptPanel.add(element);
-                        reBounds(index, realIndex);
-                        index++;
+                    if(element.getScriptInfo() != null) {
+                        if (element.getScriptInfo().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                            scriptPanel.add(element);
+                            reBounds(index, realIndex);
+                            index++;
+                        } else if (element.getScriptInfo().getAuthor().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                            scriptPanel.add(element);
+                            reBounds(index, realIndex);
+                            index++;
+                        } else if (element.getScriptInfo().getDesc().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                            scriptPanel.add(element);
+                            reBounds(index, realIndex);
+                            index++;
+                        } else if (element.getScriptInfo().getSkillCategory().getName().toLowerCase().contains(searchField.getText().toLowerCase())) {
+                            scriptPanel.add(element);
+                            reBounds(index, realIndex);
+                            index++;
+                        }
                     }
                 }
                 scriptPanel.setPreferredSize(new Dimension(765, (150 * (index / 3))));

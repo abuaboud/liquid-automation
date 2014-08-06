@@ -90,13 +90,20 @@ public class ScriptLoader {
     public static List<ScriptInfo> getLocalScripts() {
         ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
         urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
-        findScripts(new File(Utilities.getContentDirectory() + "scripts/"), scriptInfo);
+        final File file = new File(Utilities.getContentDirectory() + "scripts/");
+        if(!file.exists()) {
+            file.mkdirs();
+        }
+        findScripts(file, scriptInfo);
         urlClassLoader = null;
         return scriptInfo;
     }
 
     private static void findScripts(final File parent, ArrayList<ScriptInfo> scripts) {
         try {
+            if(parent == null) {
+                parent.mkdirs();
+            }
             for (File child : parent.listFiles()) {
                 if (child.isDirectory()) {
                     findScripts(child, scripts);

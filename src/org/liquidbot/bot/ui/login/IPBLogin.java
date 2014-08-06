@@ -45,14 +45,14 @@ public class IPBLogin extends JFrame implements WindowListener {
         userNameField.setForeground(Color.LIGHT_GRAY);
         userNameField.addFocusListener(new
 
-                                            FocusAdapter() {
-                                                @Override
-                                                public void focusGained(FocusEvent e) {
-                                                    super.focusGained(e);
-                                                    userNameField.setForeground(Color.BLACK);
-                                                    userNameField.setText("");
-                                                }
-                                            }
+                                               FocusAdapter() {
+                                                   @Override
+                                                   public void focusGained(FocusEvent e) {
+                                                       super.focusGained(e);
+                                                       userNameField.setForeground(Color.BLACK);
+                                                       userNameField.setText("");
+                                                   }
+                                               }
 
         );
         passwordField = new
@@ -63,14 +63,14 @@ public class IPBLogin extends JFrame implements WindowListener {
         passwordField.setForeground(Color.LIGHT_GRAY);
         passwordField.addFocusListener(new
 
-                                                FocusAdapter() {
-                                                    @Override
-                                                    public void focusGained(FocusEvent e) {
-                                                        super.focusGained(e);
-                                                        passwordField.setForeground(Color.BLACK);
-                                                        passwordField.setText("");
-                                                    }
-                                                }
+                                               FocusAdapter() {
+                                                   @Override
+                                                   public void focusGained(FocusEvent e) {
+                                                       super.focusGained(e);
+                                                       passwordField.setForeground(Color.BLACK);
+                                                       passwordField.setText("");
+                                                   }
+                                               }
 
         );
         userNameLabel = new
@@ -98,7 +98,7 @@ public class IPBLogin extends JFrame implements WindowListener {
         userNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
         userNameLabel.setFont(new
 
-                Font("Calibri", Font.PLAIN, 14)
+                        Font("Calibri", Font.PLAIN, 14)
 
         );
 
@@ -139,29 +139,29 @@ public class IPBLogin extends JFrame implements WindowListener {
         passwordLabel.setText("Create an account");
         passwordLabel.addMouseListener(new
 
-                                        MouseAdapter() {
-                                            @Override
-                                            public void mouseClicked(MouseEvent e) {
-                                                super.mouseClicked(e);
-                                                try {
-                                                    Desktop.getDesktop().browse(new URI("http://liquidbot.org/forum/index.php?app=core&module=global&section=register"));
-                                                } catch (Exception x) {
-                                                    x.printStackTrace();
-                                                }
-                                            }
+                                               MouseAdapter() {
+                                                   @Override
+                                                   public void mouseClicked(MouseEvent e) {
+                                                       super.mouseClicked(e);
+                                                       try {
+                                                           Desktop.getDesktop().browse(new URI("http://liquidbot.org/forum/index.php?app=core&module=global&section=register"));
+                                                       } catch (Exception x) {
+                                                           x.printStackTrace();
+                                                       }
+                                                   }
 
-                                            @Override
-                                            public void mouseEntered(MouseEvent e) {
-                                                super.mouseEntered(e);
-                                                passwordLabel.setForeground(Color.GREEN);
-                                            }
+                                                   @Override
+                                                   public void mouseEntered(MouseEvent e) {
+                                                       super.mouseEntered(e);
+                                                       passwordLabel.setForeground(Color.GREEN);
+                                                   }
 
-                                            @Override
-                                            public void mouseExited(MouseEvent e) {
-                                                super.mouseExited(e);
-                                                passwordLabel.setForeground(Color.BLACK);
-                                            }
-                                        }
+                                                   @Override
+                                                   public void mouseExited(MouseEvent e) {
+                                                       super.mouseExited(e);
+                                                       passwordLabel.setForeground(Color.BLACK);
+                                                   }
+                                               }
 
         );
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
@@ -172,78 +172,58 @@ public class IPBLogin extends JFrame implements WindowListener {
 
                                 addGroup(contentPaneLayout.createSequentialGroup()
 
-                                        .
+                                                .
 
-                                                addContainerGap()
+                                                        addContainerGap()
 
-                                        .
+                                                .
 
-                                                addGroup(contentPaneLayout.createParallelGroup()
-
-                                                        .
-
-                                                                addGroup(contentPaneLayout.createSequentialGroup()
+                                                        addGroup(contentPaneLayout.createParallelGroup()
 
                                                                         .
 
-                                                                                addComponent(rememberMeButton)
+                                                                                addGroup(contentPaneLayout.createSequentialGroup()
 
+                                                                                                .
+
+                                                                                                        addComponent(rememberMeButton)
+
+                                                                                                .
+
+                                                                                                        addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
+
+                                                                                                .
+
+                                                                                                        addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+
+                                                                                )
                                                                         .
 
-                                                                                addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)
-
+                                                                                addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                                                                         .
-
-                                                                                addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-
-                                                                )
-                                                        .
-
-                                                                addComponent(passwordField, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-
-                                                        .
-
-                                                                addComponent(userNameField, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-
-                                                        .
-
-                                                                addComponent(userNameLabel, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-
-                                                )
-                                        .
-
-                                                addContainerGap()
-
+                                                                                addComponent(userNameField, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                                                                        .
+                                                                                addComponent(userNameLabel, GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
+                                                        )
+                                                .
+                                                        addContainerGap()
                                 )
                         .
-
                                 addComponent(loginButton, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-
         );
         contentPaneLayout.setVerticalGroup(
                 contentPaneLayout.createParallelGroup()
                         .
-
                                 addGroup(contentPaneLayout.createSequentialGroup()
-
                                         .
-
                                                 addComponent(userNameLabel, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-
                                         .
-
                                                 addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-
                                         .
-
                                                 addComponent(userNameField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-
                                         .
-
                                                 addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-
                                         .
-
                                                 addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE).addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED).addGroup(contentPaneLayout.createParallelGroup().addGroup(contentPaneLayout.createSequentialGroup().addComponent(rememberMeButton).addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)).
                                                 addGroup(GroupLayout.Alignment.TRAILING, contentPaneLayout.createSequentialGroup().addComponent(passwordLabel).addGap(9, 9, 9))).addComponent(loginButton, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE))
         );

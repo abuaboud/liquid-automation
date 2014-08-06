@@ -18,6 +18,7 @@ public class FileUtils {
                 FileInputStream fis = new FileInputStream(f);
                 prop.load(fis);
             } else {
+                f.getParentFile().mkdirs();
                 f.createNewFile();
             }
             prop.setProperty(key, value);

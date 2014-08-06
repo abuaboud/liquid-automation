@@ -1,145 +1,131 @@
 package org.liquidbot.bot.ui.account;
 
+import com.google.gson.Gson;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.utils.FileUtils;
+import org.liquidbot.bot.script.api.interfaces.Condition;
+import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.utils.Logger;
+import org.liquidbot.bot.utils.NetUtils;
+import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.text.ParseException;
-import java.util.Properties;
 
 /**
  * Created by Kenneth on 8/5/2014.
  */
 public class AccountManager extends JFrame {
 
-    private JLabel label1;
-    private JTextField textField1;
-    private JLabel label2;
-    private JPasswordField passwordField1;
-    private JLabel label3;
-    private JSpinner spinner1;
-    private JLabel label4;
-    private JComboBox<Skills> comboBox1;
-    private JButton button1;
-
+    private final Logger log = new Logger(AccountManager.class);
     private final Configuration config = Configuration.getInstance();
+    private final File accountFile = new File(Utilities.getContentDirectory() + "accounts.json");
+    private final Gson gson = new Gson();
+
+    private final DefaultListModel<Account> model;
+    private final JList<Account> accounts;
+    private final JButton add, remove;
+
+    private final JTextField userField;
+    private final JPasswordField passField;
+    private final JSpinner pinSpinner;
+    private final JComboBox<Account.Reward> rewardsBox;
 
     public AccountManager() {
-        label1 = new JLabel();
-        textField1 = new JTextField();
-        label2 = new JLabel();
-        passwordField1 = new JPasswordField();
-        label3 = new JLabel();
-        spinner1 = new JSpinner();
-        label4 = new JLabel();
-        comboBox1 = new JComboBox<>(Skills.values());
-        button1 = new JButton();
-
-        //======== this ========
-        setTitle("Account Manager");
-        Container contentPane = getContentPane();
-
-        //---- label1 ----
-        label1.setText("Username");
-
-        //---- label2 ----
-        label2.setText("Password");
-
-        //---- label3 ----
-        label3.setText("Bank Pin");
-
-        //---- label4 ----
-        label4.setText("Experience");
-
-        //---- button1 ----
-        button1.setText("Save Account");
-        button1.addActionListener(new ActionListener() {
+        super("Account Manager");
+        getContentPane().setLayout(new BorderLayout());
+        this.model = new DefaultListModel<>();
+        this.accounts = new JList<>(model);
+        this.accounts.setPreferredSize(new Dimension(400, 200));
+        this.add = new JButton("Add account");
+        add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                final Properties props = FileUtils.loadProperties("accounts");
-                try {
-                    props.put("account#" + (props.keySet().size() + 1), config.getEncryption().encrypt(textField1.getText()) + ":" + config.getEncryption().encrypt(new String(passwordField1.getPassword()))
-                            + ":" + spinner1.getValue() + ":" + comboBox1.getSelectedItem());
-                } catch (Exception e1) {
-                    e1.printStackTrace();
+                final Account.Reward reward = (Account.Reward) rewardsBox.getSelectedItem();
+                model.addElement(new Account(userField.getText(), new String(passField.getPassword()), String.valueOf(pinSpinner.getValue()), reward.name()));
+                saveAccounts();
+            }
+        });
+        this.remove = new JButton("Remove account");
+        remove.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for(Account acc : accounts.getSelectedValuesList()) {
+                    model.removeElement(acc);
                 }
-                FileUtils.saveProperties(props, "accounts");
+                saveAccounts();
             }
         });
 
-        GroupLayout contentPaneLayout = new GroupLayout(contentPane);
-        contentPane.setLayout(contentPaneLayout);
-        contentPaneLayout.setHorizontalGroup(
-                contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(contentPaneLayout.createParallelGroup()
-                                        .addComponent(textField1, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                                        .addComponent(passwordField1, GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                                .addGroup(contentPaneLayout.createParallelGroup()
-                                                        .addComponent(label1)
-                                                        .addComponent(label2))
-                                                .addGap(0, 211, Short.MAX_VALUE))
-                                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                                .addGroup(contentPaneLayout.createParallelGroup()
-                                                        .addComponent(label3)
-                                                        .addComponent(spinner1, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addGroup(contentPaneLayout.createParallelGroup()
-                                                        .addComponent(label4)
-                                                        .addComponent(comboBox1, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))))
-                                .addContainerGap())
-                        .addComponent(button1, GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-        );
-        contentPaneLayout.setVerticalGroup(
-                contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(label1)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(label2)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(passwordField1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(label3)
-                                        .addComponent(label4))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                                        .addComponent(comboBox1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(spinner1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                                .addComponent(button1))
-        );
+        userField = new JTextField(15);
+        passField = new JPasswordField(15);
+        pinSpinner = new JSpinner();
+        pinSpinner.setPreferredSize(new Dimension(60, 25));
+        rewardsBox = new JComboBox<>(Account.Reward.values());
+
+        final JPanel center = new JPanel();
+        center.setBorder(new TitledBorder("Add a new account."));
+        center.setLayout(new FlowLayout());
+        center.add(userField);
+        center.add(passField);
+        center.add(pinSpinner);
+        center.add(rewardsBox);
+
+
+        final JPanel bottom = new JPanel();
+        bottom.setLayout(new FlowLayout());
+        bottom.add(add);
+        bottom.add(remove);
+
+        getContentPane().add(center, BorderLayout.CENTER);
+        getContentPane().add(accounts, BorderLayout.NORTH);
+        getContentPane().add(bottom, BorderLayout.SOUTH);
+
+        try {
+            loadAccounts();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
         pack();
         setLocationRelativeTo(getOwner());
     }
 
-    public enum Skills {
-        ATTACK(0), DEFENSE(1), STRENGTH(2), CONSTITUTION(3), RANGE(4), PRAYER(5), MAGIC(6),
-        COOKING(7), WOODCUTTING(8), FLETCHING(9), FISHING(10), FIREMAKING(11), CRAFTING(12),
-        SMITHING(13), MINING(14), HERBLORE(15), AGILITY(16), THIEVING(17), SLAYER(18),
-        FARMING(19), RUNECRAFTING(20), HUNTER(21), CONSTRUCTION(22);
-
-        private int id;
-        private Skills(int id) {
-            this.id = id;
+    private Account[] getLoadedAccounts() {
+        final Account[] acc = new Account[model.size()];
+        for(int i = 0; i < acc.length; i++) {
+            acc[i] = model.getElementAt(i);
         }
+        return acc;
+    }
 
-        public int getId() {
-            return id;
+    public void saveAccounts() {
+        final String json = gson.toJson(getLoadedAccounts());
+        try {
+            final FileWriter writer = new FileWriter(accountFile);
+            writer.append(json);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            log.error("Error saving accounts!");
         }
+    }
 
-        @Override
-        public String toString() {
-            return name().charAt(0) + name().substring(1).toLowerCase();
+    public void loadAccounts() throws MalformedURLException {
+        if(accountFile.exists()) {
+            final Account[] accounts = gson.fromJson(NetUtils.readPage(accountFile.toURI().toURL().toString())[0], Account[].class);
+            for(Account acc : accounts) {
+                model.addElement(acc);
+            }
+            log.info("Successfully loaded " + model.size() + " accounts!", Color.GREEN);
         }
     }
 

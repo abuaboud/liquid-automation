@@ -45,7 +45,7 @@ public class Boot {
         Time.sleep(new Condition() {
             @Override
             public boolean active() {
-                return login.isVisible();
+                return !login.isVisible();
             }
         }, 2000); // to help people with slower computers.
 

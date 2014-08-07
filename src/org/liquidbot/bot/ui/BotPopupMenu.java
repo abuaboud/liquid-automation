@@ -52,6 +52,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         gameObjects.addActionListener(this);
 
         settings = new JMenuItem("Settings Explorer");
+        settings.addActionListener(this);
         widgets = new JMenuItem("Widget Explorer");
 
         accounts = new JMenuItem("Account Manager");
@@ -117,6 +118,8 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         } else if(e.getSource() == accounts) {
             log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
             config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
+        } else if(e.getSource() == settings) {
+
         }
     }
 }

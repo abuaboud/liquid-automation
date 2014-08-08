@@ -42,7 +42,7 @@ public class Inventory {
         if (contentIds == null || stackSizes == null)
             return list.toArray(new Item[list.size()]);
         for (int itemIndex = 0; itemIndex < contentIds.length; itemIndex++) {
-            Item item = new Item(itemIndex, contentIds[itemIndex] - 1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
+            Item item = new Item(contentIds[itemIndex] - 1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
             if (item.isValid() && (filter == null || filter.accept(item))) {
                 list.add(item);
             }
@@ -62,7 +62,7 @@ public class Inventory {
     public static Item getItem(Filter<Item> filter) {
         Item[] items = getAllItems(filter);
         if (items == null || items.length == 0)
-            return new Item(-1, -1, -1, Item.Type.INVENTORY, null);
+            return new Item( -1, -1, Item.Type.INVENTORY, null);
         return items[0];
     }
 

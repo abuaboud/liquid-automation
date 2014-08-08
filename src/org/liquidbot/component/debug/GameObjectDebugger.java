@@ -48,7 +48,7 @@ public class GameObjectDebugger extends Debugger<GameObject> {
                         }
 
                         Point p = tile.getPointOnScreen();
-                        String format = gameObject.getId() + ((gameObject.getName() != null && !gameObject.getName().equalsIgnoreCase("null")) ? " (" + gameObject.getName() + ")" : "");
+                        String format = gameObject.getId() + "";
 
                         graphics.drawString(format, p.x - (metrics.stringWidth(format) / 2), p.y);
                         graphics.fillRect(p.x, p.y, 5, 5);

@@ -35,11 +35,31 @@ public class Configuration {
     private boolean drawNPCs = false;
     private boolean drawGroundItems = false;
     private boolean drawGameObjects = false;
+    private boolean drawSettings = false;
+    private boolean drawInventory = false;
     private boolean drawMouse = true;
     private boolean drawCanvas = true;
     private boolean lowCPU = false;
 
+
     private static Configuration instance = new Configuration();
+
+    public void drawInventory(boolean drawInventory) {
+        this.drawInventory = drawInventory;
+    }
+
+    public boolean drawInventory() {
+        return this.drawInventory;
+    }
+
+
+    public void drawSettings(boolean drawSettings) {
+        this.drawSettings = drawSettings;
+    }
+
+    public boolean drawSettings() {
+        return this.drawSettings;
+    }
 
     public static Configuration getInstance() {
         return instance;
@@ -62,7 +82,7 @@ public class Configuration {
     }
 
     public AccountManager getAccountManager() {
-        if(accountManager == null)
+        if (accountManager == null)
             accountManager = new AccountManager();
         return accountManager;
     }

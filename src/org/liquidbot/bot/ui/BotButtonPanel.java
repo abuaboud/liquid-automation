@@ -4,6 +4,7 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.script.loader.ScriptInfo;
 import org.liquidbot.bot.script.loader.ScriptLoader;
+import org.liquidbot.bot.ui.account.Account;
 import org.liquidbot.bot.ui.sdn.SDNFrame;
 import org.liquidbot.bot.utils.Logger;
 
@@ -60,7 +61,7 @@ public class BotButtonPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 final List<ScriptInfo> information = ScriptLoader.getLocalScripts();
-                config.getScriptHandler().start(ScriptLoader.loadScript(information.get(0)), information.get(0));
+                config.getScriptHandler().start(ScriptLoader.loadScript(information.get(0)), information.get(0), Configuration.getInstance().getAccountManager().getAccounts()[0]);
             }
         });
         add(startButton);

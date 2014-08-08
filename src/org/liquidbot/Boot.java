@@ -4,6 +4,7 @@ import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.security.LSecurityManager;
+import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.ui.BotConsole;

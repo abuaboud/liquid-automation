@@ -1,52 +1,48 @@
 package org.liquidbot.bot.ui.account;
 
+import com.google.gson.Gson;
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.utils.NetUtils;
+
+import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * Created by Kenneth on 8/5/2014.
  */
 public class Account {
 
+    private static final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
+    private static final Gson gson = new Gson();
+
     private String email, password, pin, reward;
 
     public Account(String email, String password, String pin, String reward) {
-        this.email = email;
-        this.password = password;
+        this.email = Configuration.getInstance().getEncryption().encrypt(email);
+        this.password = Configuration.getInstance().getEncryption().encrypt(password);
         this.pin = pin;
         this.reward = reward;
     }
 
     public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+        return Configuration.getInstance().getEncryption().decrypt(email);
     }
 
     public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+        return Configuration.getInstance().getEncryption().decrypt(password);
     }
 
     public int getPin() {
+        if (pin.length() == 0)
+            return -1;
         return Integer.parseInt(pin);
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
     }
 
     public Reward getReward() {
         return Reward.get(reward);
     }
 
-    public void setReward(String reward) {
-        this.reward = reward;
-    }
 
     @Override
     public String toString() {
@@ -60,6 +56,7 @@ public class Account {
         FARMING(19), RUNECRAFTING(20), HUNTER(21), CONSTRUCTION(22);
 
         private int id;
+
         private Reward(int id) {
             this.id = id;
         }
@@ -69,8 +66,8 @@ public class Account {
         }
 
         public static Reward get(String name) {
-            for(Reward rew : Reward.values()) {
-                if(rew.name().toLowerCase().equals(name.toLowerCase()))
+            for (Reward rew : Reward.values()) {
+                if (rew.name().toLowerCase().equals(name.toLowerCase()))
                     return rew;
             }
             return null;
@@ -81,4 +78,5 @@ public class Account {
             return name().charAt(0) + name().substring(1).toLowerCase();
         }
     }
+
 }

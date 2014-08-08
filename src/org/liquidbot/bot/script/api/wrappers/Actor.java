@@ -49,6 +49,8 @@ public class Actor implements Locatable, Interactable {
      * @return animation Id
      */
     public int getAnimation() {
+        if (raw == null)
+            return -1;
         return (int) Reflection.value("Actor#getAnimation()", raw);
     }
 
@@ -58,6 +60,8 @@ public class Actor implements Locatable, Interactable {
      * @return Integer Max Health
      */
     public int getMaxHealth() {
+        if (raw == null)
+            return -1;
         return (int) Reflection.value("Actor#getMaxHealth()", raw);
     }
 
@@ -67,6 +71,8 @@ public class Actor implements Locatable, Interactable {
      * @return Integer current Health
      */
     public int getHealth() {
+        if (raw == null)
+            return -1;
         return (int) Reflection.value("Actor#getHealth()", raw);
     }
 
@@ -100,6 +106,8 @@ public class Actor implements Locatable, Interactable {
      * @return Integer Height
      */
     public int getHeight() {
+        if (raw == null)
+            return 0;
         return (int) Reflection.value("Renderable#getModelHeight()", raw);
     }
 
@@ -129,7 +137,6 @@ public class Actor implements Locatable, Interactable {
     public int getQueueSize() {
         if (raw == null)
             return 0;
-
         return (int) Reflection.value("Actor#getQueueSize()", raw);
     }
 
@@ -353,4 +360,22 @@ public class Actor implements Locatable, Interactable {
         }
         return new Actor(null);
     }
+
+    @Override
+    public boolean equals(Object a) {
+        if (a != null && a instanceof Actor) {
+            Actor t = (Actor) a;
+            boolean x = this.getLocation().equals(t.getLocation()) && this.getAnimation() == t.getAnimation() && this.getHealthPercent() == this.getHealthPercent() && this.getMaxHealth() == this.getMaxHealth();
+            if (t instanceof Player && this instanceof Player) {
+                Player j = (Player) t;
+                return x & j.getName().equals(((Player) this).getName());
+            } else if (t instanceof NPC && this instanceof NPC) {
+                NPC j = (NPC) t;
+                return x & j.getId() == (((NPC) this).getId());
+            }
+            return false;
+        }
+        return false;
+    }
+
 }

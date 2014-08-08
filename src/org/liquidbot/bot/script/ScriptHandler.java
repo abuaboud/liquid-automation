@@ -5,6 +5,7 @@ import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.loader.ScriptInfo;
 import org.liquidbot.bot.script.randevent.RandomEventHandler;
+import org.liquidbot.bot.ui.account.Account;
 import org.liquidbot.bot.utils.Logger;
 
 import java.awt.*;
@@ -19,6 +20,7 @@ public class ScriptHandler implements Runnable {
     private LoopScript script;
     private ScriptInfo scriptInfo;
     private State scriptState;
+    private Account account;
     private PaintListener paintListener;
     private RandomEventHandler randomEventHandler;
 
@@ -42,15 +44,16 @@ public class ScriptHandler implements Runnable {
         }
     }
 
-    public void start(LoopScript script, ScriptInfo scriptInfo) {
+    public void start(LoopScript script, ScriptInfo scriptInfo, Account account) {
         logger.info("Script Started: " + scriptInfo.name, Color.GREEN);
         this.scriptState = State.RUNNING;
         this.scriptInfo = scriptInfo;
         this.script = script;
+        this.account = account;
         this.scriptThread = new Thread(this);
         this.scriptThread.start();
         this.script.onStart();
-        if (randomEventHandler == null){
+        if (randomEventHandler == null) {
             randomEventHandler = new RandomEventHandler();
             Configuration.getInstance().getCanvas().getPaintListeners().add(randomEventHandler);
         }
@@ -88,4 +91,7 @@ public class ScriptHandler implements Runnable {
         return scriptThread;
     }
 
+    public Account getAccount() {
+        return account;
+    }
 }

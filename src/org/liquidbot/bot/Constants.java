@@ -21,7 +21,7 @@ public class Constants {
     public static final String HOME_PATH = (new File(System.getProperty("user.home")).exists() ? System.getProperty("user.home") : "/root") + "/LiquidBot";
     public static final String SETTING_PATH = HOME_PATH + File.separator + "settings";
     public static final String SCRIPT_PATH = HOME_PATH + File.separator + "scripts";
-    public static final String ACCOUNT_FILE_NAME = "Accounts.ini";
+    public static final String ACCOUNT_FILE_NAME = "Accounts.json";
     public static final String FORUM_FILE_NAME = "Forum.ini";
 
     public static final String KEYBOARD_KEYS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*~";

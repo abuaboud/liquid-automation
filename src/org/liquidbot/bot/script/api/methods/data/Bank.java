@@ -2,9 +2,11 @@ package org.liquidbot.bot.script.api.methods.data;
 
 import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
+import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Keyboard;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
 import org.liquidbot.bot.script.api.query.BankQuery;
 import org.liquidbot.bot.script.api.util.Time;
@@ -46,7 +48,7 @@ public class Bank {
             if (children != null) {
                 for (int BankI = 0; BankI < children.length; BankI++) {
                     WidgetChild widgetChild = children[BankI];
-                    Item item = new Item(BankI, widgetChild.getItemId(), widgetChild.getItemStack(), Item.Type.BANK, widgetChild.getArea());
+                    Item item = new Item(widgetChild.getItemId(), widgetChild.getItemStack(), Item.Type.BANK, widgetChild.getArea());
                     if (item.isValid() && (filter == null || filter.accept(item))) {
                         list.add(item);
                     }
@@ -410,7 +412,14 @@ public class Bank {
                 for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
                 return true;
             } else {
+                Walking.walkTo(banker);
                 banker.turnTo();
+                Time.sleep(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return Players.getLocal().isMoving();
+                    }
+                },3000);
             }
         } else if (bankBooth.isValid()) {
             if (bankBooth.isOnScreen()) {
@@ -418,7 +427,14 @@ public class Bank {
                 for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150)) ;
                 return true;
             } else {
+                Walking.walkTo(bankBooth);
                 bankBooth.turnTo();
+                Time.sleep(new Condition() {
+                    @Override
+                    public boolean active() {
+                        return Players.getLocal().isMoving();
+                    }
+                },3000);
             }
         }
         return false;

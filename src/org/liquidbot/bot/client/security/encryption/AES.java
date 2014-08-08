@@ -65,9 +65,17 @@ public class AES {
     }
 
     private static String fix(String s) {
-        for (int i = 0; i < 16; i++) {
-            if (s.length() < 16) {
-                s = s + "\0";
+        if (s.length() > 16) {
+            for (int i = 0; i < 32; i++) {
+                if (s.length() < 32) {
+                    s = s + "\0";
+                }
+            }
+        } else {
+            for (int i = 0; i < 16; i++) {
+                if (s.length() < 16) {
+                    s = s + "\0";
+                }
             }
         }
         return s;

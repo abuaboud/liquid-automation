@@ -8,16 +8,24 @@ import org.liquidbot.bot.script.api.util.Time;
 /*
  * Created by Hiasat on 8/3/14
  */
-public class Path {
+public abstract class Path {
 
-    public Tile[] tiles;
     private boolean end;
 
-    public Path(Tile... tiles) {
-        this.tiles = tiles;
-    }
+    public abstract Tile getStart();
 
+    public abstract Tile getEnd();
+
+    public abstract Tile[] getTiles();
+
+
+    /**
+     * Traverse Path till reached end tile
+     *
+     * @return boolean: true if it done correctly else false
+     */
     public boolean traverse() {
+        Tile[] tiles = getTiles();
         if (tiles[tiles.length - 1].distanceTo() < 5)
             return true;
         final Tile next = getNext();
@@ -37,12 +45,22 @@ public class Path {
     }
 
     private Tile getNext() {
+        Tile[] tiles = getTiles();
         for (int i = tiles.length - 1; i >= 0; --i) {
             if (Calculations.isOnMap(tiles[i])) {
                 return tiles[i];
             }
         }
         return Walking.getClosestTileOnMap(tiles[tiles.length - 1]);
+    }
+
+    public Tile[] getReversedTiles() {
+        Tile[] tiles = getTiles();
+        Tile[] t = new Tile[tiles.length];
+        for (int i = 0; i < tiles.length; i++) {
+            t[tiles.length - 1 - i] = tiles[i];
+        }
+        return t;
     }
 
 }

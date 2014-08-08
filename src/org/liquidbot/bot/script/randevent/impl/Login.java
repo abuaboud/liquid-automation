@@ -1,11 +1,13 @@
 package org.liquidbot.bot.script.randevent.impl;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.input.Keyboard;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.randevent.RandomEvent;
+import org.liquidbot.bot.ui.account.Account;
 
 import java.awt.*;
 
@@ -41,10 +43,11 @@ public class Login extends RandomEvent {
             Mouse.click(new Point(USER_EXIST.x + Random.nextInt(0, USER_EXIST.width), USER_EXIST.y + Random.nextInt(0, USER_EXIST.height)), true);
             clicked = true;
         } else {
+            Account account = Configuration.getInstance().getScriptHandler().getAccount();
             setStatus("Entering Username.");
-            Keyboard.sendText("angryhead0@hotmail.com", true, Random.nextInt(75, 95), Random.nextInt(110, 125));
+            Keyboard.sendText(account.getEmail(), true, Random.nextInt(75, 95), Random.nextInt(110, 125));
             setStatus("Entering Password.");
-            Keyboard.sendText("shadowbot1", true, Random.nextInt(75, 95), Random.nextInt(110, 125));
+            Keyboard.sendText(account.getPassword(), true, Random.nextInt(75, 95), Random.nextInt(110, 125));
             for (int i = 0; i < 25 && (Game.getGameState() == Game.STATE_LOG_IN_SCREEN); i++, Time.sleep(100, 150)) ;
             if (Game.getGameState() == Game.STATE_LOG_IN_SCREEN) {
                 setStatus("Clicking Cancel");

@@ -20,7 +20,6 @@ public class Item implements Interactable, Identifiable, Nameable {
 
     private int id;
     private int stackSize;
-    private int index;
     private Rectangle area;
     private ItemDefinition itemDefinition;
     private Type type;
@@ -29,9 +28,8 @@ public class Item implements Interactable, Identifiable, Nameable {
         INVENTORY, BANK
     }
 
-    public Item(int index, int id, int stackSize, Type type, Rectangle area) {
+    public Item(int id, int stackSize, Type type, Rectangle area) {
         this.type = type;
-        this.index = index;
         this.id = id;
         this.stackSize = stackSize;
         this.area = area;
@@ -73,7 +71,7 @@ public class Item implements Interactable, Identifiable, Nameable {
             Point interactPoint = getInteractPoint();
             if (interactPoint == null)
                 return false;
-            if (menuIndex > -1)
+            if (menuIndex > -1 && getArea().contains(Mouse.getLocation()))
                 break;
             if (Menu.isOpen() && menuIndex == -1)
                 Menu.interact("Cancel");
@@ -110,4 +108,9 @@ public class Item implements Interactable, Identifiable, Nameable {
     public boolean isValid() {
         return id > 0 && stackSize > 0;
     }
+
+    public Point getCentralPoint() {
+        return new Point((int) getArea().getCenterX(), (int) getArea().getCenterY());
+    }
+
 }

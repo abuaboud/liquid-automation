@@ -18,9 +18,25 @@ public class ObjectDefinition {
 
     public ObjectDefinition(int Id) {
         if (nameCache.get(Id) == null) {
+            Object transformedComposite = null;
             Object raw = Reflection.invoke("Client#getGameObjectComposite()", null, Id, HookReader.methods.get("Client#getGameObjectComposite()").getCorrectParam());
-            nameCache.put(Id, (String) Reflection.value("GameObjectComposite#getName()", raw));
-            actionsCache.put(Id, (String[]) Reflection.value("GameObjectComposite#getActions()", raw));
+            String name = (String) Reflection.value("GameObjectComposite#getName()", raw);
+            if (name == null || name.equalsIgnoreCase("null")) {
+                int[] transformIds = (int[]) Reflection.value("GameObjectComposite#getTransformIds()", raw);
+                if (transformIds != null) {
+                    int[] widgetVarps = (int[]) Reflection.value("Client#getWidgetSettings()", null);
+                    int transformVarpIndex = (int) Reflection.value("GameObjectComposite#getTransformVarpIndex()", raw);
+                    if (transformVarpIndex > -1) {
+                        int realId = widgetVarps[transformVarpIndex];
+                        if (realId > 0) {
+                            short correctParam = (short) HookReader.methods.get("Client#getGameObjectComposite").getCorrectParam();
+                            transformedComposite = Reflection.invoke("Client#getGameObjectComposite", raw, realId, correctParam);
+                        }
+                    }
+                }
+            }
+            nameCache.put(Id, (String) Reflection.value("GameObjectComposite#getName()", transformedComposite == null ? raw : transformedComposite));
+            actionsCache.put(Id, (String[]) Reflection.value("GameObjectComposite#getActions()", transformedComposite == null ? raw : transformedComposite));
         }
         if (nameCache.containsKey(Id)) {
             name = nameCache.get(Id);

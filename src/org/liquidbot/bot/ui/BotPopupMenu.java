@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
     private final JMenu view;
-    private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, playerLocation;
+    private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, playerLocation,inventory;
     private final JMenuItem settings, widgets, console, accounts;
     private final Configuration config = Configuration.getInstance();
 
@@ -45,6 +45,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         console = new JMenuItem("Display Console");
         console.addActionListener(this);
 
+        inventory = new JCheckBoxMenuItem("Inventory");
+        inventory.addActionListener(this);
+
         groundItems = new JCheckBoxMenuItem("Ground Items");
         groundItems.addActionListener(this);
 
@@ -59,6 +62,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         accounts.addActionListener(this);
 
         view.add(playerLocation);
+        view.add(inventory);
         view.add(players);
         view.add(gameObjects);
         view.add(npcs);
@@ -115,11 +119,15 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
             }
             config.getBotFrame().pack();
             config.getBotFrame().revalidate();
-        } else if(e.getSource() == accounts) {
+        } else if (e.getSource() == accounts) {
             log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
             config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
-        } else if(e.getSource() == settings) {
-
+        } else if (e.getSource() == settings) {
+            log.info(!config.drawSettings() ? "Enabled Setting debugger." : "Disabled Setting debugger.");
+            config.drawSettings(!config.drawSettings());
+        }  else if (e.getSource() == inventory) {
+            config.drawInventory(!config.drawInventory());
+            log.info(config.drawInventory() ? "Enabled InventoryDebugger drawing." : "Disabled InventoryDebugger drawing.");
         }
     }
 }

@@ -90,7 +90,7 @@ public class ScriptLoader {
         ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
         urlClassLoader = new URLClassLoader(new URL[]{Utilities.toUrl(SCRIPTS_PATH)});
         final File file = new File(Utilities.getContentDirectory() + "scripts/");
-        if(!file.exists()) {
+        if (!file.exists()) {
             file.mkdirs();
         }
         findScripts(file, scriptInfo);
@@ -104,19 +104,19 @@ public class ScriptLoader {
                 if (child.isDirectory()) {
                     findScripts(child, scripts);
                 } else {
-                    if (child.getName().endsWith(".class") && !child.getName().contains("$") && child.getClass().isAnnotationPresent(Manifest.class)) {
-
-                        log.info("Potential script found! - " + getClassPath(child.getAbsolutePath()));
+                    if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
                         Class<?> clazz = urlClassLoader.loadClass(getClassPath(child.getAbsolutePath()));
+                        if (clazz.isAnnotationPresent(Manifest.class)) {
+                            log.info("Potential script found! - " + getClassPath(child.getAbsolutePath()));
 
-                        final Manifest manifest = clazz.getAnnotation(Manifest.class);
-                        if (manifest == null) {
-                            log.error("Manifest is null");
+                            final Manifest manifest = clazz.getAnnotation(Manifest.class);
+                            if (manifest == null) {
+                                log.error("Manifest is null");
+                            }
+                            ScriptInfo scriptInfo = new ScriptInfo(getClassPath(child.getAbsolutePath()), manifest.name(), manifest.description(), manifest.author(), SkillCategory.MISC);
+                            log.info("Script: " + scriptInfo.name);
+                            scripts.add(scriptInfo);
                         }
-                        ScriptInfo scriptInfo = new ScriptInfo(getClassPath(child.getAbsolutePath()), manifest.name(), manifest.description(), manifest.author(), SkillCategory.MISC);
-                        log.info("Script: " + scriptInfo.name);
-                        scripts.add(scriptInfo);
-
                     }
                 }
             }

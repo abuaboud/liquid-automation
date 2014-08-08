@@ -86,18 +86,18 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
         int y = getLocation().y;
         int h = 20;
         int z = Game.getPlane();
-        int tileByte = Walking.getTileFlags()[Game.getPlane()][getLocation().x - Game.getBaseX()][getLocation().y - Game.getBaseY()];
+        
         double a = -0.25;
         double r = 0.25;
-        Point pn = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 : 0);
-        Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 : 0);
-        Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 : 0);
-        Point pxy = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 : 0);
+        Point pn = Calculations.tileToScreen(new Tile(x, y, z), r, r, 0);
+        Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, 0);
+        Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, 0);
+        Point pxy = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, 0);
 
-        Point pnh = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 + h : h);
-        Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 + h : h);
-        Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
-        Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
+        Point pnh = Calculations.tileToScreen(new Tile(x, y, z), r, r,  h);
+        Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r,  h);
+        Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a,  h);
+        Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a,  h);
         if (Constants.VIEWPORT.contains(py)
                 && Constants.VIEWPORT.contains(pyh)
                 && Constants.VIEWPORT.contains(px)

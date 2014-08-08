@@ -1,14 +1,24 @@
 package org.liquidbot.bot.script.api.methods.data.movement;
 
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.enums.Tab;
+import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Locatable;
+import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.methods.data.Settings;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
+import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.script.api.wrappers.LocalPath;
 import org.liquidbot.bot.script.api.wrappers.Tile;
+import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
  * Created by Hiasat on 8/2/14
  */
 public class Walking {
+
+    private static final int WIDGET_ORB = 548, WIDGET_ORB_ICON = 93, WIDGET_SETTING = 261, WIDGET_SETTING_ICON = 53;
 
     private static int[][] flags;
     private static int offX, offY;
@@ -53,7 +63,7 @@ public class Walking {
 
     public static Tile getCollisionOffset(final int plane) {
         final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()", null))[plane];
-        return new Tile((int) Reflection.value("CollisionMap#getOffsetX()", collisionMap), (int) Reflection.value("CollisionMagetOffsetY()", collisionMap), plane);
+        return new Tile((int) Reflection.value("CollisionMap#getOffsetX()", collisionMap), (int) Reflection.value("CollisionMap#getOffsetY()", collisionMap), plane);
     }
 
     public static int[][] getCollisionFlags(int plane) {
@@ -86,5 +96,69 @@ public class Walking {
             return walk.isOnMap() ? walk : getClosestTileOnMap(walk);
         }
         return current;
+    }
+
+    /**
+     * Get the running percent.
+     *
+     * @return Integer
+     */
+    public static int getEnergy() {
+        if (!Game.isLoggedIn())
+            return -1;
+        return (int) Reflection.value("Client.getEnergy()", null);
+    }
+
+    /**
+     * Check if running is enabled.
+     *
+     * @return Boolean
+     */
+    public static boolean isRunning() {
+        return Settings.get(173) == 1;
+    }
+
+    /**
+     * Check if orbs are enabled.
+     *
+     * @return Boolean
+     */
+    public static boolean isUsingOrb() {
+        return Settings.get(1055) > 0;
+    }
+
+    /**
+     * set Running option
+     *
+     * @param run : true if want set turn on running else false
+     */
+    public static void setRun(final boolean run) {
+        if (isRunning() != run) {
+            if (isUsingOrb()) {
+                final WidgetChild widgetChild = Widgets.get(WIDGET_ORB, WIDGET_ORB_ICON);
+                if (widgetChild.isVisible())
+                    widgetChild.click();
+            } else {
+                if (!Tab.SETTINGS.isOpen())
+                    Tab.SETTINGS.open();
+                final WidgetChild widgetChild = Widgets.get(WIDGET_SETTING, WIDGET_SETTING_ICON);
+                if (widgetChild.isVisible())
+                    widgetChild.click();
+            }
+            Time.sleep(new Condition() {
+                @Override
+                public boolean active() {
+                    return isRunning() != run;
+                }
+            }, 4000);
+        }
+    }
+
+    public static LocalPath findLocalPath(Tile start, Tile end) {
+        return new LocalPath(start, end);
+    }
+
+    public static LocalPath findLocalPath(Tile end) {
+        return new LocalPath(Players.getLocal().getLocation(), end);
     }
 }

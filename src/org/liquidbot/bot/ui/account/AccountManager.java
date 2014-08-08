@@ -4,29 +4,23 @@ import com.google.gson.Gson;
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.script.api.interfaces.Condition;
-import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
-import org.liquidbot.bot.utils.Utilities;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Kenneth on 8/5/2014.
@@ -53,6 +47,15 @@ public class AccountManager extends JFrame {
 		setResizable(false);
 		getContentPane().setLayout(new BorderLayout());
 
+		if(!accountFile.exists()) {
+			accountFile.getParentFile().mkdirs();
+			try {
+				accountFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				saveAccounts();
@@ -62,7 +65,7 @@ public class AccountManager extends JFrame {
 		this.userLabel.setText("Email Address:");
 
 		this.model = new DefaultTableModel(loadAccounts(), new String[]{
-				"Username", "Password", "Bank Pin", "Lamp Skill"
+				"Username", "Password", "Bank Pin", "Experience"
 		}) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -82,13 +85,17 @@ public class AccountManager extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (userField.getText().length() > 0) {
-					final Account.Reward reward = (Account.Reward) rewardsBox.getSelectedItem();
-					model.addRow(new String[]{userField.getText(), "", "", "Cooking"});
-
+					model.addRow(new String[]{
+							userField.getText(),
+							"",
+							"",
+							""
+					});
 					saveAccounts();
 				}
 			}
 		});
+
 		this.remove = new JButton("Remove account");
 		remove.addActionListener(new ActionListener() {
 			@Override
@@ -97,13 +104,28 @@ public class AccountManager extends JFrame {
 				if (selectedRow != -1) {
 					if (accounts.getSelectedRow() >= 0) {
 						model.removeRow(accounts.getSelectedRow());
-
 					}
 				}
 			}
 		});
 
 		userField = new JTextField(15);
+		userField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (userField.getText().length() > 0) {
+						model.addRow(new String[]{
+								userField.getText(),
+								"",
+								"",
+								""
+						});
+						saveAccounts();
+					}
+				}
+			}
+		});
 		rewardsBox = new JComboBox<>(Account.Reward.values());
 
 		final JPanel center = new JPanel();
@@ -141,14 +163,17 @@ public class AccountManager extends JFrame {
 	}
 
 	public Account[] getAccounts() {
-		final Account[] acc = new Account[model.getRowCount()];
-		for (int i = 0; i < acc.length; i++) {
-			acc[i] = new Account((String)model.getValueAt(i, 0)
-					, (String) model.getValueAt(i, 1)
-					, (String) model.getValueAt(i, 2)
-					, model.getValueAt(i, 3).toString());
+		final List<Account> list = new ArrayList<>();
+		System.out.println("Row Amount: "+ model.getRowCount() + " Column count: " + model.getColumnCount());
+		for (int i = 0; i < model.getRowCount(); i++) {
+			i = i++;
+			list.add(new Account(
+					(String) model.getValueAt(i, 0),
+					(String) model.getValueAt(i, 1),
+					(String) model.getValueAt(i, 2),
+					Account.Reward.get((String) model.getValueAt(1, 3))));
 		}
-		return acc;
+		return list.toArray(new Account[list.size()]);
 	}
 
 	public void saveAccounts() {
@@ -165,19 +190,28 @@ public class AccountManager extends JFrame {
 	}
 
 	public String[][] loadAccounts() {
-		ArrayList<String[]> arrayList = new ArrayList<>();
+		final List<String[]> list = new ArrayList<>();
 		try {
-			if (accountFile.exists()) {
-				final Account[] accounts = gson.fromJson(NetUtils.readPage(accountFile.toURI().toURL().toString())[0], Account[].class);
+			final String[] data = NetUtils.readPage(accountFile.toURI().toURL().toString());
+			if(data.length > 0) {
+				final Account[] accounts = gson.fromJson(data[0], Account[].class);
 				for (Account acc : accounts) {
-					arrayList.add(new String[]{acc.getEmail(), acc.getPassword(), acc.getPin() == -1 ? "" : acc.getPin() + "", acc.getReward().name()});
+					if (acc != null) {
+						list.add(new String[]{
+								acc.getEmail(),
+								acc.getPassword(),
+								acc.getPin() == -1 ? "" : acc.getPin() + "",
+								acc.getReward() != null ? acc.getReward().name() : "Cooking"
+						});
+					}
 				}
 				log.info("Successfully loaded " + accounts.length + " accounts!", Color.GREEN);
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
-		return arrayList.toArray(new String[arrayList.size()][4]);
+
+		return list.toArray(new String[list.size()][4]);
 	}
 
 	private class PasswordCellRenderer extends DefaultTableCellRenderer {

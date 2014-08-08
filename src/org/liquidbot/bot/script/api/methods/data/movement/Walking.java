@@ -106,7 +106,7 @@ public class Walking {
     public static int getEnergy() {
         if (!Game.isLoggedIn())
             return -1;
-        return (int) Reflection.value("Client.getEnergy()", null);
+        return (int) Reflection.value("Client#getEnergy()", null);
     }
 
     /**

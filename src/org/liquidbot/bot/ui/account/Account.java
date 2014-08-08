@@ -13,12 +13,10 @@ import java.net.MalformedURLException;
  */
 public class Account {
 
-    private static final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
-    private static final Gson gson = new Gson();
+    private String email, password, pin;
+    private Reward reward;
 
-    private String email, password, pin, reward;
-
-    public Account(String email, String password, String pin, String reward) {
+    public Account(String email, String password, String pin, Reward reward) {
         this.email = Configuration.getInstance().getEncryption().encrypt(email);
         this.password = Configuration.getInstance().getEncryption().encrypt(password);
         this.pin = pin;
@@ -40,13 +38,7 @@ public class Account {
     }
 
     public Reward getReward() {
-        return Reward.get(reward);
-    }
-
-
-    @Override
-    public String toString() {
-        return getEmail() + "\t | " + getPassword() + "\t | " + pin + "\t | " + reward;
+        return reward;
     }
 
     public enum Reward {
@@ -66,9 +58,10 @@ public class Account {
         }
 
         public static Reward get(String name) {
-            for (Reward rew : Reward.values()) {
-                if (rew.name().toLowerCase().equals(name.toLowerCase()))
-                    return rew;
+            for(Reward reward : values()) {
+                if(reward.name().equalsIgnoreCase(name)) {
+                    return reward;
+                }
             }
             return null;
         }

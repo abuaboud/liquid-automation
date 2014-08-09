@@ -166,7 +166,6 @@ public class AccountManager extends JFrame {
 		final List<Account> list = new ArrayList<>();
 		System.out.println("Row Amount: "+ model.getRowCount() + " Column count: " + model.getColumnCount());
 		for (int i = 0; i < model.getRowCount(); i++) {
-			i = i++;
 			list.add(new Account(
 					(String) model.getValueAt(i, 0),
 					(String) model.getValueAt(i, 1),

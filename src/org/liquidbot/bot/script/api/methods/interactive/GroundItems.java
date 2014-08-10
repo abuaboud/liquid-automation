@@ -171,4 +171,12 @@ public class GroundItems {
         });
     }
 
+	/**
+	 *
+	 * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use GroundItem#isValid instead
+	 */
+	public static GroundItem nil(){
+		return new GroundItem(null, null);
+	}
+
 }

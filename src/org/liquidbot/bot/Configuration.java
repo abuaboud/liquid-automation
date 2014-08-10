@@ -28,7 +28,6 @@ public class Configuration {
     private User user;
     private AES encryption;
     private AccountManager accountManager;
-    private Account account;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -41,8 +40,13 @@ public class Configuration {
     private boolean drawInventory = false;
     private boolean drawMouse = true;
     private boolean drawCanvas = true;
+	private boolean drawGameState = false;
+	private boolean drawMouseLocation = false;
+	private boolean drawFloor = false;
+	private boolean drawMapBase = false;
+	private boolean drawCamera = false;
+	private boolean drawMenu = false;
     private boolean lowCPU = false;
-
 
     private static Configuration instance = new Configuration();
 
@@ -50,18 +54,57 @@ public class Configuration {
         this.drawInventory = drawInventory;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
-    }
-
     public boolean drawInventory() {
         return this.drawInventory;
     }
 
+	public boolean drawMenu() {
+		return drawMenu;
+	}
+
+	public void drawMenu(boolean drawMenu) {
+		this.drawMenu = drawMenu;
+	}
+
+	public boolean drawGameState() {
+		return drawGameState;
+	}
+
+	public void drawGameState(boolean drawGameState) {
+		this.drawGameState = drawGameState;
+	}
+
+	public boolean drawMouseLocation() {
+		return drawMouseLocation;
+	}
+
+	public void drawMouseLocation(boolean drawMouseLocation) {
+		this.drawMouseLocation = drawMouseLocation;
+	}
+
+	public boolean drawFloor() {
+		return drawFloor;
+	}
+
+	public void drawFloor(boolean drawFloor) {
+		this.drawFloor = drawFloor;
+	}
+
+	public boolean drawMapBase() {
+		return drawMapBase;
+	}
+
+	public void drawMapBase(boolean drawMapBase) {
+		this.drawMapBase = drawMapBase;
+	}
+
+	public boolean drawCamera() {
+		return drawCamera;
+	}
+
+	public void drawCamera(boolean drawCamera) {
+		this.drawCamera = drawCamera;
+	}
 
     public void drawSettings(boolean drawSettings) {
         this.drawSettings = drawSettings;

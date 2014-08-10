@@ -12,7 +12,7 @@ public abstract class ActionScript extends LoopScript implements Comparator<Acti
 
     private final List<Action> actions = new LinkedList<>();
 
-    private Action get() {
+    private synchronized Action get() {
         for(Action a : actions) {
             if(a != null && a.activate()) {
                 return a;

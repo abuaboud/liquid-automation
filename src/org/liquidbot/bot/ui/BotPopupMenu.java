@@ -12,122 +12,165 @@ import java.awt.event.ActionListener;
  */
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
-    private final JMenu view;
-    private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, playerLocation,inventory;
-    private final JMenuItem settings, widgets, console, accounts;
-    private final Configuration config = Configuration.getInstance();
+	private final JMenu view;
+	private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu;
+	private final JMenuItem settings, widgets, console, accounts;
+	private final Configuration config = Configuration.getInstance();
 
-    private final Logger log = new Logger(getClass());
+	private final Logger log = new Logger(getClass());
 
-    public BotPopupMenu() {
-        view = new JMenu("View");
+	public BotPopupMenu() {
+		view = new JMenu("View");
 
-        playerLocation = new JCheckBoxMenuItem("Player Location");
-        playerLocation.addActionListener(this);
+		gameState = new JCheckBoxMenuItem("Game State");
+		gameState.addActionListener(this);
 
-        players = new JCheckBoxMenuItem("Players");
-        players.addActionListener(this);
+		playerLocation = new JCheckBoxMenuItem("Player Location");
+		playerLocation.addActionListener(this);
 
-        npcs = new JCheckBoxMenuItem("NPCs");
-        npcs.addActionListener(this);
+		mouseLocation = new JCheckBoxMenuItem("Mouse Location");
+		mouseLocation.addActionListener(this);
 
-        mouse = new JCheckBoxMenuItem("Mouse");
-        mouse.setSelected(config.drawMouse());
-        mouse.addActionListener(this);
+		floor = new JCheckBoxMenuItem("Floor");
+		floor.addActionListener(this);
 
-        canvas = new JCheckBoxMenuItem("Canvas");
-        canvas.setSelected(config.drawCanvas());
-        canvas.addActionListener(this);
+		mapBase = new JCheckBoxMenuItem("Map base");
+		mapBase.addActionListener(this);
 
-        lowCpu = new JCheckBoxMenuItem("Low CPU");
-        lowCpu.addActionListener(this);
+		camera = new JCheckBoxMenuItem("Camera");
+		camera.addActionListener(this);
 
-        console = new JMenuItem("Display Console");
-        console.addActionListener(this);
+		menu = new JCheckBoxMenuItem("Menu");
+		menu.addActionListener(this);
 
-        inventory = new JCheckBoxMenuItem("Inventory");
-        inventory.addActionListener(this);
+		players = new JCheckBoxMenuItem("Players");
+		players.addActionListener(this);
 
-        groundItems = new JCheckBoxMenuItem("Ground Items");
-        groundItems.addActionListener(this);
+		npcs = new JCheckBoxMenuItem("NPCs");
+		npcs.addActionListener(this);
 
-        gameObjects = new JCheckBoxMenuItem("GameObjects");
-        gameObjects.addActionListener(this);
+		mouse = new JCheckBoxMenuItem("Mouse");
+		mouse.setSelected(config.drawMouse());
+		mouse.addActionListener(this);
 
-        settings = new JMenuItem("Settings Explorer");
-        settings.addActionListener(this);
-        widgets = new JMenuItem("Widget Explorer");
+		canvas = new JCheckBoxMenuItem("Canvas");
+		canvas.setSelected(config.drawCanvas());
+		canvas.addActionListener(this);
 
-        accounts = new JMenuItem("Account Manager");
-        accounts.addActionListener(this);
+		lowCpu = new JCheckBoxMenuItem("Low CPU");
+		lowCpu.addActionListener(this);
 
-        view.add(playerLocation);
-        view.add(inventory);
-        view.add(players);
-        view.add(gameObjects);
-        view.add(npcs);
-        view.add(groundItems);
-        view.add(mouse);
-        view.add(canvas);
+		console = new JMenuItem("Display Console");
+		console.addActionListener(this);
 
-        add(view);
-        add(new JSeparator());
-        add(settings);
-        add(widgets);
-        add(accounts);
-        add(new JSeparator());
-        add(lowCpu);
-        add(console);
-    }
+		inventory = new JCheckBoxMenuItem("Inventory");
+		inventory.addActionListener(this);
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+		groundItems = new JCheckBoxMenuItem("Ground Items");
+		groundItems.addActionListener(this);
 
-        if (e.getSource() == canvas) {
-            config.drawCanvas(!config.drawCanvas());
-            log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");
-        } else if (e.getSource() == mouse) {
-            config.drawMouse(!config.drawMouse());
-            log.info(config.drawMouse() ? "Enabled mouse drawing." : "Disabled mouse drawing.");
-        } else if (e.getSource() == npcs) {
-            config.drawNPCs(!config.drawNPCs());
-            log.info(config.drawNPCs() ? "Enabled npc drawing." : "Disabled npc drawing.");
-        } else if (e.getSource() == players) {
-            config.drawPlayers(!config.drawPlayers());
-            log.info(config.drawPlayers() ? "Enabled player drawing." : "Disabled player drawing.");
-        } else if (e.getSource() == playerLocation) {
-            config.drawPlayerLocation(!config.drawPlayerLocation());
-            log.info(config.drawPlayerLocation() ? "Enabled player Location drawing." : "Disabled player Location drawing.");
-        } else if (e.getSource() == gameObjects) {
-            config.drawGameObjects(!config.drawGameObjects());
-            log.info(config.drawGameObjects() ? "Enabled GameObjects drawing." : "Disabled GameObjects drawing.");
-        } else if (e.getSource() == groundItems) {
-            config.drawGroundItems(!config.drawGroundItems());
-            log.info(config.drawGroundItems() ? "Enabled GroundItems drawing." : "Disabled GroundItems drawing.");
-        } else if (e.getSource() == lowCpu) {
-            config.lowCPU(!config.lowCPU());
-            log.info(config.lowCPU() ? "Enabled Low CPU." : "Disabled Low CPU.");
-        } else if (e.getSource() == console) {
-            if (config.getConsole().isDisplaying()) {
-                log.info("Disabling Console.");
-                config.getConsole().display(false);
-                config.getBotFrame().remove(config.getConsole());
-            } else {
-                log.info("Enabled Console.");
-                config.getConsole().display(true);
-                config.getBotFrame().add(config.getConsole());
-            }
-            config.getBotFrame().pack();
-            config.getBotFrame().revalidate();
-        } else if (e.getSource() == accounts) {
-            log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
-            config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
-        } else if (e.getSource() == settings) {
-            log.info(!config.drawSettings() ? "Enabled Setting debugger." : "Disabled Setting debugger.");
-            config.drawSettings(!config.drawSettings());
-        }  else if (e.getSource() == inventory) {
-            config.drawInventory(!config.drawInventory());
-            log.info(config.drawInventory() ? "Enabled InventoryDebugger drawing." : "Disabled InventoryDebugger drawing.");
-        }
-    }
+		gameObjects = new JCheckBoxMenuItem("GameObjects");
+		gameObjects.addActionListener(this);
+
+		settings = new JMenuItem("Settings Explorer");
+		settings.addActionListener(this);
+		widgets = new JMenuItem("Widget Explorer");
+
+		accounts = new JMenuItem("Account Manager");
+		accounts.addActionListener(this);
+
+		view.add(gameState);
+		view.add(playerLocation);
+		view.add(mouseLocation);
+		view.add(floor);
+		view.add(mapBase);
+		view.add(camera);
+		view.add(menu);
+		add(new JSeparator());
+		view.add(inventory);
+		view.add(players);
+		view.add(gameObjects);
+		view.add(npcs);
+		view.add(groundItems);
+		view.add(mouse);
+		view.add(canvas);
+
+		add(view);
+		add(new JSeparator());
+		add(settings);
+		add(widgets);
+		add(accounts);
+		add(new JSeparator());
+		add(lowCpu);
+		add(console);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if (e.getSource() == canvas) {
+			config.drawCanvas(!config.drawCanvas());
+			log.info(config.drawCanvas() ? "Enabled canvas drawing." : "Disabled canvas drawing.");
+		} else if (e.getSource() == mouse) {
+			config.drawMouse(!config.drawMouse());
+			log.info(config.drawMouse() ? "Enabled mouse drawing." : "Disabled mouse drawing.");
+		} else if (e.getSource() == npcs) {
+			config.drawNPCs(!config.drawNPCs());
+			log.info(config.drawNPCs() ? "Enabled npc drawing." : "Disabled npc drawing.");
+		} else if (e.getSource() == players) {
+			config.drawPlayers(!config.drawPlayers());
+			log.info(config.drawPlayers() ? "Enabled player drawing." : "Disabled player drawing.");
+		} else if (e.getSource() == playerLocation) {
+			config.drawPlayerLocation(!config.drawPlayerLocation());
+			log.info(config.drawPlayerLocation() ? "Enabled player Location drawing." : "Disabled player Location drawing.");
+		} else if (e.getSource() == gameObjects) {
+			config.drawGameObjects(!config.drawGameObjects());
+			log.info(config.drawGameObjects() ? "Enabled GameObjects drawing." : "Disabled GameObjects drawing.");
+		} else if (e.getSource() == groundItems) {
+			config.drawGroundItems(!config.drawGroundItems());
+			log.info(config.drawGroundItems() ? "Enabled GroundItems drawing." : "Disabled GroundItems drawing.");
+		} else if (e.getSource() == lowCpu) {
+			config.lowCPU(!config.lowCPU());
+			log.info(config.lowCPU() ? "Enabled Low CPU." : "Disabled Low CPU.");
+		} else if (e.getSource() == console) {
+			if (config.getConsole().isDisplaying()) {
+				log.info("Disabling Console.");
+				config.getConsole().display(false);
+				config.getBotFrame().remove(config.getConsole());
+			} else {
+				log.info("Enabled Console.");
+				config.getConsole().display(true);
+				config.getBotFrame().add(config.getConsole());
+			}
+			config.getBotFrame().pack();
+			config.getBotFrame().revalidate();
+		} else if (e.getSource() == accounts) {
+			log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
+			config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
+		} else if (e.getSource() == settings) {
+			log.info(!config.drawSettings() ? "Enabled Setting debugger." : "Disabled Setting debugger.");
+			config.drawSettings(!config.drawSettings());
+		} else if (e.getSource() == inventory) {
+			config.drawInventory(!config.drawInventory());
+			log.info(config.drawInventory() ? "Enabled InventoryDebugger drawing." : "Disabled InventoryDebugger drawing.");
+		} else if (e.getSource() == gameState) {
+			config.drawGameState(!config.drawGameState());
+			log.info(!config.drawGameState() ? "Enabled GameState debugger." : "Disabled GameState debugger.");
+		} else if (e.getSource() == mouseLocation) {
+			config.drawMouseLocation(!config.drawMouseLocation());
+			log.info(!config.drawMouseLocation() ? "Enabled Mouse debugger." : "Disabled Mouse debugger.");
+		} else if (e.getSource() == floor) {
+			config.drawFloor(!config.drawFloor());
+			log.info(!config.drawFloor() ? "Enabled Floor debugger." : "Disabled Floor debugger.");
+		} else if (e.getSource() == mapBase) {
+			config.drawMapBase(!config.drawMapBase());
+			log.info(!config.drawMapBase() ? "Enabled Map Base debugger." : "Disabled Map Base debugger.");
+		} else if (e.getSource() == camera) {
+			config.drawCamera(!config.drawCamera());
+			log.info(!config.drawCamera() ? "Enabled Camera debugger." : "Disabled Camera debugger.");
+		} else if (e.getSource() == menu) {
+			config.drawMenu(!config.drawMenu());
+			log.info(!config.drawMenu() ? "Enabled Menu debugger." : "Disabled Menu debugger.");
+		}
+	}
 }

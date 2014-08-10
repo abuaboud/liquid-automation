@@ -26,77 +26,94 @@ import java.util.List;
  */
 public class ScriptSelector extends JFrame {
 
-    private final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
-    private final Configuration config = Configuration.getInstance();
-    private final Logger log = new Logger(ScriptSelector.class);
-    private final Gson gson = new Gson();
+	private final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
+	private final Logger log = new Logger(ScriptSelector.class);
+	private final Gson gson = new Gson();
 
-    private JScrollPane scrollPane;
-    private JPanel bottomPanel, centerPanel;
-    private DefaultComboBoxModel<Account> accountModel;
-    private DefaultComboBoxModel<SkillCategory> skillModel;
-    private JComboBox<Account> accountBox;
-    private JComboBox<SkillCategory> skillBox;
-    private JTextField searchField;
+	private JScrollPane scrollPane;
+	private JPanel scriptPanel;
+	private DefaultComboBoxModel<Account> accountModel;
+	private DefaultComboBoxModel<SkillCategory> skillModel;
+	private JComboBox<Account> accountBox;
+	private JComboBox<SkillCategory> skillBox;
+	private JTextField searchField;
 
-    public ScriptSelector() {
-        super("Script Selector");
-        getContentPane().setLayout(new BorderLayout());
+	private JLabel accountLabel;
+	private JLabel searchLabel;
 
-        bottomPanel = new JPanel();
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+	public ScriptSelector() {
+		super("Script Selector");
+		setResizable(false);
 
-        accountModel = new DefaultComboBoxModel<>(loadAccounts());
-        accountBox = new JComboBox<>(accountModel);
+		getContentPane().setLayout(null);
 
-        skillModel = new DefaultComboBoxModel<>(SkillCategory.values());
-        skillBox = new JComboBox<>(skillModel);
+		accountModel = new DefaultComboBoxModel<>(loadAccounts());
+		accountBox = new JComboBox<>(accountModel);
 
-        searchField = new JTextField(15);
+		skillModel = new DefaultComboBoxModel<>(SkillCategory.values());
+		skillBox = new JComboBox<>(skillModel);
 
-        bottomPanel.add(accountBox);
-        bottomPanel.add(skillBox);
-        bottomPanel.add(Box.createHorizontalGlue());
-        bottomPanel.add(searchField);
+		searchField = new JTextField(15);
 
-        centerPanel = new JPanel();
-        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
-        centerPanel.setBorder(new EtchedBorder());
-        scrollPane = new JScrollPane(centerPanel);
+		scriptPanel = new JPanel();
+		scrollPane = new JScrollPane(scriptPanel);
+		scrollPane.setLayout(null);
+		scrollPane.setBounds(0, 35, 535, 351);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        getContentPane().add(scrollPane, BorderLayout.CENTER);
-        getContentPane().add(bottomPanel, BorderLayout.SOUTH);
+		accountLabel = new JLabel("Account:");
+		accountLabel.setBounds(5, 5, 55, 25);
 
-        for(final ScriptInfo info : ScriptLoader.getScripts()) {
-            final ScriptButton button = new ScriptButton(info);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    config.getScriptHandler().start(ScriptLoader.loadScript(info), info, config.getScriptHandler().getAccount());
-                    config.setAccount((Account) accountBox.getSelectedItem());
-                }
-            });
-            centerPanel.add(button);
-        }
+		accountBox = new JComboBox<>(loadAccounts());
+		accountBox.setBounds(60, 5, 200, 25);
 
-        pack();
-        setVisible(true);
-    }
+		searchLabel = new JLabel("Search:");
+		searchLabel.setBounds(280, 5, 55, 25);
 
-    public Account[] loadAccounts() {
-        final List<Account> list = new ArrayList<>();
-        try {
-            final String[] data = NetUtils.readPage(accountFile.toURI().toURL().toString());
-            final Account[] accounts = gson.fromJson(data[0], Account[].class);
-            Collections.addAll(list, accounts);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return list.toArray(new Account[list.size()]);
-    }
+		searchField = new JTextField();
+		searchField.setBounds(325, 5, 180, 25);
 
-    public static void main(String[] args) {
-        new ScriptSelector();
-    }
+		getContentPane().add(searchField);
+		getContentPane().add(searchLabel);
+		getContentPane().add(scrollPane);
+		getContentPane().add(accountBox);
+		getContentPane().add(accountLabel);
+
+		pack();
+		setSize(535, 386);
+		setLocationRelativeTo(getOwner());
+	}
+
+	public Account[] loadAccounts() {
+		final List<Account> list = new ArrayList<>();
+		try {
+			final String[] data = NetUtils.readPage(accountFile.toURI().toURL().toString());
+			final Account[] accounts = gson.fromJson(data[0], Account[].class);
+			Collections.addAll(list, accounts);
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
+		return list.toArray(new Account[list.size()]);
+	}
+
+	public void loadScripts() {
+
+		scrollPane.removeAll();
+		for (final ScriptInfo info : ScriptLoader.getScripts()) {
+			final ScriptPanel panel = new ScriptPanel(info);
+			panel.setBounds(0, 0, 170, 115);
+			panel.getButton().addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+
+					Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(info), info, (Account) accountBox.getSelectedItem());
+					ScriptSelector.this.dispose();
+				}
+			});
+			scrollPane.add(panel);
+		}
+		searchField.setText("");
+	}
 
 }

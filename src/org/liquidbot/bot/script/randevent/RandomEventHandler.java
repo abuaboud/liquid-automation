@@ -26,7 +26,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 
     public RandomEventHandler() {
         randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new StrangeBox(), new SurpriseExam()
-                , new Reward(), new Talker(),new AvoidCombat()};
+                , new Reward(), new Talker(),new AvoidCombat(),new Certer(),new DrillDemon(),new FrogCave(),new ScapeIsland()};
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
                     log.info("Completed RandomEvent: " + randomEvent.getName(), Color.GREEN);
                 }
             }
-            Time.sleep(500);
+            Time.sleep(Configuration.getInstance().lowCPU() ? 1000 : 500);
         }
     }
 

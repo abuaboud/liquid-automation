@@ -82,4 +82,12 @@ public class Players {
         return getNearest(Players.getLocal().getLocation(), filter);
     }
 
+	/**
+
+	 * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use Player#isValid instead
+	 */
+	public static Player nil(){
+		return new Player(null);
+	}
+
 }

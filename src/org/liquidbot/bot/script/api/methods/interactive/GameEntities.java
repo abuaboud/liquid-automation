@@ -212,4 +212,12 @@ public class GameEntities {
             }
         });
     }
+
+	/**
+	 *
+	 * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use GameObject#isValid instead
+	 */
+	public static GameObject nil(){
+		return new GameObject(null, GameObject.Type.INTERACTIVE,-1,-1,-1);
+	}
 }

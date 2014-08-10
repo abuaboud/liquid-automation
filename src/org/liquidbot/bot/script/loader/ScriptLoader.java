@@ -1,6 +1,7 @@
 package org.liquidbot.bot.script.loader;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.script.LoopScript;
 import org.liquidbot.bot.script.Manifest;
 import org.liquidbot.bot.script.SkillCategory;
@@ -79,7 +80,7 @@ public class ScriptLoader {
 	public static List<ScriptInfo> getRepositoryScripts() {
 		ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
 		User user = Configuration.getInstance().getUser();
-		String rawLine = NetUtils.readPage("http://liquidbot.org/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
+		String rawLine = NetUtils.readPage(Constants.SITE_URL + "client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
 		if (rawLine == null)
 			return scriptInfo;
 		for (String script : rawLine.split("<br>")) {

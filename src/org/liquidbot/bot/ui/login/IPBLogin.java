@@ -259,7 +259,7 @@ public class IPBLogin extends JFrame implements WindowListener {
     }
 
     private boolean attemptLogin(String username, String password) {
-        final String raw = NetUtils.readPage("http://liquidbot.org/client/login.php?username=" + username.replaceAll(" ", "%20").replaceAll("\0", "") + "&password=" + password)[0];
+        final String raw = NetUtils.readPage(Constants.SITE_URL + "/client/login.php?username=" + username.replaceAll(" ", "%20").replaceAll("\0", "") + "&password=" + password)[0];
         if (raw.contains("FAILED") || raw.isEmpty()) {
             return false;
         } else if (raw.contains("LOGGED IN")) {

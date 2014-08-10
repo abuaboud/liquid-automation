@@ -30,7 +30,6 @@ public class NetUtils {
             in.close();
         } catch (Exception e) {
             System.out.println("Error reading page!");
-            e.printStackTrace();
         }
         return lines.toArray(new String[lines.size()]);
     }

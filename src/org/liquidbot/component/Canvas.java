@@ -27,11 +27,12 @@ public class Canvas extends java.awt.Canvas {
 
     private List<PaintListener> listeners = new ArrayList<>();
 
-
     private long timeTaken = 0;
     private long beginTime = 0;
-    private int chosenFPS = 10;
-    private int updateRatio = (1000/chosenFPS);
+
+    private int getUpdateRatio() {
+        return (1000 / config.getFPS());
+    }
 
     /**
      * Create new instance of Canvas Class
@@ -61,6 +62,9 @@ public class Canvas extends java.awt.Canvas {
         final Graphics graphics = botBuffer.getGraphics();
         if (config.drawCanvas()) {
             graphics.drawImage(gameBuffer, 0, 0, null);
+            if(config.getFpsSlider() != null && config.getFpsSlider().getValueIsAdjusting()) {
+                graphics.drawString("FPS: "+ config.getFPS(), 7, 100);
+            }
             for (PaintListener listener : getPaintListeners()) {
                 if (listener instanceof Debugger) {
                     final Debugger debug = (Debugger) listener;
@@ -78,9 +82,7 @@ public class Canvas extends java.awt.Canvas {
         rend.drawImage(botBuffer, 0, 0, null);
 
         timeTaken = System.currentTimeMillis() - beginTime;
-        if(Configuration.getInstance().lowCPU()){
-            Time.sleep((int) (updateRatio - timeTaken));
-        }
+        Time.sleep((int) (getUpdateRatio() - timeTaken));
         return gameBuffer.getGraphics();
     }
 

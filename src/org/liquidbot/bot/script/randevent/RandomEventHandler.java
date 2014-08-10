@@ -47,7 +47,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
                     log.info("Completed RandomEvent: " + randomEvent.getName(), Color.GREEN);
                 }
             }
-            Time.sleep(Configuration.getInstance().lowCPU() ? 1000 : 500);
+            Time.sleep(500);
         }
     }
 

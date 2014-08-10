@@ -24,7 +24,7 @@ public class Constants {
     public static final String ACCOUNT_FILE_NAME = "Accounts.json";
     public static final String FORUM_FILE_NAME = "Forum.ini";
 
-	public static final String SITE_URL = "http://www.liquidbot.org";
+	public static final String SITE_URL = "https://www.liquidbot.org/";
 
     public static final String KEYBOARD_KEYS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*~";
 }

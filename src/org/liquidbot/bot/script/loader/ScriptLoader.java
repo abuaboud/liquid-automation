@@ -40,7 +40,7 @@ public class ScriptLoader {
 				urlClassLoader = null;
 			} else {
 				User user = Configuration.getInstance().getUser();
-				ScriptClassLoader sc = new ScriptClassLoader(new URL("http://liquidbot.org/client/loadScript.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId));
+				ScriptClassLoader sc = new ScriptClassLoader(new URL(Constants.SITE_URL + "/client/loadScript.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId));
 				if (sc.isSafe()) {
 					for (String entry : sc.entries().keySet().toArray(new String[sc.entries().keySet().size()])) {
 						try {
@@ -80,7 +80,7 @@ public class ScriptLoader {
 	public static List<ScriptInfo> getRepositoryScripts() {
 		ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
 		User user = Configuration.getInstance().getUser();
-		String rawLine = NetUtils.readPage(Constants.SITE_URL + "client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
+		String rawLine = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
 		if (rawLine == null)
 			return scriptInfo;
 		for (String script : rawLine.split("<br>")) {

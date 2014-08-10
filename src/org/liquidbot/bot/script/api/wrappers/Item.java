@@ -18,6 +18,7 @@ import java.awt.*;
  */
 public class Item implements Interactable, Identifiable, Nameable {
 
+    private int index;
     private int id;
     private int stackSize;
     private Rectangle area;
@@ -28,11 +29,16 @@ public class Item implements Interactable, Identifiable, Nameable {
         INVENTORY, BANK
     }
 
-    public Item(int id, int stackSize, Type type, Rectangle area) {
+    public Item(int id, int stackSize, int index, Type type, Rectangle area) {
         this.type = type;
         this.id = id;
         this.stackSize = stackSize;
         this.area = area;
+        this.index = index;
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public Type getType() {

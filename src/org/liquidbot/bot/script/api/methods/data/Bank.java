@@ -48,7 +48,7 @@ public class Bank {
             if (children != null) {
                 for (int BankI = 0; BankI < children.length; BankI++) {
                     WidgetChild widgetChild = children[BankI];
-                    Item item = new Item(widgetChild.getItemId(), widgetChild.getItemStack(), Item.Type.BANK, widgetChild.getArea());
+                    Item item = new Item(widgetChild.getItemId(), widgetChild.getItemStack(), BankI, Item.Type.BANK, widgetChild.getArea());
                     if (item.isValid() && (filter == null || filter.accept(item))) {
                         list.add(item);
                     }

@@ -16,35 +16,26 @@ import java.awt.event.ActionListener;
 public class ScriptPanel extends JPanel {
 
 	private JButton button;
-	private JLabel imageLabel;
 
-	private JLabel nameLabel;
-
-	private ScriptInfo scriptInfo;
-
-	public ScriptPanel(final ScriptInfo scriptInfo) {
-		this.scriptInfo = scriptInfo;
-		setLayout(null);
+    public ScriptPanel(final ScriptInfo scriptInfo) {
+        setLayout(new BorderLayout());
 
 		setToolTipText(scriptInfo.desc);
 
 		button = new JButton("Start");
-		button.setBounds(70, 90, 92, 20);
+        add(button, BorderLayout.SOUTH);
 
-		imageLabel = new JLabel(scriptInfo.skillCategory.getIcon());
-		imageLabel.setBounds(0,10,48,51);
+        final JLabel imageLabel = new JLabel(scriptInfo.skillCategory.getIcon());
+		add(imageLabel, BorderLayout.WEST);
 
-		nameLabel = new JLabel(scriptInfo.name);
-		nameLabel.setBounds(60, 5, 110, 40);
-
-		add(button);
-		add(nameLabel);
-		add(imageLabel);
+        final JLabel nameLabel = new JLabel(scriptInfo.name);
+        nameLabel.setHorizontalAlignment(JLabel.CENTER);
+		add(nameLabel, BorderLayout.NORTH);
 
 		setBorder(new EtchedBorder());
 	}
 
-	public JButton getButton(){
+	public JButton getButton() {
 		return button;
 	}
 

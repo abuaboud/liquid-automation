@@ -35,6 +35,6 @@ public class BankQuery extends AbstractQuery<BankQuery, Item> {
 
     @Override
     public Item nil() {
-        return new Item(-1, -1, Item.Type.BANK, null);
+        return new Item(-1, -1, -1, Item.Type.BANK, null);
     }
 }

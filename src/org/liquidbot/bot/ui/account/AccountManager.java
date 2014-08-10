@@ -169,7 +169,7 @@ public class AccountManager extends JFrame {
 					(String) model.getValueAt(i, 0),
 					(String) model.getValueAt(i, 1),
 					(String) model.getValueAt(i, 2),
-					Account.Reward.get((String) model.getValueAt(1, 3))));
+					(Account.Reward) model.getValueAt(1, 3)));
 		}
 		return list.toArray(new Account[list.size()]);
 	}

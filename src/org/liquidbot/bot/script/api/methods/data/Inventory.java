@@ -2,14 +2,17 @@ package org.liquidbot.bot.script.api.methods.data;
 
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
+import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
 import org.liquidbot.bot.script.api.query.ItemQuery;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.wrappers.Item;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Created by Hiasat on 8/2/14
@@ -42,7 +45,7 @@ public class Inventory {
         if (contentIds == null || stackSizes == null)
             return list.toArray(new Item[list.size()]);
         for (int itemIndex = 0; itemIndex < contentIds.length; itemIndex++) {
-            Item item = new Item(contentIds[itemIndex] - 1, stackSizes[itemIndex], Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
+            Item item = new Item(contentIds[itemIndex] - 1, stackSizes[itemIndex], itemIndex, Item.Type.INVENTORY, new Rectangle(getLocation(itemIndex).x - 2, getLocation(itemIndex).y - 2, 4, 4));
             if (item.isValid() && (filter == null || filter.accept(item))) {
                 list.add(item);
             }
@@ -62,7 +65,7 @@ public class Inventory {
     public static Item getItem(Filter<Item> filter) {
         Item[] items = getAllItems(filter);
         if (items == null || items.length == 0)
-            return new Item( -1, -1, Item.Type.INVENTORY, null);
+            return new Item( -1, -1, -1, Item.Type.INVENTORY, null);
         return items[0];
     }
 
@@ -183,6 +186,48 @@ public class Inventory {
         return true;
     }
 
+    public static Item getItemAt(final int index) {
+        return getItem(new Filter<Item>() {
+            @Override
+            public boolean accept(Item item) {
+                return item.getIndex() == index;
+            }
+        });
+    }
+
+    public static void dropAllExcept(int... keep) {
+        for(int i = 0; i < dropPattern.length; i++) {
+            final Item itemAt = getItemAt(dropPattern[i]);
+            if(itemAt != null && !Utilities.inArray(itemAt.getId(), keep)) {
+                if(!itemAt.getArea().contains(Mouse.getLocation())) {
+                    Mouse.hop(itemAt.getCentralPoint().x, itemAt.getArea().y);
+                }
+                Mouse.click(false);
+                Mouse.move(Mouse.getLocation().x, getYLocation());
+                Mouse.click(true);
+            }
+        }
+    }
+
+    private static final int[] dropPattern = {
+            0, 4, 8, 12, 16, 20, 24,
+            25, 21, 17, 13, 9, 5, 1,
+            2, 6, 10, 14, 18, 22, 26,
+            27, 23, 19, 15, 11, 7, 3
+    };
+
+    private static final int getYLocation() {
+        final List<String> actions = Menu.getActions();
+        int index = 0;
+        for(String action : actions) {
+            if(action.contains("Drop")) {
+                index++;
+                return Menu.getY() + 37 * index - 1;
+            }
+        }
+        return Menu.getY() + 40;
+    }
+
     public static Point getLocation(int slot) {
         int col = (slot % 4);
         int row = (slot / 4);
@@ -190,4 +235,5 @@ public class Inventory {
         int y = 228 + (row * 36);
         return new Point(x, y);
     }
+
 }

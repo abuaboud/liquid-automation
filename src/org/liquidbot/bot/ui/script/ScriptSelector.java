@@ -98,15 +98,13 @@ public class ScriptSelector extends JFrame {
 	}
 
 	public void loadScripts() {
-
 		scrollPane.removeAll();
 		for (final ScriptInfo info : ScriptLoader.getScripts()) {
 			final ScriptPanel panel = new ScriptPanel(info);
-			panel.setBounds(0, 0, 170, 115);
+			panel.setBounds(2, 2, 170, 115);
 			panel.getButton().addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-
 					Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(info), info, (Account) accountBox.getSelectedItem());
 					ScriptSelector.this.dispose();
 				}

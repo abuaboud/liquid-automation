@@ -40,6 +40,7 @@ public class Canvas extends java.awt.Canvas {
      */
     public Canvas(java.awt.Canvas canvas) {
         this.canvas = canvas;
+	    canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
         final Debugger[] debuggers = {
                 new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger()
                 ,new TextDebugger(),new SettingsDebugger() ,new InventoryDebugger()
@@ -83,12 +84,6 @@ public class Canvas extends java.awt.Canvas {
         return gameBuffer.getGraphics();
     }
 
-    /**
-     * @return Original Canvas
-     */
-    public java.awt.Canvas getOriginalCanvas() {
-        return canvas;
-    }
 
     /**
      * @return Original Canvas hashCode
@@ -123,18 +118,17 @@ public class Canvas extends java.awt.Canvas {
 
     @Override
     public void setBounds(int x, int y, int width, int height) {
-        canvas.setBounds(0, 0, width, height);
+
     }
 
     @Override
     public void setSize(int width, int height) {
-        canvas.setSize(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT);
+
     }
 
     @Override
     public void setLocation(int x, int y) {
-        canvas.setLocation(0, 0);
-        revalidate();
+	    canvas.setLocation(0,0);
     }
 
 }

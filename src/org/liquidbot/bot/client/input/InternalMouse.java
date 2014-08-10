@@ -1,7 +1,8 @@
-package org.liquidbot.bot.client.input;/*
+package org.liquidbot.bot.client.input;
+
+/*
  * Created by Hiasat on 7/30/14
  */
-
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.input.algorithms.MouseAlgorithm;
 import org.liquidbot.bot.client.input.algorithms.Spline;

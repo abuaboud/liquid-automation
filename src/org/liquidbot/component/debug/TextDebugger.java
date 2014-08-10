@@ -22,7 +22,6 @@ public class TextDebugger extends Debugger<String> {
     @Override
     public String[] elements() {
         debuggedList.clear();
-        drawText(config.drawPlayerLocation(), "Player Location ^^> " + Players.getLocal().getLocation().toString());
 	    drawText(config.drawGameState(), "Game State -^^> " + Game.getGameState());
 	    drawText(config.drawPlayerLocation(), "Player Location -^^> " + Players.getLocal().getLocation().toString());
 	    drawText(config.drawMouseLocation(), "Mouse Location -^^> " + Mouse.getLocation().toString());

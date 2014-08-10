@@ -26,8 +26,7 @@ public class RSLoader extends JPanel implements AppletStub {
 
     private boolean isAppletLoaded = false;
     private final Font font = new Font("Calibri", Font.PLAIN, 15);
-    private final Color color = new Color(92, 98, 106);
-    private final Color colorDark = color.darker();
+
 
     private URLClassLoader classLoader = null;
     private FileDownloader downloader;
@@ -101,23 +100,20 @@ public class RSLoader extends JPanel implements AppletStub {
             if (downloader != null || downloader.isFinished()) {
                 final int width = downloader.getPercentage() * 300 / 100;
 
-                final GradientPaint gradient = new GradientPaint(225, 45, colorDark, 300, 45, color);
-                graphics2D.setPaint(gradient);
+	            graphics.setColor(Color.GREEN.darker());
                 graphics2D.fillRect(225, 200, width, 45);
-                graphics2D.setColor(Color.WHITE);
+	            graphics.setColor(Color.GREEN.darker());
                 graphics2D.drawRect(225, 200, 300, 45);
 
-                graphics2D.setColor(Color.CYAN);
+                graphics2D.setColor(Color.WHITE);
                 graphics2D.drawString("Downloading gamepack - " + downloader.getPercentage() + "%", 285, 230);
             }
+	        graphics.setColor(Color.GREEN.darker());
             graphics2D.drawString("LiquidBot is loading, please wait!", 285, 480);
             repaint(600);
         }
     }
 
-    public Applet getApplet() {
-        return applet;
-    }
 
     public Class<?> loadClass(final String className) {
         if (classLoader == null) {
@@ -162,10 +158,6 @@ public class RSLoader extends JPanel implements AppletStub {
         return null;
     }
 
-    @Override
-    public void setLocation(int x, int y) {
-
-    }
 
     @Override
     public void appletResize(int width, int height) {

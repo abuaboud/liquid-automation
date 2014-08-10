@@ -2,8 +2,14 @@ package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.utils.Logger;
+import org.liquidbot.component.Canvas;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,8 +18,8 @@ import java.awt.event.ActionListener;
  */
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
-	private final JMenu view;
-	private final JCheckBoxMenuItem lowCpu, gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu;
+	private final JMenu view, lowCpu;
+	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu;
 	private final JMenuItem settings, widgets, console, accounts;
 	private final Configuration config = Configuration.getInstance();
 
@@ -57,8 +63,23 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		canvas.setSelected(config.drawCanvas());
 		canvas.addActionListener(this);
 
-		lowCpu = new JCheckBoxMenuItem("Low CPU");
-		lowCpu.addActionListener(this);
+        lowCpu = new JMenu("Low CPU");
+		config.setFpsSlider(new JSlider());
+        config.getFpsSlider().setValue(50);
+        final TitledBorder border = new TitledBorder("Adjust FPS");
+        border.setTitleColor(Color.WHITE);
+        config.getFpsSlider().setBorder(border);
+        config.getFpsSlider().setMinimum(0); config.getFpsSlider().setMaximum(50);
+        config.getFpsSlider().setSnapToTicks(true);
+        config.getFpsSlider().setPaintTicks(true);
+        config.getFpsSlider().setPaintLabels(true);
+        config.getFpsSlider().addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                config.setFPS(config.getFpsSlider().getValue());
+            }
+        });
+        lowCpu.add(config.getFpsSlider());
 
 		console = new JMenuItem("Display Console");
 		console.addActionListener(this);
@@ -129,9 +150,6 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == groundItems) {
 			config.drawGroundItems(!config.drawGroundItems());
 			log.info(config.drawGroundItems() ? "Enabled GroundItems drawing." : "Disabled GroundItems drawing.");
-		} else if (e.getSource() == lowCpu) {
-			config.lowCPU(!config.lowCPU());
-			log.info(config.lowCPU() ? "Enabled Low CPU." : "Disabled Low CPU.");
 		} else if (e.getSource() == console) {
 			if (config.getConsole().isDisplaying()) {
 				log.info("Disabling Console.");

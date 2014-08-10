@@ -12,6 +12,8 @@ import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.component.Canvas;
 
+import javax.swing.*;
+
 /**
  * Created by Hiasat on 7/29/2014.
  */
@@ -28,6 +30,9 @@ public class Configuration {
     private User user;
     private AES encryption;
     private AccountManager accountManager;
+    private int fps = 50;
+
+    private JSlider fpsSlider;
 
     private boolean enableMouse = true;
     private boolean enableKeyboard = true;
@@ -46,9 +51,24 @@ public class Configuration {
 	private boolean drawMapBase = false;
 	private boolean drawCamera = false;
 	private boolean drawMenu = false;
-    private boolean lowCPU = false;
 
     private static Configuration instance = new Configuration();
+
+    public JSlider getFpsSlider() {
+        return fpsSlider;
+    }
+
+    public void setFpsSlider(JSlider slider) {
+        this.fpsSlider = slider;
+    }
+
+    public int getFPS() {
+        return fps;
+    }
+
+    public void setFPS(int fps) {
+        this.fps = fps;
+    }
 
     public void drawInventory(boolean drawInventory) {
         this.drawInventory = drawInventory;
@@ -116,14 +136,6 @@ public class Configuration {
 
     public static Configuration getInstance() {
         return instance;
-    }
-
-    public boolean lowCPU() {
-        return lowCPU;
-    }
-
-    public void lowCPU(boolean lowCPU) {
-        this.lowCPU = lowCPU;
     }
 
     public User getUser() {

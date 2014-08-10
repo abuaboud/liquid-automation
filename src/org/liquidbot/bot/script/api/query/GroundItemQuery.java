@@ -11,4 +11,9 @@ public class GroundItemQuery extends BasicQuery<GroundItemQuery, GroundItem> {
     protected GroundItem[] elements() {
         return GroundItems.getAll();
     }
+
+    @Override
+    public GroundItem nil() {
+        return GroundItems.nil();
+    }
 }

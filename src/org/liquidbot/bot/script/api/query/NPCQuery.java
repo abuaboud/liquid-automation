@@ -12,4 +12,9 @@ public class NPCQuery extends BasicQuery<NPCQuery, NPC> {
     protected NPC[] elements() {
         return NPCs.getAll();
     }
+
+    @Override
+    public NPC nil() {
+        return NPCs.nil();
+    }
 }

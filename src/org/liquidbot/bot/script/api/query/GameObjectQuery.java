@@ -11,4 +11,9 @@ public class GameObjectQuery extends BasicQuery<GameObjectQuery, GameObject> {
     protected GameObject[] elements() {
         return GameEntities.getAll();
     }
+
+    @Override
+    public GameObject nil() {
+        return GameEntities.nil();
+    }
 }

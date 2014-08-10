@@ -65,4 +65,9 @@ public class PlayerQuery extends AbstractQuery<PlayerQuery, Player> implements L
             return o1.distanceTo() - o2.distanceTo();
         }
     };
+
+    @Override
+    public Player nil() {
+        return Players.nil();
+    }
 }

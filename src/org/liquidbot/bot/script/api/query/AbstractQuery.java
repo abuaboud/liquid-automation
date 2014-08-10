@@ -1,6 +1,7 @@
 package org.liquidbot.bot.script.api.query;
 
 import org.liquidbot.bot.script.api.interfaces.Filter;
+import org.liquidbot.bot.script.api.interfaces.Nilable;
 
 import java.util.*;
 
@@ -8,7 +9,7 @@ import java.util.*;
  * Created by Kenneth on 7/29/2014.
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Iterable<E> {
+public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Iterable<E>, Nilable<E> {
 
     private final List<E> elements = new LinkedList<E>();
 
@@ -36,7 +37,7 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
     }
 
     public E single() {
-        return !elements.isEmpty() ? elements.get(0) : null;
+        return !elements.isEmpty() ? elements.get(0) : nil();
     }
 
     public Q limit(int amount) {

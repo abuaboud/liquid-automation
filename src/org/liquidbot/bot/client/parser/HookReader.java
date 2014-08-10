@@ -14,7 +14,6 @@ public class HookReader {
     public static Hashtable<String, MethodHook> methods = new Hashtable<>();
 
     private static final String HOOKS_URL = Constants.SITE_URL +"/client/hooks.html";
-
     /**
      * Parse Html File to get hooks info
      */

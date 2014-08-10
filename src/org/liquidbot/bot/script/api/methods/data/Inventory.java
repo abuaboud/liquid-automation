@@ -200,10 +200,10 @@ public class Inventory {
             final Item itemAt = getItemAt(dropPattern[i]);
             if(itemAt != null && !Utilities.inArray(itemAt.getId(), keep)) {
                 if(!itemAt.getArea().contains(Mouse.getLocation())) {
-                    Mouse.hop(itemAt.getCentralPoint().x + Random.nextInt(-3, 3), itemAt.getArea().y + Random.nextInt(-3, 3));
+                    Mouse.hop(itemAt.getCentralPoint().x, itemAt.getArea().y);
                 }
                 Mouse.click(false);
-                Mouse.move(Mouse.getLocation().x + Random.nextInt(-3, 3), getYLocation());
+                Mouse.move(Mouse.getLocation().x, getYLocation());
                 Mouse.click(true);
             }
         }
@@ -222,7 +222,7 @@ public class Inventory {
         for(String action : actions) {
             if(action.contains("Drop")) {
                 index++;
-                return Menu.getY() + 37 * index - 1 + Random.nextInt(-3, 3);
+                return Menu.getY() + 37 * index - 1;
             }
         }
         return Menu.getY() + 40;

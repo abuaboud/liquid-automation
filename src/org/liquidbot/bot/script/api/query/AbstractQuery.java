@@ -17,14 +17,18 @@ public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Itera
 
     public Q refresh() {
         elements.clear();
-        Collections.addAll(elements, elements());
+        for(E e : elements()) {
+            if(e != nil()) {
+                elements.add(e);
+            }
+        }
         return (Q) this;
     }
 
     public Q filter(Filter<E> filter) {
         final List<E> copy = new LinkedList<E>(elements);
         for (E e : copy) {
-            if (!filter.accept(e)) {
+            if (e != nil() && !filter.accept(e)) {
                 elements.remove(e);
             }
         }

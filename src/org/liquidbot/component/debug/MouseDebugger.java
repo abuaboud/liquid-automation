@@ -17,7 +17,7 @@ public class MouseDebugger extends Debugger {
 
     @Override
     public boolean activate() {
-        return config.drawMouse();
+        return config.drawMouse() && config.getMouse() != null;
     }
 
     @Override

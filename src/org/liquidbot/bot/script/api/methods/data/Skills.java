@@ -129,7 +129,7 @@ public class Skills {
      * @param skill
      * @return Integer: exp to next level
      */
-    public static int ExpTillNextLevel(int skill) {
+    public static int expTilNextLevel(int skill) {
         return getExpAtLevel(getRealLevel(skill) + 1) - getExperience(skill);
     }
 

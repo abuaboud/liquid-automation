@@ -62,9 +62,13 @@ public class Bank {
         return getAllItems(null);
     }
 
+    public static Item nil() {
+        return new Item(-1, -1, -1, Item.Type.BANK, null);
+    }
+
     public static Item getItem(Filter<Item> filter) {
         Item[] allItems = getAllItems(filter);
-        return allItems.length > 0 ? allItems[0] : null;
+        return allItems.length > 0 ? allItems[0] : nil();
     }
 
     public static Item getItem(final int... ids) {

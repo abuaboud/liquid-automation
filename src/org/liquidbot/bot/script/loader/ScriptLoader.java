@@ -70,9 +70,9 @@ public class ScriptLoader {
 		for (ScriptInfo scriptInfo : getLocalScripts()) {
 			scripts.add(scriptInfo);
 		}
-		for (ScriptInfo scriptInfo : getRepositoryScripts()) {
-			scripts.add(scriptInfo);
-		}
+		//for (ScriptInfo scriptInfo : getRepositoryScripts()) {
+		//	scripts.add(scriptInfo);
+		//}
 		return scripts;
 	}
 

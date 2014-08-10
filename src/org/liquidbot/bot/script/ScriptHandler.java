@@ -1,6 +1,7 @@
 package org.liquidbot.bot.script;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.script.api.listeners.*;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.loader.ScriptInfo;
@@ -23,6 +24,9 @@ public class ScriptHandler implements Runnable {
     private Account account;
     private PaintListener paintListener;
     private RandomEventHandler randomEventHandler;
+    private ExperienceMonitor experienceMonitor;
+    private AnimationMonitor animationMonitor;
+    private InventoryMonitor inventoryMonitor;
 
     private Logger logger = new Logger(getClass());
 
@@ -52,6 +56,28 @@ public class ScriptHandler implements Runnable {
         this.account = account;
         this.scriptThread = new Thread(this);
         this.scriptThread.start();
+
+        this.animationMonitor = new AnimationMonitor();
+        if(script instanceof AnimationListener) {
+            animationMonitor.addListener((AnimationListener) script);
+            new Thread(animationMonitor).start();
+        }
+
+
+        this.experienceMonitor = new ExperienceMonitor();
+        if(script instanceof ExperienceListener) {
+            experienceMonitor.addListener((ExperienceListener) script);
+            new Thread(experienceMonitor).start();
+        }
+
+
+        this.inventoryMonitor = new InventoryMonitor();
+        if(script instanceof InventoryListener) {
+            inventoryMonitor.addListener((InventoryListener) script);
+            new Thread(inventoryMonitor).start();
+        }
+
+
         this.script.onStart();
         if (randomEventHandler == null) {
             randomEventHandler = new RandomEventHandler();
@@ -74,6 +100,7 @@ public class ScriptHandler implements Runnable {
         Configuration.getInstance().getCanvas().getPaintListeners().remove(paintListener);
         this.script = null;
         this.scriptThread = null;
+        this.experienceMonitor = null;
         this.randomEventsThread = null;
         this.paintListener = null;
     }

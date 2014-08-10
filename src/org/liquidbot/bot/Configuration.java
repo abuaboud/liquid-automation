@@ -30,7 +30,7 @@ public class Configuration {
     private User user;
     private AES encryption;
     private AccountManager accountManager;
-    private int fps = 50;
+    private boolean lowCPU;
 
     private JSlider fpsSlider;
 
@@ -54,6 +54,14 @@ public class Configuration {
 
     private static Configuration instance = new Configuration();
 
+    public void setCPU(boolean lowcpu) {
+        this.lowCPU = lowcpu;
+    }
+
+    public boolean lowCpu() {
+        return lowCPU;
+    }
+
     public JSlider getFpsSlider() {
         return fpsSlider;
     }
@@ -63,11 +71,7 @@ public class Configuration {
     }
 
     public int getFPS() {
-        return fps;
-    }
-
-    public void setFPS(int fps) {
-        this.fps = fps;
+        return getFpsSlider() != null ? getFpsSlider().getValue() : 50;
     }
 
     public void drawInventory(boolean drawInventory) {

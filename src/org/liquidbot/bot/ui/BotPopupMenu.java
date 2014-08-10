@@ -18,8 +18,8 @@ import java.awt.event.ActionListener;
  */
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
-	private final JMenu view, lowCpu;
-	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu;
+	private final JMenu view, lowCpuMenu;
+	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu;
 	private final JMenuItem settings, widgets, console, accounts;
 	private final Configuration config = Configuration.getInstance();
 
@@ -63,23 +63,25 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		canvas.setSelected(config.drawCanvas());
 		canvas.addActionListener(this);
 
-        lowCpu = new JMenu("Low CPU");
+
+
+        lowCpuMenu = new JMenu("Low CPU");
 		config.setFpsSlider(new JSlider());
         config.getFpsSlider().setValue(50);
         final TitledBorder border = new TitledBorder("Adjust FPS");
         border.setTitleColor(Color.WHITE);
         config.getFpsSlider().setBorder(border);
-        config.getFpsSlider().setMinimum(0); config.getFpsSlider().setMaximum(50);
+        config.getFpsSlider().setMinimum(0);
+        config.getFpsSlider().setMaximum(50);
         config.getFpsSlider().setSnapToTicks(true);
         config.getFpsSlider().setPaintTicks(true);
         config.getFpsSlider().setPaintLabels(true);
-        config.getFpsSlider().addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                config.setFPS(config.getFpsSlider().getValue());
-            }
-        });
-        lowCpu.add(config.getFpsSlider());
+        config.getFpsSlider().setForeground(Color.WHITE);
+        lowCpuMenu.add(config.getFpsSlider());
+
+        lowCpu = new JCheckBoxMenuItem("Low CPU");
+        lowCpu.addActionListener(this);
+        lowCpuMenu.add(lowCpu);
 
 		console = new JMenuItem("Display Console");
 		console.addActionListener(this);
@@ -122,7 +124,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		add(widgets);
 		add(accounts);
 		add(new JSeparator());
-		add(lowCpu);
+		add(lowCpuMenu);
 		add(console);
 	}
 
@@ -189,6 +191,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == menu) {
 			config.drawMenu(!config.drawMenu());
 			log.info(!config.drawMenu() ? "Enabled Menu debugger." : "Disabled Menu debugger.");
-		}
+		} else if(e.getSource() == lowCpu) {
+            config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
+            config.setCPU(!config.lowCpu());
+        }
 	}
 }

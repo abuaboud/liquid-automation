@@ -36,6 +36,6 @@ public class ItemQuery extends AbstractQuery<ItemQuery, Item> {
 
     @Override
     public Item nil() {
-        return Inventory.nil();
+        return new Item(-1, -1, -1, Item.Type.INVENTORY, null);
     }
 }

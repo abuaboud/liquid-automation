@@ -65,12 +65,8 @@ public class Inventory {
     public static Item getItem(Filter<Item> filter) {
         Item[] items = getAllItems(filter);
         if (items == null || items.length == 0)
-            return nil();
+            return new Item( -1, -1, -1, Item.Type.INVENTORY, null);
         return items[0];
-    }
-
-    public static Item nil() {
-        return new Item(-1, -1, -1, Item.Type.INVENTORY, null);
     }
 
     public static Item getItem(final int... ids) {
@@ -92,7 +88,7 @@ public class Inventory {
     }
 
     public static String getSelectedItemName() {
-        return (String) Reflection.value("Client#getSelectedItem()", null);
+        return (String) Reflection.value("Client.getSelectedItem()", null);
     }
 
     public static boolean isItemSelected() {
@@ -202,8 +198,8 @@ public class Inventory {
     public static void dropAllExcept(int... keep) {
         for(int i = 0; i < dropPattern.length; i++) {
             final Item itemAt = getItemAt(dropPattern[i]);
-            if(itemAt.isValid() && !Utilities.inArray(itemAt.getId(), keep)) {
-                if(itemAt.getArea() != null && !itemAt.getArea().contains(Mouse.getLocation())) {
+            if(itemAt != null && !Utilities.inArray(itemAt.getId(), keep)) {
+                if(!itemAt.getArea().contains(Mouse.getLocation())) {
                     Mouse.hop(itemAt.getCentralPoint().x, itemAt.getArea().y);
                 }
                 Mouse.click(false);

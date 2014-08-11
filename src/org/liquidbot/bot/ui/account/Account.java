@@ -16,11 +16,11 @@ public class Account {
     private String email, password, pin;
     private Reward reward;
 
-    public Account(String email, String password, String pin, Reward reward) {
+    public Account(String email, String password, String pin, String reward) {
         this.email = Configuration.getInstance().getEncryption().encrypt(email);
         this.password = Configuration.getInstance().getEncryption().encrypt(password);
         this.pin = pin;
-        this.reward = reward;
+        this.reward = Account.Reward.get(reward);
     }
 
     public String getEmail() {

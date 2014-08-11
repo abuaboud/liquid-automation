@@ -66,7 +66,6 @@ public class ScriptClassLoader extends ClassLoader {
                 ClassReader cr = new ClassReader(value);
                 ClassNode classNode = new ClassNode();
                 cr.accept(classNode, ClassReader.SKIP_DEBUG | ClassReader.SKIP_FRAMES);
-                System.out.println(name);
                 for (CodeScanner codeScanner : scanners) {
                     if (codeScanner.scan(classNode)) {
                         safe = false;

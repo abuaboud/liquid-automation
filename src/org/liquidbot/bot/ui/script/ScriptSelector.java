@@ -7,86 +7,97 @@ import org.liquidbot.bot.script.SkillCategory;
 import org.liquidbot.bot.script.loader.ScriptInfo;
 import org.liquidbot.bot.script.loader.ScriptLoader;
 import org.liquidbot.bot.ui.account.Account;
-import org.liquidbot.bot.utils.Logger;
+import org.liquidbot.bot.ui.sdn.SDNElement;
 import org.liquidbot.bot.utils.NetUtils;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
- * Created by Kenneth on 8/8/2014.
+ * Created by Kenneth on 7/31/2014.
  */
 public class ScriptSelector extends JFrame {
 
 	private final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
-	private final Logger log = new Logger(ScriptSelector.class);
 	private final Gson gson = new Gson();
 
-	private JScrollPane scrollPane;
-	private JPanel scriptPanel;
-	private DefaultComboBoxModel<Account> accountModel;
-	private DefaultComboBoxModel<SkillCategory> skillModel;
-	private JComboBox<Account> accountBox;
-	private JComboBox<SkillCategory> skillBox;
 	private JTextField searchField;
+	private JComboBox<String> accounts;
 
-	private JLabel accountLabel;
-	private JLabel searchLabel;
+	private JPanel topPanel;
+	private JPanel scriptPanel;
+	private JScrollPane scrollPane;
 
 	public ScriptSelector() {
-		super("Script Selector");
+		super("LiquidBot Script Selector");
 		setResizable(false);
 
-		getContentPane().setLayout(null);
+		Account[] loadedAccounts = loadAccounts();
+		final String[] accountsList = new String[loadedAccounts.length + 1];
+		accountsList[0] = "None";
+		for (int x = 1; x < accountsList.length; x++) {
+			accountsList[x] = loadedAccounts[x - 1].getEmail().replaceAll("\0", "");
+		}
 
-		accountModel = new DefaultComboBoxModel<>(loadAccounts());
-		accountBox = new JComboBox<>(accountModel);
+		searchField = new JTextField(20);
+		searchField.setForeground(Color.LIGHT_GRAY);
+		searchField.setText("Search");
+		searchField.setMaximumSize(new Dimension(100, 30));
+		searchField.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				super.focusGained(e);
+				searchField.setForeground(Color.BLACK);
+				searchField.setText("");
+			}
 
-		skillModel = new DefaultComboBoxModel<>(SkillCategory.values());
-		skillBox = new JComboBox<>(skillModel);
+			@Override
+			public void focusLost(FocusEvent e) {
+				super.focusLost(e);
+				searchField.setForeground(Color.LIGHT_GRAY);
+				searchField.setText("Search");
+			}
+		});
+		searchField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				super.keyTyped(e);
+			}
+		});
 
-		searchField = new JTextField(15);
+		accounts = new JComboBox<>(accountsList);
+		accounts.setSelectedItem(accountsList[0]);
+
+		topPanel = new JPanel();
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
+		topPanel.add(accounts);
+		topPanel.add(Box.createHorizontalGlue());
+		topPanel.add(searchField);
 
 		scriptPanel = new JPanel();
+		scriptPanel.setLayout(null);
+
 		scrollPane = new JScrollPane(scriptPanel);
-		scrollPane.setLayout(null);
-		scrollPane.setBounds(0, 35, 535, 351);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-		accountLabel = new JLabel("Account:");
-		accountLabel.setBounds(5, 5, 55, 25);
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(topPanel, BorderLayout.NORTH);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
 
-		accountBox = new JComboBox<>(loadAccounts());
-		accountBox.setBounds(60, 5, 200, 25);
 
-		searchLabel = new JLabel("Search:");
-		searchLabel.setBounds(280, 5, 55, 25);
-
-		searchField = new JTextField();
-		searchField.setBounds(325, 5, 180, 25);
-
-		getContentPane().add(searchField);
-		getContentPane().add(searchLabel);
-		getContentPane().add(scrollPane);
-		getContentPane().add(accountBox);
-		getContentPane().add(accountLabel);
-
-		pack();
-		setSize(535, 386);
-		setLocationRelativeTo(getOwner());
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setSize(535, 405);
 	}
 
+
 	public Account[] loadAccounts() {
-		final List<Account> list = new ArrayList<>();
+		final java.util.List<Account> list = new ArrayList<>();
 		try {
 			final String[] data = NetUtils.readPage(accountFile.toURI().toURL().toString());
 			final Account[] accounts = gson.fromJson(data[0], Account[].class);
@@ -98,20 +109,43 @@ public class ScriptSelector extends JFrame {
 	}
 
 	public void loadScripts() {
-		scrollPane.removeAll();
-		for (final ScriptInfo info : ScriptLoader.getScripts()) {
-			final ScriptPanel panel = new ScriptPanel(info);
-			panel.setBounds(2, 2, 170, 115);
-			panel.getButton().addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(info), info, (Account) accountBox.getSelectedItem());
-					ScriptSelector.this.dispose();
-				}
-			});
-			scrollPane.add(panel);
+		scriptPanel.removeAll();
+		java.util.List<ScriptInfo> scripts = ScriptLoader.getScripts();
+		final int width = 170;
+		final int height = 115;
+		final int spacing = 3;
+		final int scriptPerRow = 3;
+		int realIndex = 0;
+		for (int scriptIndex = 0; scriptIndex < scripts.size(); scriptIndex++) {
+			final ScriptInfo scriptInfo = scripts.get(scriptIndex);
+			if (scriptInfo.collection) {
+				final ScriptPanel panel = new ScriptPanel(scriptInfo);
+				int col = realIndex / scriptPerRow;
+				int row = realIndex - (col * scriptPerRow);
+				int x = row * width + spacing;
+				int y = col * height + spacing;
+				panel.setBounds(x, y, width, height);
+				panel.getButton().addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						Account account = null;
+						for (Account acc : loadAccounts()) {
+							if (acc.getEmail().contains(accounts.getSelectedItem().toString())) {
+								account = acc;
+								break;
+							}
+						}
+						Configuration.getInstance().getScriptHandler().start(ScriptLoader.loadScript(scriptInfo), scriptInfo, account);
+						ScriptSelector.this.dispose();
+					}
+				});
+				scriptPanel.add(panel);
+				realIndex++;
+			}
 		}
+
 		searchField.setText("");
+		scriptPanel.setPreferredSize(new Dimension(535, (int) (Math.ceil((Double.valueOf(scriptPanel.getComponentCount()) / 3.0)) *height )));
 	}
 
 }

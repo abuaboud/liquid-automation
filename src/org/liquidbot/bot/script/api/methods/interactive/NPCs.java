@@ -34,6 +34,8 @@ public class NPCs {
 	 * @return NPC[]
 	 */
 	public static NPC[] getAll(final String... names) {
+		if (names == null)
+			return getAll();
 		return getAll(new Filter<NPC>() {
 			@Override
 			public boolean accept(NPC npc) {
@@ -70,7 +72,12 @@ public class NPCs {
 	 * @return NPC[]
 	 */
 	public static NPC[] getAll() {
-		return getAll(null);
+		return getAll(new Filter<NPC>() {
+			@Override
+			public boolean accept(NPC npc) {
+				return true;
+			}
+		});
 	}
 
 	/**

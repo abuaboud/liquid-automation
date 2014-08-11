@@ -70,7 +70,12 @@ public class NPCs {
 	 * @return NPC[]
 	 */
 	public static NPC[] getAll() {
-		return getAll(null);
+		return getAll(new Filter<NPC>() {
+            @Override
+            public boolean accept(NPC npc) {
+                return true;
+            }
+        });
 	}
 
 	/**

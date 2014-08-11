@@ -89,8 +89,10 @@ public class ScriptSelector extends JFrame {
 		final List<Account> list = new ArrayList<>();
 		try {
 			final String[] data = NetUtils.readPage(accountFile.toURI().toURL().toString());
-			final Account[] accounts = gson.fromJson(data[0], Account[].class);
-			Collections.addAll(list, accounts);
+            if(data.length > 0) {
+                final Account[] accounts = gson.fromJson(data[0], Account[].class);
+                Collections.addAll(list, accounts);
+            }
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}

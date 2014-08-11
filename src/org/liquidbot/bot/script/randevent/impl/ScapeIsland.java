@@ -186,7 +186,7 @@ public class ScapeIsland extends RandomEvent {
 			}
 		} else if (currentDirection != null) {
 			final Item lowestItem = getLowestItem();
-			if (lowestItem.isValid()) {
+			if (Inventory.isFull() && lowestItem.isValid()) {
 				lowestItem.interact("Drop");
 				Time.sleep(new Condition() {
 					@Override
@@ -312,6 +312,8 @@ public class ScapeIsland extends RandomEvent {
 	@Override
 	public void reset() {
 		currentDirection = null;
+		directionIndex = -1;
+		shouldLeave = false;
 	}
 
 	private boolean isWatching() {

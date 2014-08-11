@@ -24,11 +24,9 @@ public class Reflection {
 
     public static void init() {
         for (String fieldKey : HookReader.fields.keySet().toArray(new String[fields.size()])) {
-            FieldHook fieldHook = HookReader.fields.get(fieldKey);
             fields.put(fieldKey, field(fieldKey));
         }
         for (String methodKey : HookReader.methods.keySet().toArray(new String[methods.size()])) {
-            MethodHook methodHook = HookReader.methods.get(methodKey);
             methods.put(methodKey, method(methodKey));
         }
     }
@@ -98,6 +96,7 @@ public class Reflection {
                 logger.error("MethodHook null " + methodKey);
             if (methods.get(methodKey) == null)
                 logger.error("Method null " + methodKey);
+
             return methods.get(methodKey).invoke(instance, objects);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
@@ -114,7 +113,7 @@ public class Reflection {
         if (methodHook == null)
             logger.error("MethodHook null " + methodKey);
         for (Method method : config.getBotFrame().loader().loadClass(methodHook.getClassName()).getDeclaredMethods()) {
-            if (method.getName().equalsIgnoreCase(methodHook.getMethodName()) && Modifier.isStatic(method.getModifiers())) {
+            if (method !=null && method.getName().equalsIgnoreCase(methodHook.getMethodName())  &&  (methodHook.getMethodKey().toLowerCase().contains("client") ? Modifier.isStatic(method.getModifiers()) : true)) {
                 method.setAccessible(true);
                 return method;
             }

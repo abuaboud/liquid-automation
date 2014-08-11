@@ -114,6 +114,7 @@ public class PrisonPete extends RandomEvent {
 		} else if (Widgets.canContinue()) {
 			setStatus("Continuing Widgets");
 			Widgets.clickContinue();
+			currentBalloon = null;
 		} else if (Inventory.contains("Prison Key")) {
 			Inventory.getItem("Prison Key").interact("Return");
 			Time.sleep(new Condition() {
@@ -135,7 +136,7 @@ public class PrisonPete extends RandomEvent {
 						return !Widgets.canContinue();
 					}
 				}, 3000);
-				if(Inventory.contains("Prison Key")){
+				if (Inventory.contains("Prison Key")) {
 					currentBalloon = null;
 				}
 			} else {
@@ -143,6 +144,8 @@ public class PrisonPete extends RandomEvent {
 				setStatus("Operating Leaver");
 				if (leaver.isValid()) {
 					if (leaver.isOnScreen()) {
+						leaver.turnTo();
+						Mouse.move(leaver.getPointOnScreen());
 						leaver.interact("Pull");
 						Time.sleep(new Condition() {
 							@Override

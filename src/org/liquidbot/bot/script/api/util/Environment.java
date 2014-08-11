@@ -18,10 +18,4 @@ public class Environment {
         return Configuration.getInstance().getUser().getDisplayName();
     }
 
-    public static File getStorageDirectory() {
-        final File file = new File(System.getProperty("user.home")  + File.separator + "LiquidBot" + File.separator + "Script Settings");
-        if(!file.exists())
-            file.mkdirs();
-        return file;
-    }
 }

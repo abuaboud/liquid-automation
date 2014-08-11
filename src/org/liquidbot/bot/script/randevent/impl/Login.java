@@ -45,6 +45,7 @@ public class Login extends RandomEvent {
 		} else if (!clicked) {
 			setStatus("Clicking Existing User");
 			Mouse.click(new Point(USER_EXIST.x + Random.nextInt(0, USER_EXIST.width), USER_EXIST.y + Random.nextInt(0, USER_EXIST.height)), true);
+			Time.sleep(2000,4000);
 			clicked = true;
 		} else {
 			setStatus("Entering Username.");

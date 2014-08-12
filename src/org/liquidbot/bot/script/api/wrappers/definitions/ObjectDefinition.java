@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.wrappers.definitions;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
 
 /*
@@ -22,8 +23,10 @@ public class ObjectDefinition {
 			Object raw = Reflection.invoke("Client#getGameObjectComposite()", null, Id, HookReader.methods.get("Client#getGameObjectComposite()").getCorrectParam());
 			String name = (String) Reflection.value("GameObjectComposite#getName()", raw);
 			if (name == null || name.equalsIgnoreCase("null")) {
-				int correctParam = HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
-				transformedComposite = Reflection.invoke("GameObjectComposite#getChildComposite()", raw, correctParam);
+
+					int correctParam = HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
+					transformedComposite = Reflection.invoke("GameObjectComposite#getChildComposite()", raw, correctParam);
+
 
 			}
 			nameCache.put(Id, (String) Reflection.value("GameObjectComposite#getName()", transformedComposite == null ? raw : transformedComposite));

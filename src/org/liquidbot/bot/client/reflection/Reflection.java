@@ -99,7 +99,6 @@ public class Reflection {
 
             return methods.get(methodKey).invoke(instance, objects);
         } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
         }
         return null;
     }

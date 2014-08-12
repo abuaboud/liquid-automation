@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
 	private final JMenu view, lowCpuMenu;
-	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu;
+	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu, displayfps;
 	private final JMenuItem settings, widgets, console, accounts;
 	private final Configuration config = Configuration.getInstance();
 
@@ -63,7 +63,8 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		canvas.setSelected(config.drawCanvas());
 		canvas.addActionListener(this);
 
-
+        displayfps = new JCheckBoxMenuItem("Display FPS");
+        displayfps.addActionListener(this);
 
         lowCpuMenu = new JMenu("Low CPU");
 		config.setFpsSlider(new JSlider());
@@ -102,6 +103,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		accounts = new JMenuItem("Account Manager");
 		accounts.addActionListener(this);
 
+        view.add(displayfps);
 		view.add(gameState);
 		view.add(playerLocation);
 		view.add(mouseLocation);
@@ -194,6 +196,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if(e.getSource() == lowCpu) {
             config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
             config.setCPU(!config.lowCpu());
+        } else if(e.getSource() == displayfps) {
+            log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
+            config.setDisplayFPS(!config.isDisplayFPS());
         }
 	}
 }

@@ -51,8 +51,17 @@ public class Configuration {
 	private boolean drawMapBase = false;
 	private boolean drawCamera = false;
 	private boolean drawMenu = false;
+    private boolean displayFPS = false;
 
     private static Configuration instance = new Configuration();
+
+    public boolean isDisplayFPS() {
+        return displayFPS;
+    }
+
+    public void setDisplayFPS(boolean displayFPS) {
+        this.displayFPS = displayFPS;
+    }
 
     public void setCPU(boolean lowcpu) {
         this.lowCPU = lowcpu;

@@ -40,6 +40,8 @@ public class TextDebugger extends Debugger<String> {
 			    drawText(config.drawMenu(), "-^^> " + actions.get(i) + " " + options.get(i));
 		    }
 	    }
+
+        drawText(config.isDisplayFPS(), "FPS -^^> " + config.getFPS());
         return debuggedList.toArray(new String[debuggedList.size()]);
     }
 

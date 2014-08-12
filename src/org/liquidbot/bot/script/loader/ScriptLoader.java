@@ -80,9 +80,11 @@ public class ScriptLoader {
 	public static List<ScriptInfo> getRepositoryScripts() {
 		ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
 		User user = Configuration.getInstance().getUser();
-		String rawLine = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view")[0];
-		if (rawLine == null)
+		String[] lines = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view");
+
+		if (lines == null || lines.length == 0)
 			return scriptInfo;
+		String rawLine = lines[0];
 		for (String script : rawLine.split("<br>")) {
 			scriptInfo.add(new ScriptInfo(script));
 		}

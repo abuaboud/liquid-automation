@@ -15,17 +15,6 @@ public class NPCDefinition {
 		this.raw = raw;
 		String name = (String) Reflection.value("NPCComposite#getName()", raw);
 		if (name == null || name.equalsIgnoreCase("null")) {
-		/*	int[] transformIds = (int[]) Reflection.value("NPCComposite#getTransformIds()", raw);
-			if (transformIds != null) {
-				int[] widgetVarps = (int[]) Reflection.value("Client#getWidgetSettings()", null);
-				int transformVarpIndex = (int) Reflection.value("NPCComposite#getTransformVarpIndex()", raw);
-				System.out.println(transformVarpIndex);
-				int realId = transformIds[transformVarpIndex > -1 ? widgetVarps[transformVarpIndex] : transformIds.length - 1];
-				if (realId > 0) {
-					byte correctParam = (byte) HookReader.methods.get("Client#getNPCComposite()").getCorrectParam();
-					transformedComposite = Reflection.invoke("Client#getNPCComposite()", raw, realId, correctParam);
-				}
-			}*/
 			int correctParam = HookReader.methods.get("NPCComposite#getChildComposite()").getCorrectParam();
 			transformedComposite = Reflection.invoke("NPCComposite#getChildComposite()", raw, correctParam);
 		}

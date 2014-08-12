@@ -37,12 +37,6 @@ public class ScriptSelector extends JFrame {
 		super("LiquidBot Script Selector");
 		setResizable(false);
 
-		Account[] loadedAccounts = loadAccounts();
-		final String[] accountsList = new String[loadedAccounts.length + 1];
-		accountsList[0] = "None";
-		for (int x = 1; x < accountsList.length; x++) {
-			accountsList[x] = loadedAccounts[x - 1].getEmail().replaceAll("\0", "");
-		}
 
 		searchField = new JTextField(20);
 		searchField.setForeground(Color.LIGHT_GRAY);
@@ -70,8 +64,8 @@ public class ScriptSelector extends JFrame {
 			}
 		});
 
-		accounts = new JComboBox<>(accountsList);
-		accounts.setSelectedItem(accountsList[0]);
+		accounts = new JComboBox<>();
+
 
 		topPanel = new JPanel();
 		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.X_AXIS));
@@ -104,7 +98,7 @@ public class ScriptSelector extends JFrame {
                 final Account[] accounts = gson.fromJson(data[0], Account[].class);
                 Collections.addAll(list, accounts);
             }
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list.toArray(new Account[list.size()]);
@@ -148,6 +142,14 @@ public class ScriptSelector extends JFrame {
 
 		searchField.setText("");
 		scriptPanel.setPreferredSize(new Dimension(535, (int) (Math.ceil((Double.valueOf(scriptPanel.getComponentCount()) / 3.0)) *height )));
+		Account[] loadedAccounts = loadAccounts();
+		final String[] accountsList = new String[loadedAccounts.length + 1];
+		accountsList[0] = "None";
+		for (int x = 1; x < accountsList.length; x++) {
+			accountsList[x] = loadedAccounts[x - 1].getEmail().replaceAll("\0", "");
+		}
+		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>(accountsList);
+		accounts.setModel(model);
 	}
 
 }

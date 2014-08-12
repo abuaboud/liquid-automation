@@ -1,12 +1,7 @@
 package org.liquidbot.bot.ui.account;
 
-import com.google.gson.Gson;
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.utils.NetUtils;
 
-import java.io.File;
-import java.net.MalformedURLException;
 
 /**
  * Created by Kenneth on 8/5/2014.

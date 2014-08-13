@@ -13,10 +13,12 @@ public class NPCDefinition {
 
 	public NPCDefinition(Object raw) {
 		this.raw = raw;
-		String name = (String) Reflection.value("NPCComposite#getName()", raw);
-		if (name == null || name.equalsIgnoreCase("null")) {
-			int correctParam = HookReader.methods.get("NPCComposite#getChildComposite()").getCorrectParam();
-			transformedComposite = Reflection.invoke("NPCComposite#getChildComposite()", raw, correctParam);
+		if (raw != null) {
+			String name = (String) Reflection.value("NPCComposite#getName()", raw);
+			if (name == null || name.equalsIgnoreCase("null")) {
+				int correctParam = HookReader.methods.get("NPCComposite#getChildComposite()").getCorrectParam();
+				transformedComposite = Reflection.invoke("NPCComposite#getChildComposite()", raw, correctParam);
+			}
 		}
 	}
 

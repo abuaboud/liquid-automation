@@ -84,6 +84,8 @@ public class Walking {
     }
 
     public static void walkTo(Tile target) {
+	    if(!Game.isLoggedIn())
+		    return;
         Tile step = getClosestTileOnMap(target);
         if (step.isOnMap())
             step.clickOnMap();

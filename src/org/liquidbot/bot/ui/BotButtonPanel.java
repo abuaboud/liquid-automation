@@ -64,7 +64,9 @@ public class BotButtonPanel extends JPanel {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (!scriptSelector.isVisible()) {
+				if (config.getScriptHandler().getScriptState().equals(ScriptHandler.State.PAUSE)) {
+					config.getScriptHandler().setScriptState(ScriptHandler.State.RUNNING);
+				} else if (!config.getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING) && !scriptSelector.isVisible()) {
 					scriptSelector.loadScripts();
 					scriptSelector.setLocationRelativeTo(scriptSelector.getOwner());
 					scriptSelector.setVisible(!scriptSelector.isVisible());

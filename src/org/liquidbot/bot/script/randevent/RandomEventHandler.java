@@ -25,9 +25,9 @@ public class RandomEventHandler implements Runnable, PaintListener {
 	private final Color BACKGROUND_COLOR = new Color(Color.black.getRed(), Color.black.getGreen(), Color.black.getBlue(), 40);
 
 	public RandomEventHandler() {
-		randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new StrangeBox(), new SurpriseExam()
+		randomEvents = new RandomEvent[]{new Login(), new ClickToPlay(), new SurpriseExam()
 				, new Reward(), new Talker(), new AvoidCombat(), new Certer(), new DrillDemon(), new FrogCave()
-				, new ScapeIsland(), new FreakyFoster(), new PrisonPete()};
+				, new ScapeIsland(), new FreakyFoster(), new PrisonPete(), new QuizMaster(), new SandwichLady(), new StrangeBox()};
 	}
 
 	@Override

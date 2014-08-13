@@ -239,15 +239,5 @@ public class AccountManager extends JFrame {
 	}
 
 
-	public static void main(String[] args) {
 
-		try {
-			UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-		} catch (UnsupportedLookAndFeelException | ParseException e) {
-			e.printStackTrace();
-		}
-
-		final AccountManager manager = new AccountManager();
-		manager.setVisible(true);
-	}
 }

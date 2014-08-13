@@ -44,14 +44,6 @@ public class BotFrame extends JFrame implements WindowListener {
         this.setLocationRelativeTo(getOwner());
     }
 
-    public void setConfiguration(Configuration config) {
-        this.configuration = config;
-    }
-
-    public Configuration getConfiguration() {
-        return configuration;
-    }
-
 
     public RSLoader loader() {
         return loader;

@@ -264,10 +264,13 @@ public class Bank {
             switch (amountInInventory) {
                 case 1:
                     action = "Deposit-1";
+	                break;
                 case 5:
                     action = "Deposit-5";
+	                break;
                 case 10:
                     action = "Deposit-10";
+	                break;
             }
         }
         item.interact(action, item.getName());

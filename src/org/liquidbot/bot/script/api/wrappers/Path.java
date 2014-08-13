@@ -40,7 +40,7 @@ public abstract class Path {
             end = false;
         }
         Walking.walkTo(next);
-        for (int i = 0; i < 10 && Players.getLocal().isMoving(); i++, Time.sleep(300, 350)) ;
+        for (int i = 0; i < 10 && Players.getLocal().isMoving(); i++, Time.sleep(150, 200)) ;
         return true;
     }
 
@@ -56,6 +56,8 @@ public abstract class Path {
 
     public Tile[] getReversedTiles() {
         Tile[] tiles = getTiles();
+	    if(tiles == null)
+		    return null;
         Tile[] t = new Tile[tiles.length];
         for (int i = 0; i < tiles.length; i++) {
             t[tiles.length - 1 - i] = tiles[i];

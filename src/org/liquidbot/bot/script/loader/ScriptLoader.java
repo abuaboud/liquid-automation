@@ -81,7 +81,6 @@ public class ScriptLoader {
 		ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
 		User user = Configuration.getInstance().getUser();
 		String[] lines = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view");
-
 		if (lines == null || lines.length == 0)
 			return scriptInfo;
 		String rawLine = lines[0];

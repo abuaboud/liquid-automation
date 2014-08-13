@@ -29,7 +29,7 @@ public class Tile implements Locatable, Interactable {
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
-        this.z = 0;
+        this.z = Game.getPlane();
     }
 
     /**

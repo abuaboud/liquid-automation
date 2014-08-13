@@ -27,10 +27,10 @@ public class Certer extends RandomEvent {
 	private final Filter<NPC> NPC_FILTER = new Filter<NPC>() {
 		@Override
 		public boolean accept(NPC npc) {
-			if (npc != null && npc.getActions() != null && npc.distanceTo() < 6) {
+			if (npc.isValid() && npc.getActions() != null && npc.distanceTo() < 6) {
 				final String message = npc.getSpokenMessage();
 				if (Utilities.inArray(npc.getName(), NPC_NAMES)) {
-					if ((message != null && message.toLowerCase().contains(Players.getLocal().getName().toLowerCase())) || (npc.getInteracting() != null && npc.getInteracting().equals(Players.getLocal()))) {
+					if ((message != null && message.toLowerCase().contains(Players.getLocal().getName().toLowerCase())) || (npc.getInteracting().isValid() && npc.getInteracting().equals(Players.getLocal()))) {
 						return true;
 					}
 				}

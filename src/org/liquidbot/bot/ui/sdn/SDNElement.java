@@ -68,7 +68,8 @@ public class SDNElement extends JPanel implements Runnable {
 		button.setText(scriptInfo.collection ? "Removing" : "Adding");
 		button.setEnabled(false);
 		User user = Configuration.getInstance().getUser();
-		String rawLine = NetUtils.readPage(Constants.SITE_URL + "client/scripts.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=" + (!scriptInfo.collection ? "add" : "remove"))[0];
+		String rawLine = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=" + (!scriptInfo.collection ? "add" : "remove"))[0];
+
 		button.setText(rawLine.equalsIgnoreCase("Added") ? "Remove" : "Add");
 		scriptInfo.collection = rawLine.equalsIgnoreCase("Added") ? true : false;
 		button.setEnabled(true);

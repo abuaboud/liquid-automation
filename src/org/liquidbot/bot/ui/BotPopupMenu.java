@@ -98,7 +98,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
 		settings = new JMenuItem("Settings Explorer");
 		settings.addActionListener(this);
+
 		widgets = new JMenuItem("Widget Explorer");
+		widgets.addActionListener(this);
 
 		accounts = new JMenuItem("Account Manager");
 		accounts.addActionListener(this);
@@ -199,6 +201,10 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
         } else if(e.getSource() == displayfps) {
             log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
             config.setDisplayFPS(!config.isDisplayFPS());
-        }
+        }else if(e.getSource() == widgets){
+			new WidgetViewer();
+			log.info(!config.drawWidgets() ? "Enabled Widgets debugger." : "Disabled Widgets debugger.");
+			config.drawWidgets(!config.drawWidgets());
+		}
 	}
 }

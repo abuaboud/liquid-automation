@@ -50,6 +50,7 @@ public class Configuration {
 	private boolean drawFloor = false;
 	private boolean drawMapBase = false;
 	private boolean drawCamera = false;
+	private boolean drawWidgets = false;
 	private boolean drawMenu = false;
     private boolean displayFPS = false;
 
@@ -90,6 +91,15 @@ public class Configuration {
     public boolean drawInventory() {
         return this.drawInventory;
     }
+
+
+	public boolean drawWidgets() {
+		return drawWidgets;
+	}
+
+	public void drawWidgets(boolean drawWidgets) {
+		this.drawWidgets = drawWidgets;
+	}
 
 	public boolean drawMenu() {
 		return drawMenu;

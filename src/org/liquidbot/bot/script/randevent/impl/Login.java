@@ -22,6 +22,7 @@ public class Login extends RandomEvent {
 	private final Rectangle USER_CANCEL = new Rectangle(397, 307, 135, 30);
 
 	private String name = "Login";
+
 	@Override
 	public String getName() {
 		return name;
@@ -43,9 +44,12 @@ public class Login extends RandomEvent {
 		if (account == null) {
 			name = "Login (No Info)";
 		} else if (!clicked) {
+			setStatus("Clicking Cancel");
+			Mouse.click(new Point(USER_CANCEL.x + Random.nextInt(0, USER_CANCEL.width), USER_CANCEL.y + Random.nextInt(0, USER_CANCEL.height)), true);
+
 			setStatus("Clicking Existing User");
 			Mouse.click(new Point(USER_EXIST.x + Random.nextInt(0, USER_EXIST.width), USER_EXIST.y + Random.nextInt(0, USER_EXIST.height)), true);
-			Time.sleep(2000,4000);
+			Time.sleep(2000, 4000);
 			clicked = true;
 		} else {
 			setStatus("Entering Username.");
@@ -53,10 +57,6 @@ public class Login extends RandomEvent {
 			setStatus("Entering Password.");
 			Keyboard.sendText(account.getPassword(), true, Random.nextInt(75, 95), Random.nextInt(110, 125));
 			for (int i = 0; i < 25 && (Game.getGameState() == Game.STATE_LOG_IN_SCREEN); i++, Time.sleep(100, 150)) ;
-			if (Game.getGameState() == Game.STATE_LOG_IN_SCREEN) {
-				setStatus("Clicking Cancel");
-				Mouse.click(new Point(USER_CANCEL.x + Random.nextInt(0, USER_CANCEL.width), USER_CANCEL.y + Random.nextInt(0, USER_CANCEL.height)), true);
-			}
 			clicked = false;
 		}
 	}

@@ -44,7 +44,7 @@ public class Canvas extends java.awt.Canvas {
 	    canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
         final Debugger[] debuggers = {
                 new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger()
-                ,new TextDebugger(),new SettingsDebugger() ,new InventoryDebugger()
+                ,new TextDebugger(),new SettingsDebugger() ,new InventoryDebugger(),new WidgetDebugger()
         };
         Collections.addAll(listeners, debuggers);
     }

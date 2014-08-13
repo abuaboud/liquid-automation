@@ -15,6 +15,8 @@ public class Widgets {
 
     public static Widget[] get() {
         Object[][] widgets = (Object[][]) Reflection.value("Client#getWidgets()", null);
+	    if(widgets == null)
+		    return new Widget[0];
         Widget[] children = new Widget[widgets.length];
         for (int i = 0; i < widgets.length; i++) {
             children[i] = new Widget(widgets[i], i);

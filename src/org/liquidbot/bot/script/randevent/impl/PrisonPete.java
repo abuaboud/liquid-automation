@@ -60,7 +60,21 @@ public class PrisonPete extends RandomEvent {
 
 	@Override
 	public void solve() {
-		if (Camera.getPitch() < 70) {
+		final WidgetChild balloonWidget = Widgets.get(WIDGET_BALLOON, WIDGET_BALLOON_MODEL_ID);
+		if (balloonWidget.isVisible()) {
+			setStatus("Finding Balloon to Pop");
+			currentBalloon = deterBalloon(balloonWidget.getModelId());
+			Widgets.get(WIDGET_BALLOON, WIdGET_BALLOON_CLOSE).click();
+			Time.sleep(new Condition() {
+				@Override
+				public boolean active() {
+					return !Widgets.canContinue();
+				}
+			}, 3000);
+			if (Inventory.contains("Prison Key")) {
+				currentBalloon = null;
+			}
+		} else if (Camera.getPitch() < 70) {
 			Camera.setPitch(Random.nextInt(70, 90));
 		} else if (Settings.get(SETTING_BALLOONS_POPPED) == 96) {
 			setStatus("Leaving the random.");
@@ -125,44 +139,28 @@ public class PrisonPete extends RandomEvent {
 			}, 3000);
 			currentBalloon = null;
 		} else if (currentBalloon == null) {
-			final WidgetChild balloon = Widgets.get(WIDGET_BALLOON, WIDGET_BALLOON_MODEL_ID);
-			if (balloon.isVisible()) {
-				setStatus("Finding Balloon to Pop");
-				currentBalloon = deterBalloon(balloon.getModelId());
-				Widgets.get(WIDGET_BALLOON, WIdGET_BALLOON_CLOSE).click();
-				Time.sleep(new Condition() {
-					@Override
-					public boolean active() {
-						return !Widgets.canContinue();
-					}
-				}, 3000);
-				if (Inventory.contains("Prison Key")) {
-					currentBalloon = null;
-				}
-			} else {
-				final GameObject leaver = GameEntities.getNearest(LEVER);
-				setStatus("Operating Leaver");
-				if (leaver.isValid()) {
-					if (leaver.isOnScreen()) {
-						leaver.turnTo();
-						Mouse.move(leaver.getPointOnScreen());
-						leaver.interact("Pull");
-						Time.sleep(new Condition() {
-							@Override
-							public boolean active() {
-								return !balloon.isVisible();
-							}
-						}, 3000);
-					} else {
-						Walking.walkTo(leaver);
-						leaver.turnTo();
-						Time.sleep(new Condition() {
-							@Override
-							public boolean active() {
-								return !leaver.isOnScreen();
-							}
-						}, 3000);
-					}
+			final GameObject leaver = GameEntities.getNearest(LEVER);
+			setStatus("Operating Leaver");
+			if (leaver.isValid()) {
+				if (leaver.isOnScreen()) {
+					leaver.turnTo();
+					Mouse.move(leaver.getPointOnScreen());
+					leaver.interact("Pull");
+					Time.sleep(new Condition() {
+						@Override
+						public boolean active() {
+							return !balloonWidget.isVisible();
+						}
+					}, 3000);
+				} else {
+					Walking.walkTo(leaver);
+					leaver.turnTo();
+					Time.sleep(new Condition() {
+						@Override
+						public boolean active() {
+							return !leaver.isOnScreen();
+						}
+					}, 3000);
 				}
 			}
 		} else {

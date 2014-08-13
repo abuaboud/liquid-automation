@@ -37,8 +37,6 @@ public class SandwichLady extends RandomEvent {
 	public boolean active() {
 		if (!Game.isLoggedIn())
 			return false;
-		if (lady != null && lady.isValid() && lady.isOnScreen())
-			return true;
 		lady = NPCs.getNearest(new Filter<NPC>() {
 			@Override
 			public boolean accept(NPC npc) {

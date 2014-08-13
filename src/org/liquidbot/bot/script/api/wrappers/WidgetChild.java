@@ -171,7 +171,7 @@ public class WidgetChild implements Interactable {
         return (int) Reflection.value("Widget#getScrollX()", raw);
     }
 
-    private int getScrollY() {
+    public int getScrollY() {
         return (int) Reflection.value("Widget#getScrollY()", raw);
     }
 

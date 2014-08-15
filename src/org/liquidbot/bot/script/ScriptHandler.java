@@ -55,7 +55,6 @@ public class ScriptHandler implements Runnable {
 		this.script = script;
 		this.account = account;
 		this.scriptThread = new Thread(this);
-		this.scriptThread.start();
 
 		this.animationMonitor = new AnimationMonitor();
 		if (script instanceof AnimationListener) {
@@ -79,6 +78,7 @@ public class ScriptHandler implements Runnable {
 
 
 		this.script.onStart();
+		this.scriptThread.start();
 		if (randomEventHandler == null) {
 			randomEventHandler = new RandomEventHandler();
 			Configuration.getInstance().getCanvas().getPaintListeners().add(randomEventHandler);

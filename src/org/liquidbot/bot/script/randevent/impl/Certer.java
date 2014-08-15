@@ -2,9 +2,11 @@ package org.liquidbot.bot.script.randevent.impl;
 
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.methods.data.movement.Camera;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
@@ -60,6 +62,9 @@ public class Certer extends RandomEvent {
 
 	@Override
 	public void solve() {
+		if (Camera.getPitch() < 70) {
+			Camera.setPitch(Random.nextInt(70, 90));
+		}
 		if (!carter.isValid())
 			return;
 		if (Widgets.get(WIDGET).isValid() && Widgets.get(WIDGET, WIDGET_ITEM).isVisible()) {

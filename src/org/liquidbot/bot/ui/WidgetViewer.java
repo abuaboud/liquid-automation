@@ -98,6 +98,7 @@ public class WidgetViewer extends JFrame implements TreeSelectionListener,Action
 				}
 			}
 			WidgetChild widget = w.length == 2 ? Widgets.get(w[0], w[1]) : Widgets.get(w[0], w[1]).getChild(w[2]);
+
 		    DefaultListModel<String> listModel = new DefaultListModel<>();
 
 			listModel.addElement("Parent: " + w[0]);

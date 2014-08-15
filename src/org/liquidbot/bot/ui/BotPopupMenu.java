@@ -19,7 +19,7 @@ import java.awt.event.ActionListener;
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
 	private final JMenu view, lowCpuMenu;
-	private final JCheckBoxMenuItem  gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu, displayfps;
+	private final JCheckBoxMenuItem smartBreak, gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu, displayfps;
 	private final JMenuItem settings, widgets, console, accounts;
 	private final Configuration config = Configuration.getInstance();
 
@@ -63,26 +63,30 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		canvas.setSelected(config.drawCanvas());
 		canvas.addActionListener(this);
 
-        displayfps = new JCheckBoxMenuItem("Display FPS");
-        displayfps.addActionListener(this);
+		displayfps = new JCheckBoxMenuItem("Display FPS");
+		displayfps.addActionListener(this);
 
-        lowCpuMenu = new JMenu("Low CPU");
+		lowCpuMenu = new JMenu("Low CPU");
 		config.setFpsSlider(new JSlider());
-        config.getFpsSlider().setValue(50);
-        final TitledBorder border = new TitledBorder("Adjust FPS");
-        border.setTitleColor(Color.WHITE);
-        config.getFpsSlider().setBorder(border);
-        config.getFpsSlider().setMinimum(0);
-        config.getFpsSlider().setMaximum(50);
-        config.getFpsSlider().setSnapToTicks(true);
-        config.getFpsSlider().setPaintTicks(true);
-        config.getFpsSlider().setPaintLabels(true);
-        config.getFpsSlider().setForeground(Color.WHITE);
-        lowCpuMenu.add(config.getFpsSlider());
+		config.getFpsSlider().setValue(50);
+		final TitledBorder border = new TitledBorder("Adjust FPS");
+		border.setTitleColor(Color.WHITE);
+		config.getFpsSlider().setBorder(border);
+		config.getFpsSlider().setMinimum(0);
+		config.getFpsSlider().setMaximum(50);
+		config.getFpsSlider().setSnapToTicks(true);
+		config.getFpsSlider().setPaintTicks(true);
+		config.getFpsSlider().setPaintLabels(true);
+		config.getFpsSlider().setForeground(Color.WHITE);
+		lowCpuMenu.add(config.getFpsSlider());
 
-        lowCpu = new JCheckBoxMenuItem("Low CPU");
-        lowCpu.addActionListener(this);
-        lowCpuMenu.add(lowCpu);
+		lowCpu = new JCheckBoxMenuItem("Low CPU");
+		lowCpu.addActionListener(this);
+		lowCpuMenu.add(lowCpu);
+
+		smartBreak = new JCheckBoxMenuItem("Smart Break");
+		smartBreak.addActionListener(this);
+		smartBreak.setSelected(true);
 
 		console = new JMenuItem("Display Console");
 		console.addActionListener(this);
@@ -105,7 +109,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		accounts = new JMenuItem("Account Manager");
 		accounts.addActionListener(this);
 
-        view.add(displayfps);
+		view.add(displayfps);
 		view.add(gameState);
 		view.add(playerLocation);
 		view.add(mouseLocation);
@@ -129,6 +133,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		add(accounts);
 		add(new JSeparator());
 		add(lowCpuMenu);
+		add(smartBreak);
 		add(console);
 	}
 
@@ -195,16 +200,20 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == menu) {
 			config.drawMenu(!config.drawMenu());
 			log.info(!config.drawMenu() ? "Enabled Menu debugger." : "Disabled Menu debugger.");
-		} else if(e.getSource() == lowCpu) {
-            config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
-            config.setCPU(!config.lowCpu());
-        } else if(e.getSource() == displayfps) {
-            log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
-            config.setDisplayFPS(!config.isDisplayFPS());
-        }else if(e.getSource() == widgets){
+		} else if (e.getSource() == lowCpu) {
+			config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
+			config.setCPU(!config.lowCpu());
+		} else if (e.getSource() == displayfps) {
+			log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
+			config.setDisplayFPS(!config.isDisplayFPS());
+		} else if (e.getSource() == widgets) {
 			new WidgetViewer();
 			log.info(!config.drawWidgets() ? "Enabled Widgets debugger." : "Disabled Widgets debugger.");
 			config.drawWidgets(!config.drawWidgets());
+		}  else if (e.getSource() == smartBreak) {
+			log.info(!config.smartBreak() ? "Enabled Smart Break." : "Disabled Smart Break.");
+			config.smartBreak(!config.smartBreak());
 		}
+
 	}
 }

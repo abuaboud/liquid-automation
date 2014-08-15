@@ -122,6 +122,10 @@ public class ScriptHandler implements Runnable {
 		return scriptThread;
 	}
 
+	public RandomEventHandler getRandomEventHandler() {
+		return randomEventHandler;
+	}
+
 	public Account getAccount() {
 		return account;
 	}

@@ -111,14 +111,11 @@ public class ScriptLoader {
 					if (child.getName().endsWith(".class") && !child.getName().contains("$")) {
 						Class<?> clazz = urlClassLoader.loadClass(getClassPath(child.getAbsolutePath()));
 						if (clazz.isAnnotationPresent(Manifest.class)) {
-							log.info("Potential script found! - " + getClassPath(child.getAbsolutePath()));
-
 							final Manifest manifest = clazz.getAnnotation(Manifest.class);
 							if (manifest == null) {
 								log.error("Manifest is null");
 							}
-							ScriptInfo scriptInfo = new ScriptInfo(getClassPath(child.getAbsolutePath()), manifest.name(), manifest.description(), manifest.author(), SkillCategory.MISC);
-							log.info("Script: " + scriptInfo.name);
+							ScriptInfo scriptInfo = new ScriptInfo(getClassPath(child.getAbsolutePath()), manifest.name(), manifest.description(), manifest.author());
 							scripts.add(scriptInfo);
 						}
 					}

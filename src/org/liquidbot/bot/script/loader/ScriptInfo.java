@@ -28,7 +28,7 @@ public class ScriptInfo {
         ownerUserId = Integer.parseInt(info[1]);
         name = info[2];
         desc = info[3];
-        skillCategory = SkillCategory.getCategory(Integer.parseInt(info[4]));
+        skillCategory = SkillCategory.detect(name,desc);
         privilege = Integer.parseInt(info[5]);
         author = info[6];
         price = Double.parseDouble(info[7]);
@@ -40,12 +40,12 @@ public class ScriptInfo {
         cancelled = Integer.parseInt(info[13]);
     }
 
-    public ScriptInfo(String clazz, String name, String desc, String author, SkillCategory skillCategory) {
+    public ScriptInfo(String clazz, String name, String desc, String author) {
         this.clazz = clazz;
         this.name = name;
         this.desc = desc;
         this.author = author;
-        this.skillCategory = skillCategory;
+        this.skillCategory = SkillCategory.detect(name,desc);;
         this.scriptId = -1;
         this.ownerUserId = -1;
         this.cancelled = 0;

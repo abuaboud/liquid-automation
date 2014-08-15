@@ -20,7 +20,8 @@ public class ObjectDefinition {
 	public ObjectDefinition(int Id) {
 		if (nameCache.get(Id) == null) {
 			Object transformedComposite = null;
-			Object raw = Reflection.invoke("Client#getGameObjectComposite()", null, Id, HookReader.methods.get("Client#getGameObjectComposite()").getCorrectParam());
+			byte param = (byte) HookReader.methods.get("Client#getGameObjectComposite()").getCorrectParam();
+			Object raw = Reflection.invoke("Client#getGameObjectComposite()", null, Id,param);
 			String name = (String) Reflection.value("GameObjectComposite#getName()", raw);
 			if (name == null || name.equalsIgnoreCase("null")) {
 

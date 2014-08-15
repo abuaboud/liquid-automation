@@ -1,13 +1,16 @@
 package org.liquidbot.bot.script.randevent.impl;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.methods.data.WorldHopper;
 import org.liquidbot.bot.script.api.methods.input.Keyboard;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.ui.account.Account;
+import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
 
@@ -41,7 +44,22 @@ public class Login extends RandomEvent {
 	@Override
 	public void solve() {
 		Account account = Configuration.getInstance().getScriptHandler().getAccount();
-		if (account == null) {
+		if (!Utilities.inArray(Game.getCurrentWorld(), Constants.WORLDS) || (WorldHopper.getSelectedWorld() > 0 && WorldHopper.getSelectedWorld() != Game.getCurrentWorld())) {
+			if (!Utilities.inArray(Game.getCurrentWorld(), Constants.WORLDS)) {
+				log.info("We are in Bot World");
+				WorldHopper.setWorld(Constants.WORLDS[Random.nextInt(0, Constants.WORLDS.length)]);
+			}
+
+			WorldHopper.openWorldsMenu();
+			WorldHopper.clickOnWorld(WorldHopper.getSelectedWorld());
+			for (int i = 0; i < 30 && Game.getCurrentWorld() != WorldHopper.getSelectedWorld(); i++) {
+				Time.sleep(80, 120);
+			}
+
+			if (Game.getCurrentWorld() == WorldHopper.getSelectedWorld()) {
+				WorldHopper.setWorld(0);
+			}
+		} else if (account == null) {
 			name = "Login (No Info)";
 		} else if (!clicked) {
 			setStatus("Clicking Cancel");

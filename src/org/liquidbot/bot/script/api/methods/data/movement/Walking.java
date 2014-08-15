@@ -62,8 +62,7 @@ public class Walking {
     }
 
     public static Tile getCollisionOffset(final int plane) {
-        final Object collisionMap = ((Object[]) Reflection.value("Client#getCollisionMaps()", null))[plane];
-        return new Tile((int) Reflection.value("CollisionMap#getOffsetX()", collisionMap), (int) Reflection.value("CollisionMap#getOffsetY()", collisionMap), plane);
+        return new Tile(0,0, plane);
     }
 
     public static int[][] getCollisionFlags(int plane) {

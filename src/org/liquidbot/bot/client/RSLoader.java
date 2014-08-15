@@ -6,6 +6,8 @@ import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.FileDownloader;
 import org.liquidbot.bot.utils.Utilities;
@@ -34,12 +36,10 @@ public class RSLoader extends JPanel implements AppletStub {
 	private FileDownloader downloader;
 	private Applet applet;
 	private final Parameters params;
-	private final Configuration configuration;
 
 	public RSLoader(final Configuration configuration) {
 		this.setLayout(new BorderLayout());
-		params = new Parameters(1);
-		this.configuration = configuration;
+		params = new Parameters(Constants.WORLDS[Random.nextInt(0, Constants.WORLDS.length)] - 300);
 		setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
 
 		if (HookReader.VERSION <= Constants.CLIENT_VERSION) {
@@ -73,8 +73,8 @@ public class RSLoader extends JPanel implements AppletStub {
 					RSLoader.this.add(applet, BorderLayout.CENTER);
 					RSLoader.this.revalidate();
 
-					while (applet.getComponentAt(1, 1) == null) {
-						Utilities.sleep(200, 300);
+					while (applet.getComponents().length == 0) {
+						Utilities.sleep(500, 1000);
 					}
 
 					Reflection.init();

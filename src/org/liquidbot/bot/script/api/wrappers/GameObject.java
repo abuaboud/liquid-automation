@@ -67,6 +67,8 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
 	@Override
 	public int getId() {
+		if (raw == null)
+			return 0;
 		if (id == 0) {
 			id = ((int) Reflection.value(type.cato + "#getId()", raw) >> 14) & 0x7FFF;
 		}

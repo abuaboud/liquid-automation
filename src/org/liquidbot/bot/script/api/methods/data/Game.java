@@ -3,6 +3,7 @@ package org.liquidbot.bot.script.api.methods.data;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.enums.Tab;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
@@ -79,5 +80,21 @@ public class Game {
         }
         return null;
     }
+
+	public static boolean logout() {
+		if(!Game.isLoggedIn())
+			 return true;
+		final WidgetChild widgetChild = Widgets.get(182,6);
+		if(Tab.LOGOUT.open()) {
+			widgetChild.click(true);
+			for (int i = 0; i < 10 && Game.isLoggedIn(); i++, Time.sleep(100, 150));
+		}
+		return !Game.isLoggedIn();
+	}
+
+
+	public static int getCurrentWorld() {
+		return (int) Reflection.value("Client#getCurrentWorld()",null);
+	}
 
 }

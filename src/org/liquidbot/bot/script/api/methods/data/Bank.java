@@ -73,7 +73,7 @@ public class Bank {
 
     public static Item getItem(final int... ids) {
         if (ids == null)
-            return null;
+            return nil();
         return getItem(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
@@ -84,7 +84,7 @@ public class Bank {
 
     public static Item getItem(final String... names) {
         if (names == null)
-            return null;
+            return nil();
         return getItem(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
@@ -94,15 +94,15 @@ public class Bank {
     }
 
     public static boolean contains(final Filter<Item> filter) {
-        return getItem(filter) != null;
+        return getItem(filter).isValid();
     }
 
     public static boolean contains(final String... names) {
-        return getItem(names) != null;
+        return getItem(names).isValid();
     }
 
     public static boolean contains(final int... ids) {
-        return getItem(ids) != null;
+        return getItem(ids).isValid();
     }
 
     public static boolean containsAll(final int... ids) {
@@ -127,8 +127,8 @@ public class Bank {
     }
 
     public static int getCount(Filter<Item> filter) {
-        Item item = getItem(filter);
-        return item != null ? item.getStackSize() : 0;
+        final Item item = getItem(filter);
+        return item.isValid() ? item.getStackSize() : 0;
     }
 
     public static int getCount() {
@@ -215,7 +215,7 @@ public class Bank {
         return deposit(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && Utilities.inArray(item.getId(), ids);
+                return item.isValid() && Utilities.inArray(item.getId(), ids);
             }
         }, amount);
     }
@@ -224,7 +224,7 @@ public class Bank {
         return deposit(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && item.getName() != null && Utilities.inArray(item.getName(), names);
+                return item.isValid() && item.getName() != null && Utilities.inArray(item.getName(), names);
             }
         }, amount);
     }
@@ -233,7 +233,7 @@ public class Bank {
         return deposit(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && item.getName() != null && item.getName().equalsIgnoreCase(name);
+                return item.isValid() && item.getName() != null && item.getName().equalsIgnoreCase(name);
             }
         }, amount);
     }
@@ -291,7 +291,7 @@ public class Bank {
         if (!isOpen())
             return false;
         Item item = Bank.getItem(id);
-        if (item == null)
+        if (!item.isValid())
             return false;
         final int amountBeforeWithdraw = Bank.getCount(id);
         String action = "Withdraw-X";
@@ -325,7 +325,7 @@ public class Bank {
         return withdraw(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && Utilities.inArray(item.getId(), ids);
+                return item.isValid() && Utilities.inArray(item.getId(), ids);
             }
         }, amount);
     }
@@ -334,7 +334,7 @@ public class Bank {
         return withdraw(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && item.getName() != null && Utilities.inArray(item.getName(), names);
+                return item.isValid() && item.getName() != null && Utilities.inArray(item.getName(), names);
             }
         }, amount);
     }
@@ -343,7 +343,7 @@ public class Bank {
         return withdraw(new Filter<Item>() {
             @Override
             public boolean accept(Item item) {
-                return item != null && item.getName() != null && item.getName().equalsIgnoreCase(name);
+                return item.isValid() && item.getName() != null && item.getName().equalsIgnoreCase(name);
             }
         }, amount);
     }

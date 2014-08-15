@@ -106,6 +106,8 @@ public class WidgetChild implements Interactable {
     }
 
     public int getId() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getId()", raw);
     }
 
@@ -253,7 +255,7 @@ public class WidgetChild implements Interactable {
 
     public WidgetChild getChild(int index) {
         Object[] children = (Object[]) Reflection.value("Widget#getChildren()", raw);
-        if (children == null || children.length > index)
+        if (children == null || children.length <= index)
             return new WidgetChild(null, index);
         return new WidgetChild(children[index], index);
     }

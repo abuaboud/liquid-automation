@@ -8,6 +8,7 @@ import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
@@ -50,6 +51,9 @@ public class SandwichLady extends RandomEvent {
 
 	@Override
 	public void solve() {
+		if(Camera.getPitch() < 70){
+			Camera.setPitch(Random.nextInt(70,90));
+		}
 		WidgetChild sandwichWidget = Widgets.get(WIDGET, WIDGET_CHILD_TEXT);
 		if (sandwichWidget.isVisible() && sandwichWidget.getText() != null) {
 			setStatus("Clicking on the Sandwich.");

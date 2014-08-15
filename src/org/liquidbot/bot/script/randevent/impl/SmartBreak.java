@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by Hiasat on 8/3/14
  */
-public class SmartBreak extends RandomEvent implements PaintListener{
+public class SmartBreak extends RandomEvent {
 
 
     public ArrayList<Integer> breaks = new ArrayList<Integer>();
@@ -29,12 +29,6 @@ public class SmartBreak extends RandomEvent implements PaintListener{
     public Timer restTimer = new Timer(0);
 
     public int breakPerHour = Random.nextInt(2, 4);
-
-	@Override
-    public void reset(){
-        breaks.clear();
-        amounts.clear();
-    }
 
     @Override
     public String getAuthor() {
@@ -116,7 +110,7 @@ public class SmartBreak extends RandomEvent implements PaintListener{
     }
 
 	@Override
-	public void render(Graphics2D graphics) {
+	public void reset(){
 
 	}
 }

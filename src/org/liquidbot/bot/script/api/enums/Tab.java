@@ -48,7 +48,6 @@ public enum Tab {
     public boolean open() {
         if (!Game.isLoggedIn() || isOpen() || getWidgetChild() == null)
             return true;
-
         getWidgetChild().click(true);
 
         for (int i = 0; i < 20 && !isOpen(); i++, Time.sleep(100, 150)) ;
@@ -81,17 +80,6 @@ public enum Tab {
         return null;
     }
 
-    /**
-     * Get the open tab, if none are open it will return null.
-     *
-     * @return Tab
-     */
-    public static Tab getOpen() {
-        for (Tab t : Tab.values())
-            if (t.isOpen())
-                return t;
 
-        return null;
-    }
 
 }

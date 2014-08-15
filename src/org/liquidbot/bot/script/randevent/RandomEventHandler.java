@@ -25,7 +25,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 	private final Color BACKGROUND_COLOR = new Color(Color.black.getRed(), Color.black.getGreen(), Color.black.getBlue(), 40);
 
 	public static final int botWorldHandler = 0;
-	public static final int antiBotWatchHandler = 1;
+	public static final int smartBreak = 1;
 	public static final int loginHandler = 2;
 	public static final int lobbyHandler = 3;
 	public static final int pinballHandler = 4;
@@ -59,7 +59,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 
 	public RandomEventHandler() {
 		randomEvents = new RandomEvent[]{new BotWorld(), new SmartBreak(),
-				new Login(), new ClickToPlay(), null/*new PinballHandler()*/, new Certer(), new AvoidCombat(), new DrillDemon(), new FreakyFoster()
+				new Login(), new ClickToPlay(), new Pinball(), new Certer(), new AvoidCombat(), new DrillDemon(), new FreakyFoster()
 				, new FrogCave(), /*new LostAndFoundHandler()*/null, null /*new MazeHandler()*/,
 			/*	new MimeHandler()*/null, null/* new MollyHandler()*/, null /*new PilloryHandler()*/, new PrisonPete(), new QuizMaster(), null, new SandwichLady()
 				, new ScapeIsland(),/* new StrangePlantHandler()*/null, new SurpriseExam(), new Talker(), new Reward()
@@ -87,6 +87,9 @@ public class RandomEventHandler implements Runnable, PaintListener {
 			}
 			Time.sleep(Configuration.getInstance().lowCpu() ? 1000 : 500);
 		}
+		SmartBreak aBreak = (SmartBreak) randomEvents[smartBreak];
+		aBreak.amounts.clear();
+		aBreak.breaks.clear();
 	}
 
 
@@ -106,7 +109,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 				graphics.drawString("Author:" + activeEvent.getAuthor(), 351, 35);
 				graphics.drawString("Status:" + activeEvent.getStatus(), 351, 50);
 			}
-			SmartBreak smartBreak = (SmartBreak) randomEvents[antiBotWatchHandler];
+			SmartBreak aBreak = (SmartBreak) randomEvents[smartBreak];
 			if (Configuration.getInstance().smartBreak()) {
 				graphics.setFont(FONT_VERDANA);
 				graphics.setColor(Color.WHITE);
@@ -115,8 +118,8 @@ public class RandomEventHandler implements Runnable, PaintListener {
 				graphics.drawString("For: ", 666, 164);
 
 				graphics.setColor(Color.ORANGE);
-				graphics.drawString(Time.parse(smartBreak.timer.getRemaining()), 692, 152);
-				graphics.drawString(Time.parse(smartBreak.restTimer.getRemaining()), 692, 164);
+				graphics.drawString(Time.parse(aBreak.timer.getRemaining()), 692, 152);
+				graphics.drawString(Time.parse(aBreak.restTimer.getRemaining()), 692, 164);
 			}
 
 		}

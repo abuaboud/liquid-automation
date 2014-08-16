@@ -1,5 +1,7 @@
 package org.liquidbot.bot.script.api.methods.data;
 
+import java.util.ArrayList;
+
 import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
@@ -13,11 +15,8 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.Item;
 import org.liquidbot.bot.script.api.wrappers.NPC;
-import org.liquidbot.bot.script.api.wrappers.Widget;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;
-
-import java.util.ArrayList;
 
 /*
  * Created by Hiasat on 8/2/14

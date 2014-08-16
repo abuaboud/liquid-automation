@@ -349,25 +349,7 @@ public class Bank {
 		}
 		item.interact(action, item.getName());
 		if (action.contains("X")) {
-			Time.sleep(new Condition() {
-
-				@Override
-				public boolean active() {
-					// child ids change at updates
-					final Widget parent = Widgets.get(548);
-					if (parent.isValid()) {
-						for (final WidgetChild child : parent.getChildren()) {
-							if (child != null && child.isVisible()
-									&& child.getText() != null
-									&& child.getText().equals(amount + "*")) {
-								return true;
-							}
-						}
-					}
-					return false;
-				}
-
-			}, 3000);
+			Time.sleep(2000, 3000);
 			Keyboard.sendText("" + amount, true);
 		}
 		Time.sleep(new Condition() {

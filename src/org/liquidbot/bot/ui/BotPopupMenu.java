@@ -1,6 +1,8 @@
 package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.component.Canvas;
 
@@ -68,7 +70,11 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
 		lowCpuMenu = new JMenu("Low CPU");
 		config.setFpsSlider(new JSlider());
-		config.getFpsSlider().setValue(50);
+		String lowCpuText = FileUtils.load(Constants.SETTING_FILE_NAME, "LOW_CPU");
+		if (lowCpuText != null) {
+			config.setCPU(Boolean.parseBoolean(lowCpuText));
+		}
+		config.getFpsSlider().setValue(config.lowCpu() ? 10 : 50);
 		final TitledBorder border = new TitledBorder("Adjust FPS");
 		border.setTitleColor(Color.WHITE);
 		config.getFpsSlider().setBorder(border);
@@ -82,6 +88,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
 		lowCpu = new JCheckBoxMenuItem("Low CPU");
 		lowCpu.addActionListener(this);
+		lowCpu.setSelected(Configuration.getInstance().lowCpu());
 		lowCpuMenu.add(lowCpu);
 
 		smartBreak = new JCheckBoxMenuItem("Smart Break");
@@ -203,6 +210,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == lowCpu) {
 			config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
 			config.setCPU(!config.lowCpu());
+			FileUtils.save(Constants.SETTING_FILE_NAME,"LOW_CPU",config.lowCpu() + "");
 		} else if (e.getSource() == displayfps) {
 			log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
 			config.setDisplayFPS(!config.isDisplayFPS());

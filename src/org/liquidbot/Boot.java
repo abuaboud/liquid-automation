@@ -2,6 +2,7 @@ package org.liquidbot;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.security.LSecurityManager;
 import org.liquidbot.bot.client.security.encryption.AES;
@@ -10,6 +11,7 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.ui.login.IPBLogin;
+import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.Utilities;
 
@@ -21,60 +23,61 @@ import java.text.ParseException;
  */
 public class Boot {
 
-    private final Logger log = new Logger(Boot.class);
-    private final Configuration config = Configuration.getInstance();
+	private final Logger log = new Logger(Boot.class);
+	private final Configuration config = Configuration.getInstance();
 
-    public Boot() {
-        System.setSecurityManager(new LSecurityManager());
-        config.setConsole(new BotConsole());
-        log.info("Parsing hooks..");
-        HookReader.init();
+	public Boot() {
+		System.setSecurityManager(new LSecurityManager());
+		config.setConsole(new BotConsole());
+		log.info("Parsing hooks..");
+		HookReader.init();
 
-        final IPBLogin login = new IPBLogin();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if (login.rememberMe()) {
-                    login.dispose();
-                } else {
-                    login.setVisible(true);
-                }
-            }
-        }).start();
 
-        Time.sleep(new Condition() {
-            @Override
-            public boolean active() {
-                return !login.isVisible();
-            }
-        }, 2000); // to help people with slower computers.
+		final IPBLogin login = new IPBLogin();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (login.rememberMe()) {
+					login.dispose();
+				} else {
+					login.setVisible(true);
+				}
+			}
+		}).start();
 
-        while (login.isVisible()) {
-            Utilities.sleep(200, 300);
-        }
+		Time.sleep(new Condition() {
+			@Override
+			public boolean active() {
+				return !login.isVisible();
+			}
+		}, 2000); // to help people with slower computers.
 
-        log.info("Launching client..");
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                config.setBotFrame(new BotFrame());
-                config.getBotFrame().setVisible(true);
-            }
-        });
-    }
+		while (login.isVisible()) {
+			Utilities.sleep(200, 300);
+		}
 
-    public static void main(String[] args) {
+		log.info("Launching client..");
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				config.setBotFrame(new BotFrame());
+				config.getBotFrame().setVisible(true);
+			}
+		});
+	}
 
-        try {
-            UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
-        } catch (UnsupportedLookAndFeelException | ParseException e) {
-            e.printStackTrace();
-        }
+	public static void main(String[] args) {
 
-        JPopupMenu.setDefaultLightWeightPopupEnabled(true);
+		try {
+			UIManager.setLookAndFeel(new SyntheticaAluOxideLookAndFeel());
+		} catch (UnsupportedLookAndFeelException | ParseException e) {
+			e.printStackTrace();
+		}
 
-        new Boot();
+		JPopupMenu.setDefaultLightWeightPopupEnabled(true);
 
-    }
+		new Boot();
+
+	}
 
 }

@@ -85,13 +85,6 @@ public class PriceGrabber {
         return null;
     }
 
-    public static void main(String[] args) {
-        final PriceGrabber price = new PriceGrabber("amulet of fury");
-        System.out.println(price.getRaw());
-        for(Offer offer : price.getOffers()) {
-            System.out.println(offer);
-        }
-    }
 
     public class Offer {
 

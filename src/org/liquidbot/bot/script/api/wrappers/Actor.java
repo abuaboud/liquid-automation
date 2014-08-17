@@ -111,16 +111,6 @@ public class Actor implements Locatable, Interactable {
         return (int) Reflection.value("Renderable#getModelHeight()", raw);
     }
 
-    /**
-     * return real Y location
-     *
-     * @return Integer Y Location
-     */
-    public int getY() {
-        if (!isValid())
-            return -1;
-        return ((((int) Reflection.value("Actor#getY()", raw)) >> 7) + (int) Reflection.value("Client#getBaseY()", null));
-    }
 
     /**
      * check if actor moving or running
@@ -150,6 +140,17 @@ public class Actor implements Locatable, Interactable {
             return -1;
         return ((((int) Reflection.value("Actor#getX()", raw)) >> 7) + (int) Reflection.value("Client#getBaseX()", null));
     }
+
+	/**
+	 * return real Y location
+	 *
+	 * @return Integer Y Location
+	 */
+	public int getY() {
+		if (!isValid())
+			return -1;
+		return ((((int) Reflection.value("Actor#getY()", raw)) >> 7) + (int) Reflection.value("Client#getBaseY()", null));
+	}
 
     /**
      * @return Polygon : returns bounds and cube around the actor
@@ -299,7 +300,8 @@ public class Actor implements Locatable, Interactable {
         for (int i = 0; i < 5; i++) {
             menuIndex = Menu.index(action, option);
             Point interactPoint = getInteractPoint();
-            if (menuIndex > -1)
+	        Polygon bounds = getBounds();
+	        if (menuIndex > -1 && (bounds == null || bounds.contains(Mouse.getLocation())))
                 break;
             if (Menu.isOpen() && menuIndex == -1)
                 Menu.interact("Cancel");
@@ -311,20 +313,37 @@ public class Actor implements Locatable, Interactable {
 
     @Override
     public boolean interact(String action) {
-        return interact(action, null);
+	    String name = null;
+	    if(this instanceof NPC){
+		    name = ((NPC) this).getName();
+	    } else if(this instanceof Player){
+		    name = ((Player) this).getName();
+	    }
+        return interact(action, name);
     }
 
-    @Override
-    public boolean click(boolean left) {
-        Mouse.click(getInteractPoint(), left);
-        return true;
-    }
 
-    @Override
-    public boolean click() {
-        Mouse.click(getInteractPoint(), true);
-        return true;
-    }
+	@Override
+	public boolean click(boolean left) {
+		Point interactingPoint = this.getInteractPoint();
+		Polygon bounds = getBounds();
+		for(int i = 0; i < 3; i++){
+			if(bounds == null || bounds.contains(Mouse.getLocation())){
+				Mouse.click(left);
+				return true;
+			}
+			if(bounds == null || !bounds.contains(interactingPoint)){
+				interactingPoint = this.getInteractPoint();
+			}
+			Mouse.move(interactingPoint);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean click() {
+		return click(true);
+	}
 
     /**
      * Checks if the object is null

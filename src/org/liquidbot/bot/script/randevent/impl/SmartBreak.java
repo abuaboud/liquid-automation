@@ -37,7 +37,7 @@ public class SmartBreak extends RandomEvent {
 
 	@Override
 	public boolean active() {
-		if (amounts.size() == 0) {
+		if (breaks.size() == 0 || amounts.size() == 0) {
 			breakPerHour = Random.nextInt(2, 4);
 			int[] b = getBreaksTime(breakPerHour);
 			int[] a = getBreaksAmount(breakPerHour);

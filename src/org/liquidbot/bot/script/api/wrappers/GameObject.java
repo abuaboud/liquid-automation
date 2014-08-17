@@ -210,8 +210,8 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 		for (int i = 0; i < 5; i++) {
 			menuIndex = Menu.index(action, option);
 			Point interactPoint = getInteractPoint();
-
-			if (menuIndex > -1)
+			Polygon bounds = getBounds();
+			if (menuIndex > -1 && (bounds == null || bounds.contains(Mouse.getLocation())))
 				break;
 			if (Menu.isOpen() && menuIndex == -1)
 				Menu.interact("Cancel");
@@ -223,19 +223,29 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
 	@Override
 	public boolean interact(String action) {
-		return interact(action, null);
+		return interact(action, getName());
 	}
 
 	@Override
 	public boolean click(boolean left) {
-		Mouse.click(getInteractPoint(), left);
-		return true;
+		Point interactingPoint = this.getInteractPoint();
+		Polygon bounds = getBounds();
+		for(int i = 0; i < 3; i++){
+			if(bounds == null || bounds.contains(Mouse.getLocation())){
+				Mouse.click(left);
+				return true;
+			}
+			if(bounds == null || !bounds.contains(interactingPoint)){
+				interactingPoint = this.getInteractPoint();
+			}
+			Mouse.move(interactingPoint);
+		}
+		return false;
 	}
 
 	@Override
 	public boolean click() {
-		Mouse.click(getInteractPoint(), true);
-		return true;
+		return click(true);
 	}
 
 }

@@ -47,13 +47,13 @@ public class Pinball extends RandomEvent {
 			setStatus("[Step]: Exiting");
 			GameObject exit = GameEntities.getNearest("Cave Exit");
 			if (exit.isValid()) {
-				Camera.setPitch(Random.nextInt(0, 10));
+				Camera.setPitch(Random.nextInt(0, 5));
 				Camera.turnAngleTo(exit);
 				if (exit.distanceTo() > 6) {
 					exit.interact("Exit");
 					for (int i = 0; i < 70 && NPCs.getNearest("Flippa").isValid(); i++, Time.sleep(100, 150)) ;
 				} else {
-					Camera.setPitch(Random.nextInt(0, 10));
+					Camera.setPitch(Random.nextInt(0, 5));
 					Camera.turnAngleTo(exit);
 					for (int i = 0; i < 50 && Players.getLocal().isMoving(); i++) {
 						Time.sleep(100, 150);

@@ -68,6 +68,6 @@ public class Widgets {
         if (widgetChild == null || !widgetChild.isVisible())
             return;
         widgetChild.interact("Continue");
-        for (int i = 0; i < 10 && widgetChild.isVisible(); i++, Time.sleep(100, 150)) ;
+        for (int i = 0; i < 5 && widgetChild.isVisible(); i++, Time.sleep(100, 150)) ;
     }
 }

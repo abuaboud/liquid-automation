@@ -59,7 +59,7 @@ public class DrillDemon extends RandomEvent {
 			}
 		})) {
 			if (g != null) {
-				if (GameEntities.getNearest("Exercise mat") != null)
+				if (GameEntities.getNearest("Exercise mat").isValid())
 					return true;
 				if (g.distanceTo() < 7 && ((g.getSpokenMessage() != null && g.getSpokenMessage().contains(Players.getLocal().getName()))))
 					return true;

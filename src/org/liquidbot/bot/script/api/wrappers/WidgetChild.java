@@ -147,11 +147,31 @@ public class WidgetChild implements Interactable {
         return (int) Reflection.value("Widget#getHeight()", raw);
     }
 
-    public boolean isVisible() {
-        if (raw == null)
-            return false;
-        return !(boolean) Reflection.value("Widget#isHidden()", raw);
-    }
+	/**
+	 * @Lorex
+	 *
+	 * @return Boolean : if widget is visible
+	 */
+	public boolean isVisible() {
+		if(raw == null){
+			return false;
+		}
+		if((boolean) Reflection.value("Widget#isHidden()", raw)){
+			return false;
+		}
+		int parentId = this.getParentId();
+		if(parentId == -1){
+			return true;
+		}
+		if(parentId == 0){
+			return false;
+		}
+		final WidgetChild parent =  Widgets.get(parentId >> 16, parentId & 65535);
+		if(!parent.isVisible()){
+			return false;
+		}
+		return true;
+	}
 
     public int getRotationX() {
         return (int) Reflection.value("Widget#getRotationX()", raw);
@@ -277,10 +297,10 @@ public class WidgetChild implements Interactable {
     @Override
     public boolean interact(String action, String option) {
         int menuIndex = -1;
+	    Point interactPoint = getInteractPoint();
         for (int i = 0; i < 5; i++) {
             menuIndex = Menu.index(action, option);
-            Point interactPoint = getInteractPoint();
-            if (menuIndex > -1)
+	        if (menuIndex > -1 && this.getArea().contains(Mouse.getLocation()))
                 break;
             if (org.liquidbot.bot.script.api.methods.data.Menu.isOpen() && menuIndex == -1)
                 org.liquidbot.bot.script.api.methods.data.Menu.interact("Cancel");
@@ -292,20 +312,31 @@ public class WidgetChild implements Interactable {
 
     @Override
     public boolean interact(String action) {
-        return interact(action, null);
+        return interact(action, getName());
     }
 
-    @Override
-    public boolean click(boolean left) {
-        Mouse.click(getInteractPoint(), left);
-        return true;
-    }
 
-    @Override
-    public boolean click() {
-        Mouse.click(getInteractPoint(), true);
-        return true;
-    }
+	@Override
+	public boolean click(boolean left) {
+		Point interactingPoint = this.getInteractPoint();
+		Rectangle bounds = getArea();
+		for(int i = 0; i < 3; i++){
+			if(bounds == null || bounds.contains(Mouse.getLocation())){
+				Mouse.click(left);
+				return true;
+			}
+			if(bounds == null || !bounds.contains(interactingPoint)){
+				interactingPoint = this.getInteractPoint();
+			}
+			Mouse.move(interactingPoint);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean click() {
+		return click(true);
+	}
 
     class HashTableIterator {
 

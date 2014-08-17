@@ -60,9 +60,9 @@ public class RandomEventHandler implements Runnable, PaintListener {
 	public RandomEventHandler() {
 		randomEvents = new RandomEvent[]{new BotWorld(), new SmartBreak(),
 				new Login(), new ClickToPlay(), new Pinball(), new Certer(), new AvoidCombat(), new DrillDemon(), new FreakyFoster()
-				, new FrogCave(), /*new LostAndFoundHandler()*/null, null /*new MazeHandler()*/,
-			/*	new MimeHandler()*/null, null/* new MollyHandler()*/, null /*new PilloryHandler()*/, new PrisonPete(), new QuizMaster(), null, new SandwichLady()
-				, new ScapeIsland(),/* new StrangePlantHandler()*/null, new SurpriseExam(), new Talker(), new Reward()
+				, new FrogCave(), /*new LostAndFoundHandler()*/null, new Maze(),
+				new Mime(), new Molly(), null /*new PilloryHandler()*/, new PrisonPete(), new QuizMaster(), null, new SandwichLady()
+				, new ScapeIsland(), new StrangePlant(), new SurpriseExam(), new Talker(), new Reward()
 				,/* new ReportHandler()*/null, new StrangeBox(), null/* new BankPinHandler()*/, null/*  new SystemUpdate()*/, null/* new SkillMenuHandler()*/, null/* new GraveHandler()*/
 		};
 	}
@@ -108,6 +108,10 @@ public class RandomEventHandler implements Runnable, PaintListener {
 				graphics.drawString("Event:" + activeEvent.getName(), 351, 20);
 				graphics.drawString("Author:" + activeEvent.getAuthor(), 351, 35);
 				graphics.drawString("Status:" + activeEvent.getStatus(), 351, 50);
+
+				if(activeEvent instanceof PaintListener){
+					((PaintListener)activeEvent).render(graphics);
+				}
 			}
 			SmartBreak aBreak = (SmartBreak) randomEvents[smartBreak];
 			if (Configuration.getInstance().smartBreak()) {

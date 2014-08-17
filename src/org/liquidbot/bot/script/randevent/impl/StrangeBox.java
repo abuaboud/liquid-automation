@@ -43,7 +43,7 @@ public class StrangeBox extends RandomEvent {
         if (boxWidget.isValid()) {
             WidgetChild widgetChild = findWidgetWithAnswer(findAnswer(boxWidget.getChild(WIDGET_BOX_QUESTION).getText()));
             if (widgetChild != null && widgetChild.isVisible()) {
-                Time.sleep(4000, 6000); //Humans need sometime to think!
+                Time.sleep(1000, 2000); //Humans need sometime to think!
                 widgetChild.interact("Ok");
                 for (int i = 0; i < 50 && Widgets.get(WIDGET_BOX).isValid(); i++, Time.sleep(100, 150)) ;
             }

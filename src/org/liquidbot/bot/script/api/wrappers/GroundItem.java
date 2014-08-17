@@ -50,7 +50,8 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
         for (int i = 0; i < 5; i++) {
             menuIndex = org.liquidbot.bot.script.api.methods.data.Menu.index(action, option);
             Point interactPoint = getInteractPoint();
-            if (menuIndex > -1)
+	        Polygon bounds = getBounds();
+	        if (menuIndex > -1 && (bounds == null || bounds.contains(Mouse.getLocation())))
                 break;
             if (org.liquidbot.bot.script.api.methods.data.Menu.isOpen() && menuIndex == -1)
                 org.liquidbot.bot.script.api.methods.data.Menu.interact("Cancel");
@@ -62,20 +63,31 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 
     @Override
     public boolean interact(String action) {
-        return interact(action, null);
+	    return interact(action, getName());
     }
 
-    @Override
-    public boolean click(boolean left) {
-        Mouse.click(getInteractPoint(), left);
-        return true;
-    }
 
-    @Override
-    public boolean click() {
-        Mouse.click(getInteractPoint(), true);
-        return true;
-    }
+	@Override
+	public boolean click(boolean left) {
+		Point interactingPoint = this.getInteractPoint();
+		Polygon bounds = getBounds();
+		for(int i = 0; i < 3; i++){
+			if(bounds == null || bounds.contains(Mouse.getLocation())){
+				Mouse.click(left);
+				return true;
+			}
+			if(bounds == null || !bounds.contains(interactingPoint)){
+				interactingPoint = this.getInteractPoint();
+			}
+			Mouse.move(interactingPoint);
+		}
+		return false;
+	}
+
+	@Override
+	public boolean click() {
+		return click(true);
+	}
 
     @Override
     public Polygon getBounds() {

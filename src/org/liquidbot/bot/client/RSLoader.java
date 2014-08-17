@@ -74,7 +74,7 @@ public class RSLoader extends JPanel implements AppletStub {
 					RSLoader.this.revalidate();
 
 					while (applet.getComponents().length == 0) {
-						Utilities.sleep(500, 1000);
+						Utilities.sleep(1500, 2000);
 					}
 
 					Reflection.init();

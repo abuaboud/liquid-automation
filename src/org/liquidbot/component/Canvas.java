@@ -119,6 +119,9 @@ public class Canvas extends java.awt.Canvas {
 		return listeners;
 	}
 
+	public java.awt.Canvas getCanvas(){
+		return canvas;
+	}
 	@Override
 	public void setBounds(int x, int y, int width, int height) {
 
@@ -132,6 +135,7 @@ public class Canvas extends java.awt.Canvas {
 	@Override
 	public void setLocation(int x, int y) {
 		canvas.setLocation(0, 0);
+		canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH,Constants.APPLET_HEIGHT));
 	}
 
 }

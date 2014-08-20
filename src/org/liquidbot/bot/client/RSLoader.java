@@ -74,17 +74,20 @@ public class RSLoader extends JPanel implements AppletStub {
 					RSLoader.this.revalidate();
 
 					while (applet.getComponents().length == 0) {
-						Utilities.sleep(1500, 2000);
+						Utilities.sleep(1000, 1500);
 					}
 
 					Reflection.init();
-
+					while(Game.getGameState() < 10){
+						Utilities.sleep(500, 1000);
+					}
+					Utilities.sleep(2000, 3000);
 					final Canvas canvas = new Canvas((java.awt.Canvas) Reflection.value("Client#getCanvas()", null));
 					configuration.setCanvas(canvas);
 					canvas.set();
 
-					configuration.setKeyboard(new InternalKeyboard(applet));
-					configuration.setMouse(new InternalMouse(applet));
+					configuration.setKeyboard(new InternalKeyboard());
+					configuration.setMouse(new InternalMouse());
 				}
 			});
 			thread.start();

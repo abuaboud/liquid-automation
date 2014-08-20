@@ -49,6 +49,8 @@ public class ScriptHandler implements Runnable {
 	}
 
 	public void start(LoopScript script, ScriptInfo scriptInfo, Account account) {
+		if(script == null)
+			return;
 		logger.info("Script Started: " + scriptInfo.name, Color.GREEN);
 		this.scriptState = State.RUNNING;
 		this.scriptInfo = scriptInfo;
@@ -76,13 +78,12 @@ public class ScriptHandler implements Runnable {
 			new Thread(inventoryMonitor).start();
 		}
 
-
-		this.script.onStart();
-		this.scriptThread.start();
 		if (randomEventHandler == null) {
 			randomEventHandler = new RandomEventHandler();
 			Configuration.getInstance().getCanvas().getPaintListeners().add(randomEventHandler);
 		}
+		this.script.onStart();
+		this.scriptThread.start();
 		this.randomEventsThread = new Thread(randomEventHandler);
 		this.randomEventsThread.start();
 		if (script instanceof PaintListener) {

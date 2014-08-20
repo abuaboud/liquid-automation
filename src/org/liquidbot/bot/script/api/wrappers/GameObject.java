@@ -103,6 +103,8 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 	}
 
 	public int getHeight() {
+		if (raw == null)
+			return 20;
 		Object renderable = Reflection.value(type.cato + "#getRenderable()", raw);
 		if (renderable == null)
 			return 20;
@@ -230,12 +232,12 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 	public boolean click(boolean left) {
 		Point interactingPoint = this.getInteractPoint();
 		Polygon bounds = getBounds();
-		for(int i = 0; i < 3; i++){
-			if(bounds == null || bounds.contains(Mouse.getLocation())){
+		for (int i = 0; i < 3; i++) {
+			if (bounds == null || bounds.contains(Mouse.getLocation())) {
 				Mouse.click(left);
 				return true;
 			}
-			if(bounds == null || !bounds.contains(interactingPoint)){
+			if (bounds == null || !bounds.contains(interactingPoint)) {
 				interactingPoint = this.getInteractPoint();
 			}
 			Mouse.move(interactingPoint);

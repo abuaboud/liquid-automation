@@ -95,7 +95,7 @@ public class Utilities {
         if (string == null)
             return false;
         for (String s : strings) {
-            if (s.equalsIgnoreCase(string))
+            if (s !=null && s.equalsIgnoreCase(string))
                 return true;
         }
         return false;

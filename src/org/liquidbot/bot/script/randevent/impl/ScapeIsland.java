@@ -114,6 +114,9 @@ public class ScapeIsland extends RandomEvent {
 									return servant.isValid() || !warn.isVisible();
 								}
 							}, 3000);
+							if (Widgets.getWidgetWithText("no where").isVisible()) {
+								shouldLeave = false;
+							}
 						} else {
 							Walking.walkTo(portal);
 							Camera.turnTo(portal);
@@ -134,6 +137,7 @@ public class ScapeIsland extends RandomEvent {
 				if (evilBob.isOnScreen()) {
 					Inventory.getItem(UNCOOKED_FISH).interact("Use");
 					Mouse.move(evilBob.getInteractPoint());
+					Time.sleep(400, 800);
 					if (Menu.contains("Use")) {
 						evilBob.interact("Use", evilBob.getName());
 					}
@@ -164,6 +168,7 @@ public class ScapeIsland extends RandomEvent {
 				if (unCookingPot.isOnScreen()) {
 					Inventory.getItem(COOKED_FISH).interact("Use");
 					Mouse.move(unCookingPot.getInteractPoint());
+					Time.sleep(400, 800);
 					if (Menu.contains("Use")) {
 						unCookingPot.interact("Use", unCookingPot.getName());
 					}
@@ -313,6 +318,7 @@ public class ScapeIsland extends RandomEvent {
 	public void reset() {
 		currentDirection = null;
 		directionIndex = -1;
+		droppedItemIds.clear();
 		shouldLeave = false;
 	}
 

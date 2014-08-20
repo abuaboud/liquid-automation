@@ -112,6 +112,8 @@ public class WidgetChild implements Interactable {
     }
 
     public int getModelType() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getModelType()", raw);
     }
 
@@ -128,22 +130,32 @@ public class WidgetChild implements Interactable {
     }
 
     public int getTextColor() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getTextColor()", raw);
     }
 
     public int getRelativeX() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getRelativeX()", raw);
     }
 
     public int getRelativeY() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getRelativeY()", raw);
     }
 
     public int getWidth() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getWidth()", raw);
     }
 
     public int getHeight() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getHeight()", raw);
     }
 
@@ -174,30 +186,44 @@ public class WidgetChild implements Interactable {
 	}
 
     public int getRotationX() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getRotationX()", raw);
     }
 
     public int getRotationY() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getRotationY()", raw);
     }
 
     public int getRotationZ() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getRotationZ()", raw);
     }
 
     public int getContentType() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getContentType()", raw);
     }
 
     public int getScrollX() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getScrollX()", raw);
     }
 
     public int getScrollY() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getScrollY()", raw);
     }
 
     public int getTextureId() {
+	    if(raw == null)
+		    return -1;
         return (int) Reflection.value("Widget#getTextureId()", raw);
     }
 

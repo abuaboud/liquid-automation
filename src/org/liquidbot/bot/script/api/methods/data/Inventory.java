@@ -199,10 +199,14 @@ public class Inventory {
         });
     }
 
+	public static void dropAll(){
+		dropAllExcept(null);
+	}
+
     public static void dropAllExcept(int... keep) {
         for(int i = 0; i < dropPattern.length; i++) {
             final Item itemAt = getItemAt(dropPattern[i]);
-            if(itemAt.isValid() && !Utilities.inArray(itemAt.getId(), keep)) {
+            if(itemAt.isValid() && (keep == null || !Utilities.inArray(itemAt.getId(), keep))) {
                 if(itemAt.getArea() != null && !itemAt.getArea().contains(Mouse.getLocation())) {
                     Mouse.hop(itemAt.getCentralPoint().x, itemAt.getArea().y);
                 }

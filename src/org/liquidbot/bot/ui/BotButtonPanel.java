@@ -117,9 +117,10 @@ public class BotButtonPanel extends JPanel {
 				keyboardButton.setButtonIcon(config.enableKeyboard() ? "keyboard_enabled.png" : "keyboard_disabled.png");
 				keyboardButton.setButtonHoverIcon(config.enableKeyboard() ? "keyboard_enabled_hover.png" : "keyboard_disabled_hover.png");
 				keyboardButton.revalidate();
+
 			}
 		});
-		add(keyboardButton);
+	//	add(keyboardButton);
 
 		mouseButton = new BotButton("mouse_enabled.png");
 		mouseButton.setButtonHoverIcon("mouse_enabled_hover.png");
@@ -133,7 +134,7 @@ public class BotButtonPanel extends JPanel {
 				mouseButton.revalidate();
 			}
 		});
-		add(mouseButton);
+	//	add(mouseButton);
 
 		settingsButton = new BotButton("settings.png");
 		settingsButton.setButtonHoverIcon("settings_hover.png");

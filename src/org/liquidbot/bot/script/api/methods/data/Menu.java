@@ -76,8 +76,9 @@ public class Menu {
         java.util.List<String> actions = getActions();
         for (int menuI = 0; menuI <actions.size(); menuI++) {
             try {
-                if (actions.get(menuI).toLowerCase().contains(action.toLowerCase())
+                if (actions.get(menuI).toLowerCase().equalsIgnoreCase(action.toLowerCase())
                         && (option == null || options.get(menuI).toLowerCase().contains(option.toLowerCase()))) {
+
                     return menuI;
                 }
             } catch (IndexOutOfBoundsException e) {
@@ -103,7 +104,7 @@ public class Menu {
         int menuIndex = index(action, option);
         if (menuIndex < 0)
             return false;
-        if (menuIndex == 0) {
+        if (menuIndex == 0 && Random.nextInt(0,10) < 7) {
             Mouse.click(true);
             return true;
         }

@@ -97,7 +97,11 @@ public class AvoidCombat extends RandomEvent {
 				}
 			} else {
 				if (path != null) {
-					path.traverse();
+					if (path.getTiles() == null) {
+						Walking.walkTo(target);
+					} else {
+						path.traverse();
+					}
 				} else {
 					Walking.walkTo(target);
 				}

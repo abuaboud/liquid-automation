@@ -340,10 +340,13 @@ public class Bank {
 			switch (amount) {
 			case 1:
 				action = "Withdraw-1";
+				break;
 			case 5:
 				action = "Withdraw-5";
+				break;
 			case 10:
 				action = "Withdraw-10";
+				break;
 			}
 		}
 		item.interact(action, item.getName());

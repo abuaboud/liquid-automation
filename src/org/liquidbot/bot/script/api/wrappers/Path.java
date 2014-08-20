@@ -26,6 +26,7 @@ public abstract class Path {
      */
     public boolean traverse() {
         Tile[] tiles = getTiles();
+
         if (tiles[tiles.length - 1].distanceTo() < 5)
             return true;
         final Tile next = getNext();

@@ -41,10 +41,10 @@ public class ScriptLoader {
 			} else {
 				User user = Configuration.getInstance().getUser();
 				ScriptClassLoader sc = new ScriptClassLoader(new URL(Constants.SITE_URL + "/client/loadScript.php?userId=" + user.getUserId() + "&scriptId=" + scriptInfo.scriptId));
-				if (sc.isSafe()) {
-					for (String entry : sc.entries().keySet().toArray(new String[sc.entries().keySet().size()])) {
-						try {
-							Class<?> clazz = sc.loadClass(entry);
+				for (String entry : sc.entries().keySet().toArray(new String[sc.entries().keySet().size()])) {
+					try {
+						Class<?> clazz = sc.loadClass(entry);
+						if (sc.isSafe()) {
 							if (clazz.getAnnotation(Manifest.class) != null) {
 								Object newInstance = clazz.newInstance();
 								if (newInstance instanceof LoopScript) {
@@ -52,13 +52,15 @@ public class ScriptLoader {
 									break;
 								}
 							}
-						} catch (Exception e) {
-							// ignored
+						} else {
+							log.error("This Script contains some Prohibited code, Please report that to Admin");
+							return null;
 						}
+					} catch (Exception e) {
+						// ignored
 					}
-				} else {
-					log.error("This Script contains some Prohibited code, Please report that to Admin");
 				}
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,6 +82,8 @@ public class ScriptLoader {
 	public static List<ScriptInfo> getRepositoryScripts() {
 		ArrayList<ScriptInfo> scriptInfo = new ArrayList<>();
 		User user = Configuration.getInstance().getUser();
+		if (user == null)
+			return scriptInfo;
 		String[] lines = NetUtils.readPage(Constants.SITE_URL + "/client/scripts.php?userId=" + user.getUserId() + "&username=" + user.getDisplayName() + "&password=" + user.getHash() + "&action=view");
 		if (lines == null || lines.length == 0)
 			return scriptInfo;

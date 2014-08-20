@@ -2,6 +2,7 @@ package org.liquidbot.bot.script.loader;
 
 import org.liquidbot.bot.script.loader.scanner.AsmScanner;
 import org.liquidbot.bot.script.loader.scanner.CodeScanner;
+import org.liquidbot.bot.script.loader.scanner.PackageScanner;
 import org.liquidbot.bot.script.loader.scanner.ReflectionScanner;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -22,7 +23,7 @@ public class ScriptClassLoader extends ClassLoader {
     private boolean safe = true;
     private Map<String, byte[]> entryMap;
     private URL url;
-    private CodeScanner[] scanners = {new ReflectionScanner(), new AsmScanner()};
+    private CodeScanner[] scanners = {new ReflectionScanner(), new AsmScanner(),new PackageScanner()};
 
     public ScriptClassLoader(URL url) {
         this.entryMap = new HashMap<>();

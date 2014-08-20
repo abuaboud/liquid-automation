@@ -134,8 +134,10 @@ public class BehaviorAction extends RandomEvent {
 					}
 				}
 				break;
+			default:
+				break;
 		}
-		timer =  new Timer(Random.nextInt(45,60) * Random.nextInt(1,4) * 1000);
+		timer = new Timer(Random.nextInt(45, 60) * Random.nextInt(1, 4) * 1000);
 
 	}
 

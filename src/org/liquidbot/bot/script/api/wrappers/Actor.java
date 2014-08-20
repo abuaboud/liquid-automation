@@ -2,6 +2,7 @@ package org.liquidbot.bot.script.api.wrappers;/*
  * Created by Hiasat on 7/30/14
  */
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -17,6 +18,7 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Utilities;
 
 import java.awt.*;
+
 
 public class Actor implements Locatable, Interactable {
 

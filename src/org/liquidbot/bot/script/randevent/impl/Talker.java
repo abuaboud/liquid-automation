@@ -77,7 +77,11 @@ public class Talker extends RandomEvent {
 	public void solve() {
 		if (Camera.getPitch() < 70) {
 			Camera.setPitch(Random.nextInt(70, 90));
-		} else if (talkingNPC.isValid()) {
+		}
+		if (talkingNPC.isValid()) {
+			if(!talkingNPC.isOnScreen()){
+				talkingNPC.turnTo();
+			}
 			setStatus("Talking to NPC");
 			talkingNPC.interact("Talk-to", talkingNPC.getName());
 			for (int i = 0; i < 30 && talkingNPC.isValid() && !Widgets.canContinue(); i++, Time.sleep(100, 150)) ;
@@ -105,11 +109,11 @@ public class Talker extends RandomEvent {
 		return NPCs.getNearest(new Filter<NPC>() {
 			@Override
 			public boolean accept(NPC n) {
-				if (n.isValid() && n.distanceTo() < 7) {
-					if (n.getName() != null && Utilities.inArray(n.getName().toLowerCase(), NPC_NAMES)) {
+				if (n.isValid() && n.distanceTo() < 14) {
+					if (n.getName() != null && Utilities.inArray(n.getName(), NPC_NAMES)) {
 						if ((n.getSpokenMessage() != null
 								&& n.getSpokenMessage().toLowerCase().contains(Players.getLocal().getName().toLowerCase()))
-								&& (n.getInteracting() != null && n.getInteracting().equals(Players.getLocal())))
+								|| (n.getInteracting().isValid() && n.getInteracting().equals(Players.getLocal())))
 							return true;
 					}
 

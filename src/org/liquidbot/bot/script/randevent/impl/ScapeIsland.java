@@ -58,7 +58,7 @@ public class ScapeIsland extends RandomEvent {
 			return false;
 		NPC servant = NPCs.getNearest("Servant");
 		NPC evilBob = NPCs.getNearest("Evil Bob");
-		return servant.isValid() && servant.distanceTo() < 25 && evilBob.isValid() && evilBob.distanceTo() < 25;
+		return servant.isValid() && servant.distanceTo() < 40 && evilBob.isValid() && evilBob.distanceTo() < 40;
 	}
 
 	@Override

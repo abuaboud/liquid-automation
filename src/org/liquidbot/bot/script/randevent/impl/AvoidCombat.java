@@ -44,7 +44,7 @@ public class AvoidCombat extends RandomEvent {
 		@Override
 		public boolean accept(NPC npc) {
 			return npc.isValid() && npc.getName() != null && Utilities.inArray(npc.getName(), COMBAT_NPCS_NAMES)
-					&& ((npc.getInteracting() != null && npc.getInteracting().equals(Players.getLocal()))
+					&& ((npc.getInteracting().isValid() && npc.getInteracting().equals(Players.getLocal()))
 					|| (npc.getSpokenMessage() != null && npc.getSpokenMessage().contains(Players.getLocal().getName())));
 		}
 	};

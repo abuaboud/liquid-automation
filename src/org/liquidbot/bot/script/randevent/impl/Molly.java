@@ -220,7 +220,7 @@ public class Molly extends RandomEvent implements PaintListener {
 	public void reset() {
 		targetModels = null;
 		targetTile = null;
-		finish = true;
+		finish = false;
 	}
 
 	@Override

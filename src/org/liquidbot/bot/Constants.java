@@ -8,7 +8,7 @@ import java.io.File;
  */
 public class Constants {
 
-	public static final double CLIENT_VERSION = 0.08;
+	public static final double CLIENT_VERSION = 0.09;
 
 	public static final String CLIENT_TITLE = "LiquidBot Automation";
 

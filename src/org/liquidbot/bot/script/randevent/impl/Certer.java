@@ -32,7 +32,8 @@ public class Certer extends RandomEvent {
 			if (npc.isValid() && npc.getActions() != null && npc.distanceTo() < 6) {
 				final String message = npc.getSpokenMessage();
 				if (Utilities.inArray(npc.getName(), NPC_NAMES)) {
-					if ((message != null && message.toLowerCase().contains(Players.getLocal().getName().toLowerCase())) || (npc.getInteracting().isValid() && npc.getInteracting().equals(Players.getLocal()))) {
+					if ((message != null && message.toLowerCase().contains(Players.getLocal().getName().toLowerCase()))
+							|| (npc.getInteracting().isValid() && npc.getInteracting().equals(Players.getLocal()))) {
 						return true;
 					}
 				}

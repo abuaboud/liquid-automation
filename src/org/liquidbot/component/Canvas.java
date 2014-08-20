@@ -7,6 +7,7 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
+import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.component.debug.*;
 
@@ -119,9 +120,10 @@ public class Canvas extends java.awt.Canvas {
 		return listeners;
 	}
 
-	public java.awt.Canvas getCanvas(){
+	public java.awt.Canvas getCanvas() {
 		return canvas;
 	}
+
 	@Override
 	public void setBounds(int x, int y, int width, int height) {
 
@@ -135,7 +137,7 @@ public class Canvas extends java.awt.Canvas {
 	@Override
 	public void setLocation(int x, int y) {
 		canvas.setLocation(0, 0);
-		canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH,Constants.APPLET_HEIGHT));
+		canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
 	}
 
 }

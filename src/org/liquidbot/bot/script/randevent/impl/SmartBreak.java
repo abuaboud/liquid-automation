@@ -50,6 +50,9 @@ public class SmartBreak extends RandomEvent {
 			timer = new Timer(breaks.get(0));
 			breaks.remove(0);
 		}
+		if(breaks.size() == 0 && amounts.size() == 0){
+			RandomEventHandler.enableRandom(RandomEventHandler.loginHandler, true);
+		}
 		return breaks.size() > 0 && amounts.size() > 0 && (Configuration.getInstance().smartBreak() && !timer.isRunning() && (!Game.isLoggedIn() || (!Players.getLocal().isInCombat() && !Bank.isOpen())));
 	}
 

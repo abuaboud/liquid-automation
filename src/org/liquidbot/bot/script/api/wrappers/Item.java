@@ -1,5 +1,6 @@
 package org.liquidbot.bot.script.api.wrappers;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.enums.Tab;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -84,7 +85,7 @@ public class Item implements Interactable, Identifiable, Nameable {
 			Mouse.move(interactPoint);
 			Time.sleep(100, 150);
 		}
-		return menuIndex > -1 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option);
+		return menuIndex > -1 && org.liquidbot.bot.script.api.methods.data.Menu.interact(action, option, Configuration.getInstance().pattern().contains("RIGHT_CLICK_MENU_ALWAYS"));
 	}
 
 	@Override

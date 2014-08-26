@@ -170,7 +170,7 @@ public class Molly extends RandomEvent implements PaintListener {
 							}
 						}, 3000);
 						targetModels = molly.getModelIds();
-						setStatus("Target Model Found: " + (targetModels != null));
+						log.info("Target Model Found: " + (targetModels != null));
 					} else if (targetModels != null && !finish) {
 						final GameObject door = GameEntities.getNearest("Door");
 						if (door.isValid()) {

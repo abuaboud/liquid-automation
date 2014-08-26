@@ -109,7 +109,7 @@ public class SurpriseExam extends RandomEvent {
     @Override
     public boolean active() {
         final NPC dragon = NPCs.getNearest("Mr. Mordaut");
-        return Game.isLoggedIn() && dragon.isValid() && dragon.distanceTo() < 15;
+        return Game.isLoggedIn() && dragon.isValid() && dragon.distanceTo() < 25;
     }
 
     @Override

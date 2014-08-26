@@ -1,6 +1,8 @@
 package org.liquidbot.bot.script.api.wrappers;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.client.injection.callback.ModelCallBack;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Identifiable;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -93,8 +95,10 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 
 	@Override
 	public void draw(Graphics2D g, Color color) {
-		g.setColor(color);
-		g.drawPolygon(getBounds());
+		Model model = getModel();
+		if (model == null)
+			return;
+		model.draw(g, color);
 	}
 
 	@Override
@@ -111,58 +115,6 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 		return (int) Reflection.value("Renderable#getModelHeight()", renderable);
 	}
 
-	@Override
-	public Polygon getBounds() {
-		Polygon polygon = new Polygon();
-		if (!isOnScreen())
-			return null;
-		int x = getX();
-		int y = getY();
-		int z = Game.getPlane();
-		int h = getHeight();
-		double a = -0.35;
-		double r = 0.35;
-
-		int tileByte = Walking.getTileFlags()[Game.getPlane()][getLocation().x - Game.getBaseX()][getLocation().y - Game.getBaseY()];
-		if (getName() != null && getName().toLowerCase().contains("fishing")) {
-			tileByte = 0;
-		}
-
-		Point pn = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 : 0);
-		Point px = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 : 0);
-		Point py = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 : 0);
-		Point pxy = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 : 0);
-
-		Point pnh = Calculations.tileToScreen(new Tile(x, y, z), r, r, tileByte == 1 ? 210 + h : h);
-		Point pxh = Calculations.tileToScreen(new Tile(x + 1, y, z), a, r, tileByte == 1 ? 210 + h : h);
-		Point pyh = Calculations.tileToScreen(new Tile(x, y + 1, z), r, a, tileByte == 1 ? 210 + h : h);
-		Point pxyh = Calculations.tileToScreen(new Tile(x + 1, y + 1, z), a, a, tileByte == 1 ? 210 + h : h);
-
-		if (Constants.VIEWPORT.contains(py)
-				&& Constants.VIEWPORT.contains(pyh)
-				&& Constants.VIEWPORT.contains(px)
-				&& Constants.VIEWPORT.contains(pxh)
-				&& Constants.VIEWPORT.contains(pxy)
-				&& Constants.VIEWPORT.contains(pxyh)
-				&& Constants.VIEWPORT.contains(pn)
-				&& Constants.VIEWPORT.contains(pnh)) {
-			polygon.addPoint(py.x, py.y);
-			polygon.addPoint(pyh.x, pyh.y);
-
-			polygon.addPoint(px.x, px.y);
-			polygon.addPoint(pxh.x, pxh.y);
-
-			polygon.addPoint(pxy.x, pxy.y);
-			polygon.addPoint(pxyh.x, pxyh.y);
-
-			polygon.addPoint(pn.x, pn.y);
-			polygon.addPoint(pnh.x, pnh.y);
-		} else {
-			return null;
-		}
-		return polygon;
-
-	}
 
 	@Override
 	public boolean isOnScreen() {
@@ -179,9 +131,9 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 	 */
 	@Override
 	public Point getInteractPoint() {
-		Polygon bounds = getBounds();
+		Model bounds = getModel();
 		if (bounds != null)
-			return Utilities.generatePoint(bounds);
+			return bounds.getRandomPoint();
 		return Calculations.tileToScreen(getLocation(), 0.5, 0.5, getHeight());
 	}
 
@@ -212,7 +164,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 		for (int i = 0; i < 5; i++) {
 			menuIndex = Menu.index(action, option);
 			Point interactPoint = getInteractPoint();
-			Polygon bounds = getBounds();
+			Model bounds = getModel();
 			if (menuIndex > -1 && (bounds == null || bounds.contains(Mouse.getLocation())))
 				break;
 			if (Menu.isOpen() && menuIndex == -1)
@@ -220,7 +172,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 			Mouse.move(interactPoint);
 			Time.sleep(100, 150);
 		}
-		return menuIndex > -1 && Menu.interact(action, option);
+		return menuIndex > -1 && Menu.interact(action, option, Configuration.getInstance().pattern().contains("RIGHT_CLICK_OBJECT_ALWAYS"));
 	}
 
 	@Override
@@ -231,7 +183,7 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 	@Override
 	public boolean click(boolean left) {
 		Point interactingPoint = this.getInteractPoint();
-		Polygon bounds = getBounds();
+		Model bounds = getModel();
 		for (int i = 0; i < 3; i++) {
 			if (bounds == null || bounds.contains(Mouse.getLocation())) {
 				Mouse.click(left);
@@ -248,6 +200,37 @@ public class GameObject implements Identifiable, Nameable, Locatable, Interactab
 	@Override
 	public boolean click() {
 		return click(true);
+	}
+
+
+	public Model getModel() {
+		int gridX = (int) Reflection.value(type.cato + "#getX()", raw);
+		int gridY = (int) Reflection.value(type.cato + "#getY()", raw);
+		int tileByte = Walking.getTileFlags()[Game.getPlane()][getLocation().x - Game.getBaseX()][getLocation().y - Game.getBaseY()];
+		if (isValid() && getName() != null && getName().toLowerCase().contains("fishing"))
+			tileByte = 0;
+		int z = tileByte == 1 ? 210 : 0;
+		Object[] renderable = new Object[]{Reflection.value(type.cato + "#getRenderable()", raw), null};
+		if (instanceOf(renderable[0])) {
+			return new Model(new Model(renderable[0]), 0, gridX, gridY, z);
+		}
+		if (instanceOf(renderable[1])) {
+			return new Model(new Model(renderable[1]), 0, gridX, gridY, z);
+		}
+
+		return renderable[0] != null && ModelCallBack.get(renderable[0]) != null ? new Model(ModelCallBack.get(renderable[0]), 0, gridX, gridY, z): null;
+	}
+
+
+	public boolean instanceOf(Object first) {
+		if (first == null)
+			return false;
+		try {
+			Reflection.value("Model#getVerticesX()", first);
+			return true;
+		} catch (IllegalArgumentException e) {
+			return false;
+		}
 	}
 
 }

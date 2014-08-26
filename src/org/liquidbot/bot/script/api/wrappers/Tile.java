@@ -111,7 +111,7 @@ public class Tile implements Locatable, Interactable {
 		return true;
 	}
 
-	@Override
+
 	public Polygon getBounds() {
 		if (!isOnScreen())
 			return null;

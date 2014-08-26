@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 /**
  * Created by Hiasat on 8/13/14.
  */
-public class WidgetViewer extends JFrame implements TreeSelectionListener,ActionListener {
+public class WidgetViewer extends JFrame implements TreeSelectionListener, ActionListener {
 
 	private JScrollPane scrollPane;
 	private JList<String> list;
@@ -38,7 +38,7 @@ public class WidgetViewer extends JFrame implements TreeSelectionListener,Action
 		refresh = new JButton();
 		refresh.setText("Refresh");
 		refresh.addActionListener(this);
-		refresh.setBounds(325, 5, 110,25);
+		refresh.setBounds(325, 5, 110, 25);
 		add(refresh);
 
 		scrollPane = new JScrollPane(tree);
@@ -70,9 +70,7 @@ public class WidgetViewer extends JFrame implements TreeSelectionListener,Action
 							WidgetChild[] childChildren = widgetChild.getChildren();
 							if (childChildren != null && childChildren.length > 0) {
 								for (WidgetChild child : childChildren) {
-									if (child.isVisible()) {
-										defaultMutableTreeNode.add(new DefaultMutableTreeNode("Child-" + child.getIndex()));
-									}
+									defaultMutableTreeNode.add(new DefaultMutableTreeNode("Child-" + child.getIndex()));
 								}
 							}
 						}
@@ -99,7 +97,7 @@ public class WidgetViewer extends JFrame implements TreeSelectionListener,Action
 			}
 			WidgetChild widget = w.length == 2 ? Widgets.get(w[0], w[1]) : Widgets.get(w[0], w[1]).getChild(w[2]);
 
-		    DefaultListModel<String> listModel = new DefaultListModel<>();
+			DefaultListModel<String> listModel = new DefaultListModel<>();
 
 			listModel.addElement("Parent: " + w[0]);
 			listModel.addElement("Child: " + (widget.getId() & 0xFFFF));
@@ -159,7 +157,7 @@ public class WidgetViewer extends JFrame implements TreeSelectionListener,Action
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == refresh){
+		if (e.getSource() == refresh) {
 			tree.setModel(widgetTree(null));
 		}
 	}

@@ -114,7 +114,8 @@ public class ScapeIsland extends RandomEvent {
 									return servant.isValid() || !warn.isVisible();
 								}
 							}, 3000);
-							if (Widgets.getWidgetWithText("no where").isVisible()) {
+							WidgetChild widgetChild = Widgets.getWidgetWithText("nowhere");
+							if (widgetChild !=null && Widgets.getWidgetWithText("nowhere").isVisible()) {
 								shouldLeave = false;
 							}
 						} else {
@@ -238,7 +239,7 @@ public class ScapeIsland extends RandomEvent {
 					}
 				});
 				if (fishingSpot.isValid()) {
-					if (fishingSpot.isOnScreen()) {
+					if (fishingSpot.isOnScreen() && fishingSpot.distanceTo() < 7) {
 						fishingSpot.interact("Net", fishingSpot.getName());
 						Time.sleep(new Condition() {
 							@Override

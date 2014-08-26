@@ -2,6 +2,7 @@ package org.liquidbot.bot;
 
 import org.liquidbot.bot.client.input.InternalKeyboard;
 import org.liquidbot.bot.client.input.InternalMouse;
+import org.liquidbot.bot.client.patterns.Pattern;
 import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
@@ -31,6 +32,7 @@ public class Configuration {
 	private AES encryption;
 	private AccountManager accountManager;
 	private boolean lowCPU;
+	private Pattern pattern;
 
 	private JSlider fpsSlider;
 
@@ -183,6 +185,12 @@ public class Configuration {
 		if (accountManager == null)
 			accountManager = new AccountManager();
 		return accountManager;
+	}
+
+	public Pattern pattern() {
+		if (pattern == null)
+			pattern = new Pattern();
+		return pattern;
 	}
 
 	public ScriptHandler getScriptHandler() {

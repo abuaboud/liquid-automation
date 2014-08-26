@@ -89,7 +89,7 @@ public class GroundItem implements Locatable, Identifiable, Nameable, Interactab
 		return click(true);
 	}
 
-    @Override
+
     public Polygon getBounds() {
         Polygon polygon = new Polygon();
         if (!isOnScreen())

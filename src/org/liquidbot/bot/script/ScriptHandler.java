@@ -5,6 +5,7 @@ import org.liquidbot.bot.script.api.listeners.*;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.loader.ScriptInfo;
+import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.script.randevent.RandomEventHandler;
 import org.liquidbot.bot.ui.account.Account;
 import org.liquidbot.bot.utils.Logger;
@@ -49,13 +50,17 @@ public class ScriptHandler implements Runnable {
 	}
 
 	public void start(LoopScript script, ScriptInfo scriptInfo, Account account) {
-		if(script == null)
+		if (script == null)
 			return;
 		logger.info("Script Started: " + scriptInfo.name, Color.GREEN);
 		this.scriptState = State.RUNNING;
 		this.scriptInfo = scriptInfo;
 		this.script = script;
 		this.account = account;
+
+		if (account != null)
+			Configuration.getInstance().pattern().currentPattern(Configuration.getInstance().pattern().loadPattern(account.getEmail()));
+
 		this.scriptThread = new Thread(this);
 
 		this.animationMonitor = new AnimationMonitor();
@@ -81,6 +86,10 @@ public class ScriptHandler implements Runnable {
 		if (randomEventHandler == null) {
 			randomEventHandler = new RandomEventHandler();
 			Configuration.getInstance().getCanvas().getPaintListeners().add(randomEventHandler);
+		}
+		for (RandomEvent randomEvent : randomEventHandler.randomEvents) {
+			if (randomEvent != null)
+				randomEvent.setEnabled(true);
 		}
 		this.script.onStart();
 		this.scriptThread.start();
@@ -111,6 +120,10 @@ public class ScriptHandler implements Runnable {
 		this.scriptState = State.PAUSE;
 	}
 
+	public void renew() {
+		this.scriptThread = new Thread(this);
+	}
+
 	public void setScriptState(State scriptState) {
 		this.scriptState = scriptState;
 	}
@@ -130,4 +143,5 @@ public class ScriptHandler implements Runnable {
 	public Account getAccount() {
 		return account;
 	}
+
 }

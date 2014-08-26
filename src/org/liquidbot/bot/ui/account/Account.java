@@ -19,7 +19,7 @@ public class Account {
     }
 
     public String getEmail() {
-        return Configuration.getInstance().getEncryption().decrypt(email);
+        return Configuration.getInstance().getEncryption().decrypt(email).replace("\0","");
     }
 
     public String getPassword() {

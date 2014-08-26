@@ -1,9 +1,11 @@
 package org.liquidbot.bot.script.api.methods.interactive;
 
+import com.google.gson.JsonArray;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.query.GameObjectQuery;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.utils.Utilities;
@@ -213,7 +215,33 @@ public class GameEntities {
         });
     }
 
-	/**
+
+	public static GameObject getNext(Filter<GameObject> filter) {
+		GameObject[] gameObjects = getAll(filter);
+		if (gameObjects == null || gameObjects.length < 1)
+			return nil();
+		return gameObjects[Random.nextInt(0, gameObjects.length)];
+	}
+
+    public static GameObject getNext(final String... names) {
+        return getNext(new Filter<GameObject>() {
+            @Override
+            public boolean accept(GameObject gameObject) {
+                return gameObject.isValid() && gameObject.getName() != null && Utilities.inArray(gameObject.getName(), names);
+            }
+        });
+    }
+
+    public static GameObject getNext(final int... ids) {
+        return getNext(new Filter<GameObject>() {
+            @Override
+            public boolean accept(GameObject gameObject) {
+                return gameObject.isValid() && Utilities.inArray(gameObject.getId(), ids);
+            }
+        });
+    }
+
+    /**
 	 *
 	 * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use GameObject#isValid instead
 	 */

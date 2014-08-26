@@ -33,7 +33,7 @@ public class PrisonPete extends RandomEvent {
 	private final int SETTING_BALLOONS_POPPED = 638;
 	private final int WIDGET_BALLOON = 273;
 	private final int WIDGET_BALLOON_MODEL_ID = 3;
-	private final int WIdGET_BALLOON_CLOSE = 6;
+	private final int WIdGET_BALLOON_CLOSE = 4;
 	private final int WIDGET_WARNING = 566;
 	private final int WIDGET_NO = 18;
 
@@ -68,7 +68,7 @@ public class PrisonPete extends RandomEvent {
 			Time.sleep(new Condition() {
 				@Override
 				public boolean active() {
-					return !Widgets.canContinue();
+					return Widgets.get(WIDGET_BALLOON, WIdGET_BALLOON_CLOSE).isVisible();
 				}
 			}, 3000);
 			if (Inventory.contains("Prison Key")) {

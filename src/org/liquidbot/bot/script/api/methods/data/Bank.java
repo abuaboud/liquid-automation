@@ -2,6 +2,7 @@ package org.liquidbot.bot.script.api.methods.data;
 
 import java.util.ArrayList;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
@@ -446,25 +447,24 @@ public class Bank {
 	public static boolean open() {
 		if (isOpen())
 			return true;
-		final NPC banker = NPCs.getNearest(NPC_BANK_NAMES);
-		GameObject bankBooth = GameEntities
-				.getNearest(new Filter<GameObject>() {
-					@Override
-					public boolean accept(GameObject gameObject) {
-						if (gameObject.isValid()
-								&& gameObject.getName() != null
-								&& gameObject.getName().equalsIgnoreCase(
-										OBJECT_BANK_NAME)) {
-							if (banker.isValid()
-									&& gameObject.distanceTo(banker
-											.getLocation()) < 3) {
-								return true;
-							}
-						}
-						return false;
-					}
-				});
-		if (banker.isValid()) {
+		final NPC banker = NPCs.getNext(NPC_BANK_NAMES);
+		GameObject bankBooth = GameEntities.getNext(new Filter<GameObject>() {
+            @Override
+            public boolean accept(GameObject gameObject) {
+                if (gameObject.isValid()
+                        && gameObject.getName() != null
+                        && gameObject.getName().equalsIgnoreCase(
+                        OBJECT_BANK_NAME)) {
+                    if (banker.isValid()
+                            && gameObject.distanceTo(banker
+                            .getLocation()) < 3) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+		if (banker.isValid() && (Configuration.getInstance().pattern().contains("USE_BANK_BOOTH_NO") || !bankBooth.isValid())) {
 			if (banker.isOnScreen()) {
 				banker.interact("Bank", banker.getName());
 				for (int a = 0; a < 20 && !isOpen(); a++, Time.sleep(100, 150))

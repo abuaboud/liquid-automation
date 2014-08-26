@@ -23,7 +23,7 @@ public class NPCDefinition {
 	}
 
 	public int getId() {
-		if (!isValid())
+		if (raw == null)
 			return -1;
 		return (int) Reflection.value("NPCComposite#getId()", raw);
 	}

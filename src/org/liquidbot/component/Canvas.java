@@ -2,13 +2,21 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.client.injection.callback.ModelCallBack;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
+import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
+import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
+import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.script.api.wrappers.GameObject;
+import org.liquidbot.bot.script.api.wrappers.Model;
+import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.component.debug.*;
 
 import java.awt.*;
@@ -62,6 +70,7 @@ public class Canvas extends java.awt.Canvas {
 
 		beginTime = System.currentTimeMillis();
 
+
 		final Graphics graphics = botBuffer.getGraphics();
 		if (config.drawCanvas()) {
 			graphics.drawImage(gameBuffer, 0, 0, null);
@@ -79,6 +88,7 @@ public class Canvas extends java.awt.Canvas {
 				}
 			}
 		}
+
 		graphics.dispose();
 		final Graphics2D rend = (Graphics2D) canvas.getGraphics();
 		rend.drawImage(botBuffer, 0, 0, null);
@@ -100,6 +110,7 @@ public class Canvas extends java.awt.Canvas {
 	/**
 	 * set Original field to return to this Canvas
 	 */
+
 	public void set() {
 		try {
 			FieldHook fieldHook = HookReader.fields.get("Client#getCanvas()");
@@ -138,6 +149,7 @@ public class Canvas extends java.awt.Canvas {
 	public void setLocation(int x, int y) {
 		canvas.setLocation(0, 0);
 		canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
+		setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
 	}
 
 }

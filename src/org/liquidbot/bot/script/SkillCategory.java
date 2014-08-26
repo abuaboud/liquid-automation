@@ -53,6 +53,10 @@ public enum SkillCategory {
 		return this.filters;
 	}
 
+	public int[] getIds(){
+		return ids;
+	}
+
 	public ImageIcon getIcon() {
 		return icon;
 	}

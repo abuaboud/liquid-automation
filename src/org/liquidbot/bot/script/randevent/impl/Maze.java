@@ -29,7 +29,7 @@ import java.util.Set;
 public class Maze extends RandomEvent implements PaintListener {
 
 
-    private int IGNORED_DOOR_ID = 14956;
+    private int IGNORED_DOOR_ID = -1;
 
     private final String FINAL_CHEST = "Strange shrine";
     private Door door;
@@ -64,6 +64,15 @@ public class Maze extends RandomEvent implements PaintListener {
     public void solve() {
         if (door == null)
             door = new Door();
+	    if(IGNORED_DOOR_ID == -1){
+		    ArrayList<Integer> ids =new ArrayList<>();
+		    for(GameObject gameObject : GameEntities.getAll("Wall")){
+			     if(gameObject.isValid()){
+				     ids.add(gameObject.getId());
+			     }
+		     }
+		    IGNORED_DOOR_ID = getMostPopularElement(ids.toArray(new Integer[ids.size()]));
+	    }
         Tile chest = chestLocation();
         if (centerTile == null) {
             GameObject endDoor = GameEntities.getNearest(chest.getLocation(), new Filter<GameObject>() {
@@ -102,6 +111,27 @@ public class Maze extends RandomEvent implements PaintListener {
             }
         }
     }
+
+	private static int getMostPopularElement(Integer[] a) {
+		int counter = 0, curr, maxvalue, maxcounter = -1;
+		maxvalue = curr = a[0];
+		for (int e : a) {
+			if (curr == e) {
+				counter++;
+			} else {
+				if (counter > maxcounter) {
+					maxcounter = counter;
+					maxvalue = curr;
+				}
+				counter = 0;
+				curr = e;
+			}
+		}
+		if (counter > maxcounter) {
+			maxvalue = curr;
+		}
+		return maxvalue;
+	}
 
 
     private Tile chestLocation() {

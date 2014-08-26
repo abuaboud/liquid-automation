@@ -32,7 +32,7 @@ public class AvoidCombat extends RandomEvent {
 	private final String CAP_HAND = "Cap'n Hand";
 	private final String[] COMBAT_NPCS_NAMES = {ROCK_GOLEM, SWARM,
 			EVIL_CHICKEN, RIVER_TROLL, DRUNKEN_DWARF, TURPENTINE, SECURITY,
-			LOST_PIRATE, DR_JEKYLL, TREE_SPIRIT, CAP_HAND, MR_HYDE, "Man"};
+			LOST_PIRATE, DR_JEKYLL, TREE_SPIRIT, CAP_HAND, MR_HYDE};
 
 	private Tile target = null;
 	private Tile startTile = null;

@@ -32,7 +32,7 @@ public class RSLoader extends JPanel implements AppletStub {
 	private final Font font = new Font("Calibri", Font.PLAIN, 15);
 
 
-	private URLClassLoader classLoader = null;
+	private RsJarLoader classLoader = null;
 	private FileDownloader downloader;
 	private Applet applet;
 	private final Parameters params;
@@ -54,7 +54,7 @@ public class RSLoader extends JPanel implements AppletStub {
 					final File jar = new File(Utilities.getContentDirectory() + "game/os-gamepack.jar");
 
 					try {
-						classLoader = new URLClassLoader(new URL[]{jar.toURI().toURL()});
+						classLoader = new RsJarLoader(jar.toURI().toURL());
 					} catch (MalformedURLException e) {
 						e.printStackTrace();
 					}
@@ -66,7 +66,9 @@ public class RSLoader extends JPanel implements AppletStub {
 						a.printStackTrace();
 					}
 
+
 					applet.setStub(RSLoader.this);
+					applet.setPreferredSize(new Dimension(763, 504));
 					applet.init();
 					applet.start();
 					isAppletLoaded = true;
@@ -78,7 +80,7 @@ public class RSLoader extends JPanel implements AppletStub {
 					}
 
 					Reflection.init();
-					while(Game.getGameState() < 10){
+					while (Game.getGameState() < 10) {
 						Utilities.sleep(500, 1000);
 					}
 					Utilities.sleep(2000, 3000);
@@ -88,6 +90,7 @@ public class RSLoader extends JPanel implements AppletStub {
 
 					configuration.setKeyboard(new InternalKeyboard());
 					configuration.setMouse(new InternalMouse());
+
 				}
 			});
 			thread.start();
@@ -132,12 +135,14 @@ public class RSLoader extends JPanel implements AppletStub {
 			System.out.println("Error Null Class Loader");
 			return null;
 		}
-		try {
-			return classLoader.loadClass(className);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		if(!classLoader.classes().containsKey(className)){
+			try {
+				return classLoader.loadClass(className);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
-		return null;
+		return classLoader.classes().get(className);
 	}
 
 	@Override
@@ -165,14 +170,13 @@ public class RSLoader extends JPanel implements AppletStub {
 		return params.get(name);
 	}
 
+
 	@Override
 	public AppletContext getAppletContext() {
-		return null;
+		return null;  //To change body of implemented methods use File | Settings | File Templates.
 	}
-
-
 	@Override
 	public void appletResize(int width, int height) {
-
+		//To change body of implemented methods use File | Settings | File Templates.
 	}
 }

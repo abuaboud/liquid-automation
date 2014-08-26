@@ -9,8 +9,6 @@ import java.awt.*;
  */
 public interface Locatable {
 
-    public Polygon getBounds();
-
     public boolean isOnScreen();
 
     public Point getPointOnScreen();

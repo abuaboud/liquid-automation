@@ -12,6 +12,7 @@ import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Widget;
+import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.utils.Utilities;
 import sun.rmi.runtime.Log;
@@ -54,6 +55,12 @@ public class Talker extends RandomEvent {
 	@Override
 	public boolean active() {
 		if (Game.isLoggedIn() && !Players.getLocal().isInCombat() && !Bank.isOpen()) {
+			WidgetChild chatWidget =  Widgets.get(243,1);
+			if (chatWidget.isVisible()) {
+				String text = chatWidget.getText();
+				if (text != null && Utilities.inArray(text, NPC_NAMES))
+					return true;
+			}
 			talkingNPC = getTalkingNPC();
 			if (talkingNPC.isValid()) {
 				if (!startedTalking) {
@@ -78,13 +85,13 @@ public class Talker extends RandomEvent {
 		if (Camera.getPitch() < 70) {
 			Camera.setPitch(Random.nextInt(70, 90));
 		}
-		if (talkingNPC.isValid()) {
+		if (talkingNPC !=null && talkingNPC.isValid() && !Widgets.canContinue()) {
 			if(!talkingNPC.isOnScreen()){
 				talkingNPC.turnTo();
 			}
 			setStatus("Talking to NPC");
 			talkingNPC.interact("Talk-to", talkingNPC.getName());
-			for (int i = 0; i < 30 && talkingNPC.isValid() && !Widgets.canContinue(); i++, Time.sleep(100, 150)) ;
+			for (int i = 0; i < 20 && talkingNPC.isValid() && !Widgets.canContinue(); i++, Time.sleep(100, 150)) ;
 		}
 		if (Widgets.canContinue()) {
 			while (Game.isLoggedIn() && Widgets.canContinue()) {

@@ -1,7 +1,9 @@
 package org.liquidbot.bot.script.api.wrappers.definitions;
 
+import org.liquidbot.bot.client.injection.callback.ObjectDefinitionCallBack;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
+import org.liquidbot.bot.script.api.methods.data.Settings;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
@@ -20,18 +22,28 @@ public class ObjectDefinition {
 	public ObjectDefinition(int Id) {
 		if (nameCache.get(Id) == null) {
 			Object transformedComposite = null;
-			byte param = (byte) HookReader.methods.get("Client#getGameObjectComposite()").getCorrectParam();
-			Object raw = Reflection.invoke("Client#getGameObjectComposite()", null, Id,param);
-			String name = (String) Reflection.value("GameObjectComposite#getName()", raw);
-			if (name == null || name.equalsIgnoreCase("null")) {
-
-					int correctParam = HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
-					transformedComposite = Reflection.invoke("GameObjectComposite#getChildComposite()", raw, correctParam);
-
-
+			Object raw = ObjectDefinitionCallBack.get(Id);
+			if (raw != null) {
+				String name = (String) Reflection.value("GameObjectComposite#getName()", raw);
+				if (name == null || name.equalsIgnoreCase("null")) {
+					int[] transformIds = (int[]) Reflection.value("GameObjectComposite#getTransformIds()", raw);
+					if (transformIds != null && transformIds.length > 0) {
+						int varpIndex = (int) Reflection.value("GameObjectComposite#getTransformVarpIndex()", raw);
+						if (varpIndex > 0) {
+							int realId = transformIds[Settings.get(varpIndex)];
+							if (realId > 0) {
+								transformedComposite = ObjectDefinitionCallBack.get(realId);
+							}
+						}
+					}
+					if (transformedComposite == null) {
+						int correctParam = HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
+						transformedComposite = Reflection.invoke("GameObjectComposite#getChildComposite()", raw, correctParam);
+					}
+				}
+				nameCache.put(Id, (String) Reflection.value("GameObjectComposite#getName()", transformedComposite == null ? raw : transformedComposite));
+				actionsCache.put(Id, (String[]) Reflection.value("GameObjectComposite#getActions()", transformedComposite == null ? raw : transformedComposite));
 			}
-			nameCache.put(Id, (String) Reflection.value("GameObjectComposite#getName()", transformedComposite == null ? raw : transformedComposite));
-			actionsCache.put(Id, (String[]) Reflection.value("GameObjectComposite#getActions()", transformedComposite == null ? raw : transformedComposite));
 		}
 		if (nameCache.containsKey(Id)) {
 			name = nameCache.get(Id);

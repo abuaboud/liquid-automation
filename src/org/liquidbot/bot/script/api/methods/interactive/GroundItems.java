@@ -4,6 +4,7 @@ import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.query.GroundItemQuery;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.wrappers.GroundItem;
 import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.utils.Utilities;
@@ -171,12 +172,36 @@ public class GroundItems {
         });
     }
 
-	/**
-	 *
-	 * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use GroundItem#isValid instead
-	 */
-	public static GroundItem nil(){
-		return new GroundItem(null, null);
-	}
+    public static GroundItem getNext(Filter<GroundItem> filter) {
+        GroundItem[] groundItems = getAll(filter);
+	    if (groundItems == null || groundItems.length < 1)
+            return nil();
+        return groundItems[Random.nextInt(0, groundItems.length)];
+    }
+
+    public static GroundItem getNext(final String... names) {
+        return getNext(new Filter<GroundItem>() {
+            @Override
+            public boolean accept(GroundItem groundItem) {
+                return groundItem.isValid() && groundItem.getName() != null && Utilities.inArray(groundItem.getName(), names);
+            }
+        });
+    }
+
+    public static GroundItem getNext(final int... ids) {
+        return getNext(new Filter<GroundItem>() {
+            @Override
+            public boolean accept(GroundItem groundItem) {
+                return groundItem.isValid() && Utilities.inArray(groundItem.getId(), ids);
+            }
+        });
+    }
+
+    /**
+     * @return wrapper that have null in structure to avoid Null Pointer Exception and able to use GroundItem#isValid instead
+     */
+    public static GroundItem nil() {
+        return new GroundItem(null, null);
+    }
 
 }

@@ -42,8 +42,9 @@ public class Reflection {
 			FieldHook fieldHook = HookReader.fields.get(fieldKey);
 			if (fieldHook == null)
 				logger.error("FieldHook null " + fieldKey);
-			if (fieldHook != null && fieldHook.getType().equalsIgnoreCase("I"))
-				return (int) field.get(instance) * fieldHook.getMultiplier();
+			if (fieldHook != null && fieldHook.getType().equalsIgnoreCase("I")) {
+				return ((int) field.get(instance)) * fieldHook.getMultiplier();
+			}
 			return field.get(instance);
 		} catch (IllegalAccessException e) {
 			e.printStackTrace();

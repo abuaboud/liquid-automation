@@ -41,7 +41,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 	public static final int prisonHandler = 14;
 	public static final int quizMasterHandler = 15;
 	public static final int sandwichLadyHandler = 16;
-	public static final int scapeIslandHandler = 17;
+	public static final int scapeIslandHandler = 18;
 	public static final int strangePlantHandler = 18;
 	public static final int surpriseExamHandler = 19;
 	public static final int talkerHandler = 20;
@@ -79,7 +79,9 @@ public class RandomEventHandler implements Runnable, PaintListener {
 						}
 						setActive(true);
 						activeEvent = randomEvent;
+						Configuration.getInstance().getScriptHandler().getScriptThread().interrupt();
 						while (randomEvent.active() && Configuration.getInstance().getScriptHandler().getScriptState().equals(ScriptHandler.State.RUNNING)) {
+
 							randomEvent.solve();
 							Time.sleep(500);
 						}

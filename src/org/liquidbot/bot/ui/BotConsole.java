@@ -18,63 +18,62 @@ import java.util.Calendar;
  */
 public class BotConsole extends JPanel {
 
-    private final Font font = new Font("Calibri", Font.PLAIN, 13);
-    private final Color background = new Color(43, 43, 43);
-    private final Color foreground = new Color(168, 182, 197);
-    private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss z");
+	private final Font font = new Font("Calibri", Font.PLAIN, 13);
+	private final Color background = new Color(43, 43, 43);
+	private final Color foreground = new Color(168, 182, 197);
+	private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("HH:mm:ss z");
 
-    private boolean displaying = false;
+	private boolean displaying = false;
 
-    private final JScrollPane scrollPane;
-    private final JTextPane textPane;
-    private final StyledDocument doc;
-    private final Style style;
+	private final JScrollPane scrollPane;
+	private final JTextPane textPane;
+	private final StyledDocument doc;
+	private final Style style;
 
-    public BotConsole() {
-        textPane = new JTextPane();
-        textPane.setEditable(false);
-        scrollPane = new JScrollPane(textPane);
-        scrollPane.setOpaque(false);
-        doc = textPane.getStyledDocument();
-        style = textPane.addStyle("Style", null);
+	public BotConsole() {
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		scrollPane = new JScrollPane(textPane);
+		scrollPane.setOpaque(false);
+		doc = textPane.getStyledDocument();
+		style = textPane.addStyle("Style", null);
 
-        textPane.setForeground(foreground);
-        textPane.setBackground(background);
-        textPane.setFont(font);
+		textPane.setForeground(foreground);
+		textPane.setBackground(background);
+		textPane.setFont(font);
 
-        setPreferredSize(new Dimension(Constants.APPLET_WIDTH, 125));
-        setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
-    }
+		setPreferredSize(new Dimension(Constants.APPLET_WIDTH, 125));
+		setLayout(new BorderLayout());
+		add(scrollPane, BorderLayout.CENTER);
+	}
 
-    public void append(String str, Color color) {
-        final String[] count = textPane.getText().split("\n");
-        if (count.length > 300)
-            textPane.setText("");
+	public void append(String str, Color color) {
+		try {
+			String[] count = textPane.getText().split("\n");
+			if (count.length > 300)
+				textPane.setText("");
 
-        try {
+			StyleConstants.setForeground(style, foreground);
+			doc.insertString(doc.getLength(), "[" + DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
+			StyleConstants.setForeground(style, color != null ? color : foreground);
+			doc.insertString(doc.getLength(), str + "\n", style);
+			textPane.setCaretPosition(doc.getLength());
 
-            StyleConstants.setForeground(style, foreground);
-            doc.insertString(doc.getLength(), "[" + DATE_FORMAT.format(Calendar.getInstance().getTime()) + "] ", style);
-            StyleConstants.setForeground(style, color != null ? color : foreground);
-            doc.insertString(doc.getLength(), str + "\n", style);
-            textPane.setCaretPosition(doc.getLength());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-        } catch (BadLocationException | IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-    }
+	public void append(String str) {
+		append(str, foreground);
+	}
 
-    public void append(String str) {
-        append(str, foreground);
-    }
+	public boolean isDisplaying() {
+		return displaying;
+	}
 
-    public boolean isDisplaying() {
-        return displaying;
-    }
-
-    public void display(boolean visible) {
-        displaying = visible;
-    }
+	public void display(boolean visible) {
+		displaying = visible;
+	}
 
 }

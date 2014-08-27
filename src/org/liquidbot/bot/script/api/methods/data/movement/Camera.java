@@ -154,30 +154,61 @@ public class Camera {
 	}
 
 	/**
-	 * @param degrees to change
+	 * @param angel to change
 	 * @return true if done else false
 	 */
-	public static boolean setAngle(int degrees) {
+	public static boolean setAngle(int angel) {
 		if (!Game.isLoggedIn())
 			return false;
-		if (degrees > 360 || degrees < 0)
+		if (angel > 360 || angel < 0)
 			return false;
-		if (getAngleTo(degrees) > 5) {
-			Keyboard.press((char) KeyEvent.VK_LEFT);
-			while (getAngleTo(degrees) > 5 && Game.isLoggedIn()) {
-				Time.sleep(25);
-			}
-			Keyboard.release((char) KeyEvent.VK_LEFT);
-		} else if (getAngleTo(degrees) < -5) {
-			Keyboard.press((char) KeyEvent.VK_RIGHT);
-			while (getAngleTo(degrees) < -5 && Game.isLoggedIn()) {
-				Time.sleep(25);
-			}
-			Keyboard.release((char) KeyEvent.VK_RIGHT);
+		int maxRight = angel - 180;
+		int dir = -1;
+		if (maxRight < 0) {
+			maxRight += 360;
 		}
-		return Math.abs(degrees - getAngle()) < 5;
+		if (angel > maxRight) {
+			if (angel >= maxRight) {
+				dir = KeyEvent.VK_RIGHT;
+			} else {
+				dir = KeyEvent.VK_LEFT;
+			}
+		} else {
+			if (angel >= maxRight) {
+				dir = KeyEvent.VK_RIGHT;
+			} else {
+				dir = KeyEvent.VK_LEFT;
+			}
+		}
+		if (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5) {
+			Keyboard.press(dir);
+			Timer t = new Timer(4000);
+			while (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5 && t.isRunning()) {
+				Time.sleep(30, 50);
+			}
+			Keyboard.release(dir);
+			if (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5 && Game.isLoggedIn()) {
+				return setAngle(angel);
+			}
+		}
+		return getSmallestAbsDifferenceInAngel(getAngle(), angel) <= 5;
 	}
 
+	/**
+	 * @param angel1
+	 * @param angel2
+	 * @return Integer : max angel - min angel then abs it
+	 */
+	private static int getSmallestAbsDifferenceInAngel(final int angel1, final int angel2) {
+		int biggerAngel = Math.max(angel1, angel2);
+		int smallerAngel = Math.min(angel1, angel2);
+
+		if (smallerAngel + 180 >= biggerAngel) {
+			return biggerAngel - smallerAngel;
+		} else {
+			return 360 - biggerAngel + smallerAngel;
+		}
+	}
 
 	/**
 	 * Change Pitch/Angel to be able to see locatable

@@ -151,7 +151,7 @@ public class Molly extends RandomEvent implements PaintListener {
 							Time.sleep(new Condition() {
 								@Override
 								public boolean active() {
-									return door.isOnScreen();
+									return !door.isOnScreen();
 								}
 							}, 3000);
 						}

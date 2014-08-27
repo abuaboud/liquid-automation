@@ -4,13 +4,9 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.component.Canvas;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -116,6 +112,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		accounts = new JMenuItem("Account Manager");
 		accounts.addActionListener(this);
 
+
+
+
 		view.add(displayfps);
 		view.add(gameState);
 		view.add(playerLocation);
@@ -210,7 +209,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == lowCpu) {
 			config.getFpsSlider().setValue(config.lowCpu() ? 50 : 10);
 			config.setCPU(!config.lowCpu());
-			FileUtils.save(Constants.SETTING_FILE_NAME,"LOW_CPU",config.lowCpu() + "");
+			FileUtils.save(Constants.SETTING_FILE_NAME, "LOW_CPU", config.lowCpu() + "");
 		} else if (e.getSource() == displayfps) {
 			log.info(!config.isDisplayFPS() ? "Enabled FPS debugger." : "Disabled FPS debugger.");
 			config.setDisplayFPS(!config.isDisplayFPS());

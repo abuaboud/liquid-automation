@@ -17,6 +17,10 @@ import java.awt.event.ActionListener;
  */
 public class SDNElement extends JPanel implements Runnable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -11911333152280301L;
 	private JButton button;
 	private JLabel imageLabel;
 

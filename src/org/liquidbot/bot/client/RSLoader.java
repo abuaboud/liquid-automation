@@ -8,7 +8,6 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.util.Random;
-import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.FileDownloader;
 import org.liquidbot.bot.utils.Utilities;
 import org.liquidbot.component.Canvas;
@@ -21,13 +20,16 @@ import java.awt.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLClassLoader;
 
 /**
  * Created by Kenneth on 7/29/2014.
  */
 public class RSLoader extends JPanel implements AppletStub {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8902296630509146560L;
 	private boolean isAppletLoaded = false;
 	private final Font font = new Font("Calibri", Font.PLAIN, 15);
 

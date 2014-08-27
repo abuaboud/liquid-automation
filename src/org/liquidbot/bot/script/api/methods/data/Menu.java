@@ -1,6 +1,5 @@
 package org.liquidbot.bot.script.api.methods.data;
 
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Random;

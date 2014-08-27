@@ -4,7 +4,6 @@ import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.methods.data.Game;
-import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Players;

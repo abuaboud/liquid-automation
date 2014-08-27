@@ -2,18 +2,12 @@ package org.liquidbot.component.debug;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.methods.data.Game;
-import org.liquidbot.bot.script.api.methods.input.Mouse;
-import org.liquidbot.bot.script.api.methods.interactive.Widgets;
-import org.liquidbot.bot.script.api.wrappers.Widget;
-import org.liquidbot.bot.script.api.wrappers.WidgetChild;
-
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * Created by Hiasat on 8/13/14.
  */
-public class WidgetDebugger extends Debugger {
+public class WidgetDebugger extends Debugger<Object> {
 
 	public static int x,y,height,width = -1;
 

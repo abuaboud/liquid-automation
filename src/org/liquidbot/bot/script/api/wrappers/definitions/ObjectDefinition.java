@@ -5,7 +5,6 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.methods.data.Settings;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Hashtable;
 
 /*

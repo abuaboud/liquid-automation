@@ -1,6 +1,5 @@
 package org.liquidbot.bot.ui;
 
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Constants;
 
 import javax.swing.*;
@@ -9,7 +8,6 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -75,5 +73,6 @@ public class BotConsole extends JPanel {
 	public void display(boolean visible) {
 		displaying = visible;
 	}
+
 
 }

@@ -6,7 +6,6 @@ import org.liquidbot.bot.script.loader.ScriptInfo;
 import org.liquidbot.bot.script.loader.ScriptLoader;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
@@ -17,6 +16,10 @@ import java.util.ArrayList;
 public class SDNFrame extends JFrame {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3477461781165675L;
 	private JTextField searchField;
 	private ArrayList<SDNElement> elements = new ArrayList<>();
 

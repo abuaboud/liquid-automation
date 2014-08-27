@@ -9,7 +9,7 @@ import java.util.*;
  * Created by Kenneth on 7/29/2014.
  */
 @SuppressWarnings("unchecked")
-public abstract class AbstractQuery<Q extends AbstractQuery, E> implements Iterable<E>, Nilable<E> {
+public abstract class AbstractQuery<Q extends AbstractQuery<?, ?>, E> implements Iterable<E>, Nilable<E> {
 
     private final List<E> elements = new LinkedList<E>();
 

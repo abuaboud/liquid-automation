@@ -9,7 +9,6 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.data.movement.Camera;
-import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.definitions.ItemDefinition;

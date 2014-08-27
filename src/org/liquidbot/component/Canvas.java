@@ -2,21 +2,10 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.injection.callback.ModelCallBack;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
-import org.liquidbot.bot.client.reflection.Reflection;
-import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
-import org.liquidbot.bot.script.api.methods.data.Game;
-import org.liquidbot.bot.script.api.methods.data.movement.Walking;
-import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
-import org.liquidbot.bot.script.api.methods.interactive.NPCs;
-import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
-import org.liquidbot.bot.script.api.wrappers.GameObject;
-import org.liquidbot.bot.script.api.wrappers.Model;
-import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.component.debug.*;
 
 import java.awt.*;
@@ -31,6 +20,10 @@ import java.util.List;
  */
 public class Canvas extends java.awt.Canvas {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1866865517983194665L;
 	private final Configuration config = Configuration.getInstance();
 	private final java.awt.Canvas canvas;
 	private final BufferedImage botBuffer = new BufferedImage(765, 503, BufferedImage.TYPE_INT_RGB);
@@ -53,7 +46,7 @@ public class Canvas extends java.awt.Canvas {
 	public Canvas(java.awt.Canvas canvas) {
 		this.canvas = canvas;
 		canvas.setPreferredSize(new Dimension(Constants.APPLET_WIDTH, Constants.APPLET_HEIGHT));
-		final Debugger[] debuggers = {
+		final Debugger<?>[] debuggers = {
 				new MouseDebugger(), new NPCDebugger(), new PlayerDebugger(), new GroundItemDebugger(), new GameObjectDebugger()
 				, new TextDebugger(), new SettingsDebugger(), new InventoryDebugger(), new WidgetDebugger()
 		};
@@ -79,7 +72,7 @@ public class Canvas extends java.awt.Canvas {
 			}
 			for (PaintListener listener : getPaintListeners()) {
 				if (listener instanceof Debugger) {
-					final Debugger debug = (Debugger) listener;
+					final Debugger<?> debug = (Debugger<?>) listener;
 					if (debug.activate()) {
 						debug.render((Graphics2D) graphics);
 					}

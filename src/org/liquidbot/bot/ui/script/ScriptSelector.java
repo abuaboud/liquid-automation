@@ -3,19 +3,15 @@ package org.liquidbot.bot.ui.script;
 import com.google.gson.Gson;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.script.SkillCategory;
 import org.liquidbot.bot.script.loader.ScriptInfo;
 import org.liquidbot.bot.script.loader.ScriptLoader;
 import org.liquidbot.bot.ui.account.Account;
-import org.liquidbot.bot.ui.sdn.SDNElement;
 import org.liquidbot.bot.utils.NetUtils;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.*;
 
 /**
@@ -23,6 +19,10 @@ import java.util.*;
  */
 public class ScriptSelector extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5378865050472191696L;
 	private final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
 	private final Gson gson = new Gson();
 

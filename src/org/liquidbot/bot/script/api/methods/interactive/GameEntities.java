@@ -1,6 +1,5 @@
 package org.liquidbot.bot.script.api.methods.interactive;
 
-import com.google.gson.JsonArray;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.Game;

@@ -8,4 +8,7 @@
 *.txt
 *.classpath
 *.project
+*.metadata
+*.settings
+/bin/*
 /out/*

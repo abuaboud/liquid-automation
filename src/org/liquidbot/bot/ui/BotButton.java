@@ -11,7 +11,11 @@ import java.awt.*;
 public class BotButton extends JButton {
 
 
-    private Image buttonIcon;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 8254130076836375897L;
+	private Image buttonIcon;
     private Image buttonRollOverIcon;
     private Image buttonDisabledIcon;
     private Image buttonHoveredIcon;

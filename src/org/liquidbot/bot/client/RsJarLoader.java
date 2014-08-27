@@ -3,8 +3,6 @@ package org.liquidbot.bot.client;
 import org.liquidbot.bot.client.injection.Injector;
 import org.liquidbot.bot.client.injection.ModelInjector;
 import org.liquidbot.bot.client.injection.ObjectDefinitionInjector;
-import org.liquidbot.bot.client.parser.HookReader;
-import org.liquidbot.bot.script.api.wrappers.definitions.ObjectDefinition;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
@@ -95,6 +93,7 @@ public class RsJarLoader extends ClassLoader {
 				int percent = (entries.size() * 100) / 201;
 				bos.close();
 			}
+			jis.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

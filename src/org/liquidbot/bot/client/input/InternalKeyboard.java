@@ -2,7 +2,6 @@ package org.liquidbot.bot.client.input;
 
 import org.liquidbot.bot.Configuration;
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

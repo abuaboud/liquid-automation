@@ -1,7 +1,6 @@
 package org.liquidbot.bot.script.api.wrappers;
 
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
 import org.liquidbot.bot.script.api.methods.data.Menu;

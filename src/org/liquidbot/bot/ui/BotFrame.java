@@ -16,7 +16,12 @@ import java.awt.event.WindowListener;
  */
 public class BotFrame extends JFrame implements WindowListener {
 
-    private final Logger log = new Logger(getClass());
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 5752868874839930988L;
+
+	private final Logger log = new Logger(getClass());
 
     private final RSLoader loader;
     private final BotButtonPanel buttonPanel;

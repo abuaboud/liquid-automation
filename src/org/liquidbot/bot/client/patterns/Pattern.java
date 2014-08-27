@@ -7,9 +7,6 @@ import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
-import java.io.File;
-import java.util.ArrayList;
-
 /**
  * Created by Hiasat on 8/22/14.
  */

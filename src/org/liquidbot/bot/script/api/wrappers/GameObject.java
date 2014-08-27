@@ -16,8 +16,6 @@ import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.definitions.ObjectDefinition;
-import org.liquidbot.bot.utils.Utilities;
-
 import java.awt.*;
 
 /*

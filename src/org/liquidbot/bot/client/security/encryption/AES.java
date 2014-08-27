@@ -3,18 +3,10 @@ package org.liquidbot.bot.client.security.encryption;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.ui.login.misc.User;
-import sun.security.krb5.Config;
-
-import java.security.MessageDigest;
-import java.util.Arrays;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
 import javax.crypto.Cipher;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 
 public class AES {
 

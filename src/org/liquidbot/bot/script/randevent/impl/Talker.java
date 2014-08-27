@@ -11,11 +11,9 @@ import org.liquidbot.bot.script.api.methods.interactive.Widgets;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.NPC;
-import org.liquidbot.bot.script.api.wrappers.Widget;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.utils.Utilities;
-import sun.rmi.runtime.Log;
 
 /*
  * Created by Hiasat on 8/5/14

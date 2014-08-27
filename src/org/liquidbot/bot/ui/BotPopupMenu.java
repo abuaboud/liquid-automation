@@ -4,13 +4,8 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
-import org.liquidbot.component.Canvas;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,9 +15,13 @@ import java.awt.event.ActionListener;
  */
 public class BotPopupMenu extends JPopupMenu implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5639231076995913638L;
 	private final JMenu view, lowCpuMenu;
 	private final JCheckBoxMenuItem smartBreak, gameObjects, npcs, groundItems, mouse, canvas, players, inventory, gameState, playerLocation, mouseLocation, floor, mapBase, camera, menu, lowCpu, displayfps;
-	private final JMenuItem settings, widgets, console, accounts;
+	private final JMenuItem settings, widgets, console, accounts, creator;
 	private final Configuration config = Configuration.getInstance();
 
 	private final Logger log = new Logger(getClass());
@@ -116,6 +115,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		accounts = new JMenuItem("Account Manager");
 		accounts.addActionListener(this);
 
+		creator = new JMenuItem("Account Creator");
+		creator.addActionListener(this);
+
 		view.add(displayfps);
 		view.add(gameState);
 		view.add(playerLocation);
@@ -138,6 +140,7 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		add(settings);
 		add(widgets);
 		add(accounts);
+		add(creator);
 		add(new JSeparator());
 		add(lowCpuMenu);
 		add(smartBreak);
@@ -183,6 +186,9 @@ public class BotPopupMenu extends JPopupMenu implements ActionListener {
 		} else if (e.getSource() == accounts) {
 			log.info(config.getAccountManager().isVisible() ? "Closing account manager." : "Displaying account manager.");
 			config.getAccountManager().setVisible(!config.getAccountManager().isVisible());
+		} else if (e.getSource() == creator) {
+			log.info(config.getAccountCreator().isVisible() ? "Closing account creator." : "Displaying account creator.");
+			config.getAccountCreator().setVisible(!config.getAccountCreator().isVisible());
 		} else if (e.getSource() == settings) {
 			log.info(!config.drawSettings() ? "Enabled Setting debugger." : "Disabled Setting debugger.");
 			config.drawSettings(!config.drawSettings());

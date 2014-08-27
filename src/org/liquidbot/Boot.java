@@ -2,16 +2,13 @@ package org.liquidbot;
 
 import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.security.LSecurityManager;
-import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
 import org.liquidbot.bot.ui.login.IPBLogin;
-import org.liquidbot.bot.utils.FileUtils;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.Utilities;
 

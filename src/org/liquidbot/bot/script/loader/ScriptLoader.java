@@ -4,7 +4,6 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
 import org.liquidbot.bot.script.LoopScript;
 import org.liquidbot.bot.script.Manifest;
-import org.liquidbot.bot.script.SkillCategory;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;

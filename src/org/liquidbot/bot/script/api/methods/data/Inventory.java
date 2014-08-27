@@ -5,7 +5,6 @@ import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.methods.interactive.Widgets;
 import org.liquidbot.bot.script.api.query.ItemQuery;
-import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.wrappers.Item;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;

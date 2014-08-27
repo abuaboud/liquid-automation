@@ -2,8 +2,6 @@ package org.liquidbot.bot.script.api.util;
 
 import org.liquidbot.bot.Configuration;
 
-import java.io.File;
-
 
 /*
  * Created by Hiasat on 8/3/14

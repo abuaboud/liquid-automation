@@ -2,10 +2,6 @@ package org.liquidbot.bot.ui;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
-import org.liquidbot.bot.script.loader.ScriptInfo;
-import org.liquidbot.bot.script.loader.ScriptLoader;
-import org.liquidbot.bot.ui.account.Account;
-import org.liquidbot.bot.ui.script.ScriptPanel;
 import org.liquidbot.bot.ui.script.ScriptSelector;
 import org.liquidbot.bot.ui.sdn.SDNFrame;
 import org.liquidbot.bot.utils.Logger;
@@ -14,13 +10,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 /**
  * Created by Kenneth on 7/29/2014.
  */
 public class BotButtonPanel extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3147770371892729345L;
 	private final Color color = new Color(92, 98, 106);
 	private final Color colorDark = color.darker();
 

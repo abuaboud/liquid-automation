@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by Kenneth on 7/30/2014.
  */
-public class MouseDebugger extends Debugger {
+public class MouseDebugger extends Debugger<Object> {
 
     private final MouseTrail trail = new MouseTrail();
     private final Color trailc = new Color(Color.WHITE.getRed(), Color.WHITE.getGreen(), Color.WHITE.getBlue(), 100);

@@ -2,7 +2,6 @@ package org.liquidbot.bot.script.randevent.impl;
 
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.methods.data.Bank;
 import org.liquidbot.bot.script.api.methods.data.Game;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
@@ -11,7 +10,6 @@ import org.liquidbot.bot.script.api.util.Timer;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.script.randevent.RandomEventHandler;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 

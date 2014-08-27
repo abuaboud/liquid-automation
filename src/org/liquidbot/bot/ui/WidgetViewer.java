@@ -19,6 +19,10 @@ import java.awt.event.ActionListener;
  */
 public class WidgetViewer extends JFrame implements TreeSelectionListener, ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7322690430729250639L;
 	private JScrollPane scrollPane;
 	private JList<String> list;
 	private JTree tree;

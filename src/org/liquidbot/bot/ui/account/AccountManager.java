@@ -1,9 +1,9 @@
 package org.liquidbot.bot.ui.account;
 
 import com.google.gson.Gson;
-import de.javasoft.plaf.synthetica.SyntheticaAluOxideLookAndFeel;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 
@@ -18,7 +18,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +26,10 @@ import java.util.List;
  */
 public class AccountManager extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8108677382395337830L;
 	private final Logger log = new Logger(AccountManager.class);
 	private final File accountFile = new File(Constants.SETTING_PATH + File.separator + Constants.ACCOUNT_FILE_NAME);
 	private final Gson gson = new Gson();
@@ -40,6 +43,8 @@ public class AccountManager extends JFrame {
 	private final JTextField userField;
 	private final JLabel userLabel;
 
+	private final Account.Reward[] rewardValues = Account.Reward.values();
+	
 	private final JComboBox<Account.Reward> rewardsBox;
 
 	public AccountManager() {
@@ -67,6 +72,11 @@ public class AccountManager extends JFrame {
 		this.model = new DefaultTableModel(loadAccounts(), new String[]{
 				"Username", "Password", "Bank Pin", "Experience"
 		}) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1502521259405517774L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column != 0;
@@ -126,7 +136,7 @@ public class AccountManager extends JFrame {
 				}
 			}
 		});
-		rewardsBox = new JComboBox<>(Account.Reward.values());
+		rewardsBox = new JComboBox<>(rewardValues);
 
 		final JPanel center = new JPanel();
 		center.setBorder(new TitledBorder("Add a new account."));
@@ -160,6 +170,16 @@ public class AccountManager extends JFrame {
 
 		pack();
 		setLocationRelativeTo(getOwner());
+	}
+	
+	public void addAccount(String username, String password) {
+		model.addRow(new String[]{
+				username,
+				password,
+				"",
+				rewardValues[0].toString()
+		});
+		saveAccounts();
 	}
 
 	public Account[] getAccounts() {

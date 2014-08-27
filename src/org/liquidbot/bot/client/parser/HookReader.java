@@ -1,11 +1,7 @@
 package org.liquidbot.bot.client.parser;
 
-import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.utils.NetUtils;
-import sun.security.krb5.Config;
-
 import java.util.Hashtable;
 
 /**

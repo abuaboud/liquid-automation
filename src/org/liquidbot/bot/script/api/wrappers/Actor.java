@@ -3,8 +3,6 @@ package org.liquidbot.bot.script.api.wrappers;/*
  */
 
 import org.liquidbot.bot.Configuration;
-import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.client.injection.ModelInjector;
 import org.liquidbot.bot.client.injection.callback.ModelCallBack;
 import org.liquidbot.bot.client.reflection.Reflection;
 import org.liquidbot.bot.script.api.interfaces.Interactable;
@@ -17,8 +15,6 @@ import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
-import org.liquidbot.bot.utils.Utilities;
-
 import java.awt.*;
 
 

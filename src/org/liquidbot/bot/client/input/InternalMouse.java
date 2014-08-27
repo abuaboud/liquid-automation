@@ -8,12 +8,10 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.client.input.algorithms.MouseAlgorithm;
 import org.liquidbot.bot.client.input.algorithms.Spline;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
-import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.utils.Utilities;
 
-import java.applet.Applet;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

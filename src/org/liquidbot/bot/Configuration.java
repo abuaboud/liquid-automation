@@ -7,7 +7,7 @@ import org.liquidbot.bot.client.security.encryption.AES;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.ui.BotConsole;
 import org.liquidbot.bot.ui.BotFrame;
-import org.liquidbot.bot.ui.account.Account;
+import org.liquidbot.bot.ui.account.AccountCreator;
 import org.liquidbot.bot.ui.account.AccountManager;
 import org.liquidbot.bot.ui.login.misc.User;
 import org.liquidbot.bot.utils.Logger;
@@ -57,6 +57,8 @@ public class Configuration {
 	private boolean displayFPS = false;
 
 	private boolean smartBreak = true;
+
+	private AccountCreator accountCreator;
 
 	private static Configuration instance = new Configuration();
 
@@ -185,6 +187,12 @@ public class Configuration {
 		if (accountManager == null)
 			accountManager = new AccountManager();
 		return accountManager;
+	}
+
+	public AccountCreator getAccountCreator() {
+		if (accountCreator == null)
+			accountCreator = new AccountCreator();
+		return accountCreator;
 	}
 
 	public Pattern pattern() {

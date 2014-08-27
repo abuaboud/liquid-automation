@@ -11,11 +11,9 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.GameObject;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 import org.liquidbot.bot.script.api.wrappers.Widget;
-import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**

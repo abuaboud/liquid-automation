@@ -22,7 +22,11 @@ import java.net.URI;
 
 public class IPBLogin extends JFrame implements WindowListener {
 
-    private final Configuration config = Configuration.getInstance();
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6254778057684395562L;
+	private final Configuration config = Configuration.getInstance();
     private final Logger log = new Logger(IPBLogin.class);
 
     private JTextField userNameField;

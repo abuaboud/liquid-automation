@@ -1,7 +1,5 @@
 package org.liquidbot.bot.client.injection.callback;
 
-import org.liquidbot.bot.script.api.wrappers.Model;
-
 import java.util.Hashtable;
 
 /**

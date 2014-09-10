@@ -4,6 +4,7 @@ import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.ScriptHandler;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
 import org.liquidbot.bot.script.api.util.Time;
+import org.liquidbot.bot.script.api.util.Timer;
 import org.liquidbot.bot.script.randevent.impl.*;
 import org.liquidbot.bot.utils.Logger;
 
@@ -99,8 +100,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 			}
 		}
 		SmartBreak aBreak = (SmartBreak) randomEvents[smartBreak];
-		aBreak.amounts.clear();
-		aBreak.breaks.clear();
+		aBreak.timer = new Timer(60 * 3 * 60 * 1000);
 	}
 
 
@@ -134,7 +134,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 
 				graphics.setColor(Color.ORANGE);
 				graphics.drawString(Time.parse(aBreak.timer.getRemaining()), 692, 152);
-				graphics.drawString(Time.parse(aBreak.restTimer.getRemaining()), 692, 164);
+				graphics.drawString(Time.parse(aBreak.breakTimer.getRemaining()), 692, 164);
 			}
 
 		}
@@ -142,7 +142,7 @@ public class RandomEventHandler implements Runnable, PaintListener {
 
 	public static void enableRandom(int i, boolean enable) {
 		RandomEvent randomEvent = Configuration.getInstance().getScriptHandler().getRandomEventHandler().randomEvents[i];
-		Configuration.getInstance().getScriptHandler().getRandomEventHandler().log.info(enable ? "Enabled " : "Disabled " + randomEvent);
+		Configuration.getInstance().getScriptHandler().getRandomEventHandler().log.info(enable ? "Enabled " : "Disabled " + randomEvent.getName());
 		randomEvent.setEnabled(enable);
 	}
 }

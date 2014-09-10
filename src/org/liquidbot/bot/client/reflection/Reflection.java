@@ -113,7 +113,8 @@ public class Reflection {
 		if (methodHook == null)
 			logger.error("MethodHook null " + methodKey);
 		for (Method method : config.getBotFrame().loader().loadClass(methodHook.getClassName()).getDeclaredMethods()) {
-			if (method != null && method.getName().equalsIgnoreCase(methodHook.getMethodName()) && (methodHook.getMethodKey().toLowerCase().contains("client") ? Modifier.isStatic(method.getModifiers()) : true)) {
+			if (method != null && method.getName().equalsIgnoreCase(methodHook.getMethodName())
+					&& (methodHook.getMethodKey().toLowerCase().contains("client") ? Modifier.isStatic(method.getModifiers()) : true)) {
 				if ((method.getReturnType() + "").contains("class")) {
 					method.setAccessible(true);
 					return method;

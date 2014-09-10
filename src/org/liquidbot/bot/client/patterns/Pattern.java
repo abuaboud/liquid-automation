@@ -19,11 +19,12 @@ public class Pattern {
 	private Logger log = new Logger(getClass());
 
 	public boolean contains(String text) {
-		if (currentPattern == null)
+		return false;
+	/*	if (currentPattern == null)
 			currentPattern = NetUtils.readPage(Constants.SITE_URL + "/client/generatePattern.php")[0];
 		if (parsedPattern == null)
 			parsedPattern = parse(currentPattern);
-		return Utilities.inArray(text, parsedPattern);
+		return Utilities.inArray(text, parsedPattern);*/
 	}
 
 	public String find(String search) {

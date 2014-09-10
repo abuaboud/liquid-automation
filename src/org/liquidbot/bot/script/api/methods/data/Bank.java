@@ -7,6 +7,7 @@ import org.liquidbot.bot.script.api.interfaces.Condition;
 import org.liquidbot.bot.script.api.interfaces.Filter;
 import org.liquidbot.bot.script.api.methods.data.movement.Walking;
 import org.liquidbot.bot.script.api.methods.input.Keyboard;
+import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.methods.interactive.GameEntities;
 import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.methods.interactive.Players;
@@ -39,8 +40,8 @@ public class Bank {
 			BANK_TITLE = 2, BANK_FULL_SPACE = 5, BANK_USED_SPACE = 3,
 			BANK_INNER_INTERFACE = 1, BANK_CLOSE = 11,
 			BANK_DEPOSIT_INVENTORY = 25, BANK_DEPOSIT_WORN_ITEMS = 27;
-	private static final String[] NPC_BANK_NAMES = { "Banker", "Ghost banker",
-			"Banker tutor" };
+	private static final String[] NPC_BANK_NAMES = {"Banker", "Ghost banker",
+			"Banker tutor", "Squire"};
 	private static final String OBJECT_BANK_NAME = "Bank Booth";
 
 	public static Item[] getAllItems(Filter<Item> filter) {
@@ -217,7 +218,7 @@ public class Bank {
 		return iFace.isVisible()
 				&& iFace.getText() != null
 				&& iFace.getText().toLowerCase()
-						.contains("the bank of runescape");
+				.contains("the bank of runescape");
 	}
 
 	public static boolean close() {
@@ -302,15 +303,15 @@ public class Bank {
 			action = "Deposit-All";
 		} else {
 			switch (amountInInventory) {
-			case 1:
-				action = "Deposit-1";
-				break;
-			case 5:
-				action = "Deposit-5";
-				break;
-			case 10:
-				action = "Deposit-10";
-				break;
+				case 1:
+					action = "Deposit-1";
+					break;
+				case 5:
+					action = "Deposit-5";
+					break;
+				case 10:
+					action = "Deposit-10";
+					break;
 			}
 		}
 		item.interact(action, item.getName());
@@ -339,16 +340,21 @@ public class Bank {
 			action = "Withdraw-All";
 		} else {
 			switch (amount) {
-			case 1:
-				action = "Withdraw-1";
-				break;
-			case 5:
-				action = "Withdraw-5";
-				break;
-			case 10:
-				action = "Withdraw-10";
-				break;
+				case 1:
+					action = "Withdraw-1";
+					break;
+				case 5:
+					action = "Withdraw-5";
+					break;
+				case 10:
+					action = "Withdraw-10";
+					break;
 			}
+		}
+		Mouse.move(item.getInteractPoint());
+		Time.sleep(100, 250);
+		if (Menu.contains("Withdraw-" + amount)) {
+			action = "Withdraw-" + amount;
 		}
 		item.interact(action, item.getName());
 		if (action.contains("X")) {
@@ -447,23 +453,23 @@ public class Bank {
 	public static boolean open() {
 		if (isOpen())
 			return true;
-		final NPC banker = NPCs.getNext(NPC_BANK_NAMES);
-		GameObject bankBooth = GameEntities.getNext(new Filter<GameObject>() {
-            @Override
-            public boolean accept(GameObject gameObject) {
-                if (gameObject.isValid()
-                        && gameObject.getName() != null
-                        && gameObject.getName().equalsIgnoreCase(
-                        OBJECT_BANK_NAME)) {
-                    if (banker.isValid()
-                            && gameObject.distanceTo(banker
-                            .getLocation()) < 3) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
+		final NPC banker = NPCs.getNearest(NPC_BANK_NAMES);
+		GameObject bankBooth = GameEntities.getNearest(new Filter<GameObject>() {
+			@Override
+			public boolean accept(GameObject gameObject) {
+				if (gameObject.isValid()
+						&& gameObject.getName() != null
+						&& gameObject.getName().equalsIgnoreCase(
+						OBJECT_BANK_NAME)) {
+					if (banker.isValid()
+							&& gameObject.distanceTo(banker
+							.getLocation()) < 3) {
+						return true;
+					}
+				}
+				return false;
+			}
+		});
 		if (banker.isValid() && (Configuration.getInstance().pattern().contains("USE_BANK_BOOTH_NO") || !bankBooth.isValid())) {
 			if (banker.isOnScreen()) {
 				banker.interact("Bank", banker.getName());

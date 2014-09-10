@@ -93,7 +93,7 @@ public class Calculations {
 	 * @return boolean : true if distance to tile less than 17 else false
 	 */
 	public static boolean isOnMap(Tile tile) {
-		return Calculations.distanceTo(tile) < 17;
+		return Calculations.distanceTo(tile) < 16;
 	}
 
 	/**

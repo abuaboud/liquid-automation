@@ -16,7 +16,7 @@ public class NPCDefinition {
 		if (raw != null) {
 			String name = (String) Reflection.value("NPCComposite#getName()", raw);
 			if (name == null || name.equalsIgnoreCase("null")) {
-				int correctParam = HookReader.methods.get("NPCComposite#getChildComposite()").getCorrectParam();
+				byte correctParam =(byte) HookReader.methods.get("NPCComposite#getChildComposite()").getCorrectParam();
 				transformedComposite = Reflection.invoke("NPCComposite#getChildComposite()", raw, correctParam);
 			}
 		}

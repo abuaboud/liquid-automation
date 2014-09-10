@@ -2,9 +2,12 @@ package org.liquidbot.component;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.client.input.algorithms.LMouse;
 import org.liquidbot.bot.client.parser.FieldHook;
 import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.script.api.interfaces.PaintListener;
+import org.liquidbot.bot.script.api.methods.data.Game;
+import org.liquidbot.bot.script.api.methods.input.Mouse;
 import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.component.debug.*;
 
@@ -21,7 +24,7 @@ import java.util.List;
 public class Canvas extends java.awt.Canvas {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1866865517983194665L;
 	private final Configuration config = Configuration.getInstance();
@@ -53,6 +56,7 @@ public class Canvas extends java.awt.Canvas {
 		Collections.addAll(listeners, debuggers);
 	}
 
+
 	/**
 	 * Doubling Canvas Buffering & drawing PaintListeners
 	 *
@@ -81,7 +85,6 @@ public class Canvas extends java.awt.Canvas {
 				}
 			}
 		}
-
 		graphics.dispose();
 		final Graphics2D rend = (Graphics2D) canvas.getGraphics();
 		rend.drawImage(botBuffer, 0, 0, null);

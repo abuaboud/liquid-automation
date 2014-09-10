@@ -105,6 +105,7 @@ public class Menu {
 	}
 
 	public static boolean interact(String action, String option, boolean rightClick) {
+		for (int i = 0; i < 20 && !isOpen(); i++, Time.sleep(40, 50)) ;
 		int menuIndex = index(action, option);
 		if (menuIndex < 0)
 			return false;
@@ -116,6 +117,7 @@ public class Menu {
 			Mouse.click(false);
 			for (int i = 0; i < 20 && !isOpen(); i++, Time.sleep(40, 50)) ;
 		}
+		menuIndex = index(action, option);
 		if (isOpen()) {
 			Rectangle area = new Rectangle(getX(), getY() + 18 + menuIndex * 15, getWidth(), 15);
 			Mouse.move((int) (area.getX() + Random.nextInt(0, (int) area.getWidth())), (int) (area.getY() + Random.nextInt(5, 10)));

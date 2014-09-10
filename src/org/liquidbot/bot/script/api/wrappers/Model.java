@@ -49,7 +49,31 @@ public class Model {
 		this.gridY = y;
 		this.gridX = x;
 		this.z = z;
-		set(wrapper.getXVertices(), wrapper.getYVertices(), wrapper.getZVertices(), wrapper.getXTriangles(), wrapper.getYTriangles(), wrapper.getZTriangles(), this.orientation);
+
+		this.orientation = orientation;
+		this.trianglesX = wrapper.getXTriangles();
+		this.trianglesY = wrapper.getYTriangles();
+		this.trianglesZ = wrapper.getZTriangles();
+		this.verticesX = wrapper.getXVertices();
+		this.verticesY = wrapper.getYVertices();
+		this.verticesZ = wrapper.getZVertices();
+
+		if (orientation != 0) {
+			orginal_x = new int[verticesX.length];
+			orginal_z = new int[verticesZ.length];
+			orginal_x = Arrays.copyOfRange(this.verticesX, 0, verticesX.length);
+			orginal_z = Arrays.copyOfRange(this.verticesZ, 0, verticesZ.length);
+			verticesX = new int[orginal_x.length];
+			verticesZ = new int[orginal_z.length];
+			int theta = orientation & 0x3fff;
+			int sin = Calculations.SINE[theta];
+			int cos = Calculations.COSINE[theta];
+			for (int i = 0; i < orginal_x.length; ++i) {
+				verticesX[i] = (orginal_x[i] * cos + orginal_z[i] * sin >> 15) >> 1;
+				verticesZ[i] = (orginal_z[i] * cos - orginal_x[i] * sin >> 15) >> 1;
+			}
+		}
+
 	}
 
 
@@ -175,8 +199,8 @@ public class Model {
 		return Constants.VIEWPORT.contains(getRandomPoint());
 	}
 
-	public boolean isValid(){
-		return model !=null;
+	public boolean isValid() {
+		return model != null;
 	}
 
 }

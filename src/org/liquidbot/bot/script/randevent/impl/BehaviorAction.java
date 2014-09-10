@@ -42,7 +42,7 @@ public class BehaviorAction extends RandomEvent {
 
 	@Override
 	public boolean active() {
-		return Game.isLoggedIn() && !timer.isRunning();
+		return false; /*Game.isLoggedIn() && !timer.isRunning();*/
 	}
 
 	@Override

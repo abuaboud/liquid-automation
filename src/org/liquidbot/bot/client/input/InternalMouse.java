@@ -5,8 +5,8 @@ package org.liquidbot.bot.client.input;
  */
 
 import org.liquidbot.bot.Configuration;
+import org.liquidbot.bot.client.input.algorithms.LMouse;
 import org.liquidbot.bot.client.input.algorithms.MouseAlgorithm;
-import org.liquidbot.bot.client.input.algorithms.Spline;
 import org.liquidbot.bot.script.api.methods.data.Calculations;
 import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.script.api.util.Time;
@@ -25,7 +25,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 	private Component component;
 	private final Configuration config = Configuration.getInstance();
 
-	private MouseAlgorithm mouseAlgorithm = new Spline();
+	private MouseAlgorithm mouseAlgorithm = new LMouse();
 	private int clientX;
 	private int clientY;
 	private int clientPressX = -1;
@@ -185,7 +185,7 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 			for (Point p : path) {
 				mousePosition = p;
 				hop(mousePosition.x, mousePosition.y);
-				Time.sleep(Random.nextInt(2,4));
+				Time.sleep(Random.nextInt(1,Random.nextInt(2,3)));
 			}
 		} else {
 			Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));
@@ -193,9 +193,9 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 				mousePosition = new Point((int) mousePosition.getX() + (int) (difference.getX() * Current), (int) mousePosition.getY() + (int) (difference.getY() * Current));
 				hop(mousePosition.x, mousePosition.y);
 				if (Calculations.distanceBetween(mousePosition, destination) < 10) {
-					Time.sleep(4, 8);
+					Time.sleep(2, 4);
 				} else {
-					Time.sleep(2, 6);
+					Time.sleep(1, 2);
 				}
 			}
 		}

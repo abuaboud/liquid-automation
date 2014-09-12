@@ -3,7 +3,6 @@ package org.liquidbot.bot.ui.account;
 import com.google.gson.Gson;
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
-import org.liquidbot.bot.script.api.util.Random;
 import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 

@@ -81,6 +81,7 @@ public class Login extends RandomEvent {
 
 	@Override
 	public void reset() {
-
+		name = "Login";
+		clicked = false;
 	}
 }

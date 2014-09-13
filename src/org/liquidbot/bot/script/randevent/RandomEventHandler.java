@@ -28,44 +28,14 @@ public class RandomEventHandler implements Runnable, PaintListener {
 	public static final int botWorldHandler = 0;
 	public static final int loginHandler = 1;
 	public static final int lobbyHandler = 2;
-	public static final int pinballHandler = 3;
-	public static final int certerHandler = 4;
-	public static final int avoidCombatHandler = 5;
-	public static final int drillDemonHandler = 6;
-	public static final int freakyFosterHandler = 7;
-	public static final int frogCaveHandler = 8;
-	public static final int lostAndFoundHandler = 9;
-	public static final int mazeHandler = 10;
-	public static final int mimeHandler = 11;
-	public static final int mollyHandler = 12;
-	public static final int pilloryHandler = 13;
-	public static final int prisonHandler = 14;
-	public static final int quizMasterHandler = 15;
-	public static final int sandwichLadyHandler = 16;
-	public static final int scapeIslandHandler = 18;
-	public static final int strangePlantHandler = 18;
-	public static final int surpriseExamHandler = 19;
-	public static final int talkerHandler = 20;
-	public static final int rewardHandler = 21;
-	public static final int reportHandler = 22;
-	public static final int strangeBoxHandler = 23;
-	public static final int bankpinHandler = 24;
-	public static final int systemUpdate = 25;
-	public static final int skillMenuHandler = 26;
-	public static final int graveHandler = 27;
-	public static final int behaviorAction = 28;
-	public static final int smartBreak = 30;
+	public static final int behaviorAction = 3;
+	public static final int smartBreak = 4;
 
 	private final Font FONT_VERDANA = new Font("Verdana", 1, 10);
 
 	public RandomEventHandler() {
-		randomEvents = new RandomEvent[]{new BotWorld(),
-				new Login(), new ClickToPlay(), new Pinball(), new Certer(), new AvoidCombat(), new DrillDemon(), new FreakyFoster()
-				, new FrogCave(), /*new LostAndFoundHandler()*/null, new Maze(),
-				new Mime(), new Molly(), null /*new PilloryHandler()*/, new PrisonPete(), new QuizMaster(), null, new SandwichLady()
-				, new ScapeIsland(), new StrangePlant(), new SurpriseExam(), new Talker(), new Reward()
-				,/* new ReportHandler()*/null, new StrangeBox(), null/* new BankPinHandler()*/, null
-				/*  new SystemUpdate()*/, null/* new SkillMenuHandler()*/, new GraveRandom(), new BehaviorAction(), new SmartBreak()
+		randomEvents = new RandomEvent[]{
+				new BotWorld(), new Login(), new ClickToPlay(), new BehaviorAction(), new SmartBreak()
 		};
 	}
 

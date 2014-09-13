@@ -116,6 +116,7 @@ public class Menu {
 		if (!Menu.isOpen()) {
 			Mouse.click(false);
 			for (int i = 0; i < 20 && !isOpen(); i++, Time.sleep(40, 50)) ;
+			Time.sleep(100, 250);
 		}
 		menuIndex = index(action, option);
 		if (isOpen()) {

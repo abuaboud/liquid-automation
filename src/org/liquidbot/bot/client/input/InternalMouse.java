@@ -179,28 +179,30 @@ public class InternalMouse implements MouseListener, MouseMotionListener {
 	public void move(int x, int y) {
 		Point destination = new Point(x, y);
 		Point mousePosition = getLocation();
-		if (mousePosition.distance(destination) > 20) {
-			Point[] path = mouseAlgorithm.makeMousePath(mousePosition.x, mousePosition.y, destination.x, destination.y);
-
-			for (Point p : path) {
-				mousePosition = p;
-				hop(mousePosition.x, mousePosition.y);
-				Time.sleep(Random.nextInt(1,Random.nextInt(2,3)));
-			}
-		} else {
-			Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));
-			for (double Current = 0; Current < 1; Current += (4 / Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)))) {
-				mousePosition = new Point((int) mousePosition.getX() + (int) (difference.getX() * Current), (int) mousePosition.getY() + (int) (difference.getY() * Current));
-				hop(mousePosition.x, mousePosition.y);
-				if (Calculations.distanceBetween(mousePosition, destination) < 10) {
-					Time.sleep(2, 4);
-				} else {
-					Time.sleep(1, 2);
+		for (int i = 0; i < 5 && mousePosition.distance(destination) > 2; i++) {
+			if (mousePosition.distance(destination) > 20) {
+				Point[] path = mouseAlgorithm.makeMousePath(mousePosition.x, mousePosition.y, destination.x, destination.y);
+	
+				for (Point p : path) {
+					mousePosition = p;
+					hop(mousePosition.x, mousePosition.y);
+					Time.sleep(Random.nextInt(1,Random.nextInt(2,3)));
+				}
+			} else {
+				Point difference = new Point((int) (destination.getX() - mousePosition.getX()), (int) (destination.getY() - mousePosition.getY()));
+				for (double Current = 0; Current < 1; Current += (4 / Math.sqrt(Math.pow(difference.getX(), 2) + Math.pow(difference.getY(), 2)))) {
+					mousePosition = new Point((int) mousePosition.getX() + (int) (difference.getX() * Current), (int) mousePosition.getY() + (int) (difference.getY() * Current));
+					hop(mousePosition.x, mousePosition.y);
+					if (Calculations.distanceBetween(mousePosition, destination) < 10) {
+						Time.sleep(2, 4);
+					} else {
+						Time.sleep(1, 2);
+					}
 				}
 			}
+			Time.sleep(40, 50);
+			mousePosition = getLocation();
 		}
-
-		Time.sleep(40, 50);
 	}
 
 

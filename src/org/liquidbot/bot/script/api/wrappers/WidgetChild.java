@@ -343,17 +343,16 @@ public class WidgetChild implements Interactable {
 
 	@Override
 	public boolean click(boolean left) {
-		Point interactingPoint = this.getInteractPoint();
-		Rectangle bounds = getArea();
+		Point interactingPoint;
+		Rectangle bounds;
 		for(int i = 0; i < 3; i++){
-			if(bounds == null || bounds.contains(Mouse.getLocation())){
+			interactingPoint = this.getInteractPoint();
+			bounds = getArea();
+			Mouse.move(interactingPoint);
+			if (bounds == null || bounds.contains(Mouse.getLocation())){
 				Mouse.click(left);
 				return true;
 			}
-			if(bounds == null || !bounds.contains(interactingPoint)){
-				interactingPoint = this.getInteractPoint();
-			}
-			Mouse.move(interactingPoint);
 		}
 		return false;
 	}

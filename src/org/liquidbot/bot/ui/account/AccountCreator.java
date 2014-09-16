@@ -13,6 +13,7 @@ import javax.swing.JButton;
 
 import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.script.api.util.Random;
+import org.liquidbot.bot.utils.Logger;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -39,6 +40,8 @@ public class AccountCreator extends JFrame {
 	private static int flag;
 
 	private static boolean asUppercase;
+	
+	private Logger log = new Logger(getClass());
 	
 	public AccountCreator() {
 		setResizable(false);
@@ -85,6 +88,7 @@ public class AccountCreator extends JFrame {
 		
 		JButton btnCreate = new JButton("Create");
 		btnCreate.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				lblBlocked.setForeground(Color.BLACK);
@@ -97,7 +101,7 @@ public class AccountCreator extends JFrame {
 					lblBlocked.setText("Created account!");
 					Configuration.getInstance().getAccountManager()
 						.addAccount(name+"@"+email, pass);
-					System.out.println(name+"@"+email+"   Pass: "+pass);
+					log.info(name+"@"+email+"   Pass: "+pass);
 				} else {
 					lblBlocked.setForeground(Color.RED);
 					lblBlocked.setText("Blocked for creating too quickly, try again later!");
@@ -160,9 +164,9 @@ public class AccountCreator extends JFrame {
 		return sb.toString();
 	}
 	
-	public static boolean createAccount(String name, String email, String password) {
+	public boolean createAccount(String name, String email, String password) {
 		try {
-			System.out.println("Sending account creation...");
+			log.info("Sending account creation...");
 			
 			String urlParameters = "";
 			String request = "https://secure.runescape.com/m=account-creation/g=oldscape/create_account_funnel.ws";
@@ -207,7 +211,7 @@ public class AccountCreator extends JFrame {
 			wr.close();
 			in.close();
 			connection.disconnect();
-			System.out.println(success ? "Account created!" : failMessage);
+			log.info(success ? "Account created!" : failMessage);
 			return success;
 		} catch (MalformedURLException e) {
 			e.printStackTrace();

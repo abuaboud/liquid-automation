@@ -133,7 +133,7 @@ public class Camera {
 			Timer t = new Timer(5000);
 
 			while (_pitch < pitch && Math.abs(_pitch - pitch) > 5 && t.isRunning()) {
-				_pitch = Camera.getPitch();
+				_pitch = getPitch();
 				Time.sleep(59, 100);
 			}
 
@@ -154,60 +154,54 @@ public class Camera {
 	}
 
 	/**
-	 * @param angel to change
+	 * @param angle to change
 	 * @return true if done else false
 	 */
-	public static boolean setAngle(int angel) {
+	public static boolean setAngle(int angle) {
 		if (!Game.isLoggedIn())
 			return false;
-		if (angel > 360 || angel < 0)
-			return false;
-		int maxRight = angel - 180;
-		int dir = -1;
-		if (maxRight < 0) {
-			maxRight += 360;
-		}
-		if (angel > maxRight) {
-			if (angel >= maxRight) {
-				dir = KeyEvent.VK_RIGHT;
-			} else {
-				dir = KeyEvent.VK_LEFT;
-			}
+		
+		int curAngle = getAngle(),
+				diff = getDiff(curAngle, angle),
+						dir = -1;
+		boolean turnLeft = false;
+
+		if (normalizeAngle(curAngle + diff) == angle) {
+			turnLeft = true;
+			dir = KeyEvent.VK_LEFT;
 		} else {
-			if (angel >= maxRight) {
-				dir = KeyEvent.VK_RIGHT;
-			} else {
-				dir = KeyEvent.VK_LEFT;
-			}
+			dir = KeyEvent.VK_RIGHT;
 		}
-		if (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5) {
+		
+		int finalRawAngle = turnLeft ? curAngle + diff : curAngle - diff,
+				curRawAngle =getAngle();
+		if (diff > 5) {
+			// Figure out where we are
 			Keyboard.press(dir);
-			Timer t = new Timer(4000);
-			while (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5 && t.isRunning()) {
-				Time.sleep(30, 50);
+			for (int i = 0; i < 100; i++) {
+				
+				if (turnLeft) {
+					curRawAngle = (getAngle() >= curRawAngle ? 0 : 360) + getAngle();
+					
+					if (curRawAngle > finalRawAngle)
+						break;
+				} else {
+					curRawAngle = (getAngle() <= curRawAngle ? 0 : -360) + getAngle();
+					
+					if (curRawAngle < finalRawAngle)
+						break;
+				}
+				
+				Time.sleep(100, 200);
 			}
 			Keyboard.release(dir);
-			if (getSmallestAbsDifferenceInAngel(getAngle(), angel) > 5 && Game.isLoggedIn()) {
-				return setAngle(angel);
-			}
 		}
-		return getSmallestAbsDifferenceInAngel(getAngle(), angel) <= 5;
+		return getDiff(getAngle(), angle) <= 5;
 	}
 
-	/**
-	 * @param angel1
-	 * @param angel2
-	 * @return Integer : max angel - min angel then abs it
-	 */
-	private static int getSmallestAbsDifferenceInAngel(final int angel1, final int angel2) {
-		int biggerAngel = Math.max(angel1, angel2);
-		int smallerAngel = Math.min(angel1, angel2);
-
-		if (smallerAngel + 180 >= biggerAngel) {
-			return biggerAngel - smallerAngel;
-		} else {
-			return 360 - biggerAngel + smallerAngel;
-		}
+	private static int getDiff(int curAngle, int angle) {
+		int raw_diff = normalizeAngle(Math.abs(angle - curAngle));
+		return raw_diff > 180 ? 360 - raw_diff : raw_diff;
 	}
 
 	/**
@@ -256,5 +250,9 @@ public class Camera {
 		setAngle(set);
 	}
 
+	private static int normalizeAngle(int angle) {
+		return angle % 360;
+	}
+	
 
 }

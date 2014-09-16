@@ -19,7 +19,7 @@ public class Logger {
 
     public void error(String message) {
         System.out.println("[" + prefix + "] - ERROR: " + message);
-        if (config.getConsole() != null)
+        if (config != null && config.getConsole() != null)
             config.getConsole().append("[" + prefix + "] - ERROR: " + message, Color.RED.brighter());
     }
 
@@ -29,7 +29,7 @@ public class Logger {
 
     public void info(String message, Color color) {
         System.out.println("[" + prefix + "] - INFO: " + message);
-        if (config.getConsole() != null)
+        if (config != null && config.getConsole() != null)
             config.getConsole().append("[" + prefix + "] - INFO: " + message, color);
     }
 }

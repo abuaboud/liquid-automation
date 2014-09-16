@@ -32,11 +32,11 @@ public class BotFrame extends JFrame implements WindowListener {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
         this.buttonPanel = new BotButtonPanel();
-        this.getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
-        this.getContentPane().add(buttonPanel);
-
+        this.getContentPane().add(buttonPanel, BorderLayout.NORTH);;
+        
         this.loader = new RSLoader(configuration);
         this.getContentPane().add(loader);
 

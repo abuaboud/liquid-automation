@@ -105,7 +105,7 @@ public class Menu {
 	}
 
 	public static boolean interact(String action, String option, boolean rightClick) {
-		for (int i = 0; i < 20 && !contains(action, option); i++, Time.sleep(40, 50)) ;
+		for (int i = 0; i < 10 && !contains(action, option); i++, Time.sleep(40, 50)) ;
 		int menuIndex = index(action, option);
 		if (menuIndex < 0)
 			return false;

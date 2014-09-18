@@ -25,17 +25,22 @@ public class RandomEventHandler implements Runnable, PaintListener {
 
 	private final Color BACKGROUND_COLOR = new Color(Color.black.getRed(), Color.black.getGreen(), Color.black.getBlue(), 40);
 
-	public static final int botWorldHandler = 0;
-	public static final int loginHandler = 1;
-	public static final int lobbyHandler = 2;
-	public static final int behaviorAction = 3;
-	public static final int smartBreak = 4;
+	public static final int botWorldHandler = 0,
+			loginHandler = 1,
+			lobbyHandler = 2, 
+			behaviorAction = 3,
+			smartBreak = 4,
+			rewardHandler = 5, 
+			certerHandler = 6,
+			talkerHandler = 7,
+			sandwichHandler = 8;
 
 	private final Font FONT_VERDANA = new Font("Verdana", 1, 10);
 
 	public RandomEventHandler() {
 		randomEvents = new RandomEvent[]{
-				new BotWorld(), new Login(), new ClickToPlay(), new BehaviorAction(), new SmartBreak()
+				new BotWorld(), new Login(), new ClickToPlay(), new BehaviorAction(), new SmartBreak(),
+				new Reward(), new Certer(), new TalkerDenier(), new SandwichLady()
 		};
 	}
 

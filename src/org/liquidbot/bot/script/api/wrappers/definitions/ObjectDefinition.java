@@ -36,7 +36,7 @@ public class ObjectDefinition {
 						}
 					}
 					if (transformedComposite == null) {
-						byte correctParam =(byte) HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
+						int correctParam =HookReader.methods.get("GameObjectComposite#getChildComposite()").getCorrectParam();
 						transformedComposite = Reflection.invoke("GameObjectComposite#getChildComposite()", raw, correctParam);
 					}
 				}

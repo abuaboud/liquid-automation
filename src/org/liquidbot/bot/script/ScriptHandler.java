@@ -24,7 +24,7 @@ public class ScriptHandler implements Runnable {
 	private State scriptState = State.STOPPED;
 	private Account account;
 	private PaintListener paintListener;
-	private RandomEventHandler randomEventHandler;
+	public RandomEventHandler randomEventHandler;
 	private ExperienceMonitor experienceMonitor;
 	private AnimationMonitor animationMonitor;
 	private InventoryMonitor inventoryMonitor;

@@ -119,9 +119,21 @@ public class Menu {
 			Time.sleep(100, 250);
 		}
 		menuIndex = index(action, option);
-		if (isOpen()) {
+		if (isOpen() && menuIndex > -1) {
 			Rectangle area = new Rectangle(getX(), getY() + 18 + menuIndex * 15, getWidth(), 15);
-			Mouse.move((int) (area.getX() + Random.nextInt(0, (int) area.getWidth())), (int) (area.getY() + Random.nextInt(5, 10)));
+			Point p = Mouse.getLocation();
+			int min = -1, max = -1;
+			if (p.getX() > area.getX() && p.getX() < area.getX() + area.getWidth()) {
+				min = (int) Math.max(area.getX(), p.getX() - ((int) 7 * Math.sqrt(menuIndex + 1)));
+				max = (int) Math.min(area.getX() + area.getWidth(), p.getX() + ((int) 7 * Math.sqrt(menuIndex + 1)));
+			}
+			if (min >= max || min == -1) {
+				min = (int) area.getX();
+				max = (int) (area.getX() + area.getWidth());
+			}
+			Mouse.move(
+					Random.nextInt(min, max),
+					(int) (area.getY() + Random.nextInt(5, 10)));
 			Time.sleep(100, 150);
 			Mouse.click(true);
 			return true;

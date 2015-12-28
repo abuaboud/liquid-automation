@@ -16,7 +16,7 @@ public class ModelInjector implements Injector {
 
 	@Override
 	public boolean canRun(ClassNode classNode) {
-		return HookReader.fields.get("Renderable#getModelHeight()").getClassName().equals(classNode.name);
+		return  HookReader.fields.size() > 0 && HookReader.fields.get("Renderable#getModelHeight()").getClassName().equals(classNode.name);
 	}
 
 	@Override

@@ -13,7 +13,7 @@ import java.util.ListIterator;
 public class ObjectDefinitionInjector implements Injector {
 	@Override
 	public boolean canRun(ClassNode classNode) {
-		return HookReader.methods.get("Client#getGameObjectComposite()").getClassName().equals(classNode.name);
+		return  HookReader.fields.size() > 0 &&  HookReader.methods.get("Client#getGameObjectComposite()").getClassName().equals(classNode.name);
 	}
 
 	@Override

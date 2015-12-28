@@ -1,6 +1,8 @@
 package org.liquidbot.bot.client.parser;
 
+import org.liquidbot.bot.Configuration;
 import org.liquidbot.bot.Constants;
+import org.liquidbot.bot.utils.Logger;
 import org.liquidbot.bot.utils.NetUtils;
 import java.util.Hashtable;
 
@@ -16,11 +18,15 @@ public class HookReader {
 
 	public static double VERSION = 0.0;
 
+	private static final Logger log = new Logger(HookReader.class);
 	/**
 	 * Parse Html File to get hooks info
 	 */
 	public static void init() {
 		final String[] sourceCode = NetUtils.readPage(HOOKS_URL);
+		if(sourceCode.length == 0){
+			log.error("Unable to Parse hooks");
+		}
 		for (String source : sourceCode) {
 			if(source.contains("VERSION"))
 				VERSION = Double.parseDouble(source.replace("VERSION ",""));

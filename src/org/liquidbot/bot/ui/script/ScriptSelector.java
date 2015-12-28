@@ -107,6 +107,10 @@ public class ScriptSelector extends JFrame {
 	public void loadScripts() {
 		scriptPanel.removeAll();
 		java.util.List<ScriptInfo> scripts = ScriptLoader.getScripts();
+		if(Constants.OFFLINE_MODE) {
+			scripts.add(new ScriptInfo("LiquidFisher", "LiquidFisher", "Best Fishing Script Ever!", "Hiasat"));
+			scripts.add(new ScriptInfo("LiquidSlayer", "LiquidSlayer", "Best Woodcutting Script Ever!", "Hiasat"));
+		}
 		final int width = 170;
 		final int height = 115;
 		final int spacing = 3;

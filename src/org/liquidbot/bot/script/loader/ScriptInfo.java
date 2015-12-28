@@ -45,7 +45,7 @@ public class ScriptInfo {
         this.name = name;
         this.desc = desc;
         this.author = author;
-        this.skillCategory = SkillCategory.detect(name,desc);;
+        this.skillCategory = SkillCategory.detect(name,desc);
         this.scriptId = -1;
         this.ownerUserId = -1;
         this.cancelled = 0;

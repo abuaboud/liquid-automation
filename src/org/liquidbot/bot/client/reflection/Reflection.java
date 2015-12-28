@@ -72,6 +72,8 @@ public class Reflection {
 	 * @return field value
 	 */
 	public static Object value(String fieldKey, Object instance) {
+		if(fields.size() == 0)
+				return null;
 		try {
 			FieldHook fieldHook = HookReader.fields.get(fieldKey);
 			if (fieldHook == null)

@@ -13,14 +13,14 @@ It's provides developers an complete API to gain real time information about wha
 
 # Brief history behind LiquidAutomation
 
-First version used to be called ShadowBot , It was made to test the idea and written in unprofessional way , in Around 2014 Kenneth Joined to rewrite whole project in more proper/friendly user following conventions. 
+First version used to be called ShadowBot , It was made to test the idea and written in unprofessional way , in Around 2014 Kenneth joined to rewrite whole project in more proper/friendly user following conventions. 
 
 # How it works
 
 We made loader to download gamepack jar file and load in applet in UI , and in order to gain information for In-Game character we need to find out the values of game variables but we faced a lot technical Problems I am going to mention few of them below.
 
 ### Problem 1: 
-The Source code of game is [obfuscated](https://en.wikipedia.org/wiki/Obfuscation_(software))   , and the game used to change it's obfuscation each game update which was around once a week.
+The source code of game is [obfuscated](https://en.wikipedia.org/wiki/Obfuscation_(software))   , and the game used to change it's obfuscation each game update which was around once a week.
 
 That gave the project two challenging Problems , The first one was finding meaning of variables to find out which one is needed and the second one was finding their new names after update.
 
@@ -28,9 +28,9 @@ That gave the project two challenging Problems , The first one was finding meani
 
 There is a community called rs-hacking.com which people share information found about Runescape jar and keeps data for all previous game versions.
 
-By observing those data of the game we found out there is pattern/structure that almost never changes between game updates , So we made something called Updater which identify each Class/Field in unique way, There is a lot of ways to identify information one simple example to find out classes by looking at the number of variables and their type and parent class. 
+By observing those data of the game we found out there is pattern/structure that almost never changes between game updates , So we made something called Updater which identify each class/field in unique way, There is a lot of ways to identify information one simple example to find out classes by looking at the number of variables and their type and parent class. 
 
-So using that updater we provide the LiquidAutomation a html file called "Hooks.html" that contain all variables names and their location in classes
+So using that updater we provide the LiquidAutomation a html file called "Hooks.html" that contains all variables names and their location in classes
 
 
 ### Problem 2:
@@ -54,8 +54,8 @@ We needed to draw on game canvas to give fancy view for user whats the bot is do
 #### Solution:
 There is a lot of fancy solutions 
 - Make transparent panel over game applet and draw on it
-- Inject a callback for your Draw method in canvas class located in game jar
-- Use reflection to set Game Canvas Variable to your own Canvas 
+- Inject a callback for your draw method in canvas class located in game jar
+- Use reflection to set game canvas variable to your own Canvas 
 
 
 # Top fancy features
@@ -65,13 +65,13 @@ Since the bot doesn't require to visualize the game in order to interact, So we 
 
 
 ### Tools for developers
-We provided Developer all kind of tools to gain information by drawing them on game canvas such as In-Game characters / Objects ids 
+We provided developer all kind of tools to gain information by drawing them on game canvas such as In-Game characters / Objects ids 
 
 ![alt text](https://raw.githubusercontent.com/Hiasat/liquid-automation/master/tools_1.png)
 ![alt text](https://raw.githubusercontent.com/Hiasat/liquid-automation/master/tools_2.png)
 
 ### Script delivery network
-In order to provide very cool user-experience instead of letting the user download source code of scripts and put them in local directory which require to Re-Download files each time the developer update
+In order to provide very cool user-experience instead of letting the user download source code of scripts and put them in local directory which require to re-download files each time the developer update
 
 We provided a network where developers upload their scripts and user can add them  by simply clicking "Add" from UI in Bot , also it's more safe that way , since we guarantee developers upload doesn't contain any malicious code.
 
@@ -87,5 +87,5 @@ Running 6 bots together in same computer.
 - Mohammad Abu Aboud (Leader Developer) - Github user: [hiasat](https://github.com/hiasat) (used to be Magorium)
 - Kenneth LaCombe  - Github user: [kennehisftw](https://github.com/kennehisftw)
 
-Thanks [Lem0ns](https://github.com/Lem0ns) , [CallMeSherlock](https://github.com/CallMeSherlock) for their amazing contribution to the project.
+Thank for [Lem0ns](https://github.com/Lem0ns) , [CallMeSherlock](https://github.com/CallMeSherlock) for their amazing contribution to the project.
 

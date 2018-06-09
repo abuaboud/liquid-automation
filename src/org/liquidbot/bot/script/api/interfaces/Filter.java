@@ -1,7 +1,7 @@
 package org.liquidbot.bot.script.api.interfaces;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public interface Filter<E> {
 

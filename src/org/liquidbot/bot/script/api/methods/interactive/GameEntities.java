@@ -14,7 +14,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /*
- * Created by Hiasat on 8/1/14
+ * Created on 8/1/14
  */
 public class GameEntities {
 

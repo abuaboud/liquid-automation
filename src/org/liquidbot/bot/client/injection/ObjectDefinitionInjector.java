@@ -8,7 +8,7 @@ import org.objectweb.asm.tree.*;
 import java.util.ListIterator;
 
 /**
- * Created by Hiasat on 8/24/14.
+ * Created on 8/24/14.
  */
 public class ObjectDefinitionInjector implements Injector {
 	@Override

@@ -6,7 +6,7 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class PackageScanner extends CodeScanner {
 

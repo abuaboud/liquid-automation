@@ -19,7 +19,7 @@ import org.liquidbot.bot.script.api.wrappers.definitions.ObjectDefinition;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/1/14
+ * Created on 8/1/14
  */
 public class GameObject implements Identifiable, Nameable, Locatable, Interactable {
 

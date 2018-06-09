@@ -3,7 +3,7 @@ package org.liquidbot.bot.script;
 import org.liquidbot.bot.utils.Logger;
 
 /**
- * Created by Kenneth on 8/6/2014.
+ * Created on 8/6/2014.
  */
 public abstract class Action  {
 

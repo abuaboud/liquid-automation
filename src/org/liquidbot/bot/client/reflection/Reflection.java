@@ -13,7 +13,7 @@ import java.lang.reflect.Modifier;
 import java.util.Hashtable;
 
 /**
- * Created by Hiasat on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class Reflection {
 

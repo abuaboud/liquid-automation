@@ -10,7 +10,7 @@ import org.objectweb.asm.tree.*;
 import java.util.List;
 
 /**
- * Created by Hiasat on 8/22/14.
+ * Created on 8/22/14.
  */
 public class ModelInjector implements Injector {
 

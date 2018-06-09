@@ -16,7 +16,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class ScriptClassLoader extends ClassLoader {
 

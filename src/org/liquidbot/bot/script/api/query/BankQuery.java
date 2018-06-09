@@ -7,7 +7,7 @@ import org.liquidbot.bot.script.api.wrappers.Item;
 import java.util.Arrays;
 
 /**
- * Created by Kenneth on 8/4/2014.
+ * Created on 8/4/2014.
  */
 public class BankQuery extends AbstractQuery<BankQuery, Item> {
     @Override

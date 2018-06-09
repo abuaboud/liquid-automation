@@ -1,5 +1,5 @@
 package org.liquidbot.bot.script.api.wrappers;/*
- * Created by Hiasat on 7/30/14
+ * Created on 7/30/14
  */
 
 import org.liquidbot.bot.Constants;

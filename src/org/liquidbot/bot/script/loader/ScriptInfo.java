@@ -3,7 +3,7 @@ package org.liquidbot.bot.script.loader;
 import org.liquidbot.bot.script.SkillCategory;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class ScriptInfo {
 

@@ -13,7 +13,7 @@ import org.liquidbot.bot.utils.Logger;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class ScriptHandler implements Runnable {
 

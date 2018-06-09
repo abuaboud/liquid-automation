@@ -13,7 +13,7 @@ import org.liquidbot.bot.script.api.wrappers.Player;
 import java.awt.event.KeyEvent;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created on 7/31/14
  */
 public class Camera {
 

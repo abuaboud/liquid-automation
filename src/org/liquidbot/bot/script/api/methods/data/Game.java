@@ -7,7 +7,7 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created on 7/31/14
  */
 public class Game {
 

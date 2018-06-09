@@ -16,7 +16,7 @@ import javax.swing.*;
 import java.text.ParseException;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class Boot {
 

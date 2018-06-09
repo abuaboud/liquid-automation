@@ -9,7 +9,7 @@ import org.liquidbot.bot.utils.Utilities;
 import java.util.*;
 
 /**
- * Created by Kenneth on 8/10/2014.
+ * Created on 8/10/2014.
  */
 public class ExperienceMonitor implements Runnable {
 

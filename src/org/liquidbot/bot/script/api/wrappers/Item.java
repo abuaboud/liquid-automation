@@ -15,7 +15,7 @@ import org.liquidbot.bot.script.api.wrappers.definitions.ItemDefinition;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class Item implements Interactable, Identifiable, Nameable {
 

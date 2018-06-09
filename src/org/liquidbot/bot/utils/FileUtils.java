@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * Created by Kenneth on 8/5/2014.
+ * Created on 8/5/2014.
  */
 public class FileUtils {
 

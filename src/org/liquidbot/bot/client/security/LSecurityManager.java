@@ -7,7 +7,7 @@ import java.security.AccessControlContext;
 import java.security.Permission;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class LSecurityManager extends java.lang.SecurityManager {
 

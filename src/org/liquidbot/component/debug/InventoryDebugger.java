@@ -8,7 +8,7 @@ import org.liquidbot.bot.script.api.wrappers.Item;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/7/14
+ * Created on 8/7/14
  */
 public class InventoryDebugger extends Debugger<Item> {
 

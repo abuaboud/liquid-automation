@@ -5,7 +5,7 @@ import org.liquidbot.bot.script.api.methods.data.Game;
 import java.awt.*;
 
 /**
- * Created by Hiasat on 8/13/14.
+ * Created on 8/13/14.
  */
 public class WidgetDebugger extends Debugger<Object> {
 

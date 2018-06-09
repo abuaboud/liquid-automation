@@ -6,7 +6,7 @@ import org.liquidbot.bot.utils.Logger;
 import java.io.File;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public abstract class LoopScript {
 

@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
- * Created by Kenneth on 7/31/2014.
+ * Created on 7/31/2014.
  */
 public class BotConsole extends JPanel {
 

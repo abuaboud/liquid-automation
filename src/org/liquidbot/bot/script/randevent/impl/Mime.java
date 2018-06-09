@@ -10,7 +10,7 @@ import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 
 /**
- * Created by Hiasat on 8/16/14.
+ * Created on 8/16/14.
  */
 public class Mime extends RandomEvent {
 

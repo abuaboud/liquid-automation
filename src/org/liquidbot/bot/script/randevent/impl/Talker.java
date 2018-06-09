@@ -16,7 +16,7 @@ import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.utils.Utilities;
 
 /*
- * Created by Hiasat on 8/5/14
+ * Created on 8/5/14
  */
 public class Talker extends RandomEvent {
 

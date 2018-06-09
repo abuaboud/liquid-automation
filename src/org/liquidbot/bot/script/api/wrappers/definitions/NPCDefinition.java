@@ -4,7 +4,7 @@ import org.liquidbot.bot.client.parser.HookReader;
 import org.liquidbot.bot.client.reflection.Reflection;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created on 7/31/14
  */
 public class NPCDefinition {
 

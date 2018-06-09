@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 import java.util.Random;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class Utilities {
 

@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class Model {
 

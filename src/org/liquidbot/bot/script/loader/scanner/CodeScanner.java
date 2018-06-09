@@ -4,7 +4,7 @@ import org.liquidbot.bot.utils.Logger;
 import org.objectweb.asm.tree.ClassNode;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public abstract class CodeScanner {
 

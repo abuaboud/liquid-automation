@@ -12,7 +12,7 @@ import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 
 /*
-* Created by Hiasat on 8/3/14
+* Created on 8/3/14
 */
 public class Reward extends RandomEvent {
     private int currentId = 0;

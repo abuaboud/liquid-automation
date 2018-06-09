@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.methods.interactive.Players;
 import org.liquidbot.bot.script.api.util.Time;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public abstract class Path {
 

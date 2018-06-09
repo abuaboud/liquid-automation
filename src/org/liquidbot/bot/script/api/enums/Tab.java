@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.util.Time;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
- * Created by Hiasat on 8/6/14
+ * Created on 8/6/14
  */
 public enum Tab {
 

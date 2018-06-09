@@ -3,7 +3,7 @@ package org.liquidbot.bot.client.injection;
 import org.objectweb.asm.tree.ClassNode;
 
 /**
- * Created by Hiasat on 8/22/14.
+ * Created on 8/22/14.
  */
 public interface Injector {
 

@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class PlayerQuery extends AbstractQuery<PlayerQuery, Player> implements Locatable.Query<PlayerQuery>, Nameable.Query<PlayerQuery> {
 

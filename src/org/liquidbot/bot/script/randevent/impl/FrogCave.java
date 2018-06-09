@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by Hiasat on 8/10/14.
+ * Created on 8/10/14.
  */
 public class FrogCave extends RandomEvent {
 

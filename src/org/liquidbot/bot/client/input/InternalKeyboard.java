@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * Created by Hiasat on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class InternalKeyboard implements KeyListener {
 

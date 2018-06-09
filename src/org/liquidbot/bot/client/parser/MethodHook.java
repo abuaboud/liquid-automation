@@ -1,7 +1,7 @@
 package org.liquidbot.bot.client.parser;
 
 /**
- * Created by Hiasat on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class MethodHook {
 

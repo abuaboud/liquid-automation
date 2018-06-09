@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * Created by Hiasat on 8/11/14.
+ * Created on 8/11/14.
  */
 public class FreakyFoster extends RandomEvent {
 

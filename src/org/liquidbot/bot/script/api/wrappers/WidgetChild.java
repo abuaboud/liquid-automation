@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class WidgetChild implements Interactable {
 

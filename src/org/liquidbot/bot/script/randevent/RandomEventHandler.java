@@ -11,7 +11,7 @@ import org.liquidbot.bot.utils.Logger;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class RandomEventHandler implements Runnable, PaintListener {
 

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class SmartBreak extends RandomEvent {
 

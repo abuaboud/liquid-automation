@@ -16,7 +16,7 @@ import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.script.randevent.RandomEvent;
 
 /**
- * Created by Hiasat on 8/15/14.
+ * Created on 8/15/14.
  */
 public class Pinball extends RandomEvent {
 

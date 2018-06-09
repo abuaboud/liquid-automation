@@ -1,7 +1,7 @@
 package org.liquidbot.bot.ui.login.misc;
 
 /**
- * Created by Kenneth on 8/3/2014.
+ * Created on 8/3/2014.
  */
 public enum UserGroup {
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public abstract class Debugger<E> implements PaintListener {
 

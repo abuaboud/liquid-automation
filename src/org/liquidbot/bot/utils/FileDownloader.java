@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.URLConnection;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class FileDownloader implements Runnable {
 

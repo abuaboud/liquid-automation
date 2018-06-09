@@ -4,7 +4,7 @@ import org.liquidbot.bot.script.api.methods.interactive.NPCs;
 import org.liquidbot.bot.script.api.wrappers.NPC;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class NPCQuery extends BasicQuery<NPCQuery, NPC> {
 

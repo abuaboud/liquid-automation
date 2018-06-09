@@ -8,7 +8,7 @@ import org.liquidbot.bot.utils.NetUtils;
 import org.liquidbot.bot.utils.Utilities;
 
 /**
- * Created by Hiasat on 8/22/14.
+ * Created on 8/22/14.
  */
 public class Pattern {
 

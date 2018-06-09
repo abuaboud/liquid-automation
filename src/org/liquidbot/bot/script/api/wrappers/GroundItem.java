@@ -17,7 +17,7 @@ import org.liquidbot.bot.utils.Utilities;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created on 7/31/14
  */
 public class GroundItem implements Locatable, Identifiable, Nameable, Interactable {
 

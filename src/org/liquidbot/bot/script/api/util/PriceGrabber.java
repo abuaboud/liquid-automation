@@ -1,7 +1,7 @@
 package org.liquidbot.bot.script.api.util;
 
 /**
- * Created by Kenneth on 8/6/2014.
+ * Created on 8/6/2014.
  */
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

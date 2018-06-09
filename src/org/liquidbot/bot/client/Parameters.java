@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Kenneth on 6/11/2014.
+ * Created on 6/11/2014.
  */
 public class Parameters {
 

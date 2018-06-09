@@ -14,7 +14,7 @@ import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.utils.Utilities;
 
 /**
- * Created by Hiasat on 8/10/14.
+ * Created on 8/10/14.
  */
 public class Certer extends RandomEvent {
 

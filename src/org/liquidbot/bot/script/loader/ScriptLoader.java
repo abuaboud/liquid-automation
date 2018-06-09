@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Kenneth on 8/2/2014.
+ * Created on 8/2/2014.
  */
 public class ScriptLoader {
 

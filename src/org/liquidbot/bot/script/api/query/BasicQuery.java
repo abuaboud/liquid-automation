@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public abstract class BasicQuery<Q extends BasicQuery<?, ?>, E extends Locatable & Nameable & Identifiable> extends AbstractQuery<Q, E>
         implements Locatable.Query<Q>, Nameable.Query<Q>, Identifiable.Query<Q> {

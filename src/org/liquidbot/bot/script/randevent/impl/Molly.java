@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by Hiasat on 8/16/14.
+ * Created on 8/16/14.
  */
 public class Molly extends RandomEvent implements PaintListener {
 

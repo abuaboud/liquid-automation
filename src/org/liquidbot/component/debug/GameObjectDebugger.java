@@ -9,7 +9,7 @@ import org.liquidbot.bot.script.api.wrappers.Tile;
 import java.awt.*;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class GameObjectDebugger extends Debugger<GameObject> {
 

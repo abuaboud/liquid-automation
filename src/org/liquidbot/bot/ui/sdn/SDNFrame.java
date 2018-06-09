@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * Created by Kenneth on 7/31/2014.
+ * Created on 7/31/2014.
  */
 public class SDNFrame extends JFrame {
 

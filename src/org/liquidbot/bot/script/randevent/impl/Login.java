@@ -15,7 +15,7 @@ import org.liquidbot.bot.utils.Utilities;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/3/14
+ * Created on 8/3/14
  */
 public class Login extends RandomEvent {
 

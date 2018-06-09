@@ -3,7 +3,7 @@ package org.liquidbot.bot.client.injection.callback;
 import java.util.Hashtable;
 
 /**
- * Created by Hiasat on 8/23/14.
+ * Created on 8/23/14.
  */
 public class ObjectDefinitionCallBack {
 

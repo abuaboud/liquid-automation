@@ -1,7 +1,7 @@
 package org.liquidbot.bot.script.api.wrappers;
 
 /*
- * Created by Hiasat on 8/7/14
+ * Created on 8/7/14
  */
 public class TilePath extends Path {
 

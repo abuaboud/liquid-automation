@@ -5,7 +5,7 @@ import org.liquidbot.bot.utils.Utilities;
 import javax.swing.*;
 
 /**
- * Created by Kenneth on 7/31/2014.
+ * Created on 7/31/2014.
  */
 public enum SkillCategory {
 

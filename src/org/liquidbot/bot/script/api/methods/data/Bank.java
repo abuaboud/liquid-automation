@@ -21,7 +21,7 @@ import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 import org.liquidbot.bot.utils.Utilities;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class Bank {
 

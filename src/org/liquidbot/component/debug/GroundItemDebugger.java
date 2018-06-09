@@ -7,7 +7,7 @@ import org.liquidbot.bot.script.api.wrappers.GroundItem;
 import java.awt.*;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class GroundItemDebugger extends Debugger<GroundItem> {
 

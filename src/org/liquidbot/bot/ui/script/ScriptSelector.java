@@ -15,7 +15,7 @@ import java.io.File;
 import java.util.*;
 
 /**
- * Created by Kenneth on 7/31/2014.
+ * Created on 7/31/2014.
  */
 public class ScriptSelector extends JFrame {
 

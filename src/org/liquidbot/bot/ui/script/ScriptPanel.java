@@ -7,7 +7,7 @@ import javax.swing.border.EtchedBorder;
 import java.awt.*;
 
 /**
- * Created by Kenneth on 8/8/2014.
+ * Created on 8/8/2014.
  */
 public class ScriptPanel extends JPanel {
 

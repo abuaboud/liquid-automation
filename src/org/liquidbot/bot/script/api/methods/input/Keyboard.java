@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.util.Time;
 import java.awt.event.KeyEvent;
 
 /*
- * Created by Hiasat on 7/31/14
+ * Created on 7/31/14
  */
 public class Keyboard {
 

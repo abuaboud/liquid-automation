@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.interfaces.Nilable;
 import java.util.*;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 @SuppressWarnings("unchecked")
 public abstract class AbstractQuery<Q extends AbstractQuery<?, ?>, E> implements Iterable<E>, Nilable<E> {

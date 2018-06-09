@@ -3,7 +3,7 @@ package org.liquidbot.bot.client.input.algorithms;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public interface MouseAlgorithm {
 

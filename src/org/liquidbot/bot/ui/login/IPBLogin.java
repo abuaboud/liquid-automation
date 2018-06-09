@@ -17,7 +17,7 @@ import java.io.File;
 import java.net.URI;
 
 /**
- * Created by Kenneth on 8/3/2014.
+ * Created on 8/3/2014.
  */
 
 public class IPBLogin extends JFrame implements WindowListener {

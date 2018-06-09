@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.wrappers.Model;
 import java.util.Hashtable;
 
 /**
- * Created by Hiasat on 8/23/14.
+ * Created on 8/23/14.
  */
 public class ModelCallBack {
 

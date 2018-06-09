@@ -17,7 +17,7 @@ import org.liquidbot.bot.utils.Utilities;
 
 
 /*
- * Created by Hiasat on 8/5/14
+ * Created on 8/5/14
  */
 public class SurpriseExam extends RandomEvent {
 

@@ -9,7 +9,7 @@ import org.liquidbot.bot.script.api.wrappers.Tile;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 7/30/14
+ * Created on 7/30/14
  */
 public class Calculations {
 

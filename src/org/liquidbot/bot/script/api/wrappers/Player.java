@@ -5,7 +5,7 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.wrappers.definitions.PlayerDefinition;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class Player extends Actor implements Nameable {
 

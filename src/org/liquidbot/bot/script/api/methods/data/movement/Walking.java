@@ -14,7 +14,7 @@ import org.liquidbot.bot.script.api.wrappers.Tile;
 import org.liquidbot.bot.script.api.wrappers.WidgetChild;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class Walking {
 

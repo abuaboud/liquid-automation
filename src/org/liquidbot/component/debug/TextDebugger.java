@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class TextDebugger extends Debugger<String> {
 

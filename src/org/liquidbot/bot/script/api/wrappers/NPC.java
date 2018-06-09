@@ -6,7 +6,7 @@ import org.liquidbot.bot.script.api.interfaces.Nameable;
 import org.liquidbot.bot.script.api.wrappers.definitions.NPCDefinition;
 
 /**
- * Created by Kenneth on 7/29/2014.
+ * Created on 7/29/2014.
  */
 public class NPC extends Actor implements Identifiable, Nameable {
 

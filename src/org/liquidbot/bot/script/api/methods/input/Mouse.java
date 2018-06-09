@@ -5,7 +5,7 @@ import org.liquidbot.bot.Configuration;
 import java.awt.*;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class Mouse {
 

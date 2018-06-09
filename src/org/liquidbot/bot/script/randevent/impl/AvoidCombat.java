@@ -14,7 +14,7 @@ import org.liquidbot.bot.script.randevent.RandomEvent;
 import org.liquidbot.bot.utils.Utilities;
 
 /*
- * Created by Hiasat on 8/7/14
+ * Created on 8/7/14
  */
 public class AvoidCombat extends RandomEvent {
 

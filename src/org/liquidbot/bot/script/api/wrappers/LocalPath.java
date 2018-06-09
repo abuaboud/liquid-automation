@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /*
- * Created by Hiasat on 8/7/14
+ * Created on 8/7/14
  */
 public class LocalPath extends Path {
 

@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Kenneth on 8/6/2014.
+ * Created on 8/6/2014.
  */
 public abstract class ActionScript extends LoopScript implements Comparator<Action> {
 

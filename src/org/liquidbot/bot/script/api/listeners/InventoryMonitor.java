@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Kenneth on 8/10/2014.
+ * Created on 8/10/2014.
  */
 public class InventoryMonitor implements Runnable {
 

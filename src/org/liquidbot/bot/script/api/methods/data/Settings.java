@@ -3,7 +3,7 @@ package org.liquidbot.bot.script.api.methods.data;
 import org.liquidbot.bot.client.reflection.Reflection;
 
 /*
- * Created by Hiasat on 8/2/14
+ * Created on 8/2/14
  */
 public class Settings {
 

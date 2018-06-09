@@ -9,7 +9,7 @@ import org.liquidbot.bot.script.api.wrappers.NPC;
 import java.awt.*;
 
 /**
- * Created by Kenneth on 7/30/2014.
+ * Created on 7/30/2014.
  */
 public class NPCDebugger extends Debugger<NPC> {
 

@@ -7,7 +7,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 /*
- * Created by Hiasat on 8/7/14
+ * Created on 8/7/14
  */
 public class SettingsDebugger extends Debugger<String> {
 

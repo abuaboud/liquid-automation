@@ -1,5 +1,5 @@
 ###### LiquidAutomation Currently Outdated (Closed in 2014) But if you are interested in Making Bots for Games , You will find useful techniques.
-###### Generated auto Java documentation anything outside script api isn't well commented and documented but you still might find it useful [Link]
+###### Generated auto Java documentation anything outside script api isn't well commented and documented but you still might find it useful [Link](http://liquidbot.org/doc/)
 
 # What is LiquidAutomation?
 
